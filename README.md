@@ -139,7 +139,7 @@ constructor(videourl,dataurl)
 ```javascript
 /**
  * Runs the service and returns a promise which resolves with a three.js mesh.
- * @returns {unresolved} THREE.Mesh when the promise is resolved.
+ * @returns {unresolved} THREE.Mesh when the promise is resolved, null if an error occurs (e.g. incorrect URL).
  */
 async run();
 ```
@@ -177,7 +177,7 @@ async play();
 ```
 ```javascript
 /**
- * Sets volume of the audio. This might not work as expected on some mobile devices, however, setting volume to 0 should
+ * Sets the volume of the audio. This might not work as expected on some mobile devices, however, setting volume to 0 should
  * always mute the video.
  * @param {double} volume number between 0 (muted) and 1 (full).
  */
@@ -189,6 +189,24 @@ setVolume(volume);
  * @returns {Boolean} true if it is, false otherwise.
  */
 isPaused();
+```
+```javascript
+/**
+ * Registers a callback on an event type. Currently, the only supporter event are error and video.ended
+ * @param {string} event name of the event type (either error or video.finished)
+ * @param {callable} callback
+ * @returns {undefined}
+ */
+on(event,callback);
+```
+```javascript
+/**
+ * Unregister a callback for an event type
+ * @param {string} event event name of the event type (either error or video.ended)
+ * @param {type} callback callback
+ * @returns {undefined}
+ */
+off(event,callback);
 ```
 ```javascript
 /**
