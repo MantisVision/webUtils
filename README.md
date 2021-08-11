@@ -108,7 +108,7 @@ ryskObj.run().then(mesh =>
 ```
 
 #### RYSKStream
-This class works with a realtime continues MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
+This class works with a realtime continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
 RYSKStream decodes delivered frames on its own in the separate worker process. Video is being played realtime, and
 the mesh is updated only if the SYK/RYSK data for the current frame has already been provided. Otherwise, the current
 video frame is skipped and the process continues with the next one.
@@ -310,7 +310,7 @@ isPaused();
 ```javascript
 /**
  * Registers a callback on an event type. Currently, the only supporter event are error and video.ended
- * @param {String} event name of the event type (either error or video.finished)
+ * @param {String} event name of the event type (either error or video.ended)
  * @param {callable} callback
  * @returns {undefined}
  */
