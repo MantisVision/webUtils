@@ -2,13 +2,13 @@
 This application presents a simple way to use RYSKUrl calss from ``@mantisvision/rysk`` package. The commented source 
 of the project is located in [src/main.js](src/main.js) file. Index file is in [public_html/index.html](public_html/index.html)
 
-## Build the project
+## Build the project
 This application is using Yarn v3 as its package manager and Webpack as package bundler. Since ``@mantisvision/rysk`` is
 published in Github repository and Github doesn't allow unauthorized access to such packages, it might be necessary
 to edit [.yarnrc.yml](.yarnrc.yml) file and set your authorization token (it can be generated through a user profile on Github).
 
 If you don't have yarn installed yet, run:
-``npm install --global yarn"
+``npm install --global yarn``
 Then, inside this folder, run
 ``yarn install``
 This should install all the necessary dependencies.
