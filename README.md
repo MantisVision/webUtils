@@ -3,7 +3,7 @@ This public repository hosts a package registry containing ``@mantisvision`` jav
 NPM packages can be downloaded from https://npm.pkg.github.com registry using the scope ``@mantisvision``. The main library ``@mantisvision/rysk`` is meant to be working alongside
 [Three.js](https://threejs.org/) which is also listed as one of its dependencies.
 
-There is a sample project using RYSKUrl class of ``@mantisvision/rysk`` package in [a relative link](samples/url) directory. Description of the sample with the instructions to run it are in [a relative link](samples/url/README.md).
+There is a sample project using RYSKUrl class of ``@mantisvision/rysk`` package in [a samples/url](samples/url) directory. Description of the sample with the instructions to run it are in [a samples/url/README.md](samples/url/README.md).
 
 ## Installing a package in your project
 You can install any of the published packages with its dependencies using either Yarn (v1 or v2) or NPM. You have to
