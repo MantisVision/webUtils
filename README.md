@@ -3,6 +3,8 @@ This public repository hosts a package registry containing ``@mantisvision`` jav
 NPM packages can be downloaded from https://npm.pkg.github.com registry using the scope ``@mantisvision``. The main library ``@mantisvision/rysk`` is meant to be working alongside
 [Three.js](https://threejs.org/) which is also listed as one of its dependencies.
 
+There is a sample project using RYSKUrl class of @mantisvision/rysk package in ``samples/url`` directory. Description of the sample with the instructions to run it are in ``samples/url/README.md``.
+
 ## Installing a package in your project
 You can install any of the published packages with its dependencies using either Yarn (v1 or v2) or NPM. You have to
 specify the custom package registry for ``@mantisvision`` packages. For npm, you have to edit either your global or your
@@ -19,6 +21,7 @@ For Yarn v2, you have to edit ``.yarnrc.yml`` and add the following:
 npmScopes:
   mantisvision:
     npmRegistryServer: "https://npm.pkg.github.com"
+    npmAuthToken: "your_git_auth_token_here"
 ```
 In order to install a specific package using NPM, run one of the following commands:
 ```
@@ -99,6 +102,7 @@ const animate = () =>
 ryskObj.run().then(mesh =>
 	{
 		requestAnimationFrame(animate);
+		ryskObj.play(); //run the animation
 
 		/* do something with the mesh */
 

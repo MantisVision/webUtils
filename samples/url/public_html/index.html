@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>RYSKUrl Sample</title>
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+		<meta http-equiv="Content-Security-Policy" content=
+			  "default-src * gap://ready file: localhost:*;
+			  style-src 'self' 'unsafe-inline';
+			  connect-src 'self' blob: data: *;
+			  img-src 'self' blob: data: *;
+			  script-src 'self' 'unsafe-inline' 'unsafe-eval' apps.8thwall.com cdn.8thwall.com localhost:* ;
+			  script-src-elem 'self' https: blob:;
+			  worker-src 'self' blob:;
+			  child-src 'unsafe-inline' blob:;
+			  media-src 'self' blob: data: https:;">
+		
+		<!-- webpack bundles with application javascripts and libraries -->
+		<script type="text/javascript" src="vendors.bundle.js"></script>
+		<script type="text/javascript" src="ryskurl_sample.bundle.js"></script>
+		<style type="text/css">
+			#viewport { width: 100vw; height: 100vh; position: relative }
+			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; }
+			body {margin: 0}
+		</style>
+	</head>
+	<body>
+		<div id="viewport">
+			<button id="play">Play</button>
+		</div>
+	</body>
+</html>
