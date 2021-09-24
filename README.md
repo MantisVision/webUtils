@@ -8,7 +8,7 @@ There is a sample project using RYSKUrl class of ``@mantisvision/rysk`` package 
 ## Installing a package in your project
 You can install any of the published packages with its dependencies using either Yarn (v1 or v2) or NPM. You have to
 specify the custom package registry for ``@mantisvision`` packages. For npm, you have to edit either your global or your
-project's ``.npmrc`` file and add the following line:
+project's ``.npmrc`` file and add the following lines:
 ```
 @mantisvision:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=your_git_auth_token_here
