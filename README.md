@@ -11,6 +11,7 @@ specify the custom package registry for ``@mantisvision`` packages. For npm, you
 project's ``.npmrc`` file and add the following line:
 ```
 @mantisvision:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=your_git_auth_token_here
 ```
 For Yarn v1, you have to edit ``.yarnrc`` and add the following line:
 ```
