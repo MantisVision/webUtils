@@ -224,6 +224,14 @@ constructor(videourl,dataurl)
 ```
 ```javascript
 /**
+ * Setter and getter for the loop property which is used when the video should loop. Default is true.
+ * You can use it like this: ryskMeshObj.loop = false;
+ */
+set loop(val);
+get loop();
+```
+```javascript
+/**
  * Runs the service and returns a promise which resolves with a three.js mesh.
  * @returns {unresolved} THREE.Mesh when the promise is resolved, null if an error occurs (e.g. incorrect URL).
  */
