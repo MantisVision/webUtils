@@ -5,7 +5,7 @@ The main libraries are meant to be working alongside [Three.js](https://threejs.
 
 ## Table of contents
   * [Installing a package in your project](#installing-a-package-in-your-project)
-  * [Which package to choose](#which-package-tochoose)
+  * [Which package to choose](#which-package-to-choose)
   * [Inner architecture](#inner-architecture)
     * [Dependencies](#dependencies)
     * [Data flow](#data-flow)
