@@ -156,9 +156,8 @@ generateCanvas: function();
 ```
 ```javascript
 /**
- * Set its own custom method for generating the canvas.
- * @param {callable} customMethod
- * @returns {undefined}
+ * Set custom function for generating the canvas.
+ * @param {callable} customMethod your custom function which returns canvas element.
  */
 setGenerateCanvas: function(customMethod);
 ```
