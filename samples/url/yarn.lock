@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 4
+  version: 5
   cacheKey: 8
 
 "@discoveryjs/json-ext@npm:^0.5.0":
@@ -12,20 +12,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/rysk@npm:^0.3.10":
-  version: 0.3.10
-  resolution: "@mantisvision/rysk@npm:0.3.10::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Frysk%2F0.3.10%2F86849a14064922eb5a4ca903a57299eeb59f51546a91cd633efd3f9b82bffff1"
+"@mantisvision/rysk@npm:latest":
+  version: 1.1.0
+  resolution: "@mantisvision/rysk@npm:1.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Frysk%2F1.1.0%2Ff540b345ab60d37b84a3b924454d631ca990208372e0295dd09e67d77871788f"
   dependencies:
-    "@mantisvision/utils": ^0.1
-    three: ^0.129.0
-  checksum: d2bf9e891314ce1f5e339a6b03642b805c0e5081676c5e99e3a22ef34cd4b486ebc7cbd8b71f204d237c1b0a091a57d6cf46ffe3cb07398edcfea83fc1afcd36
+    "@mantisvision/utils": ^0.3
+    three: 0.132
+  checksum: a066305d84c74069d3634b6edfd664e07c2898ca74f88d99171ed6453ca23f02105c62d4e17bdd6484fe361d5116753677954a4f762dfbc31f2d23c18733dd3e
   languageName: node
   linkType: hard
 
-"@mantisvision/utils@npm:^0.1":
-  version: 0.1.5
-  resolution: "@mantisvision/utils@npm:0.1.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Futils%2F0.1.5%2F7c82e9aa6972a747574c599ddf87e687828dacdd983b1ed35604d31d42434afa"
-  checksum: 24fb9e3c271ac26c91722d78e2c52c74031236def755df633661bee53cd2a280bfd12fe3ac3c87e48dc94f77c3d5baf62f5fc434cbcf7dad52cb904ea0bbd1b8
+"@mantisvision/utils@npm:^0.3":
+  version: 0.3.0
+  resolution: "@mantisvision/utils@npm:0.3.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Futils%2F0.3.0%2Fb0f614b0ddfdd417b4324ef81c8409f6e80cba520c9e5e0c02bf2da809b6d1de"
+  checksum: e183b0a13b4183ad87c779291f0969d016584ccf925e49ce53b3fb0debad98230efdc3d4437ad6c5cdcfb2506efbe5b41ffcd9a9e56c9e51a3b1f0a304da3dcd
   languageName: node
   linkType: hard
 
@@ -272,7 +272,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "RYSKUrl sample@workspace:."
   dependencies:
-    "@mantisvision/rysk": ^0.3.10
+    "@mantisvision/rysk": latest
     three: 0.129.0
     webpack: ^5.50.0
     webpack-cli: ^4.7.2
@@ -861,11 +861,11 @@ resolve@^1.9.0:
 
 "resolve@patch:resolve@^1.9.0#~builtin<compat/resolve>":
   version: 1.20.0
-  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=00b1ff"
+  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=07638b"
   dependencies:
     is-core-module: ^2.2.0
     path-parse: ^1.0.6
-  checksum: bed00be983cd20a8af0e7840664f655c4b269786dbd9595c5f156cd9d8a0050e65cdbbbdafc30ee9b6245b230c78a2c8ab6447a52545b582f476c29adb188cc5
+  checksum: a0dd7d16a8e47af23afa9386df2dff10e3e0debb2c7299a42e581d9d9b04d7ad5d2c53f24f1e043f7b3c250cbdc71150063e53d0b6559683d37f790b7c8c3cd5
   languageName: node
   linkType: hard
 
@@ -1004,10 +1004,17 @@ resolve@^1.9.0:
   languageName: node
   linkType: hard
 
-"three@npm:0.129.0, three@npm:^0.129.0":
+"three@npm:0.129.0":
   version: 0.129.0
   resolution: "three@npm:0.129.0"
   checksum: 1fbe60ee56a3f1ff0d715f078364f3f521907e15d632e52a786ffd493e400fbcdab71e04150523bf15e69b310dd5267cd8dd3f97c5f3e2b3abfa5522b954fb5b
+  languageName: node
+  linkType: hard
+
+"three@npm:0.132":
+  version: 0.132.2
+  resolution: "three@npm:0.132.2"
+  checksum: ecb9ad178c9c7417147ac2971357e12c1b0a35408012085a71d61b36c54b1e18edb36502e99fe6c8684a4cd7c17a1a941123a6fb54b282f0a164bd974470fda9
   languageName: node
   linkType: hard
 
