@@ -292,6 +292,28 @@ off(event,callback);
 ```
 ```javascript
 /**
+ * Proxy to method addEventListener for internal videoElement object
+ * @param {String|Array|Object} event if a string is given, then it represents name of the event,
+ *								if array, then to each event in this array, callback from the second parameter is attached,
+ *								if it is and object the attribute names should represent events and their values callbacks (in this case, callback parameter should be omitted)
+ * @param {function} callback a callback to be attached to the given event(s)
+ * @returns {AbstractRYSK} reference to this object for chaining
+ */
+onVideoEvent(event,callback = null);
+```
+```javascript
+/**
+ * Removes callbacks from event listeners attached to the video element
+ * @param {String|Array|Object} event if a string is given, then it represents name of the event,
+ *								if array, then from each event in this array, the callback from the second parameter is detached,
+ *								if it is and object the attribute names should represent events and their values callbacks (in this case, callback parameter should be omitted)
+ * @param {function} callback a callback to be detached to the given event(s)
+ * @returns {AbstractRYSK} reference to this object for chaining
+ */
+offVideoEvent(event,callback);
+```
+```javascript
+/**
  * It is highly recommended to call this method after the work is finished in order to free the resources. It terminates
  * downloading of SYK/RYSK data, stops the video and disposes geometry and material of three.js mesh.
  */
