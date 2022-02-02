@@ -274,7 +274,14 @@ isPaused();
 ```
 ```javascript
 /**
- * Registers a callback on an event type. Currently, the only supporter event are error and video.ended
+ * Checks whether the video in videoElement has stopped
+ * @returns {Boolean} true if it has, false otherwise
+ */
+isEnded();
+```
+```javascript
+/**
+ * Registers a callback on an event type. Currently, the only supported events are error and video.ended
  * @param {String} event name of the event type (either error or video.ended)
  * @param {callable} callback
  * @returns {undefined}
