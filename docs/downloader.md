@@ -107,6 +107,13 @@ cancel();
 ```
 ```javascript
 /**
+ * Resets decoding of frames back to the very first frame. The frames are thuis not downloaded, but instead read from
+ * the cache.
+ */
+reset();
+```
+```javascript
+/**
  * Checks if the downloader is still downloading
  * @returns {Boolean} true if it is, otherwise false
  */

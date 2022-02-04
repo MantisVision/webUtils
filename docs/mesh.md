@@ -137,6 +137,13 @@ getCurrentVideoFrame();
 ```
 ```javascript
 /**
+ * Reset the whole data buffer. It is used in the contstructor and if the user changes current timestamp of the video
+ * (e.g. using seek or hitting stop button and returning video to the beginning), this method shoud be called as well.
+ */
+resetBuffer();
+```
+```javascript
+/**
  * Defacto a destructor. This method should be called after the object is no longer needed in order to clean after
  * itself.
  * @returns {undefined}
