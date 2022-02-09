@@ -182,6 +182,13 @@ get loop();
 ```
 ```javascript
 /**
+ * Proxy getters for buffered and seekable properties of underlying video element.
+ */
+get buffered();
+get seekable();
+```
+```javascript
+/**
  * Runs the service and returns a promise which resolves with a three.js mesh.
  * @param {Integer} videoWidth desired video width (if the real source given in the constructor is of different width, it will be resized)
  * @param {Integer} videoHeight desired video height (if the real source given in the constructor is of different height, it will be resized)
