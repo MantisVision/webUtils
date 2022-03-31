@@ -1,5 +1,7 @@
 # RYSKUrl
-This class is meant for downloading video files and SYK/RYSK data from the given URL.
+This class is meant for downloading video files and SYK/RYSK data from the given URL, decoding them and providing
+uvs, vertices and indices synced with the frame on the internally created HTML canvas (it utilizes ``@mantisvision/ryskbuffer`` 
+to achieve that).
 
 ## Install
 You can install this package using either of the following commands for either yarn or npm
@@ -9,7 +11,7 @@ npm install @mantisvision/ryskurl
 ```
 
 ## Usage:
-In order to obtain a Three.js mesh, a new object of this imported class needs to be created:
+In order to obtain the canvas with the current frame and synced data, a new object of this imported class needs to be created:
 ```javascript
 const ryskObj = new RYSKUrl("video_url","data_url");
 ```
@@ -18,19 +20,22 @@ const ryskObj = new RYSKUrl("video_url","data_url");
 * SYK2
 * RYSK
 
-The process of generating the Three.js mesh can be started by invoking ``run`` method on the object. It returns a promise
-which resolves with the mesh:
+The process of decoding the data and pairing it with the video frames can be started by invoking ``run`` method on the object.
+It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
+mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient):
 ```javascript
 ryskObj.run()
-	.then(mesh => 
-	{ /* do something with the mesh */ })
-	.catch(err => console.error(err));
+	.then(elements => 
+	{ 
+		const { canvas, video } = elements;
+		/* do something with the mesh */ 
+	}).catch(err => console.error(err));
 ```
-The same mesh can be later (after invoking ``run``) obtained also by calling
+The same canvas can be later (after invoking ``run``) obtained also by calling
 ```javascript
-const mesh = ryskObj.getMesh();
+const canvas = ryskObj.getCanvas();
 ```
-In order to ensure the mesh is updated according to the new frames in the video, ``update`` method has to be called
+In order to ensure the canvas is updated according to the new frames in the video, ``update`` method has to be called
 periodically on the object. One option is to put it into the ``requestAnimationFrame`` callback like this:
 ```javascript
 const animate = () => 
@@ -39,22 +44,45 @@ const animate = () =>
 	ryskObj.update();
 };
 requestAnimationFrame(animate);
-
 ```
-There is no need to call ``getMesh`` after each update because it is the original mesh which gets modified according to 
-the new frames from video and new SYK/RYSK data.
+
+There is no need to call ``getCanvas`` after each update because it is the original HTML element which gets modified 
+according to the new frames from the video and the current SYK/RYSK data.
+
+In order to obtain the decoded frames, an event callback needs to be registered using ``on()`` method. The name of the
+event is "dataDecoded" (it can also be found importing ``RyskEvents`` object from ``@mantisvision/utils`` package; namely
+it's ``RyskEvents.dataDecoded``).
+
+```javascript
+ryskObj.on(RyskEvents.dataDecoded,async function(data)
+{
+	const { uvs, indices, vertices, frameNo } = data;
+	await doSomething(uvs, indices, vertices, frameNo);
+});
+```
+The passed callback should either be asynchronous or return a promise. Internally, RyskURL will wait till it resolves
+in order to continue with matching the current video frame with the data.
+
+The end of the video is marked by "video.ended" event (`RyskEvents`` object from ``@mantisvision/utils`` package has it
+as ``RyskEvents.videoEnded``).
+```javascript
+ryskObj.on(RyskEvents.videoEnded,function()
+{ /* free the resources, clean up */ });
+```
 
 At the end of the lifecycle, it is highly recommended to call ``dispose`` on the rysk object in order to free the system
-resources
+resources.
 ```javascript
 ryskObj.dispose();
 ryskObj = null;
 ```
-The full example of usage may look like this:
+The usage may look like this:
 ```javascript
-import { RYSKUrl } from "@mantisvision/rysk"
+import { RYSKUrl } from "@mantisvision/ryskurl";
+import { RyskEvents } from "@mantisvision/utils";
 
 const ryskObj = new RYSKUrl("video_url","data_url");
+var canvas = null;
 
 const animate = () => 
 {
@@ -65,20 +93,29 @@ const animate = () =>
 	}
 };
 
-ryskObj.run().then(mesh => 
+ryskObj.on(RyskEvents.dataDecoded,async function(data)
+{
+	const { uvs, indices, vertices, frameNo } = data;
+	await doSomething(uvs, indices, vertices, frameNo);
+});
+
+ryskObj.on(RyskEvents.videoEnded,() => 
+{ 
+	ryskObj.dispose();
+	/* free the resources, clean up */ 
+});
+
+ryskObj.run().then(elements => 
 	{
 		requestAnimationFrame(animate);
-		
-		/* do something with the mesh */
-		
-		ryskObj.dispose();
-		ryskObj = null;
+		canvas = elements.canvas;
+		/* do something with the canvas */
 	}).catch(err => console.error(err));
 ```
 # RYSKStream
 This class works with a realtime continues MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
 RYSKStream decodes delivered frames on its own in the separate worker process. Video is being played realtime, and 
-the mesh is updated only if the SYK/RYSK data for the current frame has already been provided. Otherwise, the current
+the canvas is updated only if the SYK/RYSK data for the current frame has already been provided. Otherwise, the current
 video frame is skipped and the process continues with the next one.
 
 ## Install
@@ -91,29 +128,42 @@ npm install @mantisvision/ryskstream
 ## Usage:
 To create a new instance of the class, a MediaStream object needs to be provided for the constructor:
 ```javascript
-const ryskObj = new RYSKUrl(MediaStream);
+const ryskObj = new RYSKStream(MediaStream);
 ```
-The process of generating the Three.js mesh can be started by invoking ``run`` method on the object. It returns a promise
-which resolves with the mesh. Run method can be invoked with specific video width and video height in case 
-the MediaStream size isn't constant:
+The process of decoding the data and pairing it with the video frames can be started by invoking ``run`` method on the object.
+It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
+mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient):
 ```javascript
-ryskObj.run(videoWidth,videoHeight)
-	.then(mesh => 
-	{ /* do something with the mesh */ })
-	.catch(err => console.error(err));
+ryskObj.run()
+	.then(elements => 
+	{ 
+		const { canvas, video } = elements;
+		/* do something with the mesh */ 
+	}).catch(err => console.error(err));
 ```
-The same mesh can be later (after invoking ``run``) obtained also by calling
+The same canvas can be later (after invoking ``run``) obtained also by calling
 ```javascript
-const mesh = ryskObj.getMesh();
+const canvas = ryskObj.getCanvas();
+```
+In order to ensure the canvas is updated according to the new frames in the video, ``update`` method has to be called
+periodically on the object. One option is to put it into the ``requestAnimationFrame`` callback like this:
+```javascript
+const animate = () => 
+{
+	requestAnimationFrame(animate);
+	ryskObj.update();
+};
+requestAnimationFrame(animate);
 ```
 Encoded SYK/RYSK data are passed using ``addRYSKData`` method. Only data describing a single frame might be used as an
 argument. The programmer must ensure the passed data is in sync with the MediaStream. If it arrives only after 
-the video frame it relates to, the mesh won't even display the frame. The data should not be provided too early as well,
-least the exceed buffer capacity which is currently set to 100 frames.
+the video frame it relates to, the canvas might not get redrawn with the proper frame since the RYSKStream tries to keep
+up with the realtime video. The data should not be provided too early as well, least they exceed buffer capacity which 
+is currently set to 100 frames.
 ```javascript
 ryskObj.addRYSKData("version_of_RYSK_SYK",Uint8ArrayData);
 ```
-In order to ensure the mesh is updated according to the new frames in the video, ``update`` method has to be called
+In order to ensure the canvas is updated according to the new frames in the video, ``update`` method has to be called
 periodically on the object. One option is to put it into the ``requestAnimationFrame`` callback like this:
 ```javascript
 const animate = () => 
@@ -124,48 +174,67 @@ const animate = () =>
 requestAnimationFrame(animate);
 
 ```
-There is no need to call ``getMesh`` after each update because it is the original mesh which gets modified according to 
-the new frames from video and new SYK/RYSK data.
+There is no need to call ``getCanvas`` after each update because it is the original HTML element which gets modified 
+according to the new frames from the video and the current SYK/RYSK data.
+
+In order to obtain the decoded frames, an event callback needs to be registered using ``on()`` method. The name of the
+event is "dataDecoded" (it can also be found importing ``RyskEvents`` object from ``@mantisvision/utils`` package; namely
+it's ``RyskEvents.dataDecoded``).
+
+```javascript
+ryskObj.on(RyskEvents.dataDecoded,async function(data)
+{
+	const { uvs, indices, vertices, frameNo } = data;
+	await doSomething(uvs, indices, vertices, frameNo);
+});
+```
+The passed callback should either be asynchronous or return a promise. Internally, RyskURL will wait till it resolves
+in order to continue with matching the current video frame with the data.
 
 At the end of the lifecycle, it is highly recommended to call ``dispose`` on the rysk object in order to free the system
-resources
+resources.
 ```javascript
 ryskObj.dispose();
 ryskObj = null;
 ```
-The full example of usage may look like this:
+The usage may look like this:
 ```javascript
-import { RYSKStream } from "@mantisvision/rysk"
+import { RYSKStream } from "@mantisvision/ryskstream";
+import { RyskEvents } from "@mantisvision/utils";
 
-const ryskObj = new RYSKStream(MediaStream);
+const ryskObj = new RYSKStream(media_stream);
+var canvas = null;
 
 const animate = () => 
 {
-	ryskObj.addRYSKData("RYSK0",data);
 	if (ryskObj !== null)
-	{
+	{ // pass encoded data to RYSKStream
+		ryskObj.addRYSKData("RYSK0",data);
 		requestAnimationFrame(animate);
 		ryskObj.update();
 	}
 };
 
-ryskObj.run(2048,2048).then(mesh => 
+ryskObj.on(RyskEvents.dataDecoded,async function(data)
+{
+	const { uvs, indices, vertices, frameNo } = data;
+	await doSomething(uvs, indices, vertices, frameNo);
+});
+
+ryskObj.run().then(elements => 
 	{
 		requestAnimationFrame(animate);
-		
-		/* do something with the mesh */
-		
-		ryskObj.dispose();
-		ryskObj = null;
+		canvas = elements.canvas;
+		/* do something with the canvas */
 	}).catch(err => console.error(err));
 ```
 
 # Public API
 ## RYSKUrl
-RYSKUrl is one of two exports from ``@mantisvision/rysk``. It provides the following methods:
+RYSKUrl provides the following methods:
 ```javascript
 /**
- * Creates new instance of the class, but doesn't start downloading the data yet.
+ * Creates a new instance of the class, but doesn't start downloading the data yet.
  * @param {String} videourl url of the video to be downloaded
  * @param {String} dataurl url of the RYSK/SYK data
  * @param {Integer} frameBufferSize Size in frames of the buffer used to cached downloaded SYK/RYSK data
@@ -174,8 +243,8 @@ constructor(videourl,dataurl,frameBufferSize = 100)
 ```
 ```javascript
 /**
- * Setter and getter for the loop property which is used when the video should loop. Default is true.
- * You can use it like this: ryskMeshObj.loop = false;
+ * Sets video to loop ot not to loop.
+ * @param val true to loop, false no to loop
  */
 set loop(val);
 get loop();
@@ -189,12 +258,11 @@ get seekable();
 ```
 ```javascript
 /**
- * Runs the service and returns a promise which resolves with a three.js mesh.
- * @param {Integer} videoWidth desired video width (if the real source given in the constructor is of different width, it will be resized)
- * @param {Integer} videoHeight desired video height (if the real source given in the constructor is of different height, it will be resized)
- * @returns {unresolved} THREE.Mesh when the promise is resolved, null if an error occurs (e.g. incorrect URL).
+ * Runs the service and returns a promise which resolves with an object containing 2 properties: 
+ * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream).
+ * @returns {Promise} promise which resolves after the video is ready to be played.
  */
-async run(videoWidth,videoHeight);
+async run();
 ```
 ```javascript
 /**
@@ -204,20 +272,21 @@ async run(videoWidth,videoHeight);
 async stop();
 ```
 ## RYSKStream
-RYSKUrl is one of two exports from ``@mantisvision/rysk``. It provides the following methods:
+RYSKStream provides the following methods:
 ```javascript
 /**
- * Creates new instance of the class, but doesn't start downloading the data yet.
- * @param {MediaStream} mediastream stream containing video (and maybe even audio) to create the mesh
+ * Creates a new instance of the class, but doesn't start downloading the data yet.
+ * @param {MediaStream} mediastream stream containing video (and maybe even audio)
  */
 constructor(mediastream);
 ```
 ```javascript
 /**
- * Runs the service and returns a promise which resolves with a three.js mesh.
- * @param {Integer} videoWidth optional (but recommended) parameter with the width of the source MediaStream
- * @param {Integer} videoHeight optional (but recommended) parameter with the height of the source MediaStream
- * @returns {unresolved} THREE.Mesh when the promise is resolved, null if an error occurs (e.g. incorrect URL)
+ * Runs the service and returns a promise which resolves with an object containing 2 properties: 
+ * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream).
+ * @param {Integer} videoWidth desired video width (if the real source given in the constructor is of different width, it will be resized)
+ * @param {Integer} videoHeight desired video height (if the real source given in the constructor is of different height, it will be resized)
+ * @returns {Promise} promise which resolves after the video is ready to be played.
  */
 async run(videoWidth,videoHeight);
 ```
@@ -242,14 +311,14 @@ setVolume(volume);
 ```
 ```javascript
 /**
- * Gets mesh. Must be called after run!
- * @returns {THREE.Mesh|null} if the method is called before run or after dispose, it returns null.
+ * Gets canvas. Must be called after run() method!
+ * @returns {HTML node|null} if the method is called before run() or after dispose(), it returns null.
  */
-getMesh();
+getCanvas();
 ```
 ```javascript
 /**
- * Updates mesh to reflect the current video frame and frame data. To ensure the mesh is trully updated, this method
+ * To ensure the canvas is trully updated and a new frame from the video is processed, this method
  * must be called periodically (e.g. in requestAnimationFrame callback).
  * @returns {undefined}
  */
@@ -257,7 +326,7 @@ update();
 ```
 ```javascript
 /**
- * Pauses download of the video and RYSK/SYK data, as well as audio. Therefore, the mesh will not change even if 
+ * Pauses download of the video and RYSK/SYK data, as well as audio. Therefore, the canvas will not change even if 
  * update is called. This method is asynchronous because internally it calls pause on HTML video element which returns 
  * a promise.
  * @returns {unresolved} the promise from HTML video elem pause call.
@@ -271,6 +340,14 @@ async pause();
  * @returns {unresolved} the promise from HTML video elem play call.
  */
 async play();
+```
+```javascript
+/**
+ * Let the decoder know it can continue decoding
+ * @param {Integer} frameCount how many frames should be decoded before the decoding is paused
+ * @returns {undefined}
+ */
+continueDecoding(frameCount);
 ```
 ```javascript
 /**
@@ -288,8 +365,8 @@ isEnded();
 ```
 ```javascript
 /**
- * Registers a callback on an event type. Currently, the only supported events are error and video.ended
- * @param {String} event name of the event type (either error or video.ended)
+ * Registers a callback on an event type. Currently, the only supported events are dataDecoded, decodingPaused, error and video.ended
+ * @param {string} event name of the event type (either error, dataDecoded, decodingPaused, video.ended)
  * @param {callable} callback
  * @returns {undefined}
  */
@@ -298,7 +375,7 @@ on(event,callback);
 ```javascript
 /**
  * Unregister a callback for an event type
- * @param {String} event event name of the event type (either error or video.ended)
+ * @param {String} event event name of the event type (either error, dataDecoded, decodingPaused, video.ended)
  * @param {callable} callback
  * @returns {undefined}
  */
@@ -307,7 +384,7 @@ off(event,callback);
 ```javascript
 /**
  * Proxy to method addEventListener for internal videoElement object
- * @param {String|Array|Object} event if a string is given, then it represents name of the event,
+ * @param {String|Array|Object} event if a string is given, then it represents name of the event, 
  *								if array, then to each event in this array, callback from the second parameter is attached,
  *								if it is and object the attribute names should represent events and their values callbacks (in this case, callback parameter should be omitted)
  * @param {function} callback a callback to be attached to the given event(s)
@@ -318,7 +395,7 @@ onVideoEvent(event,callback = null);
 ```javascript
 /**
  * Removes callbacks from event listeners attached to the video element
- * @param {String|Array|Object} event if a string is given, then it represents name of the event,
+ * @param {String|Array|Object} event if a string is given, then it represents name of the event, 
  *								if array, then from each event in this array, the callback from the second parameter is detached,
  *								if it is and object the attribute names should represent events and their values callbacks (in this case, callback parameter should be omitted)
  * @param {function} callback a callback to be detached to the given event(s)
@@ -329,7 +406,7 @@ offVideoEvent(event,callback);
 ```javascript
 /**
  * It is highly recommended to call this method after the work is finished in order to free the resources. It terminates
- * downloading of SYK/RYSK data, stops the video and disposes geometry and material of three.js mesh.
+ * downloading of SYK/RYSK data.
  */
 dispose();
 ```
