@@ -28,7 +28,7 @@ ryskObj.run()
 	.then(elements => 
 	{ 
 		const { canvas, video } = elements;
-		/* do something with the mesh */ 
+		/* do something with the canvas */ 
 	}).catch(err => console.error(err));
 ```
 The same canvas can be later (after invoking ``run``) obtained also by calling
@@ -138,7 +138,7 @@ ryskObj.run()
 	.then(elements => 
 	{ 
 		const { canvas, video } = elements;
-		/* do something with the mesh */ 
+		/* do something with the canvas */ 
 	}).catch(err => console.error(err));
 ```
 The same canvas can be later (after invoking ``run``) obtained also by calling
@@ -172,7 +172,6 @@ const animate = () =>
 	ryskObj.update();
 };
 requestAnimationFrame(animate);
-
 ```
 There is no need to call ``getCanvas`` after each update because it is the original HTML element which gets modified 
 according to the new frames from the video and the current SYK/RYSK data.
@@ -209,7 +208,7 @@ const animate = () =>
 {
 	if (ryskObj !== null)
 	{ // pass encoded data to RYSKStream
-		ryskObj.addRYSKData("RYSK0",data);
+		ryskObj.addRYSKData("RYS0",data);
 		requestAnimationFrame(animate);
 		ryskObj.update();
 	}

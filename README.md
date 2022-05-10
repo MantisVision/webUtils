@@ -128,12 +128,12 @@ The core of the library is in the packages ``@mantisvision/ryskwasm`` and ``@man
 The entry points are usually ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``.
 
 ### Data flow
-he following diagrams show a simplified data flow between the packages. "Application" represents a custom program which
+The following diagrams show a simplified data flow between the packages. "Application" represents a custom program which
 uses these libraries.
 
 It is important to remember that data doesn't always flow sequentially like in the diagrams. In order to synchronize
 decoded data with the video, the data must be sometimes buffered or video paused (in case of RYSKUrl), or some frames
-from the incoming stream have to be omitted. The latter happends in the case of RYSKStream, since this is most likely
+from the incoming stream have to be omitted. The latter happens in the case of RYSKStream, since this is most likely
 a realtime video and as such it can't be paused and wait for the proper data. It is therefore necessary for the third 
 party developer using RYSKStream to provide encoded data with zero delay relatively to the video stream, otherwise
 the tearing due to the skipped frames will be visible.
