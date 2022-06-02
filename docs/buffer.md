@@ -145,9 +145,6 @@ addData(frameNo,vertices,uvs,indices);
 /**
  * This method should be called for the buffer to check whether there is a new frame in the video.
  * Ordinary it might be called in "window.requestAnimationFrame" callback.
- * NOTE: In theory, it shoudn't be necessary to explicitly invoke update() if the videoElem passed in the constructor
- * of RYSKBuffer supports setting of "requestVideoFrameCallback". However, many browsers don't, so it safer to call 
- * this method manually.
  */
 update();
 ```
