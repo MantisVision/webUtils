@@ -6,7 +6,7 @@ npmRegistries:
 
 npmScopes:
   mantisvision:
-    npmAuthToken: "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"
+    npmAuthToken: "your_git_auth_token_here"
     npmPublishRegistry: "https://npm.pkg.github.com"
     npmRegistryServer: "https://npm.pkg.github.com"
 
