@@ -1,4 +1,4 @@
-import { URLMesh } from "@mantisvision/ryskplaycanvas";
+import { URLMesh } from "./MantisRYSKPlayCanvas.min.js";
 
 const video_url = "https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.mp4";
 const data_url = "https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.syk";
