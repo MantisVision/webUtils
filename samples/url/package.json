@@ -17,13 +17,14 @@
 	"packageManager": "yarn@3.2.0",
 	"devDependencies": {
 		"@mantisvision/rysk": "latest",
-		"three": "^0.138.0",
+		"three": "^0.141.0",
 		"webpack": "^5.70.0",
 		"webpack-cli": "^4.7.2"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "webpack --color",
+		"convert": "node legacythree2gltf.js football-soccer-ball.json --optimize",
 		"buildplaycanvas": "webpack --color --config webpack-playcanvas.config.js"
 	}
 }

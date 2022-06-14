@@ -34,7 +34,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@mantisvision/rysk", "npm:1.4.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Frysk%2F1.4.0%2F243ee31f9e848e073d6052deb310a4a4e12b726f653e559b6a7acbd3b7e29353"],\
-            ["three", "npm:0.138.3"],\
+            ["three", "npm:0.141.0"],\
             ["webpack", "virtual:d9081c958daadf4c621c53d5369aa3d2e227bafcf887dc2f4d1d640b685f7f672ef83f7ff8a03952de822a2c70821507e7a013ef96fc76be6aee10bc62ca21ef#npm:5.70.0"],\
             ["webpack-cli", "virtual:d9081c958daadf4c621c53d5369aa3d2e227bafcf887dc2f4d1d640b685f7f672ef83f7ff8a03952de822a2c70821507e7a013ef96fc76be6aee10bc62ca21ef#npm:4.9.2"]\
           ],\
@@ -389,7 +389,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["RYSKUrl sample", "workspace:."],\
             ["@mantisvision/rysk", "npm:1.4.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Frysk%2F1.4.0%2F243ee31f9e848e073d6052deb310a4a4e12b726f653e559b6a7acbd3b7e29353"],\
-            ["three", "npm:0.138.3"],\
+            ["three", "npm:0.141.0"],\
             ["webpack", "virtual:d9081c958daadf4c621c53d5369aa3d2e227bafcf887dc2f4d1d640b685f7f672ef83f7ff8a03952de822a2c70821507e7a013ef96fc76be6aee10bc62ca21ef#npm:5.70.0"],\
             ["webpack-cli", "virtual:d9081c958daadf4c621c53d5369aa3d2e227bafcf887dc2f4d1d640b685f7f672ef83f7ff8a03952de822a2c70821507e7a013ef96fc76be6aee10bc62ca21ef#npm:4.9.2"]\
           ],\
@@ -1290,6 +1290,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/three-npm-0.138.3-09b911d10e-beef4db391.zip/node_modules/three/",\
           "packageDependencies": [\
             ["three", "npm:0.138.3"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.141.0", {\
+          "packageLocation": "./.yarn/cache/three-npm-0.141.0-0e1b669157-d161350b51.zip/node_modules/three/",\
+          "packageDependencies": [\
+            ["three", "npm:0.141.0"]\
           ],\
           "linkType": "HARD"\
         }]\

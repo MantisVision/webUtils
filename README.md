@@ -49,6 +49,7 @@ In order to install a specific package using NPM, run one of the following comma
 ```
 npm i @mantisvision/rysk
 npm i @mantisvision/ryskthreejs
+npm i @mantisvision/ryskplaycanvas
 npm i @mantisvision/ryskurl
 npm i @mantisvision/ryskstream
 npm i @mantisvision/ryskdownloader
@@ -62,6 +63,7 @@ If you prefer using Yarn, run one of the following:
 ```
 yarn add @mantisvision/rysk
 yarn add @mantisvision/ryskthreejs
+yarn add @mantisvision/ryskplaycanvas
 yarn add @mantisvision/ryskurl
 yarn add @mantisvision/ryskstream
 yarn add @mantisvision/ryskdownloader
@@ -117,6 +119,10 @@ main functionality. If you want to develop your application for a custom environ
 mini program), you should study the following chapter in order to grasp a better understanding of inner links between packages,
 so you can accuratly decide which packages you can use and which you need to reimplement using your own code.
 
+For the integration with the PlayCanvas engine (either in its library form or directly in the PlayCanvas editor), there
+is ``@mantisvision/ryskplaycanvas`` package. It also contains the whole rysk library for the PlayCanvas packed into a 
+single file for use in an environment without npm/yarn or package builder (e.g. in the PlayCanvas editor).
+
 ## Inner architecture
 This chapter will in short describe how the partial ``@mantisvision/rysk*`` packages are connected.
 
@@ -146,6 +152,7 @@ the tearing due to the skipped frames will be visible.
 Detailed description of APIs of packages can be found here:
 * [@mantisvision/rysk](./docs/rysk.md)
 * [@mantisvision/ryskthreejs](./docs/threejs.md)
+* [@mantisvision/ryskplaycanvas](./docs/playcanvas.md)
 * [@mantisvision/ryskurl](./docs/ryskurlryskstream.md)
 * [@mantisvision/ryskstream](./docs/ryskurlryskstream.md)
 * [@mantisvision/ryskbuffer](./docs/buffer.md)

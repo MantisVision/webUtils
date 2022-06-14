@@ -5,7 +5,7 @@ packages, but was later decoupled from them as to make it easier for third party
 their own rendering engines.
 
 ``@mantisvision/ryskthreejs`` depends on both ``@mantisvision/ryskstream`` and ``@mantisvision/ryskurl``, as well as on
-Three.js-
+Three.js.
 
 ## Install
 You can install this package using one of the following commands for either yarn or npm
@@ -30,7 +30,7 @@ extends class ``RYSKStream`` from ``@mantisvision/ryskstream``. You can find the
 There is, however, a notable difference in the methods ``URLMesh.run()`` and ``StreamMesh.run()``. Instead of canvas,
 these methods resolve with Three.js mesh object which can be used in the scene. Object's texture and geometry gets 
 automatically updated; there is therefore no need to listen on ``dataDecoded`` event from parent classes. However, it
-is still highly advisable to call ``update()`` method on ``URLMesh`` or ``StreamMesh`` to ensure new frames from video/stream
+is still necessary to call ``update()`` method on ``URLMesh`` or ``StreamMesh`` to ensure new frames from video/stream
 are read on all browsers.
 
 There is one new method ``getMesh()`` which works similarly to ``getCanvas()``, but returns Three.js mesh instead
@@ -60,10 +60,10 @@ ryskObj.on(RyskEvents.videoEnded,() =>
 });
 
 ryskObj.run().then(mesh => 
-	{
-		requestAnimationFrame(animate);
-		/* do something with the mesh */
-	}).catch(err => console.error(err));
+{
+	requestAnimationFrame(animate);
+	/* do something with the mesh */
+}).catch(err => console.error(err));
 ```
 
 This is an example of how to use ``StreamMesh``:
