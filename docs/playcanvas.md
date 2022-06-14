@@ -1,4 +1,4 @@
-# RyskPlayCanvas
+# RyskPlayCanvas
 This an integration of ``@mantisvision/rysk*`` libraries with web-based 3D engine PlayCanvas in order to produce self-updating 
 3D mesh usable in a PlayCanvas scene. The NPM package can be used wit the raw engine itself, but also inside PlayCanvas Editor.
 For this purpose, a minified version of the library and its dependencies together with an example script are included.
