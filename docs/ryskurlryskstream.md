@@ -242,7 +242,7 @@ constructor(videourl,dataurl,frameBufferSize = 100)
 ```
 ```javascript
 /**
- * Sets video to loop ot not to loop.
+ * Sets video to loop or not to loop.
  * @param val true to loop, false no to loop
  */
 set loop(val);

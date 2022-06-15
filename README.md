@@ -131,7 +131,8 @@ The following diagram shows dependencies between packages:
 ![alt Dependencies](./docs/images/dependencies.png)
 
 The core of the library is in the packages ``@mantisvision/ryskwasm`` and ``@mantisvision/ryskbuffer``.
-The entry points are usually ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``.
+The entry points are usually ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``  or one of the integration
+packages (currently ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``)..
 
 ### Data flow
 The following diagrams show a simplified data flow between the packages. "Application" represents a custom program which
