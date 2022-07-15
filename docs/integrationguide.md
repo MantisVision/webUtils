@@ -426,5 +426,27 @@ const animate = () =>
 	ryskObj.update();
 };
 requestAnimationFrame(animate);
-
 ```
+
+## Bundling
+When you bundle the libraries with your code, you have to remember that one of the dependency uses webassembly file
+(specifically ``@mantisvision/ryskwasm``) and other (``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``) utilize
+webworkers. Your bundler might need a special configuration in order to properly pack all of that together.
+
+For instance, if you use Webpack 5, you might need to add the following configuration to ``webpack.config.js`` you use 
+for building your project:
+```javascript
+...
+module: {
+	{
+		test: /\.wasm$/,
+		type: 'asset/resource'
+	},
+...
+```
+As for the webworkers, Webpack 5 should by itself automatically emit seperate files containing their code. This is because in both
+``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``, the workers are created similar to this:
+```javascript
+const worker = new Worker(new URL("./package.worker.js",import.meta.url));
+```
+Webpack 5 will automatically recognize this code and does what is necessary.
