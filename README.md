@@ -21,6 +21,9 @@ need to modify this package or to directly access its exports.
 ## Table of contents
   * [Installing a package in your project](#installing-a-package-in-your-project)
   * [Which package to choose](#which-package-to-choose)
+    * [For Three.js](#for-three.js-implementation)
+    * [For Playcanvas](#for-playcanvas-implementation)
+    * [For a custom integration](#for-a-custom-implementation)
   * [Inner architecture](#inner-architecture)
     * [Dependencies](#dependencies)
     * [Data flow](#data-flow)
@@ -75,7 +78,9 @@ yarn add @mantisvision/sentryintegration
 ```
 
 ## Which package to choose
-The simplest option is to install just ``@mantisvision/rysk`` package. It bundles all other rysk* packages and exports RYSKStream/StreamMesh 
+
+### For Three.js implementation
+The simplest option is to install just ``@mantisvision/rysk`` package. It bundles all other rysk-* packages and exports RYSKStream/StreamMesh 
 and RYSKUrl/URLMesh classes (each couple in fact represents the same class, but named differently for backwards compatibility).
 The source code is minified and packed in the single javascript file. Workers and webassembly files are inlined. This means you shouldn't need
 any special loader for webworkers or wasm in your own package bundler. ``@mantisvision/rysk`` was built using Webpack 5, but due to the inlining, it should
@@ -111,17 +116,26 @@ and URLMesh are meant to provide actual Three.js 3D meshes, whereas RYSKUrl and 
 and ``@mantisvision/ryskstream`` are now entirely decoupled from Three.js and only provide decoded data and canvas which
 gets updated with the current frame).
 
-The six "partial" packages (ryskurl, ryskstream, ryskdownloader, ryskdecoder, ryskwasm and ryskbuffer) are meant for advanced 
-development where only some features are needed and the rest won't be used, or will be substituted by developer's own program.
-In particular, they can be utilized to integrate RYSKUrl and RYSKStream with other different rendering engines beside
-Three.js. In the most cases, you would only need ``@mantisvision/ryskurl`` and/or ``@mantisvision/ryskstream`` packages as they provide "ready-to-use"
-main functionality. If you want to develop your application for a custom environment (e.g. as a server application or as a WeChat
-mini program), you should study the following chapter in order to grasp a better understanding of inner links between packages,
-so you can accuratly decide which packages you can use and which you need to reimplement using your own code.
+### For Playcanvas implementation
 
 For the integration with the PlayCanvas engine (either in its library form or directly in the PlayCanvas editor), there
 is ``@mantisvision/ryskplaycanvas`` package. It also contains the whole rysk library for the PlayCanvas packed into a 
-single file for use in an environment without npm/yarn or package builder (e.g. in the PlayCanvas editor).
+single file for use in an environment without npm/yarn or package builder e.g. in the PlayCanvas editor (for more information,
+see [@mantisvision/ryskplaycanvas](./docs/playcanvas.md) documentation). 
+
+### For a custom implementation
+
+The six "partial" packages (ryskurl, ryskstream, ryskdownloader, ryskdecoder, ryskwasm and ryskbuffer) are meant for advanced 
+development where only some features are needed and the rest won't be used, or will be substituted by developer's own program.
+In particular, they can be utilized to integrate RYSKUrl and RYSKStream with other different rendering engines beside
+Three.js or Playcanvas. In the most cases, you would only need ``@mantisvision/ryskurl`` and/or ``@mantisvision/ryskstream``
+packages as they provide "ready-to-use" main functionality. The basic guide for integration development can be found
+[here](./docs/integrationguide.md)
+
+If you, however, intend to develop your application for a special environment (e.g. as a fully server application or as 
+a WeChat mini program), you should study the following chapter in order to grasp a better understanding of inner links between packages,
+so you can accuratly decide which packages you can use and which you need to reimplement using your own code.
+
 
 ## Inner architecture
 This chapter will in short describe how the partial ``@mantisvision/rysk*`` packages are connected.
@@ -131,8 +145,8 @@ The following diagram shows dependencies between packages:
 ![alt Dependencies](./docs/images/dependencies.png)
 
 The core of the library is in the packages ``@mantisvision/ryskwasm`` and ``@mantisvision/ryskbuffer``.
-The entry points are usually ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``  or one of the integration
-packages (currently ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``)..
+The entry points are usually ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream`` or one of the integration
+packages (currently ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``).
 
 ### Data flow
 The following diagrams show a simplified data flow between the packages. "Application" represents a custom program which
@@ -160,3 +174,4 @@ Detailed description of APIs of packages can be found here:
 * [@mantisvision/ryskdownloader](./docs/downloader.md)
 * [@mantisvision/ryskdecoder](./docs/decoder.md)
 * [@mantisvision/ryskwasm](./docs/ryskwasm.md)
+

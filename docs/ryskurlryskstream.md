@@ -22,12 +22,15 @@ const ryskObj = new RYSKUrl("video_url","data_url");
 
 The process of decoding the data and pairing it with the video frames can be started by invoking ``run`` method on the object.
 It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
-mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient):
+mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient).
+It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
+needs to be turned up through ``setVolume()`` method:
 ```javascript
 ryskObj.run()
 	.then(elements => 
 	{ 
 		const { canvas, video } = elements;
+		ryskObj.setVolume(1); // video is muted at the beginning to avoid autoplay issues on iOS Safari!
 		/* do something with the canvas */ 
 	}).catch(err => console.error(err));
 ```
@@ -132,7 +135,9 @@ const ryskObj = new RYSKStream(MediaStream);
 ```
 The process of decoding the data and pairing it with the video frames can be started by invoking ``run`` method on the object.
 It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
-mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient):
+mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient).
+It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
+needs to be turned up through ``setVolume()`` method:
 ```javascript
 ryskObj.run()
 	.then(elements => 
@@ -172,6 +177,7 @@ const animate = () =>
 	ryskObj.update();
 };
 requestAnimationFrame(animate);
+
 ```
 There is no need to call ``getCanvas`` after each update because it is the original HTML element which gets modified 
 according to the new frames from the video and the current SYK/RYSK data.
@@ -228,6 +234,21 @@ ryskObj.run().then(elements =>
 	}).catch(err => console.error(err));
 ```
 
+# Events
+Both RYSKUrl and RYSKMesh trigger multiple events during their lifecycle. A callback can be registered using ``on(event,func)``
+ 
+ - buffering: either video or data is being buffered (it triggers on either bufferingData event or on "waiting" event of video element)
+ - buffered: video and data are buffered, video can play (it triggers when "dataBuffered" event was triggerd together with "playing" event of video element)
+ - bufferingData: data are being buffered
+ - dataBuffered: enough data has been buffered
+ - dataDecoded: triggers each time data is decoded. The data is passed to the callback as its first parameter
+ - decodingPaused: decoding of the data has paused because it's waiting till more data is downloaded
+ - error: triggers on error
+ - video.ended: triggers when video finishes playing
+
+It might become useful to listen also for native events of video element which can be registered through the
+``onVideoEvent(event,func)`` callback which is in fact a mere wrapper around the native ``addEventListener`` method.
+
 # Public API
 ## RYSKUrl
 RYSKUrl provides the following methods:
@@ -238,7 +259,7 @@ RYSKUrl provides the following methods:
  * @param {String} dataurl url of the RYSK/SYK data
  * @param {Integer} frameBufferSize Size in frames of the buffer used to cached downloaded SYK/RYSK data
  */
-constructor(videourl,dataurl,frameBufferSize = 100)
+constructor(videourl,dataurl,frameBufferSize = 50)
 ```
 ```javascript
 /**
@@ -258,7 +279,7 @@ get seekable();
 ```javascript
 /**
  * Runs the service and returns a promise which resolves with an object containing 2 properties: 
- * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream).
+ * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to realize the video is muted!.
  * @returns {Promise} promise which resolves after the video is ready to be played.
  */
 async run();
@@ -282,7 +303,7 @@ constructor(mediastream);
 ```javascript
 /**
  * Runs the service and returns a promise which resolves with an object containing 2 properties: 
- * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream).
+ * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to realize the video is muted!
  * @param {Integer} videoWidth desired video width (if the real source given in the constructor is of different width, it will be resized)
  * @param {Integer} videoHeight desired video height (if the real source given in the constructor is of different height, it will be resized)
  * @returns {Promise} promise which resolves after the video is ready to be played.
@@ -303,7 +324,8 @@ These two classes share some common methods:
 ```javascript
 /**
  * Sets volume of the audio. This might not work as expected on some mobile devices, however, setting volume to 0 should
- * always mute the video.
+ * always mute the video. Remember to call it after you receive video element in from run() method, because the
+ * element is muted by default.
  * @param {Float} volume number between 0 (muted) and 1 (full).
  */
 setVolume(volume);
@@ -364,8 +386,16 @@ isEnded();
 ```
 ```javascript
 /**
- * Registers a callback on an event type. Currently, the only supported events are dataDecoded, decodingPaused, error and video.ended
- * @param {string} event name of the event type (either error, dataDecoded, decodingPaused, video.ended)
+ * Registers a callback on an event type. Currently, the supported events are:
+ * - buffering: either video or data is being buffered (it triggers on either bufferingData event or on "waiting" event of video element)
+ * - buffered: video and data are buffered, video can play (it triggers when "dataBuffered" event was triggerd together with "playing" event of video element)
+ * - bufferingData: data are being buffered
+ * - dataBuffered: enough data has been buffered
+ * - dataDecoded: triggers each time data is decoded. The data is passed to the callback as its first parameter
+ * - decodingPaused: decoding of the data has paused because it's waiting till more data is downloaded
+ * - error: triggers on error
+ * - video.ended: triggers when video finishes playing
+ * @param {string} event name
  * @param {callable} callback
  * @returns {undefined}
  */
@@ -374,7 +404,7 @@ on(event,callback);
 ```javascript
 /**
  * Unregister a callback for an event type
- * @param {String} event event name of the event type (either error, dataDecoded, decodingPaused, video.ended)
+ * @param {String} event event name
  * @param {callable} callback
  * @returns {undefined}
  */
@@ -385,7 +415,7 @@ off(event,callback);
  * Proxy to method addEventListener for internal videoElement object
  * @param {String|Array|Object} event if a string is given, then it represents name of the event, 
  *								if array, then to each event in this array, callback from the second parameter is attached,
- *								if it is and object the attribute names should represent events and their values callbacks (in this case, callback parameter should be omitted)
+ *								if it is and object, the attribute names should represent events and their values callbacks (in this case, callback parameter should be omitted)
  * @param {function} callback a callback to be attached to the given event(s)
  * @returns {AbstractRYSK} reference to this object for chaining
  */

@@ -104,9 +104,18 @@ Helper.setGenerateCanvas(function()
  * @param {Boolean} realtime indicates whether video is considered realtime (i.e. a constant stream). RYSKBuffer then knows it shouldn't pause such a video whilest waiting for a proper RYSK data.
  * @param {Integer} videoWidth you can specify width of the video. If set to null (default), widh will be read from the srcVideoElem. If you set this parameter, the srcVideoElem will be stretched (or shrunk) to accomodate the desired size.
  * @param {Integer} videoHeight see the previous parameter
- * @param {Integer} frameBufferSize set the size of the framebuffer for the data describing the frames (i.e. uvs, indices, vertices)
+ * @param {Integer} frameBufferSize set the size of the framebuffer for the data describing the frames (i.e. uvs, indices, vertices). This parameter has but a limited usage if the "realtime" video is used, since the video can't be realistically paused to wait for the enough data
  */
 constructor(onDataCallback,srcVideoElem,realtime = false,videoWidth = null, videoHeight = null, frameBufferSize = 100);
+```
+```javascript
+/**
+ * Modify the size of the buffer (the real buffer might end up being bigger in order to avoid deleting already buffered data
+ * This function should be used very carefully, since the buffer is actually cyclic and this can potentially destroy data.
+ * @param {Integer} newSize new size of the buffer. If there is already more data buffered, the new buffer size might end up being bigger!
+ * @returns {Integer} the actual new size of the buffer (might be bigger than the requested size!)
+ */
+modifyBuffer(newSize);
 ```
 ```javascript
 /**
