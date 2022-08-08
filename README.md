@@ -2,27 +2,17 @@
 This public repository hosts a package registry containing ``@mantisvision`` javascript libraries. Source codes of the hosted packages are located in a private MantisVision repositiry.
 NPM packages can be downloaded from the package registry https://npm.pkg.github.com using the scope ``@mantisvision``.
 
-# Breaking change in the new versions
-Multiple ``@mantisvision`` libraries have been reworked in order to provide developers more flexibility to integrate with 
-other rendering systems beside Three.js. The main philosophy is to make decoded RYSK data (i.e. uvs, indices and vertices)
-availible to the third party developer through an event callback. Paired with a canvas element which gets redrawn with the
-new frame from the video, it is possible to generate a real-time updated 3D mesh.
-
-Three.js implementation got fully separated to its own ``@mantisvision/ryskthreejs``. It can be used similar to the former
-``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream`` packages. Both ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``
-are still present, but instead of the final Three.js mesh, they can now only periodically pass decoded data and update canvas
-HTML element with new frames from the given video. These packages are of main interest to the third party developers
-who wish to utilize ``@mantisvision/rysk*`` libraries in their own projects which use various different 3D rendering engines.
-
-Package ``@mantisvision/ryskmesh`` got substituted with ``@mantisvision/ryskbuffer``. Its primary purpose has shifted from
-constructing the final Three.js to simply synchronizing decoded data with the video frames. Typically, there should be no
-need to modify this package or to directly access its exports.
+# Breaking change in the visibility of mesh
+Meshes constructed by ``@mantisvision/ryskthreejs`` and ``@mantisvision/ryskplaycanvas`` have by default visibility set
+to false. This is because many users would prefer to show some sort of LOADING inscription or icon till the video/data
+is sufficiently buffered. In order to see the meshes, set their visibility property to true after inserting into the scene.
 
 ## Table of contents
   * [Installing a package in your project](#installing-a-package-in-your-project)
   * [Which package to choose](#which-package-to-choose)
     * [For Three.js](#for-three.js-implementation)
     * [For Playcanvas](#for-playcanvas-implementation)
+    * [For A-Frame](#for-a-frame-implementation)
     * [For a custom integration](#for-a-custom-implementation)
   * [Inner architecture](#inner-architecture)
     * [Dependencies](#dependencies)
@@ -51,6 +41,7 @@ npmScopes:
 In order to install a specific package using NPM, run one of the following commands:
 ```
 npm i @mantisvision/rysk
+npm i @mantisvision/ryskaframe
 npm i @mantisvision/ryskthreejs
 npm i @mantisvision/ryskplaycanvas
 npm i @mantisvision/ryskurl
@@ -65,6 +56,7 @@ npm i @mantisvision/sentryintegration
 If you prefer using Yarn, run one of the following:
 ```
 yarn add @mantisvision/rysk
+yarn add @mantisvision/ryskaframe
 yarn add @mantisvision/ryskthreejs
 yarn add @mantisvision/ryskplaycanvas
 yarn add @mantisvision/ryskurl
@@ -107,6 +99,7 @@ As for the webworkers, Webpack 5 should by itself automatically emit seperate fi
 const worker = new Worker(new URL("./package.worker.js",import.meta.url));
 ```
 Webpack 5 will automatically recognize this code and does what is necessary.
+
 Bear in mind that ``@mantisvision/ryskthreejs`` exports classes named StreamMesh (Three.js mesh created from mediastream) 
 and URLMesh (Three.js mesh created from video and data urls), but not RYSKStream and RYSKUrl akin to ``@mantisvision/rysk``,
 (although, as was stated, in ``@mantisvision/rysk`` these are in fact the same classes, but named differently). 
@@ -121,7 +114,23 @@ gets updated with the current frame).
 For the integration with the PlayCanvas engine (either in its library form or directly in the PlayCanvas editor), there
 is ``@mantisvision/ryskplaycanvas`` package. It also contains the whole rysk library for the PlayCanvas packed into a 
 single file for use in an environment without npm/yarn or package builder e.g. in the PlayCanvas editor (for more information,
-see [@mantisvision/ryskplaycanvas](./docs/playcanvas.md) documentation). 
+see [@mantisvision/ryskplaycanvas documentation](./docs/playcanvas.md)).
+
+## For A-Frame implementation
+
+There is an A-Frame integration package called ``@mantisvision/ryskaframe``, but due to nature of a-frame itself, it is
+a bit specific. Even though A-Frame seemingly uses Three.js under the hood, in truth it is built on Three.js fork called
+super-three (see [this GitHub issue](https://github.com/aframevr/aframe/issues/4898) ). This means that the integration
+using existing package ``@mantisvision/ryskthreejs`` is not possible. Furthermore, A-Frame library doesn't have traditional
+module exports, rather it creates a global AFRAME variable, and so neither does ``@mantisvision/ryskaframe``.
+It must be therefore imported only after the A-Frame library and only then registers its own components.
+
+Beside traditional small dependency package ``@mantisvision/ryskaframe`` offers also a complete, minified, single-file
+build similar to ``@mantisvision/rysk``. That one can be used directly in script tag of HTML header. However, the file
+doesn't contain A-Frame library within it, so again, A-Frame must be imported prior to this package.
+
+More information can be found in [@mantisvision/ryskaframe documentation](./docs/aframe.md)
+
 
 ### For a custom implementation
 
