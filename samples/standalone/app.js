@@ -1,4 +1,4 @@
-import * as three from "https://unpkg.com/three@0.136.0";
+import * as three from "https://unpkg.com/three@0.141.0";
 
 const video_url = "https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.mp4";
 const data_url = "https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.syk";
@@ -58,6 +58,7 @@ function run(renderer,scene,camera)
 	
 	ryskObj.run().then(mesh => 
 	{//add mesh to the scene
+		mesh.visible = true;
 		scene.add(mesh);
 	}); 
 	
