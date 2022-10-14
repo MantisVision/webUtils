@@ -177,6 +177,7 @@ Detailed description of APIs of packages can be found here:
 * [@mantisvision/rysk](./docs/rysk.md)
 * [@mantisvision/ryskthreejs](./docs/threejs.md)
 * [@mantisvision/ryskplaycanvas](./docs/playcanvas.md)
+* [@mantisvision/aframe](./docs/aframe.md)
 * [@mantisvision/ryskurl](./docs/ryskurlryskstream.md)
 * [@mantisvision/ryskstream](./docs/ryskurlryskstream.md)
 * [@mantisvision/ryskbuffer](./docs/buffer.md)
