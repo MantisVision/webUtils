@@ -118,15 +118,15 @@ see [@mantisvision/ryskplaycanvas documentation](./docs/playcanvas.md)).
 
 ## For A-Frame implementation
 
-There is an A-Frame integration package called ``@mantisvision/ryskaframe``, but due to nature of a-frame itself, it is
+There is an A-Frame integration package called ``@mantisvision/ryskaframe``, but due to the nature of A-Frame itself, it is
 a bit specific. Even though A-Frame seemingly uses Three.js under the hood, in truth it is built on Three.js fork called
 super-three (see [this GitHub issue](https://github.com/aframevr/aframe/issues/4898) ). This means that the integration
-using existing package ``@mantisvision/ryskthreejs`` is not possible. Furthermore, A-Frame library doesn't have traditional
-module exports, rather it creates a global AFRAME variable, and so neither does ``@mantisvision/ryskaframe``.
-It must be therefore imported only after the A-Frame library and only then registers its own components.
+using the existing package ``@mantisvision/ryskthreejs`` is not possible. Furthermore, A-Frame library doesn't have traditional
+module exports (rather it creates a global AFRAME variable) and so neither does ``@mantisvision/ryskaframe``.
+It must be therefore imported only after the A-Frame library, and only then it registers its own components.
 
-Beside traditional small dependency package ``@mantisvision/ryskaframe`` offers also a complete, minified, single-file
-build similar to ``@mantisvision/rysk``. That one can be used directly in script tag of HTML header. However, the file
+Beside a traditional, small dependency package, ``@mantisvision/ryskaframe`` offers also a complete, minified, single-file
+build similar to ``@mantisvision/rysk``. That one can be used directly in the script tag of HTML header. However, the file
 doesn't contain A-Frame library within it, so again, A-Frame must be imported prior to this package.
 
 More information can be found in [@mantisvision/ryskaframe documentation](./docs/aframe.md)

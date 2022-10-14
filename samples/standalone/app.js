@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded',function()
 		cameraRigY.add(camera);
 
 		viewport.appendChild(renderer.domElement);
-		run(renderer,scene,camera);
+		run2(renderer,scene,camera);
 	});
 });
 
@@ -84,8 +84,50 @@ function run(renderer,scene,camera)
 		{
 			ryskObj.update();
 		}
-		
+		redrawCanvas();
 		renderer.clear(true, true, true);
 		renderer.render(scene, camera);
 	});
 }
+
+function run2(renderer,scene,camera)
+{
+	const mesh = createMesh2();
+	scene.add(mesh);
+	renderer.setAnimationLoop((timestamp, frame) => 
+	{
+		redrawCanvas();
+		renderer.clear(true, true, true);
+		renderer.render(scene, camera);
+	});
+}
+
+function createMesh2()
+{
+	const geometry = new  THREE.PlaneBufferGeometry( 1,1, 2,2 );
+	const canvas2 = new OffscreenCanvas(128, 128);
+	context = canvas2.getContext("2d");
+
+	texture = new THREE.DataTexture(context.getImageData(0,0,128,128).data,128,128);
+	texture.needsUpdate = true;
+	const material = new THREE.MeshBasicMaterial({ map: texture });
+	material.side = THREE.DoubleSide;
+	return new THREE.Mesh(geometry, material);
+}
+
+function redrawCanvas()
+{
+	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+	context.beginPath();
+	context.arc(64, 64, ++iterator, 0, 2 * Math.PI);
+	context.fillStyle = "#FF0000"; 
+	context.fill();
+	texture.image.data = context.getImageData(0,0,128,128).data;
+	texture.needsUpdate = true;
+	if (iterator > 64) iterator = 0;
+}
+
+var iterator = 0;
+var context = null;
+var texture = null;
+
