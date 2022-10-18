@@ -185,3 +185,7 @@ Detailed description of APIs of packages can be found here:
 * [@mantisvision/ryskdecoder](./docs/decoder.md)
 * [@mantisvision/ryskwasm](./docs/ryskwasm.md)
 
+## Samples
+* [Standalone library sample](./samples/standalone)
+* [NPM packages sample](./samples/npm)
+

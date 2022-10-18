@@ -1,6 +1,6 @@
 # RYSKaframe
-This is an attempt to integrate RYSK libraries with A-Frame. Since A-Frame doesn't use node.js package architecture
-in the usual way and relies on the global variable ``AFRAME``, this package had to be composed in the similar manner.
+This is an attempt to integrate RYSK libraries with a-frame. Since A-Frame doesn't use node.js package architecture
+in the usual way and reliaes on global variable ``AFRAME``, this package had to be composed in the similar manner.
 
 If you intend to use the package together with other node.js packages and install it either through yarn or npm, the
 package depends on ``@mantisvision/ryskstream``, ``@mantisvision/ryskurl`` and ``aframe`` packages. Bear in mind that 
@@ -10,7 +10,7 @@ to this, ``@mantisvision/ryskaframe`` doesn't actually import ``aframe`` library
 that you'll be the one doing the import, so you can ensure you use the right (i.e. your own) version.
 
 Alternatively you can use the minified version of ``@mantisvision/ryskaframe`` which is bundled in the same package
-and containsall its ``@mantisvision/rysk*`` dependencies withing itself.
+and contains all its ``@mantisvision/rysk*`` dependencies withing itself.
 
 ## Install
 You can install this package using one of the following commands for either yarn or npm
@@ -21,10 +21,11 @@ npm install @mantisvision/ryskaframe
 You can also just download the package from its repository, decompress and use only minified version ``MantisRYSKaframe.min.js``.
 
 ## Usage
-You can either import the library like this:
+You can import the library like this:
 ```javascript
 import "aframe";
-import "@mantisvision/ryskaframe";
+
+import("@mantisvision/ryskaframe").then(() => /* custom code */);;
 ```
 A-Frame doesn't need to be imported in the same file as ``@mantisvision/ryskaframe``, but it needs to be imported prior
 to ``@mantisvision/ryskaframe``, otherwise an exception shall be thrown.
@@ -72,8 +73,8 @@ ryskurl component is based on the following schema:
 ryskurl listens for the following events that you can emit on its element (i.e. ``<a-entity>`` or 
 ``<mantis-ryskurl></mantis-ryskurl>``):
 
-- pause: pauses the video
-- play: resumes playing
+- ryskpause: pauses the video
+- ryskplay: resumes playing
 
 #### Emitted events
 ryskurl emits the following events on its element (i.e. ``<a-entity>`` or  ``<mantis-ryskurl></mantis-ryskurl>``). None
@@ -131,18 +132,18 @@ ryskstream component is based on the following schema:
 	volume: { type: "number", default: 0 }
 }
 ```
-- videoelem: id of the videoelement which will serve as the source of the media stream. Alternatively, media stream can be passed directly through the newstream event (see below)
-- width: width resolution of the video; if not given, it is either read from the videoelem or from the data that came throuh the data event
+- videoelem: id of the videoelement which will serve as the source of the media stream. Alternatively, media stream can be passed directly through the newdata event (see below)
+- width: width resolution of the video; if not given, it either read from videoelem or from the data that came throuh the data event
 - height: height resolution of the video; if not given, it either read from videoelem or from the data that came throuh the data event
 - volume: volume level from 0 (mute) to 1 (full volume)
 
 #### Event listeners
 ryskstream listens for the following events that you can emit on its element (i.e. ``<a-entity>`` or 
 ``<mantis-ryskstream></mantis-ryskstream>``):
-- newdata: this event should be emitted each time a new data has arrived. The following object should be passed as the payload:
+- newdata: this event should emitted each a new data has arrived. The following object should be passed as the payload:
 	- version: version of the RYSK/SYK data 
 	- data: Typed array containing encoded RYSK/SYK data
-- newstream: instead of providing the id of the video element through the HTML attribute, you can emit this event and pass the mediastream directly as the payload in the following object:
+- newstream: instead of giving id of the video element through the HTML attribute, you can emit this event and as the payload pass directly the mediastream in the following object:
 	- width: width resolution of the video passed in the stream
 	- height: height resolution of the video passed in the stream
 	- stream: MediaStream object
@@ -151,14 +152,14 @@ ryskstream listens for the following events that you can emit on its element (i.
 ryskstream emits the same events as ryskurl (see above)
 
 #### mantis-ryskstream primitive
-For your convinience, there is mantis-ryskstream primitive:
+For your convinience, there is a mantis-ryskstream primitive:
 ```html
 <mantis-ryskstream 
 	position="0 0 -2" 
 	videoelem="videosource" >
 </mantis-ryskstream>
 ```
-Compenent properties are mapped to the HTML attributes in the following way:
+Component properties are mapped to the HTML attributes in the following way:
 - videoelem: videoelem
 - width: width
 - height: height
