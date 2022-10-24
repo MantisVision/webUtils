@@ -142,7 +142,7 @@ ryskstream listens for the following events that you can emit on its element (i.
 ``<mantis-ryskstream></mantis-ryskstream>``):
 - newdata: this event should emitted each a new data has arrived. The following object should be passed as the payload:
 	- version: version of the RYSK/SYK data 
-	- data: Typed array containing encoded RYSK/SYK data
+	- data: Array buffer containing encoded RYSK/SYK data
 - newstream: instead of giving id of the video element through the HTML attribute, you can emit this event and as the payload pass directly the mediastream in the following object:
 	- width: width resolution of the video passed in the stream
 	- height: height resolution of the video passed in the stream

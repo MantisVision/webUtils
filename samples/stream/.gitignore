@@ -1,0 +1,10 @@
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+public_html/*
+!public_html/.gitkeep
+.pnp.*
+.yarnrc.yml
