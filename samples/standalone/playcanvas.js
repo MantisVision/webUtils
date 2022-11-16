@@ -59,9 +59,6 @@ function run(app)
 			entity.setPosition(0,0,1)
 			const scale = new pc.Vec3(0.001,0.001,0.001);
 			entity.setLocalScale(scale);
-			app.start();
-			
-			app.on("frameupdate",() => ryskObj.update());
 		}); 
 
 		document.getElementById("play").addEventListener("click",event =>
@@ -79,6 +76,9 @@ function run(app)
 				}
 			}
 		});
+		
+		app.start();
+		app.on("frameupdate",() => ryskObj.update());
 	}catch (err)
 	{
 		console.error(err);

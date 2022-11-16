@@ -1,4 +1,5 @@
 import { URLMesh } from "@mantisvision/ryskplaycanvas";
+import { MantisLog, RyskEvents } from "@mantisvision/utils";
 
 const video_url = "./chloe_battle.mp4";
 const data_url = "./chloe_battle.syk";
@@ -61,10 +62,7 @@ function run(app)
 			entity.setPosition(0,0.5,1);
 			const scale = new pc.Vec3(0.001,0.001,0.001);
 			entity.setLocalScale(scale);
-			app.start();
-			
-			app.on("frameupdate",() => ryskObj.update());
-		}); 
+		}).catch(console.error); 
 
 		document.getElementById("play").addEventListener("click",event =>
 		{//event listener for the button which plays/pauses the animation
@@ -81,6 +79,9 @@ function run(app)
 				}
 			}
 		});
+		
+		app.start();
+		app.on("frameupdate",() => { if (ryskObj) ryskObj.update(); });
 	}catch (err)
 	{
 		console.error(err);
