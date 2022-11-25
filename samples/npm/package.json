@@ -16,12 +16,12 @@
 	},
 	"packageManager": "yarn@4.0.0-rc.25",
 	"devDependencies": {
-		"@mantisvision/ryskaframe": "^0.2.5",
-		"@mantisvision/ryskplaycanvas": "^0.3.7",
-		"@mantisvision/ryskthreejs": "^0.5.2",
+		"@mantisvision/ryskaframe": "^0.2.9",
+		"@mantisvision/ryskplaycanvas": "^0.3.9",
+		"@mantisvision/ryskthreejs": "^0.5.4",
 		"three": "^0.145.0",
 		"webpack": "^5.75.0",
-		"webpack-cli": "^4.10.0"
+		"webpack-cli": "^5.0.0"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",

@@ -1,6 +1,5 @@
 import 'aframe';
 
-console.log("here here");
 import('@mantisvision/ryskaframe').then(() => 
 {
 	console.log("ryskaframe imported");

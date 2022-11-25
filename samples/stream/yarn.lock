@@ -64,24 +64,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskaframe@npm:^0.2.4":
-  version: 0.2.4
-  resolution: "@mantisvision/ryskaframe@npm:0.2.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.2.4%2Ff03e6d924c6635b591c000ec029c3d3d0c736005"
+"@mantisvision/ryskaframe@npm:^0.2.6":
+  version: 0.2.6
+  resolution: "@mantisvision/ryskaframe@npm:0.2.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.2.6%2F8c7aae33102b5ba75431d1f0ebb190f49098a921"
   dependencies:
-    "@mantisvision/ryskstream": "npm:^2.1.6"
-    "@mantisvision/ryskurl": "npm:^1.2.1"
+    "@mantisvision/ryskstream": "npm:^2.1.7"
+    "@mantisvision/ryskurl": "npm:^1.2.3"
     "@mantisvision/utils": "npm:^1.4.2"
     aframe: "npm:^1.3.0"
-  checksum: 71379e7f00bbad185386ccb3c6ed294198314f3660d3ca14e7eff03b8b91d39e7dcb3401a0351056b2189ed17fc3937b04a963852e42a896afa3ce279cf908ab
+  checksum: d4686a35a8baac3ba139a1c1ec2268e375f9b5d03a5da68ce567198b51c99a55f135162981d75382fdd830da48f8666c93fdca3d90d98dfa59692904a3f63e80
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskbuffer@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@mantisvision/ryskbuffer@npm:0.3.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.3.1%2F3b212947ab18a025bc73760ef5bbe7fdad38ac4a"
+"@mantisvision/ryskbuffer@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "@mantisvision/ryskbuffer@npm:0.3.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.3.2%2F0f73cbf7007bad6fd714881049ed53822f0e28b9"
   dependencies:
-    "@mantisvision/utils": "npm:^1.3.0"
-  checksum: 1a32b3bda4fe3a18d7d6d2adafd4b5f8625a9d53f34092cbaa33a272d58b9bfbf81a563714dcaacf29ca4d09caf0f0040999ddb6513cc83f6e6c0d7e0fa2edd9
+    "@mantisvision/utils": "npm:^1.4.2"
+  checksum: 6df204d650a406fb9c412a799620f67fce2387dc3c819fc5b5cda8ff9abb4f12d35b672121ad2063c6bf206c3bc6595f8d0e197be3e894d08eb3dcc712b8273c
   languageName: node
   linkType: hard
 
@@ -103,25 +103,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskstream@npm:^2.1.6":
-  version: 2.1.6
-  resolution: "@mantisvision/ryskstream@npm:2.1.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskstream%2F2.1.6%2Fb5e261eb97818ec67d856d0db1d298885ec2f9ac"
+"@mantisvision/ryskstream@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "@mantisvision/ryskstream@npm:2.1.7::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskstream%2F2.1.7%2F0be8910307505721d595de09f906ff12fcb414bb"
   dependencies:
-    "@mantisvision/ryskbuffer": "npm:^0.3.1"
+    "@mantisvision/ryskbuffer": "npm:^0.3.2"
     "@mantisvision/ryskdecoder": "npm:^0.1.3"
-    "@mantisvision/utils": "npm:^1.4.0"
-  checksum: 6c2e7fd992316b8efbf4297bb95cfdf34890aa0936fdf908f233b6af67ac076c22657b446c12fbfbc22e4b710332973365cdb434822ee49d8bb92dc981780d1a
+    "@mantisvision/utils": "npm:^1.4.2"
+  checksum: e9bd1e2a7f9619699dbfa36c9a3980871217d4e6db457fd1956447d5bfe06f07576f28e088c52b1e0eb9cf9c4299307547b1d86e30211384e870f8512cac8778
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskurl@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@mantisvision/ryskurl@npm:1.2.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F1.2.1%2Ff47ec9c381cc9527f9cd3d3a31a4fa175ab5719e"
+"@mantisvision/ryskurl@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@mantisvision/ryskurl@npm:1.2.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F1.2.3%2F4b7b9572657e2385a837bac4d420c9c4ed4f8ad8"
   dependencies:
-    "@mantisvision/ryskbuffer": "npm:^0.3.1"
+    "@mantisvision/ryskbuffer": "npm:^0.3.2"
     "@mantisvision/ryskdownloader": "npm:^0.1.8"
     "@mantisvision/utils": "npm:^1.4.2"
-  checksum: 21b8018b510d913d6e252d30bab0b48243cf6e7de4a7bc153fb3524a229c079f067c23fae98d14989fdc33bde91e9a6ec637d5de28eb5ddef3c85df0c551e61c
+  checksum: 4ababe2d76a94f560a107790157b8404fe32fb0bbd8d912e421b7dbb0e611af59f38c7d9972f146f90623486934a2c448321886b3c74b67018f7e1e24500a7ce
   languageName: node
   linkType: hard
 
@@ -132,7 +132,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/utils@npm:^1.3.0, @mantisvision/utils@npm:^1.4.0, @mantisvision/utils@npm:^1.4.2":
+"@mantisvision/utils@npm:^1.4.2":
   version: 1.4.2
   resolution: "@mantisvision/utils@npm:1.4.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F1.4.2%2Fbcb1c56e6cf20d613253ef097a4deba16442f50c"
   dependencies:
@@ -343,36 +343,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@webpack-cli/configtest@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@webpack-cli/configtest@npm:1.2.0"
+"@webpack-cli/configtest@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@webpack-cli/configtest@npm:2.0.0"
   peerDependencies:
-    webpack: 4.x.x || 5.x.x
-    webpack-cli: 4.x.x
-  checksum: 6b60a3a16c98eecdd1a131141038ceba13d49676a138f2858e7b5609106b47e4be1c8beaa5abf1828a8b51a4691fb93df0b91740f91e7d48bb62a67d21f5d8fa
+    webpack: 5.x.x
+    webpack-cli: 5.x.x
+  checksum: f89365f70e5a526470488e8050d6309158c7999c5b3d4532ef257cd5a9d03f6e7ceeef22371ba320c878955a33892563f4f95d87a26e6d90df7299c4755ae9dc
   languageName: node
   linkType: hard
 
-"@webpack-cli/info@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "@webpack-cli/info@npm:1.5.0"
-  dependencies:
-    envinfo: "npm:^7.7.3"
+"@webpack-cli/info@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@webpack-cli/info@npm:2.0.0"
   peerDependencies:
-    webpack-cli: 4.x.x
-  checksum: b674858a8c863b069dda56305f8e07c1e736fccc8f52d765d7ddea44456aef9130cd2ce1946bd5d8163bfadf61494bc7c579711f0eeb855be6cf8b6cc150c9d0
+    webpack: 5.x.x
+    webpack-cli: 5.x.x
+  checksum: 184f6801c284a61ad9a4c4a5fb8094a33651e1789d2cdaa09e4b522ab0fc0b7aae270f05f210c923219e86b24d32af501f6f46547c4f0c5408c62322ecbf3a76
   languageName: node
   linkType: hard
 
-"@webpack-cli/serve@npm:^1.7.0":
-  version: 1.7.0
-  resolution: "@webpack-cli/serve@npm:1.7.0"
+"@webpack-cli/serve@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@webpack-cli/serve@npm:2.0.0"
   peerDependencies:
-    webpack-cli: 4.x.x
+    webpack: 5.x.x
+    webpack-cli: 5.x.x
   peerDependenciesMeta:
     webpack-dev-server:
       optional: true
-  checksum: fc10d33e518870469bbf3813f2a104d6058d80541af68f069e873de5ee67acd0cedbbec75092fb3d33d1c73f5227dc444730bd1da9b9e46dd4d751ca2b5fb946
+  checksum: 567199d19d67b4ec8e99a8d206af31bf82c91ca55c758fad7aff724a09e99e3e01156c4f9fd0fcce34c7032daa67605b1daf6c1c06ce51de68a4c289cc662d58
   languageName: node
   linkType: hard
 
@@ -429,16 +429,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "aframe-rysk@workspace:."
   dependencies:
-    "@mantisvision/ryskaframe": "npm:^0.2.4"
+    "@mantisvision/ryskaframe": "npm:^0.2.6"
     "@mantisvision/utils": "npm:^1.4.2"
     aframe: "npm:^1.3.0"
-    agora-rtc-sdk-ng: "npm:^4.14.0"
+    agora-rtc-sdk-ng: "npm:^4.15.0"
     agora-rtm-sdk: "npm:^1.6.0-204"
     angle: "npm:^0.9.1"
-    css-loader: "npm:^6.7.1"
+    css-loader: "npm:^6.7.2"
     style-loader: "npm:^3.3.1"
-    webpack: "npm:^5.74.0"
-    webpack-cli: "npm:^4.10.0"
+    webpack: "npm:^5.75.0"
+    webpack-cli: "npm:^5.0.0"
   languageName: unknown
   linkType: soft
 
@@ -462,19 +462,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"agora-rtc-sdk-ng@npm:^4.14.0":
-  version: 4.14.0
-  resolution: "agora-rtc-sdk-ng@npm:4.14.0"
+"agora-rtc-sdk-ng@npm:^4.15.0":
+  version: 4.15.0
+  resolution: "agora-rtc-sdk-ng@npm:4.15.0"
   dependencies:
-    agora-rte-extension: "npm:^1.0.22"
-  checksum: 65ecacf64979d15ded9663400a604f4e2552c83d416d6d5990f2014ddb58fd47a1754f2cc403705066d6bea9eee4785e46b2368187b2e5ff17bfc6697148cb59
+    agora-rte-extension: "npm:^1.2.3"
+  checksum: c68852280d497a114e96e43959a09540a201adfbd0f7406ed6e36a2d8acb24e6dd4901ece1defa3176d60746b7a82b9597841be2634d0c46feba4a22c4c1f19f
   languageName: node
   linkType: hard
 
-"agora-rte-extension@npm:^1.0.22":
-  version: 1.1.0
-  resolution: "agora-rte-extension@npm:1.1.0"
-  checksum: a8d4209eebf0f6c9eab13d0b5145e17bc66d62122dba80883f918a55f04e0a100da8dd29aae01ba591d0afc19fca5eb51f52dbc774210802af5bac2940d2b282
+"agora-rte-extension@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "agora-rte-extension@npm:1.2.3"
+  checksum: 03563411c408ca6ea9590f0a18007b03b2b9dc4c0fd2c703c24bad5e73f18fc8dae09dd3ac3dce1903b5d36f826840aa412fe09c4ac998b92368c4404c996d36
   languageName: node
   linkType: hard
 
@@ -750,10 +750,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^7.0.0":
-  version: 7.2.0
-  resolution: "commander@npm:7.2.0"
-  checksum: 1270a98c752348d62803dd6214bba584a13e5c80e0d32d590740f26c534209882a93daf471697326ad80b3f4f0417df31aca7b127e01efee58fe883b47c1a492
+"commander@npm:^9.4.1":
+  version: 9.4.1
+  resolution: "commander@npm:9.4.1"
+  checksum: 7d4c1f3bd4ad451f43fce51b9c73dc2d61fca00a9249196aa2d3d66fc46f2460c917c73ea9221c278fb8d35f496384f5125806e69108581a8e8bc673752c94e6
   languageName: node
   linkType: hard
 
@@ -794,21 +794,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:^6.7.1":
-  version: 6.7.1
-  resolution: "css-loader@npm:6.7.1"
+"css-loader@npm:^6.7.2":
+  version: 6.7.2
+  resolution: "css-loader@npm:6.7.2"
   dependencies:
     icss-utils: "npm:^5.1.0"
-    postcss: "npm:^8.4.7"
+    postcss: "npm:^8.4.18"
     postcss-modules-extract-imports: "npm:^3.0.0"
     postcss-modules-local-by-default: "npm:^4.0.0"
     postcss-modules-scope: "npm:^3.0.0"
     postcss-modules-values: "npm:^4.0.0"
     postcss-value-parser: "npm:^4.2.0"
-    semver: "npm:^7.3.5"
+    semver: "npm:^7.3.8"
   peerDependencies:
     webpack: ^5.0.0
-  checksum: f29305f4b25c3ee99328409c0e2f5940323cb55e498248f07ac12dfa341b49cb48b8ef92bd1e92ac702814218b56f44d18a68768024495c32bf2c1f310b36451
+  checksum: 0ea1131f10f37590235eb6c7ceb21cd88babee744476647809e15c1a7931e5697d64d0f1d6abc4c7c55c82371ad5f2df2e7022ae1c91084c2cbd46882dc3108b
   languageName: node
   linkType: hard
 
@@ -1311,10 +1311,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"interpret@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "interpret@npm:2.2.0"
-  checksum: 1451c590e83ef48d423df24f0ecb303fad014a748957e607d7e215bcfe24e5f5ba8c3eb7a006bbff74cb3952fc1be3925ab4f925e4a166edb799ba247db2b88e
+"interpret@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "interpret@npm:3.1.1"
+  checksum: 634fae299bc9f1b272e6200e61d4d14ed5b931a33a0247ed432bb0724675e41aaf2f72de1621dfe54e4b3382c3f31bb71ec6a75a99b9dc1a270f9b8014d4d85c
   languageName: node
   linkType: hard
 
@@ -1973,14 +1973,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.7":
-  version: 8.4.14
-  resolution: "postcss@npm:8.4.14"
+"postcss@npm:^8.4.18":
+  version: 8.4.19
+  resolution: "postcss@npm:8.4.19"
   dependencies:
     nanoid: "npm:^3.3.4"
     picocolors: "npm:^1.0.0"
     source-map-js: "npm:^1.0.2"
-  checksum: 1e1e4a4cc235674bea79da18dd3e02ea8ffcd51546c7ddf1fc7ba4de5e89154a83988bb8c1b30bd9566df56fc0077dce6e620d8f9ce6ababf60f659ffc53f72c
+  checksum: 583897de1f1b39bed59fecfd2697e34195d6f2f85710572a8f060a14898102e13b0a74a96fd5490b2f8bdc6ed51ae43169a5a24f37684606f7c8272221b5d111
   languageName: node
   linkType: hard
 
@@ -2085,12 +2085,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rechoir@npm:^0.7.0":
-  version: 0.7.1
-  resolution: "rechoir@npm:0.7.1"
+"rechoir@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "rechoir@npm:0.8.0"
   dependencies:
-    resolve: "npm:^1.9.0"
-  checksum: 89bc342f51aa6871a26b23e4cd306e4e9a83021b45aebf83c611e58e1c4759a90ddb562e3cb99289566063fe6fc180fbbe523ee91cb86712464da2f3060490ff
+    resolve: "npm:^1.20.0"
+  checksum: 474f0e7813c90ae5d26a6d107700e215f888fe103705d4d6c99cac0606300f50494bc243725b373c45ba29ad693acf7315c3b432494796d2ead4b81fed996758
   languageName: node
   linkType: hard
 
@@ -2117,7 +2117,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.1.6, resolve@npm:^1.9.0":
+"resolve@npm:^1.1.6, resolve@npm:^1.20.0":
   version: 1.22.1
   resolution: "resolve@npm:1.22.1"
   dependencies:
@@ -2130,7 +2130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.1.6#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.9.0#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.1.6#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.20.0#optional!builtin<compat/resolve>":
   version: 1.22.1
   resolution: "resolve@patch:resolve@npm%3A1.22.1#optional!builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
@@ -2199,14 +2199,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.5":
-  version: 7.3.7
-  resolution: "semver@npm:7.3.7"
+"semver@npm:^7.3.8":
+  version: 7.3.8
+  resolution: "semver@npm:7.3.8"
   dependencies:
     lru-cache: "npm:^6.0.0"
   bin:
     semver: bin/semver.js
-  checksum: 67bcf24790dcba9c20b2cd4c8ade19eebbcb10c8868453570749b47b77bd5c7da503478997a7a3f663d5b2976ac39c545f38d2d9e7dfcc693cb87f4068f93f8e
+  checksum: 94ad80ee14889020cb4a14d809fb99d16cbf4ff3dc7f4c564fc72efe2c5763a60090a1c16a9fd18ceeb1e993a1303a4d870c0a22f26adaf435b368b46a7d8462
   languageName: node
   linkType: hard
 
@@ -2591,28 +2591,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-cli@npm:^4.10.0":
-  version: 4.10.0
-  resolution: "webpack-cli@npm:4.10.0"
+"webpack-cli@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "webpack-cli@npm:5.0.0"
   dependencies:
     "@discoveryjs/json-ext": "npm:^0.5.0"
-    "@webpack-cli/configtest": "npm:^1.2.0"
-    "@webpack-cli/info": "npm:^1.5.0"
-    "@webpack-cli/serve": "npm:^1.7.0"
+    "@webpack-cli/configtest": "npm:^2.0.0"
+    "@webpack-cli/info": "npm:^2.0.0"
+    "@webpack-cli/serve": "npm:^2.0.0"
     colorette: "npm:^2.0.14"
-    commander: "npm:^7.0.0"
+    commander: "npm:^9.4.1"
     cross-spawn: "npm:^7.0.3"
+    envinfo: "npm:^7.7.3"
     fastest-levenshtein: "npm:^1.0.12"
     import-local: "npm:^3.0.2"
-    interpret: "npm:^2.2.0"
-    rechoir: "npm:^0.7.0"
+    interpret: "npm:^3.1.1"
+    rechoir: "npm:^0.8.0"
     webpack-merge: "npm:^5.7.3"
   peerDependencies:
-    webpack: 4.x.x || 5.x.x
+    webpack: 5.x.x
   peerDependenciesMeta:
     "@webpack-cli/generators":
-      optional: true
-    "@webpack-cli/migrate":
       optional: true
     webpack-bundle-analyzer:
       optional: true
@@ -2620,7 +2619,7 @@ __metadata:
       optional: true
   bin:
     webpack-cli: bin/cli.js
-  checksum: 994ff43b25f27ea132e470e6d469b17b351cba463aa76cbac34885ce50ea1eb17a8edbd60b6398370c47b30ae4ff2c67fc222fb2f0fecfc2941ea04dc741a842
+  checksum: fc76ecf9be645b2058c8b933f43dd660589bf16dae845e609f0c76ac665300621df23ed5e5350dfb6dbccf5570f6549ce9c226db0bca46b966155bc19a8f5ead
   languageName: node
   linkType: hard
 
@@ -2641,9 +2640,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.74.0":
-  version: 5.74.0
-  resolution: "webpack@npm:5.74.0"
+"webpack@npm:^5.75.0":
+  version: 5.75.0
+  resolution: "webpack@npm:5.75.0"
   dependencies:
     "@types/eslint-scope": "npm:^3.7.3"
     "@types/estree": "npm:^0.0.51"
@@ -2674,7 +2673,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: d6416e650775ec1ac2087daa1f0db738a07bd709b1ab2784d902d4add2d75bdbfa1c6103ce1191ddc11aaa08ad99cc99c49bfcf885a4b89553286716c3c1a9b4
+  checksum: 253fca9ba42fea3e3aaf6c913cb6aca6bf383a8a55f9fcdf8d9f364b4f7e406b3c308f4164ea3f45f11259e1a699a584fa6811bdd2c215101cb1a2fa6c0410dc
   languageName: node
   linkType: hard
 

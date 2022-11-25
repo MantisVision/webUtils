@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded',function()
 {
 	import("./MantisRYSK.min.js").then(() => 
 	{
+		Rysk.MantisLog.SetLogLevel(Rysk.MantisLog.WARNINGS | Rysk.MantisLog.ERRORS);
 		const viewport = document.getElementById("viewport");
 		const scene = new THREE.Scene();
 		const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);

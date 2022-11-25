@@ -1,11 +1,12 @@
 import { URLMesh } from "@mantisvision/ryskplaycanvas";
-import { MantisLog, RyskEvents } from "@mantisvision/utils";
+import { MantisLog } from "@mantisvision/utils";
 
 const video_url = "./chloe_battle.mp4";
 const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
 	var app = null;
 	try
 	{

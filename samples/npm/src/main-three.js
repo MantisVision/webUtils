@@ -1,11 +1,13 @@
 const THREE = require("three");
 import { URLMesh } from "@mantisvision/ryskthreejs";
+import { MantisLog } from "@mantisvision/utils";
 
 const video_url = "./chloe_battle.mp4";
 const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
 	const viewport = document.getElementById("viewport");
 	const scene = new THREE.Scene();
 	const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);

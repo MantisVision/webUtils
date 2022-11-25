@@ -3,6 +3,7 @@ const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
+	window.Rysk.MantisLog.SetLogLevel(window.Rysk.MantisLog.WARNINGS | window.Rysk.MantisLog.ERRORS);
 	var app = null;
 	try
 	{
