@@ -66,7 +66,7 @@ ryskObj.on(RyskEvents.dataDecoded,async function(data)
 The passed callback should either be asynchronous or return a promise. Internally, RyskURL will wait till it resolves
 in order to continue with matching the current video frame with the data.
 
-The end of the video is marked by "video.ended" event (`RyskEvents`` object from ``@mantisvision/utils`` package has it
+The end of the video is marked by "video.ended" event (``RyskEvents`` object from ``@mantisvision/utils`` package has it
 as ``RyskEvents.videoEnded``).
 ```javascript
 ryskObj.on(RyskEvents.videoEnded,function()
@@ -116,7 +116,7 @@ ryskObj.run().then(elements =>
 	}).catch(err => console.error(err));
 ```
 # RYSKStream
-This class works with a realtime continues MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
+This class works with a realtime continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
 RYSKStream decodes delivered frames on its own in the separate worker process. Video is being played realtime, and 
 the canvas is updated only if the SYK/RYSK data for the current frame has already been provided. Otherwise, the current
 video frame is skipped and the process continues with the next one.
