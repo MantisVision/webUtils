@@ -275,7 +275,7 @@ the data and update itself. What is still missing however, is a texture. That on
 canvas HTML element or from video HTML element. The former is recommend due to the better syncing - canvas gets redrawn only
 once the previous request for the decoded data was resolved, whilest the video may accidently display a frame or two before 
 it is automatically paused which may result in the texture ill fitting the mesh. This is particularly prominent in
-``@mantisvision/ryskstream`` where the video isn't paused due to realtime nature of the mediastream.
+``@mantisvision/ryskstrem`` where the video isn't paused due to realtime nature of the mediastream.
 
 Let's say you create another file with the class for the texture called ``CustomTexture.js``:
 ```javascript
@@ -299,9 +299,9 @@ class CustomTexture
 	}
 }
 ```
-A strange bug was noticed with PlayCanvas library and Firefox or older Safari on Mac. The canvas had to be copied to a different
-canvas prior to uploading to the memory, otherwise syncing issues occured. Chrome as well as a newer Safari were unnefected
-by the bug. Three.js worked correctly on every browser without the need to copy the canvas. Thus, should you experience
+A strange bug was noticed with PlayCanvas library and Firefox or older Safari on Mac. The canvas had to be copied to different,
+canvas prior to uploading to the memory, otherwise syncing issues occured. Chrome as well as newer Safari were unnefected
+by the bug. Three.js worked correctly on every browser without he need to copy the canvas. Thus, should you experience
 a similar behavior with your integration, try copying canvas to a temporary one in the update method first.
 
 Now your ``CustomMesh.js`` will look something like this:

@@ -35,17 +35,25 @@ constructor(type);
  */
 async init();
 ```
+```javascript
+/**
+ * This method is used to avoid an unnecessary copying of data between the downloader and the WASM.
+ * @param {Integer} length length of the array which will be filled with the input data
+ * @returns {Uint8Array} Typed array of the requested length
+ */
+getMemoryForInput(length);
+```
 ```javascript	
 /**
  * Decodes the given frame.
- * @param {Array} frame byte data of the frame
+ * @param {Array} frame byte data of the frame. This doesn't have to be set if the method getMemoryForInput was used first and the provided input memory was filled with the data.
  * @param {Boolean} returnReference if set to true, the return value will be a direct reference to the memory of wasm -- 
  *			this is very fast for a single reading, but the memmory can overwritten by further calls of this method. 
  *			If set to false (default and recommended if you're unsure), a safe copy will be made and returned. 
- *			The cpúe can be freely modified or sent to/from the webworker.
+ *			The copy can be freely modified or sent to/from the webworker.
  * @returns {Object} object containing three parameter: vertices, uvs, indices; each of them is a Typed array, they might share the same buffer, but have different offsets!
  */
-decode(frame,returnReference = false);
+decode(frame = null,returnReference = false);
 ```
 ```javascript	
 /**

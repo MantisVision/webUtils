@@ -15,10 +15,15 @@ In order to obtain the canvas with the current frame and synced data, a new obje
 ```javascript
 const ryskObj = new RYSKUrl("video_url","data_url");
 ```
-``data_url`` can point to data in one of these three formats:
+``data_url`` can point to data in one of these four formats:
 * SYK1
 * SYK2
-* RYSK
+* RYS0
+* RYS1
+
+They can be packed in a single .syk file or split into multiple .syk files. In the latter case, URL of the JSON manifest
+(having .json extension) must be provided. "video_url" can also point either to the video file or to HLS manifest 
+(having .m3u3 extension). For more details see the [HLS Support documentation](./hlssupport.md).
 
 The process of decoding the data and pairing it with the video frames can be started by invoking ``run`` method on the object.
 It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
@@ -116,7 +121,7 @@ ryskObj.run().then(elements =>
 	}).catch(err => console.error(err));
 ```
 # RYSKStream
-This class works with a realtime continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
+This class works with a realtime, continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
 RYSKStream decodes delivered frames on its own in the separate worker process. Video is being played realtime, and 
 the canvas is updated only if the SYK/RYSK data for the current frame has already been provided. Otherwise, the current
 video frame is skipped and the process continues with the next one.
@@ -244,7 +249,8 @@ Both RYSKUrl and RYSKMesh trigger multiple events during their lifecycle. A call
  - dataDecoded: triggers each time data is decoded. The data is passed to the callback as its first parameter
  - decodingPaused: decoding of the data has paused because it's waiting till more data is downloaded
  - error: triggers on error
- - video.ended: triggers when video finishes playing
+ - video.ended: triggers when the video finishes playing
+ - disposed: triggers right after ``dispose()`` method on the object is called
 
 It might become useful to listen also for native events of video element which can be registered through the
 ``onVideoEvent(event,func)`` callback which is in fact a mere wrapper around the native ``addEventListener`` method.
@@ -290,6 +296,21 @@ async run();
  * @returns {unresolved}
  */
 async stop();
+```
+```javascript
+/**
+ * Jumps to a timestamp defined in seconds. In the background, this method sets currentTime of the video to a desired
+ * value
+ * @param {Integer} timestamp where to jump
+ */
+async jumpAt(timestamp);
+```
+```javascript
+/**
+ * Gets the duration of the video
+ * @returns {Float} Duration of the video in seconds
+ */
+async getDuration()
 ```
 ## RYSKStream
 RYSKStream provides the following methods:
@@ -431,6 +452,35 @@ onVideoEvent(event,callback = null);
  * @returns {AbstractRYSK} reference to this object for chaining
  */
 offVideoEvent(event,callback);
+```
+```javascript
+/**
+ * Proxy for the same method of the VideoElement. Allows to register callback on HLS events of hls.js. Beware that
+ * on Safari the native HLS support is used instead of hls.js, so no callback will be emited and an exception might
+ * be thrown on an attempt to register the callback.
+ * @param {String} event name of the event from hls.js
+ * @param {callable} func callback which gets called on the event
+ * @returns {RYSKUrl} this object for chaining
+ */
+onHlsEvent(event,func);
+```
+```javascript	
+/**
+ * Proxy for the same method of the VideoElement. Detaches the callback from the HLS event of hls.js. 
+ * @param {String} event name of the event from hls.js
+ * @param {callable} func callback which gets detached
+ * @returns {RYSKUrl} this object for chaining
+ */	
+offHlsEvent(event,func);
+```
+```javascript	
+/**
+ * Same as onHlsEvent method, but the callback gets called only once.
+ * @param {String} event name of the event from hls.js
+ * @param {callable} func callback which gets called the next time the event is triggered
+ * @returns {RYSKUrl} this object for chaining
+ */
+onceHlsEvent(event,func);
 ```
 ```javascript
 /**

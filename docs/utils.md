@@ -31,6 +31,29 @@ import { MantisLog } from @mantisvision/utils
 MantisLog.SetLogLevel(MantisLog.WARNINGS | MantisLog.ERRORS); //enabling and disabling logs is done using bitmask
 MantisLog.warning("Some warning"); //internally uses console.warn()
 ```
+
+## VideoElement
+This is essentialy a wrapper around a classical HTMLVideo element. Its main purpose is to avoid conflicts between ``play``
+and ``pause`` calls from user and a library. Since these calls are asynchronous, it might happen they get interrupted 
+by one another. VideoElement attempts to solve this by ordering the calls in a meaningful way and potetialy delaying them
+till the promises from previous calls don't get resolved.
+
+As the video source, one of the followinf three can be used:
+- URL of a video file
+- URL of m3u8 manifest file for HLS
+- MediaStream 
+
+Usage:
+```javascript
+import { VideoElement } from @mantisvision/utils
+
+const video = new VideoElement();
+video.setSource("video_url");
+
+video.playUser(); //should be triggered by a user
+video.playLib();  //should be triggered by a library
+```
+
 ## Public API
 
 ### SentryInternal
@@ -133,4 +156,123 @@ error(msg);
  * @param {String} msg Message to log
  */
 debug(msg);
+```
+
+### VideoElement
+This object is a wrapper around HTMLVideoElement and support video files, media streams and HLS.
+```javascript
+/**
+ * Creates a new VideoElement object
+ */
+constructor();
+```
+```javascript	
+/**
+ * Returns the underlying HTMLVideoElement
+ * @return {HTMLVideoElement}
+ */
+getElement();
+```
+```javascript	
+/**
+ * Set the source of the VideoElement. It can be either URL of a video file, URL of m3u8 manifest for the HLS or
+ * a MediaStream.
+ * @param {MediaStream|String} source for the underlying HTMLVideoElement
+ */
+async setSource(source);
+```
+```javascript	
+/**
+ * Jump to a point in time in the video
+ * @param {float} timestamp in seconds where the video should jump
+ */
+jumpTo(timestamp);
+```
+```javascript	
+/**
+ * Returns duration of the video once the metada are loaded
+ * @returns {float} duration of the video in seconds
+ */
+async getDuration();
+```
+```javascript	
+/**
+ * Checks whether the hls.js library is used. 
+ * @return {boolean} true if it is, false otherwise
+ */
+isHls();
+```
+```javascript	
+/**
+ * Registers a listener for HLS events. It's basically a proxy for the same functionality from hls.js library. Be aware
+ * that iOS Safari supports HLS natively and as such won't emit certain events specific for hls.js.
+ * @param {String} event name of the event
+ * @param {callable} func callback which gets triggered on the event
+ */
+onHlsEvent(event,func);
+```
+```javascript	
+/**
+ * Unregisters a callback from the HLS event.
+ * @param {String} event name of the event
+ * @param {callable} func callback which gets removed from the event
+ */
+offHlsEvent(event,func);
+```
+```javascript
+/**
+ * Similar to onHlsEvent, but the registered callback gets triggered only the first time the event occurs.
+ * @param {String} event name of the event
+ * @param {callable} func callback which gets triggered the first time the event occurs.
+ */
+onceHlsEvent(event,func);
+```
+```javascript	
+/**
+ * If a users wants to start playing the video, this method should be called. However, the video won't be
+ * played if pauseLib() was called before. Only if both, libraries and the user, wish to play the video, the video
+ * actually starts to play.
+ */
+async playUser();
+```
+```javascript	
+/**
+ * User who requests to pause the video should call this method. Pause has a higher priority than any play, so the
+ * video is paused even if no library has requested it.
+ */
+async pauseUser();
+```
+```javascript	
+/**
+ * A library which uses VideoElement object and wants to play the video should call this method. However, the video won't be
+ * played if pauseUser() was called before. Only if both, libraries and the user, wish to play the video, the video
+ * actually starts to play.
+ */
+async playLib();
+```
+```javascript	
+/**
+ * Library which requests to pause the video should call this method. Pause has a higher priority than any play, so the
+ * video is paused even if no user has requested it.
+ */
+async pauseLib();
+```
+```javascript	
+/**
+ * Alias for playLib method
+ */
+play();
+```
+```javascript	
+/**
+ * Alias for pauseLib method
+ */
+pause();
+```
+```javascript	
+/**
+ * Dispose the VideoElement. It is highly advisable to call this method after you finish using the object of this
+ * class to help the garbage collector to efficiently free the memory.
+ */
+async dispose();
 ```

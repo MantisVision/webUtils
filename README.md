@@ -17,6 +17,7 @@ is sufficiently buffered. In order to see the meshes, set their visibility prope
   * [Inner architecture](#inner-architecture)
     * [Dependencies](#dependencies)
     * [Data flow](#data-flow)
+  * [HLS support](#hls-support)
   * [Description and API](#description-and-api)
 
 ## Installing a package in your project
@@ -172,6 +173,10 @@ the tearing due to the skipped frames will be visible.
 
 ![alt RYSKStream flow](./docs/images/RYSKStream_flow2.png)
 
+## HLS Support
+``@mantisvision/rysk*`` libraries currently support HTTP Live Streaming for the part of video texture. Support for
+HLS for volumetric data (i.e. SYK/RYSK) is a "work in progress". More about the support can be found [here](./docs/hlssupport.md)
+
 ## Description and API
 Detailed description of APIs of packages can be found here:
 * [@mantisvision/rysk](./docs/rysk.md)
@@ -188,4 +193,5 @@ Detailed description of APIs of packages can be found here:
 ## Samples
 * [Standalone library sample](./samples/standalone)
 * [NPM packages sample](./samples/npm)
+* [Stream sample](./samples/stream)
 
