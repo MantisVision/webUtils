@@ -19,6 +19,8 @@
 		<script type="text/javascript" src="mantis.bundle.js"></script>
 		<script type="text/javascript" src="aframe.bundle.js"></script>
 		<style type="text/css">
+			body { position: relative }
+			#progress { width: 100%; position: absolute; bottom: 5px }
 			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; z-index: 2 }
 			#three { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
 			#playcanvas { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
@@ -50,5 +52,6 @@
 		  <!-- Ground. -->
 		  <a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
 		</a-scene>
+		<progress id="progress" value="0" min="0"></progress>
 	</body>
 </html>

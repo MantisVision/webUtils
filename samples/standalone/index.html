@@ -18,6 +18,7 @@
 		<script type="module" src="three.js"></script>
 		<style type="text/css">
 			#viewport { width: 100vw; height: 100vh; position: relative }
+			#progress { width: 100%; position: absolute; bottom: 5px }
 			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; }
 			#playcanvas { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px }
 			#aframe { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px }
@@ -29,6 +30,7 @@
 			<button id="play">Play</button>
 			<a href="./index-aframe.html"><button id="aframe">A-Frame</button></a>
 			<a href="./index-playcanvas.html"><button id="playcanvas">Playcanvas</button></a>
+			<progress id="progress" value="0" min="0"></progress>
 		</div>
 	</body>
 </html>

@@ -21,6 +21,7 @@
 		<title>Playcanvas RYSK</title>
 		<style type="text/css">
 			#viewport { width: 100vw; height: 100vh; position: relative }
+			#progress { width: 100%; position: absolute; bottom: 5px }
 			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; }
 			#three { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; }
 			#aframe { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; }
@@ -30,6 +31,7 @@
 	</head>
 	<body>
 		<div id="viewport">
+			<progress id="progress" value="0" min="0"></progress>
 			<button id="play">Play</button>
 			<a href="./index.html"><button id="three">Three.js</button></a>
 			<a href="./index-aframe.html"><button id="aframe">A-Frame</button></a>

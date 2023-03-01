@@ -16,19 +16,19 @@
 	},
 	"packageManager": "yarn@4.0.0-rc.25",
 	"devDependencies": {
-		"@mantisvision/ryskaframe": "^0.2.9",
-		"@mantisvision/ryskplaycanvas": "^0.3.9",
-		"@mantisvision/ryskthreejs": "^0.5.4",
-		"three": "^0.145.0",
+		"@mantisvision/ryskaframe": "^0.3.3",
+		"@mantisvision/ryskplaycanvas": "^0.4.1",
+		"@mantisvision/ryskthreejs": "^0.6.1",
+		"three": "^0.150.1",
 		"webpack": "^5.75.0",
-		"webpack-cli": "^5.0.0"
+		"webpack-cli": "^5.0.1"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "webpack"
 	},
 	"dependencies": {
-		"@mantisvision/utils": "^1.4.2",
-		"aframe": "^1.3.0"
+		"@mantisvision/utils": "^1.4.5",
+		"aframe": "^1.4.1"
 	}
 }

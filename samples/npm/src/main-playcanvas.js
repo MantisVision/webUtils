@@ -51,6 +51,24 @@ function run(app)
 	try
 	{
 		const ryskObj = new URLMesh(video_url,data_url,pc);
+		
+		const progress = document.getElementById("progress");
+	
+		progress.addEventListener("click", event => 
+		{
+			const pos = (event.pageX - progress.offsetLeft - progress.offsetParent.offsetLeft) / progress.offsetWidth;
+			ryskObj.getDuration().then(duration => ryskObj.jumpAt(pos * duration));
+		});
+
+		ryskObj.getDuration().then(duration =>
+		{
+			progress.setAttribute("max", duration);
+		});
+
+		ryskObj.onVideoEvent("timeupdate",() => 
+		{
+			progress.value = ryskObj.getVideoElement().currentTime;
+		});
 
 		ryskObj.run().then(mesh => 
 		{//add mesh to the scene
