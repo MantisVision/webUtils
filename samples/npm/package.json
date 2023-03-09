@@ -14,13 +14,13 @@
 		"name": "Lubomir Daniel Fedor",
 		"email": "lubomir.fedor@supercomputers.sk"
 	},
-	"packageManager": "yarn@4.0.0-rc.25",
+	"packageManager": "yarn@3.4.1",
 	"devDependencies": {
-		"@mantisvision/ryskaframe": "^0.3.3",
+		"@mantisvision/ryskaframe": "^0.3.4",
 		"@mantisvision/ryskplaycanvas": "^0.4.1",
-		"@mantisvision/ryskthreejs": "^0.6.1",
+		"@mantisvision/ryskthreejs": "^0.6.2",
 		"three": "^0.150.1",
-		"webpack": "^5.75.0",
+		"webpack": "^5.76.0",
 		"webpack-cli": "^5.0.1"
 	},
 	"scripts": {
@@ -28,7 +28,7 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"@mantisvision/utils": "^1.4.5",
+		"@mantisvision/utils": "^1.4.6",
 		"aframe": "^1.4.1"
 	}
 }
