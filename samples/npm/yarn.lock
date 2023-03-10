@@ -77,11 +77,11 @@ __metadata:
   linkType: hard
 
 "@mantisvision/ryskbuffer@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "@mantisvision/ryskbuffer@npm:0.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.4.1%2Fef222291f69423463d74ab705d3625d6318d740f"
+  version: 0.4.2
+  resolution: "@mantisvision/ryskbuffer@npm:0.4.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.4.2%2F853cdba82ca1aca26b7d485c491eeb03ca8e622c"
   dependencies:
-    "@mantisvision/utils": ^1.4.6
-  checksum: 2156a877f9cc96c85292c0b43589a62b8df34b2060ea096a16a6034d9d1c35da2396de8f5bd8bbbd0f6246867347836f486e612652a217aa36c9d229dd555ffc
+    "@mantisvision/utils": ^1.4.7
+  checksum: e2fcf4a3ea3bbe56551ff57daa871c02616b36b4eca39d9eae93fd0dcf3bcefb8b7439257e87aeae5daf524daa8f797c4e382759fa7618160ba2985bdfbd8abe
   languageName: node
   linkType: hard
 
