@@ -1,4 +1,4 @@
-# RYSKUrl stamdalone sample project
+# RYSKUrl standalone sample project
 This is a usage example of a standalone RYSK library.
 The library is packed in the files MantisRYSK.min.js, MantisRYSKPlayCanvas.min.js and MantisRYSKaframe.min.js. 
 These can be obtained from the npm package ``@mantisvision/rysk``, ``@mantisvision/ryskplaycanvas`` 
