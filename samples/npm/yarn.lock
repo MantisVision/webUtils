@@ -157,14 +157,14 @@ __metadata:
   linkType: hard
 
 "@mantisvision/utils@npm:^1.4.6, @mantisvision/utils@npm:^1.4.7":
-  version: 1.4.7
-  resolution: "@mantisvision/utils@npm:1.4.7::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F1.4.7%2F27db58cd474710ba8cd92f49f9da50aa3c8505e4"
+  version: 1.4.8
+  resolution: "@mantisvision/utils@npm:1.4.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F1.4.8%2Fe22aad4e77cc7b4973000b67152edbd4d01651ab"
   dependencies:
     hls.js: ^1.3.4
   dependenciesMeta:
     hls.js:
       optional: true
-  checksum: 9a23b6bd7d6109dded9db8dee6eda47db9a1423b20742634d7fbb4781ed7eb8124888f2c89dfdee2b750381ac6b36fca37b4551bf97d670a895b2203e6ed95b2
+  checksum: 48694d8cb9dd8974362a8c6737bfc4a04bb8f94d4bba2e767ee03cce1e57745113ebf883e9f688ce7afe9f23f21b5e6f092f3ff471b9a6a28ba5ad7508ce214e
   languageName: node
   linkType: hard
 
