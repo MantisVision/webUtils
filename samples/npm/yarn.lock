@@ -139,13 +139,13 @@ __metadata:
   linkType: hard
 
 "@mantisvision/ryskurl@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@mantisvision/ryskurl@npm:2.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F2.0.3%2F3a3abeb9644b118af4fd2fe88a53994576fcedea"
+  version: 2.0.4
+  resolution: "@mantisvision/ryskurl@npm:2.0.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F2.0.4%2Fb51f86648541d787719492d3908546ec052a0803"
   dependencies:
     "@mantisvision/ryskbuffer": ^0.4.2
     "@mantisvision/ryskdownloader": ^0.3.3
-    "@mantisvision/utils": ^1.4.8
-  checksum: b9504a13477628085642bde8b3fe8cd8a6c087679358f82075b91214b9c41afe8ea4f7a455089b5575c89d2995e8cbe6fd5c661f0e216a4616bcec4d2aef2a24
+    "@mantisvision/utils": ^1.4.9
+  checksum: 378f0e0a234db19aadffd16ff3de6709a801b86558bc2cb2b8d854eff0dde5eca86a5f439356ed15d5df26452c11ba7defb94944345fba44daed30006592d939
   languageName: node
   linkType: hard
 
@@ -156,15 +156,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/utils@npm:^1.4.6, @mantisvision/utils@npm:^1.4.7, @mantisvision/utils@npm:^1.4.8":
-  version: 1.4.8
-  resolution: "@mantisvision/utils@npm:1.4.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F1.4.8%2Fe22aad4e77cc7b4973000b67152edbd4d01651ab"
+"@mantisvision/utils@npm:^1.4.6, @mantisvision/utils@npm:^1.4.7, @mantisvision/utils@npm:^1.4.8, @mantisvision/utils@npm:^1.4.9":
+  version: 1.4.9
+  resolution: "@mantisvision/utils@npm:1.4.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F1.4.9%2F2afc137520b520b44c722f0be5d5ca39c7b6a361"
   dependencies:
     hls.js: ^1.3.4
   dependenciesMeta:
     hls.js:
       optional: true
-  checksum: 48694d8cb9dd8974362a8c6737bfc4a04bb8f94d4bba2e767ee03cce1e57745113ebf883e9f688ce7afe9f23f21b5e6f092f3ff471b9a6a28ba5ad7508ce214e
+  checksum: af530e213c2cec824c7ecae205c60f9ca49933db4d145b826b6c0a67a331e0041032cfaf8698454e09963902511dd0084f896bb75ff39b429048c58acf71a11d
   languageName: node
   linkType: hard
 

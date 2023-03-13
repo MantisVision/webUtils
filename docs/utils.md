@@ -197,8 +197,15 @@ async getDuration();
 ```
 ```javascript	
 /**
- * Checks whether the hls.js library is used. 
+ * Checks whether the hls.js library is used.
  * @return {boolean} true if it is, false otherwise
+ */
+isHlsLibrary();
+```
+```javascript
+/**
+ * Checks whether the HLS is used
+ * @returns {Boolean} true if it is, false otherwise
  */
 isHls();
 ```
