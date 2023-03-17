@@ -95,12 +95,12 @@ __metadata:
   linkType: hard
 
 "@mantisvision/ryskdownloader@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "@mantisvision/ryskdownloader@npm:0.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.4.1%2Fb0d8770d54c73fb24e04047c156ee0ebb754ec2a"
+  version: 0.4.2
+  resolution: "@mantisvision/ryskdownloader@npm:0.4.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.4.2%2F05883ea64c9a387f9486652629401b6ae9fbc7b9"
   dependencies:
     "@mantisvision/ryskdecoder": ^0.2.3
     json-bigint: ^1.0.0
-  checksum: 940da9fea4e3b75d3495c30fc9e5fcd4101eb75ce6c2c4615ae6fbe0c51c069b0966e0e0009c98a7d47569ae90efb74d8553470f0940de726f69a1f5c0ac56ec
+  checksum: a83eab782cce03605a8d957a41c21f9f13aae1d30b2bb8334a3dfd36e48dea4c514c51357854e029eda882d7cfb925560d8c80054f6e6e4e6679dc3ec05360dc
   languageName: node
   linkType: hard
 
@@ -157,14 +157,14 @@ __metadata:
   linkType: hard
 
 "@mantisvision/utils@npm:^1.4.10, @mantisvision/utils@npm:^1.4.12":
-  version: 1.4.13
-  resolution: "@mantisvision/utils@npm:1.4.13::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F1.4.13%2F7d5b2c31c063750864fa0e4959203c17d4b7c347"
+  version: 1.4.14
+  resolution: "@mantisvision/utils@npm:1.4.14::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F1.4.14%2Fe40e5a0f739b3333baa647141592f7a782173956"
   dependencies:
     hls.js: ^1.3.4
   dependenciesMeta:
     hls.js:
       optional: true
-  checksum: 96b6109fd84cab55e338b1f4ddf0f6c692506e704b09f9ff95a28bb872b60ac1fd7da7bde7a456dbc0ad813e9106d0916530713cbf0dee2e6bca04b32fe4ed6c
+  checksum: ebf7afeae6297a4c8d6f41351c69ec2825b295342ff8f2fbfcafce21a2279f0c14fad668fec2143c66e70618b4576a9c25b5778e5d4aa9e636bf39667a290221
   languageName: node
   linkType: hard
 
