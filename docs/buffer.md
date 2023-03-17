@@ -147,7 +147,9 @@ resetBuffer();
  * Registers a callback which is called just once (!) when the data buffer is filled less than from one third.
  * This could be used to once again resume the download of the data if it was paused before (e.g. due to too many
  * data downloaded ahead).
- * @param {callable} callback function to call as a callback. Its only parameter is an Integer which equals to one third of data buffer length (e.g. length is 60, param will be 20).
+ * @param {callable} callback function to call as a callback. Two parameters will be passed: an Integer which equals 
+ *                   to one third of data buffer length (e.g. length is 60, param will be 20) and an Integer indication 
+ *                   number of the last frame in the buffer + 1 or the number of the frame the buffer is currently waiting for.
  */
 onceSmallerDiff(callback);
 ```

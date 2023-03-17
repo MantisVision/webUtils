@@ -133,16 +133,19 @@ start(frameCount);
 ```
 ```javascript
 /**
- * Pause downloading
+ * Pause downloading/decoding. This method is asynchronous and is advisable wait till the returned promises resolves to make sure
+ * that downloading has stopped.
  */
-pause();
+async pause();
 ```
 ```javascript
 /**
  * Resume paused downloading
  * @param {Integer} frameCount how many frames should be decoded after the downloading resumes
+ * @param {Integer} frameToResume number of the first frame which should be decoded after the decoding is resumed. 
+ *                  If not given, the decoding continues from the frame where it was paused.
  */
-resume(frameCount);
+resume(frameCount,frameToResume = null);
 ```
 ```javascript
 /**
@@ -154,8 +157,10 @@ cancel();
 /**
  * Resets decoding of frames back to the very first frame.
  * @param {Integer} frameCount how many frames should be decoded ahead
+ * @param {Integer} frameToResume number of the first frame the decoding starts with
+ *                  If not given, the decoding starts with frame 0.
  */
-reset(frameCount);
+reset(frameCount,frameToResume = null);
 ```
 ```javascript
 /**

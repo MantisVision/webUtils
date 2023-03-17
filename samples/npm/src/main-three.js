@@ -7,7 +7,7 @@ const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS | MantisLog.DEBUG);
 	const viewport = document.getElementById("viewport");
 	const scene = new THREE.Scene();
 	const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);
