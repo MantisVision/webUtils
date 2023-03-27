@@ -17,7 +17,10 @@ npm install @mantisvision/ryskplaycanvas
 ```
 
 ## Usage:
-You can use this library in the following way:
+You can use this library either with the raw PlayCanvas engine or integrate it into the PlayCanvas editor.
+
+### PlayCanvas engine
+You can import the library in the following way:
 ```javascript
 import { URLMesh, StreamMesh } from "@mantisvision/ryskplaycanvas";
 
@@ -40,16 +43,39 @@ callback of the PlayCanvas application, for instance like this:
 ```javascript
 import { URLMesh } from "@mantisvision/ryskplaycanvas";
 
-// playercanvas is the global object of PlayerCanvas engine
+// playcanvas is the global object of PlayCanvas engine
 const app = new playercanvas.Application(canvas);
-const ryskObj = new URLMesh(video_url,data_url,playercanvas);
+const ryskObj = new URLMesh(video_url,data_url,playcanvas);
 
 app.on("frameupdate",() => ryskObj.update());
 ...
 ```
 
-When used inside PlayCanvas editor in a custom script, it is recommended to call it inside update method of your
-custom PlayCanvas editor script.
+### PlayCanvas editor
+Currently, the Playcanvas editor doesn'ŧ work with npm packages, so you have to use minified version of the library in
+the file ``MantisRYSKPlayCanvas.min.js``. You have to uploaded to your project as an asset, create an entity which will
+represent a RYSK 3D mesh, add a new empty script to it and inside it import the library, e.g. like this:
+
+```javascript
+const asset = pc.Application.getApplication().assets.find('MantisRYSKPlayCanvas.min.js');
+import(asset.getFileUrl()).then(() => 
+{//from now on, you can use window.RYSK global object.
+	this.ryskObj = new window.Rysk.URLMesh(video_url,data_url,pc); //the third parameter is the global PlayCanvas object
+	this.ryskObj.play();
+	return this.ryskObj.run();
+}).then(meshInstance => 
+{//add the created mesh to this entity as its render component
+	meshInstance.visible = true; //meshinstance has the visibility set to false by default
+	this.entity.addComponent('render',{ meshInstances: [meshInstance] });
+});
+```
+PlayCanvas scripts attached to entities can have an ``update`` method which is automatically called on each redraw.
+It is therefore an ideal place to put the call to the ``upade`` method of the RYSK object. However, on older version
+of Safari browser and Firefox might exhibita a synchronization issue between the mesh and its texture. In order to fix
+it, the ``update`` method of the RYSK object should be called in ``window.requestAnimationFrame`` callback instead.
+
+An example PlayCanvas editor script ins included in the npm package in ``examples`` folder. It should be attached to the
+entity which ought to represent the 3D mesh in the scene and can be configured through its attributes. 
 
 ## Public API:
 Exported class ``URLMesh`` extends class ``RYSKUrl`` from ``@mantisvision/ryskurl`` and exported class ``StreamMesh``
