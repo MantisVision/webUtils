@@ -483,7 +483,7 @@ Ryskurl.prototype.dispose = function()
 };
 ```
 
-### 2.4 Progress bar
+### 2.3 Progress bar
 Create a script called ``ProgressBar.js`` and attach it as a script component to the topmost ProgressBar element. It will allow other scripts
 (in this particular case the ``PlayCanvasRYSKUrl.js`` script) to set the length of the progress bar, set the current
 status/frame number and listen on ``jump`` events when to user wants to jump to a different time position in the video.
