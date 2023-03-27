@@ -16,10 +16,10 @@ project; instead, it should rather provide an inspiration for your own integrati
 ## Table of contents
 1. [Scene composition](#scene-composition)
 2. [Custom scripts](#custom-scripts)
-  - [Mantisvision library](#mantisvision-library)
-  - [RYSK mesh script](#rysk-mesh-script)
-  - [Progress bar](#progress-bar)
-  - [Model buttons](#model-buttons)
+  2.1 [Mantisvision library](#21-mantisvision-library)
+  2.2 [RYSK mesh script](#22-rysk-mesh-script)
+  2.3 [Progress bar](#23-progress-bar)
+  2.4 [Model buttons](#24-model-buttons)
 
 ## 1. Scene composition
 First, add all the necessary entities into the scene.
