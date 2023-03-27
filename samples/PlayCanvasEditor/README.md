@@ -60,7 +60,7 @@ var Ryskurl = pc.createScript('ryskurl');
 Then add 5 configurable attributes which will link the RYSK mesh entity with the UI elements and allow to configure whether
 the played video should loop:
 
-```javasscript
+```javascript
 // true - video will loop, false - video stops at the end
 Ryskurl.attributes.add('loop', { type: 'boolean',default: false });
 //entity for showing the progress of the video
