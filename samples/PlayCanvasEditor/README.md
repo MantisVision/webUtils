@@ -14,12 +14,12 @@ the Playcanvas editor environment is assumed. The sample doesn't necessary prese
 project; instead, it should rather provide an inspiration for your own integration based on your specific needs.
 
 ## Table of contents
-  1. [Scene composition](#scene-composition)
-  2. [Custom scripts](#custom-scripts)
-    - [Mantisvision library](#mantisvision-library)
-    - [RYSK mesh script](#rysk-mesh-script)
-    - [Progress bar](#progress-bar)
-    - [Model buttons](#model-buttons)
+1. [Scene composition](#scene-composition)
+2. [Custom scripts](#custom-scripts)
+  - [Mantisvision library](#mantisvision-library)
+  - [RYSK mesh script](#rysk-mesh-script)
+  - [Progress bar](#progress-bar)
+  - [Model buttons](#model-buttons)
 
 ## 1. Scene composition
 First, add all the necessary entities into the scene.
@@ -483,8 +483,7 @@ Ryskurl.prototype.dispose = function()
 };
 ```
 
-### 2.3 Progress bar
-
+### 2.4 Progress bar
 Create a script called ``ProgressBar.js`` and attach it as a script component to the topmost ProgressBar element. It will allow other scripts
 (in this particular case the ``PlayCanvasRYSKUrl.js`` script) to set the length of the progress bar, set the current
 status/frame number and listen on ``jump`` events when to user wants to jump to a different time position in the video.
