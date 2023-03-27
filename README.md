@@ -194,4 +194,5 @@ Detailed description of APIs of packages can be found here:
 * [Standalone library sample](./samples/standalone)
 * [NPM packages sample](./samples/npm)
 * [Stream sample](./samples/stream)
+* [PlayCanvas editor sample](./samples/PlayCanvasEditor)
 

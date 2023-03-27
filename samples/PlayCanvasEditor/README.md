@@ -1,7 +1,7 @@
 # PlayCanvas editor sample project
 
 This project showcases the use ``@mantisvision/ryskplaycanvas`` library in the environment of PlayCanvas editor. 
-To see the description of the library itself, you can read its documentation [here](../../dosc/playcanvas.md).
+To see the description of the library itself, you can read its documentation [here](../../docs/playcanvas.md).
 The sample can be accessed, reviewed and forked [directly through playcanvas.com](https://playcanvas.com/project/939297/overview/chatxr-playcanvas-tests)
 
 The directory with the sample also contains an additional ``src`` directory with the unminified source code of the three
@@ -14,12 +14,12 @@ the Playcanvas editor environment is assumed. The sample doesn't necessary prese
 project; instead, it should rather provide an inspiration for your own integration based on your specific needs.
 
 ## Table of contents
-  1) [Scene composition](#scene-composition)
-  2) [Custom scripts](#custom-scripts)
-    A) [Mantisvision library](#mantisvision-library)
-    B) [RYSK mesh script](#rysk-mesh-script)
-    C) [Progress bar](#progress-bar)
-    D) [Model buttons](#model-buttons)
+  1. [Scene composition](#scene-composition)
+  2. [Custom scripts](#custom-scripts)
+    1. [Mantisvision library](#mantisvision-library)
+    2. [RYSK mesh script](#rysk-mesh-script)
+    3. [Progress bar](#progress-bar)
+    4. [Model buttons](#model-buttons)
 
 ## 1. Scene composition
 First, add all the necessary entities into the scene.
@@ -36,7 +36,7 @@ and displays the 3D model based on the clicked button.
 ## 2. Custom scripts
 To add a functionality to the scene, four custom scripts need to be added to the projects.
 
-### A. Mantisvision library
+### 2.1 Mantisvision library
 Playcanvas ediotr currently doesn't provide an integral way to use the NPM packages, so the standalone minified version
 of the ``@mantisvision/ryskplaycanvas`` library must be loaded manually. The script is called ``MantisRYSKPlayCanvas.min.js``
 and is part of the NPM package ``@mantisvision/ryskplaycanvas``. If you use directly this minified standalone version,
@@ -47,7 +47,7 @@ passed through the ``window.Rysk.URLMesh`` constructor parameter.
 Upload the file with the library to the scripts folder in your PlayCanvas editor project (you can create a separate
 RYSK subdirectory for it if you wish).
 
-### B. RYSK mesh script
+### 2.2 RYSK mesh script
 This will be the main script of the project. Create an empty script in the file PlayCanvasRYSKUrl.js and attach it to the
 RYSKMesh entity as a script component (the final script can be found [here](./src/PlayCanvasRYSKUrl.js)). 
 Its purpose is to load the Mantisvision library and expose its API to the other entities in the PlayCanvas editor. For brevity,
@@ -75,7 +75,7 @@ Ryskurl.attributes.add('volumebutton', {type: 'entity', description: 'Button for
 
 You could also add an attribute to connect it to the four buttons specifing the 3D models, but in this sample project, we 
 do that the opposite way by adding the proper attribute to the script attached to these buttons (see the chapter
-[2.D. Model buttons](#d-model-buttons)).
+[2.4. Model buttons](#2-4-model-buttons)).
 
 The initialize method of the ryskurl script will declare and define three properties to store the internal state of a Ryskurl
 instance, the video and the data URLs and a reference to the RYSK object created by ``@mantisvision/ryskplaycanvas`` library.
@@ -201,7 +201,7 @@ if (this.stopbutton)
 ```
 
 We also connect to the Progress bar entity if its given. The entity is going to carry its own custom script (see 
-[2.C. Progress bar](#c-progress-bar)) which will allow to register a callback on a ``jump`` event. The progress will emit this
+[2.3. Progress bar](#2-3-progress-bar)) which will allow to register a callback on a ``jump`` event. The progress will emit this
 event each time a user clicks somewhere on the progress bar and the callback receives a specific timestamp in seconds.
 
 ```javascript
@@ -266,7 +266,7 @@ the import wasn't done already (i.e. ``window.Rysk`` already exists). The refere
 ``importFinished`` for use in the ``play`` method.
 
 The ``play`` method is the main public part of the script's API. It is meant to be called externally from a different
-script (in our sample case from the [Model buttons](#d-model-buttons)) and its parameters are URLs of a file with a
+script (in our sample case from the [Model buttons](#2-4-model-buttons)) and its parameters are URLs of a file with a
 RYSK data and a file with a video. Once the import is finished (by waiting for ``importFinished`` property being resolved) 
 a new mesh is created:
 
@@ -335,7 +335,7 @@ Ryskurl.prototype.loopVideo = function()
 };
 ```
 Progress bar is updated on each ``timeupdate`` event of the video by calling the ``setProgress`` method from the progress bar
-script component (see [2.C. Progress bar](#c-progress-bar)). Also, the duration of the video must be passed to this script
+script component (see [2.3. Progress bar](#2-3-progress-bar)). Also, the duration of the video must be passed to this script
 once it's available, so it can correctly display the current timeline progress. In a similar fashion, the frame number
 will be displayed each time a new frame from the video is decoded:
 ```javascript
@@ -483,7 +483,7 @@ Ryskurl.prototype.dispose = function()
 };
 ```
 
-### C. Progress bar
+### 2.3. Progress bar
 Create a script called ``ProgressBar.js`` and attach it as a script component to the topmost ProgressBar element. It will allow other scripts
 (in this particular case the ``PlayCanvasRYSKUrl.js`` script) to set the length of the progress bar, set the current
 status/frame number and listen on ``jump`` events when to user wants to jump to a different time position in the video.
@@ -559,7 +559,7 @@ ProgressBar.prototype.setFrameNo = function(text)
 };
 ```
 
-### D. Model buttons
+### 2.4. Model buttons
 Create an empty script in the file ``ModelBtn.js`` and attach it as a script component to each button which should serve
 for switching between different 3D models. The entity for the RYSK mesh is passed as a script attribute and so are the
 video URL and the data URLs:
