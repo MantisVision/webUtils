@@ -16,10 +16,10 @@ project; instead, it should rather provide an inspiration for your own integrati
 ## Table of contents
   1. [Scene composition](#scene-composition)
   2. [Custom scripts](#custom-scripts)
-    1. [Mantisvision library](#mantisvision-library)
-    2. [RYSK mesh script](#rysk-mesh-script)
-    3. [Progress bar](#progress-bar)
-    4. [Model buttons](#model-buttons)
+    - [Mantisvision library](#mantisvision-library)
+    - [RYSK mesh script](#rysk-mesh-script)
+    - [Progress bar](#progress-bar)
+    - [Model buttons](#model-buttons)
 
 ## 1. Scene composition
 First, add all the necessary entities into the scene.
@@ -75,7 +75,7 @@ Ryskurl.attributes.add('volumebutton', {type: 'entity', description: 'Button for
 
 You could also add an attribute to connect it to the four buttons specifing the 3D models, but in this sample project, we 
 do that the opposite way by adding the proper attribute to the script attached to these buttons (see the chapter
-[2.4. Model buttons](#2-4-model-buttons)).
+[2.4 Model buttons](#24-model-buttons)).
 
 The initialize method of the ryskurl script will declare and define three properties to store the internal state of a Ryskurl
 instance, the video and the data URLs and a reference to the RYSK object created by ``@mantisvision/ryskplaycanvas`` library.
@@ -201,7 +201,7 @@ if (this.stopbutton)
 ```
 
 We also connect to the Progress bar entity if its given. The entity is going to carry its own custom script (see 
-[2.3. Progress bar](#2-3-progress-bar)) which will allow to register a callback on a ``jump`` event. The progress will emit this
+[2.3 Progress bar](#23-progress-bar)) which will allow to register a callback on a ``jump`` event. The progress will emit this
 event each time a user clicks somewhere on the progress bar and the callback receives a specific timestamp in seconds.
 
 ```javascript
@@ -266,7 +266,7 @@ the import wasn't done already (i.e. ``window.Rysk`` already exists). The refere
 ``importFinished`` for use in the ``play`` method.
 
 The ``play`` method is the main public part of the script's API. It is meant to be called externally from a different
-script (in our sample case from the [Model buttons](#2-4-model-buttons)) and its parameters are URLs of a file with a
+script (in our sample case from the [Model buttons](#24-model-buttons)) and its parameters are URLs of a file with a
 RYSK data and a file with a video. Once the import is finished (by waiting for ``importFinished`` property being resolved) 
 a new mesh is created:
 
@@ -335,7 +335,7 @@ Ryskurl.prototype.loopVideo = function()
 };
 ```
 Progress bar is updated on each ``timeupdate`` event of the video by calling the ``setProgress`` method from the progress bar
-script component (see [2.3. Progress bar](#2-3-progress-bar)). Also, the duration of the video must be passed to this script
+script component (see [2.3 Progress bar](#23-progress-bar)). Also, the duration of the video must be passed to this script
 once it's available, so it can correctly display the current timeline progress. In a similar fashion, the frame number
 will be displayed each time a new frame from the video is decoded:
 ```javascript
@@ -483,7 +483,8 @@ Ryskurl.prototype.dispose = function()
 };
 ```
 
-### 2.3. Progress bar
+### 2.3 Progress bar
+
 Create a script called ``ProgressBar.js`` and attach it as a script component to the topmost ProgressBar element. It will allow other scripts
 (in this particular case the ``PlayCanvasRYSKUrl.js`` script) to set the length of the progress bar, set the current
 status/frame number and listen on ``jump`` events when to user wants to jump to a different time position in the video.
@@ -559,7 +560,7 @@ ProgressBar.prototype.setFrameNo = function(text)
 };
 ```
 
-### 2.4. Model buttons
+### 2.4 Model buttons
 Create an empty script in the file ``ModelBtn.js`` and attach it as a script component to each button which should serve
 for switching between different 3D models. The entity for the RYSK mesh is passed as a script attribute and so are the
 video URL and the data URLs:
