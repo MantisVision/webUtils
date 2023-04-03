@@ -10,7 +10,7 @@ is sufficiently buffered. In order to see the meshes, set their visibility prope
 ## Table of contents
   * [Installing a package in your project](#installing-a-package-in-your-project)
   * [Which package to choose](#which-package-to-choose)
-    * [For Three.js](#for-three.js-implementation)
+    * [For Three.js](#for-threejs-implementation)
     * [For Playcanvas](#for-playcanvas-implementation)
     * [For A-Frame](#for-a-frame-implementation)
     * [For a custom integration](#for-a-custom-implementation)
@@ -117,7 +117,7 @@ is ``@mantisvision/ryskplaycanvas`` package. It also contains the whole rysk lib
 single file for use in an environment without npm/yarn or package builder e.g. in the PlayCanvas editor (for more information,
 see [@mantisvision/ryskplaycanvas documentation](./docs/playcanvas.md)).
 
-## For A-Frame implementation
+### For A-Frame implementation
 
 There is an A-Frame integration package called ``@mantisvision/ryskaframe``, but due to the nature of A-Frame itself, it is
 a bit specific. Even though A-Frame seemingly uses Three.js under the hood, in truth it is built on Three.js fork called
