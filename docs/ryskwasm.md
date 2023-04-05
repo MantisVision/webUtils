@@ -33,4 +33,7 @@ GetWasmModule().then(Module =>
 };						
 ```
 
+## Release notes
 
+### 0.4.0
+Typescript type annotations were added into ``dist/MantisRYSKWASM.d.ts``.

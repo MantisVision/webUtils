@@ -67,7 +67,7 @@ MantisLog.SetLogLevel(MantisLog.DEBUG);
 // the third parameter - 50 - sets the size of the data framebuffer to approximately 50 frames
 const ryskObj = new RYSKUrl(videoUrl,dataUrl,50);
 
-// set the video to loop to see if it correctly starts to play once it finishes
+// set the video to loop to see, if it correctly starts to play once it finishes
 ryskObj.loop = true;
 
 ryskObj.on(RyskEvents.dataDecoded, data => 
@@ -79,7 +79,7 @@ ryskObj.on(RyskEvents.dataDecoded, data =>
 // listen for errors as well
 ryskObj.on(RyskEvents.error, err => console.error(err));
 
-ryskObj.run().then( htmlElements => 
+ryskObj.init().then( htmlElements => 
 {// Both these HTML elements are "in memory" only, so you might want to attach them let's say to the body of the webpage
  // in order to observe whether the video is indeed playing. Canvas element gets redrawn each time a new frame in video 
  // is shown AND the previous video frame was paired with the decoded data based on its number. If the data is late,
@@ -175,13 +175,13 @@ ryskObj2.on(RyskEvents.buffered, () =>
 	},400);
 });
 
-ryskObj1.run().then( htmlElements => 
+ryskObj1.init().then( htmlElements => 
 {
 	document.body.appendChild(htmlElements.canvas);
 	document.body.appendChild(htmlElements.video);
 }).catch(console.error);
 
-ryskObj2.run().then( htmlElements => 
+ryskObj2.init().then( htmlElements => 
 {
 	document.body.appendChild(htmlElements.canvas);
 	document.body.appendChild(htmlElements.video);
@@ -270,7 +270,7 @@ export default class CustomMesh
 }
 ```
 
-Once you call ``MeshGenerator.run()`` and ``MeshGenerator.play()``, your ``CustomMesh`` object should start to receive
+Once you call ``MeshGenerator.init()`` and ``MeshGenerator.play()``, your ``CustomMesh`` object should start to receive
 the data and update itself. What is still missing however, is a texture. That one can be constructed either from
 canvas HTML element or from video HTML element. The former is recommend due to the better syncing - canvas gets redrawn only
 once the previous request for the decoded data was resolved, whilest the video may accidently display a frame or two before 
@@ -364,7 +364,7 @@ export default class MeshGenerator extends RYSKUrl
 	{
 		if (!this.running)
 		{
-			this.htmlElements = await super.run();
+			this.htmlElements = await super.init();
 			this.mesh.createTexture(htmlElements.canvas);
 			this.running = true;
 		}

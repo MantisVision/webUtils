@@ -60,7 +60,8 @@ ryskurl component is based on the following schema:
 	data: { type: "string", default: '' },
 	buffer: { type: "int", default: 50 },
 	loop: { type: "boolean", default: true },
-	volume: { type: "number", default: 0 }
+	volume: { type: "number", default: 0 },
+	time: { type: "number", default: 0 }
 }
 ```
 - video: url of the video for the texture of the mesh
@@ -68,6 +69,7 @@ ryskurl component is based on the following schema:
 - buffer: size of data buffer 
 - loop: marks if the video should loop after it ends
 - volume: volume level from 0 (mute) to 1 (full volume)
+- time: current timestamp of the video (can be used for e.g. progress bar)
 
 #### Event listeners
 ryskurl listens for the following events that you can emit on its element (i.e. ``<a-entity>`` or 
@@ -91,6 +93,9 @@ of the events bubbles, so you have to attach your listeners directly to the elem
 	- vertices: typed of vertices
 - waiting: video is buffering
 - playing: video started/resumed playing
+- timeupdate: proxy for the same named event of the HTMLVideo element. The payload of the event contains the following properties:
+	- duration: length of the video in seconds
+	- currentTime: current video timestamp in seconds
 - ended: video has finished playing
 
 #### mantis-ryskurl primitive
@@ -164,3 +169,9 @@ Component properties are mapped to the HTML attributes in the following way:
 - width: width
 - height: height
 - volume: volume
+
+## Release notes
+
+### 0.5.0
+Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
+compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.

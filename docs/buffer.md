@@ -248,3 +248,9 @@ generateCanvas: function();
  */
 setGenerateCanvas: function(customMethod);
 ```
+
+## Release notes
+
+### 0.5.0
+Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
+compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.

@@ -56,3 +56,9 @@ import("./MantisRYSK.min.js").then(() =>
 
 ## Public API:
 Description of API can be found [here](./threejs.md);
+
+## Release notes
+
+### 3.0.0
+Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
+compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.

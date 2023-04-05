@@ -1,4 +1,4 @@
-const THREE = require("three");
+import * as THREE from "three";
 import { URLMesh } from "@mantisvision/ryskthreejs";
 import { MantisLog } from "@mantisvision/utils";
 
@@ -78,6 +78,7 @@ function run(renderer,scene,camera)
 	
 	ryskObj.run().then(mesh => 
 	{//add mesh to the scene
+		ryskObj.setVolume(1);
 		mesh.visible = true;
 		scene.add(mesh);
 	}); 

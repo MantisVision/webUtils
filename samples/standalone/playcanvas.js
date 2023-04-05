@@ -69,6 +69,7 @@ function run(app)
 		
 		ryskObj.run().then(mesh => 
 		{//add mesh to the scene
+			ryskObj.setVolume(1);
 			mesh.visible = true;
 			const entity = new pc.Entity();
 			

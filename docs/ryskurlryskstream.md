@@ -25,13 +25,13 @@ They can be packed in a single .syk file or split into multiple .syk files. In t
 (having .json extension) must be provided. "video_url" can also point either to the video file or to HLS manifest 
 (having .m3u3 extension). For more details see the [HLS Support documentation](./hlssupport.md).
 
-The process of decoding the data and pairing it with the video frames can be started by invoking ``run`` method on the object.
+The process of decoding the data and pairing it with the video frames can be started by invoking ``init`` method on the object.
 It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
 mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient).
 It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
 needs to be turned up through ``setVolume()`` method:
 ```javascript
-ryskObj.run()
+ryskObj.init()
 	.then(elements => 
 	{ 
 		const { canvas, video } = elements;
@@ -39,7 +39,7 @@ ryskObj.run()
 		/* do something with the canvas */ 
 	}).catch(err => console.error(err));
 ```
-The same canvas can be later (after invoking ``run``) obtained also by calling
+The same canvas can be later (after invoking ``init``) obtained also by calling
 ```javascript
 const canvas = ryskObj.getCanvas();
 ```
@@ -113,7 +113,7 @@ ryskObj.on(RyskEvents.videoEnded,() =>
 	/* free the resources, clean up */ 
 });
 
-ryskObj.run().then(elements => 
+ryskObj.init().then(elements => 
 	{
 		requestAnimationFrame(animate);
 		canvas = elements.canvas;
@@ -138,20 +138,20 @@ To create a new instance of the class, a MediaStream object needs to be provided
 ```javascript
 const ryskObj = new RYSKStream(MediaStream);
 ```
-The process of decoding the data and pairing it with the video frames can be started by invoking ``run`` method on the object.
+The process of decoding the data and pairing it with the video frames can be started by invoking ``init`` method on the object.
 It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
 mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient).
 It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
 needs to be turned up through ``setVolume()`` method:
 ```javascript
-ryskObj.run()
+ryskObj.init()
 	.then(elements => 
 	{ 
 		const { canvas, video } = elements;
 		/* do something with the canvas */ 
 	}).catch(err => console.error(err));
 ```
-The same canvas can be later (after invoking ``run``) obtained also by calling
+The same canvas can be later (after invoking ``init``) obtained also by calling
 ```javascript
 const canvas = ryskObj.getCanvas();
 ```
@@ -231,7 +231,7 @@ ryskObj.on(RyskEvents.dataDecoded,async function(data)
 	await doSomething(uvs, indices, vertices, frameNo);
 });
 
-ryskObj.run().then(elements => 
+ryskObj.init().then(elements => 
 	{
 		requestAnimationFrame(animate);
 		canvas = elements.canvas;
@@ -284,11 +284,11 @@ get seekable();
 ```
 ```javascript
 /**
- * Runs the service and returns a promise which resolves with an object containing 2 properties: 
+ * Inits the service and returns a promise which resolves with an object containing 2 properties: 
  * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to realize the video is muted!.
  * @returns {Promise} promise which resolves after the video is ready to be played.
  */
-async run();
+async init();
 ```
 ```javascript
 /**
@@ -323,13 +323,13 @@ constructor(mediastream);
 ```
 ```javascript
 /**
- * Runs the service and returns a promise which resolves with an object containing 2 properties: 
+ * Inits the service and returns a promise which resolves with an object containing 2 properties: 
  * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to realize the video is muted!
  * @param {Integer} videoWidth desired video width (if the real source given in the constructor is of different width, it will be resized)
  * @param {Integer} videoHeight desired video height (if the real source given in the constructor is of different height, it will be resized)
  * @returns {Promise} promise which resolves after the video is ready to be played.
  */
-async run(videoWidth,videoHeight);
+async init(videoWidth,videoHeight);
 ```
 ```javascript
 /**
@@ -345,7 +345,7 @@ These two classes share some common methods:
 ```javascript
 /**
  * Sets volume of the audio. This might not work as expected on some mobile devices, however, setting volume to 0 should
- * always mute the video. Remember to call it after you receive video element in from run() method, because the
+ * always mute the video. Remember to call it after you receive video element in from init() method, because the
  * element is muted by default.
  * @param {Float} volume number between 0 (muted) and 1 (full).
  */
@@ -353,8 +353,8 @@ setVolume(volume);
 ```
 ```javascript
 /**
- * Gets canvas. Must be called after run() method!
- * @returns {HTML node|null} if the method is called before run() or after dispose(), it returns null.
+ * Gets canvas. Must be called after init() method!
+ * @returns {HTML node|null} if the method is called before init() or after dispose(), it returns null.
  */
 getCanvas();
 ```
@@ -489,3 +489,14 @@ onceHlsEvent(event,func);
  */
 dispose();
 ```
+## Release notes RYSKUrl
+
+### 3.0.0
+- Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
+- *BREAKING CHANGE*: Method ``RYSKUrl.run`` was renamed to ``RYSKUrl.init`` to avoid the conflict with the same named method from ``@mantisvision/ryskthreejs`` and other libraries which provide classes that inherit from the ``RYSKUrl`` class.
+
+## Release notes RYSKStream
+
+### 4.0.0
+- Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
+- *BREAKING CHANGE*: Method ``RYSKStream.run`` was renamed to ``RYSKStream.init`` to avoid the conflict with the same named method from ``@mantisvision/ryskthreejs`` and other libraries which provide classes that inherit from the ``RYSKStream`` class.
