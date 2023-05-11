@@ -1,6 +1,6 @@
 # RYSKUrl NPM sample project
 This application presents a simple way to use URLMesh class from ``@mantisvision/ryskthreejs`` with Three.js library, 
-"@mantisvision/ryskplaycanvas" with Playcanvas library or ``@mantisvision/ryskaframe``with A-Frame library.
+``@mantisvision/ryskplaycanvas`` with Playcanvas library or ``@mantisvision/ryskaframe``with A-Frame library.
 
 ## Build the project
 This application is using Yarn as its package manager and Webpack as package bundler. Since ``@mantisvision/rysk*`` libraries
