@@ -119,6 +119,8 @@ ryskObj.init().then(elements =>
 		canvas = elements.canvas;
 		/* do something with the canvas */
 	}).catch(err => console.error(err));
+
+ryskObj.play(); //be aware that if you "await" till "run" resolves and only then call play(), you will block yourself.
 ```
 # RYSKStream
 This class works with a realtime, continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
