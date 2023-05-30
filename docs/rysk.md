@@ -62,3 +62,6 @@ Description of API can be found [here](./threejs.md);
 ### 3.0.0
 Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
 compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
+
+#### 3.0.1
+Includes changes from [@mantisvison/ryskurl 3.0.1](./ryskurlryskstream.md#301) and [@mantisvison/ryskdownloader 0.5.1](./downloader.md#051)

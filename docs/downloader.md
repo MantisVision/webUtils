@@ -197,3 +197,14 @@ isFinished();
 ### 0.5.0
 Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
 compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
+
+#### 0.5.1
+*BUGFIX* when the video jumped to a different time and it didn't contain a framemap, downloader was unnecessary 
+sending all the frames from the very first one to the buffer which might have caused the buffer exhausting its
+capacity too quickly.
+
+#### 0.5.2
+*BUGFIX* solved a couple of racing conditions issues.
+
+#### 0.5.3
+*BUGFIX* Do not pause download after resume method was called (this sometimes caused permanent halt of the download).

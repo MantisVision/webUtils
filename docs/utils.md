@@ -128,7 +128,18 @@ finish();
 ```
 
 ### MantisLog
-This object is used by @mantisvision libraries to log into console.
+This class is used by @mantisvision libraries to log into console. The following methods can be called as static on the
+MantisLog itself, or the class can be instantiated to create a new, independent logger.
+```javascript
+/**
+ * Creates an independent instance of the Logger.
+ * @param fgcolor HTML color code for the color of the text (applied only when using debug method!)
+ * @param bgcolor HTML color code for the color of the background (applied only when using debug method!)
+ * @param prefix optional string which will be prepended to every error, warning or debug log
+ * @param prependTime if set to true, each log from this logger will be prepended by the time in format Hours:Minutes:Seconds.Miliseconds, default is false
+ */
+constructor(fgcolor?: string, bgcolor?: string, prefix?: string, prependTime?: boolean)
+```
 ```javascript
 /**
  * Turns on/off logs which are logged using this object.
@@ -153,9 +164,11 @@ error(msg);
 ```javascript
 /**
  * Wrapper around console.log
- * @param {String} msg Message to log
+ * @param {string} msg Message to log
+ * @param {string} fg color of the writing (optional)
+ * @param {string} bg color of the background (optional)
  */
-debug(msg);
+debug: function(msg: string, fg?: string, bg?: string);
 ```
 
 ### VideoElement
@@ -288,3 +301,6 @@ async dispose();
 ### 2.0.0
 Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
 compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
+
+#### 2.0.2
+Added an option to change the foreground and/or background colors of the debug logs in MantisLog object.

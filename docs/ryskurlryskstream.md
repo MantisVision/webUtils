@@ -119,8 +119,6 @@ ryskObj.init().then(elements =>
 		canvas = elements.canvas;
 		/* do something with the canvas */
 	}).catch(err => console.error(err));
-
-ryskObj.play(); //be aware that if you "await" till "run" resolves and only then call play(), you will block yourself.
 ```
 # RYSKStream
 This class works with a realtime, continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
@@ -239,6 +237,8 @@ ryskObj.init().then(elements =>
 		canvas = elements.canvas;
 		/* do something with the canvas */
 	}).catch(err => console.error(err));
+
+ryskObj.play(); //be aware that if you "await" till "run" resolves and only then call play(), you will block yourself.
 ```
 
 # Events
@@ -496,6 +496,14 @@ dispose();
 ### 3.0.0
 - Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
 - *BREAKING CHANGE*: Method ``RYSKUrl.run`` was renamed to ``RYSKUrl.init`` to avoid the conflict with the same named method from ``@mantisvision/ryskthreejs`` and other libraries which provide classes that inherit from the ``RYSKUrl`` class.
+
+#### 3.0.1
+- *POTENTIAL BREAKING CHANGE* buffered event of RYSKUrl is fired not when the underlying HTMLVideo element triggers "playing" event, but when it triggers "canplay". This is because the "playing" event gets triggered every time a user plays a paused video, even if no buffering 
+occured prior to that.
+
+#### 3.0.2
+- When ``RYSKUrl.pause`` method is called, the download of RYSK data isn't stopped as before. This is to prevent the situation when the first
+buffering hasn't occured yet and the video gets stopped which actually prevents the first buffering from finishing.
 
 ## Release notes RYSKStream
 
