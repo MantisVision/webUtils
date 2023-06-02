@@ -66,7 +66,7 @@ function run(app: pc.Application)
 	{
 		const chloeRYSK = new URLMesh(chloe_video, chloe_data);
 		const robRYSK = new URLMesh(rob_video, rob_data);
-		synchronizer.addMedia([chloeRYSK as any as RYSKUrl, robRYSK as any as RYSKUrl]).then(() => synchronizer.setLoop([chloeRYSK as any as RYSKUrl, robRYSK as any as RYSKUrl], true));
+		synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK as any as RYSKUrl, robRYSK as any as RYSKUrl], true));
 
 		const progress = <HTMLProgressElement>document.getElementById("progress");
 	
@@ -93,7 +93,7 @@ function run(app: pc.Application)
 		{//add mesh to the scene
 			if (mesh)
 			{
-				//chloeRYSK.setVolume(1);
+				chloeRYSK.setVolume(1);
 				mesh.visible = true;
 				const entity = new pc.Entity();
 				
@@ -110,7 +110,7 @@ function run(app: pc.Application)
 		{//add mesh to the scene
 			if (mesh)
 			{
-				//robRYSK.setVolume(1);
+				robRYSK.setVolume(1);
 				mesh.visible = true;
 				const entity = new pc.Entity();
 				

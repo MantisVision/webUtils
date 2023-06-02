@@ -105,15 +105,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.7.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.7.0%2F94b2706d0b0348827bbdff45496158ca924f253c"
+"@mantisvision/ryskplaycanvas@npm:^0.7.2":
+  version: 0.7.2
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.7.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.7.2%2Fade58bd9c9ed421a446f15fba1de1028933b7e24"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.2
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
     playcanvas: ^1.63.6
-  checksum: 65e312e617f53b6d81cec71c0471fb125f4b7c40ba02f75f02c4ba567fc0d825650480d69e2852ab69bce46b5b5e13b499071f379bf861dbc2d0e145c4076aab
+  checksum: aec2dd069261421701affe2dfa6da0150fec2f1f25ab1c55a14cb7d3866af992d739fc376c6b3f317f7ee5a5510668d14f0d97b1fbd9f5636f48bf371a4759ca
   languageName: node
   linkType: hard
 
@@ -435,7 +435,7 @@ __metadata:
   resolution: "RYSKUrl sample@workspace:."
   dependencies:
     "@mantisvision/ryskaframe": ^0.5.4
-    "@mantisvision/ryskplaycanvas": ^0.7.0
+    "@mantisvision/ryskplaycanvas": ^0.7.2
     "@mantisvision/ryskthreejs": ^0.8.3
     "@mantisvision/utils": ^2.0.2
     aframe: ^1.4.2
