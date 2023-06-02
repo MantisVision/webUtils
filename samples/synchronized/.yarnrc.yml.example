@@ -1,0 +1,13 @@
+nodeLinker: pnp
+
+npmRegistries:
+  //npm.pkg.github.com:
+    npmAlwaysAuth: true
+
+npmScopes:
+  mantisvision:
+    npmAuthToken: "your_git_auth_token_here"
+    npmPublishRegistry: "https://npm.pkg.github.com"
+    npmRegistryServer: "https://npm.pkg.github.com"
+
+yarnPath: .yarn/releases/yarn-3.6.0.cjs

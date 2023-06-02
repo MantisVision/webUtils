@@ -64,15 +64,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskaframe@npm:^0.5.3":
-  version: 0.5.3
-  resolution: "@mantisvision/ryskaframe@npm:0.5.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.5.3%2Ff13ea4c7175cccb462c27f9bdd779c31ddc0de4e"
+"@mantisvision/ryskaframe@npm:^0.5.4":
+  version: 0.5.4
+  resolution: "@mantisvision/ryskaframe@npm:0.5.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.5.4%2F4ace539af86f22eae475d519bdbcc4edf5b9d393"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.2
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
     aframe: ^1.4.2
-  checksum: 53edeaab3345a6469c2c54ea558181b2cc7b604868559160bf60555b881c2378267f7d1c6ae600fc32c409b5f5cf6079efadbafb78f826112718e9e55c0eba30
+  checksum: 02ef15e5fbacfccb33a98f82792838019fbaac4b4a358bdc8a804bdad3149fc137a3e2976915053c525bc1e94a038c5a30318747dd88a49775d424e241795fac
   languageName: node
   linkType: hard
 
@@ -105,14 +105,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.6.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.6.3%2Fcad32c0ba32a3da1a616f3f8d9f31acf9e6cb99a"
+"@mantisvision/ryskplaycanvas@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.7.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.7.0%2F94b2706d0b0348827bbdff45496158ca924f253c"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.2
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
-  checksum: 73bc6356a2dc3eb3a640bcf59efc4e3198d57fa0d712206dc625be8d185a351b5e5cb4802aea702f094cd07a59d147ed2d1e351c3deffd056ecc8b76e9f30280
+    playcanvas: ^1.63.6
+  checksum: 65e312e617f53b6d81cec71c0471fb125f4b7c40ba02f75f02c4ba567fc0d825650480d69e2852ab69bce46b5b5e13b499071f379bf861dbc2d0e145c4076aab
   languageName: node
   linkType: hard
 
@@ -433,13 +434,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "RYSKUrl sample@workspace:."
   dependencies:
-    "@mantisvision/ryskaframe": ^0.5.3
-    "@mantisvision/ryskplaycanvas": ^0.6.3
+    "@mantisvision/ryskaframe": ^0.5.4
+    "@mantisvision/ryskplaycanvas": ^0.7.0
     "@mantisvision/ryskthreejs": ^0.8.3
     "@mantisvision/utils": ^2.0.2
     aframe: ^1.4.2
     three: ^0.151.3
-    webpack: ^5.84.1
+    webpack: ^5.85.0
     webpack-cli: ^5.1.1
   languageName: unknown
   linkType: soft
@@ -1287,6 +1288,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"playcanvas@npm:^1.63.6":
+  version: 1.63.6
+  resolution: "playcanvas@npm:1.63.6"
+  checksum: bde01209731fabe6015ad4812d93da233bb5f26e1397b25dcc04aade708f37850ec6c909f723063d6ff8f7669b5aa914d15167bcf525c7b16110fad883573cc7
+  languageName: node
+  linkType: hard
+
 "present@npm:0.0.6":
   version: 0.0.6
   resolution: "present@npm:0.0.6"
@@ -1709,9 +1717,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.84.1":
-  version: 5.84.1
-  resolution: "webpack@npm:5.84.1"
+"webpack@npm:^5.85.0":
+  version: 5.85.0
+  resolution: "webpack@npm:5.85.0"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -1742,7 +1750,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 646b645df5badf2dac2ddd0193c9e9a177d51283d18f918eead36a0cdf7b750c4111d9ac11d9825c1334cbd0a6fb8f82628fbfb90d0066f927265dd11b47b192
+  checksum: b013be9fbc7f6810d1f229f570c70710ddbc7290f817411acffe4214b2b6c783a041ab1f2005d9e1109f4ab21c136f0f8d8c067a5fb64f20a82dcbc1ee0d3f42
   languageName: node
   linkType: hard
 

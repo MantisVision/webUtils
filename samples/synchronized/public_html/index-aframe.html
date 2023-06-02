@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+		<meta http-equiv="Content-Security-Policy" content=
+			  "default-src * gap://ready file: localhost:*;
+			  style-src 'self' 'unsafe-inline';
+			  connect-src 'self' blob: data: *;
+			  img-src 'self' blob: data: *;
+			  script-src 'self' 'unsafe-inline' 'unsafe-eval' localhost:* ;
+			  script-src-elem 'self' https: blob:;
+			  worker-src 'self' blob:;
+			  child-src 'unsafe-inline' blob: 'self';
+			  media-src 'self' blob: data: https:;">
+		
+		<!-- webpack bundles with application javascripts and libraries -->
+		<script type="text/javascript" src="vendors.bundle.js"></script>
+		<script type="text/javascript" src="mantis.bundle.js"></script>
+		<script type="text/javascript" src="aframe.bundle.js"></script>
+		<style type="text/css">
+			body { position: relative }
+			#progress { width: 100%; position: absolute; bottom: 5px }
+			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; z-index: 2 }
+			#three { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
+			#playcanvas { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
+		</style>
+		<title>A-Frame Rysk</title>
+	</head>
+	<body>
+		<button id="play">PLAY</button>
+		<a href="./index.html"><button id="three">Three.js</button></a>
+		<a href="./index-playcanvas.html"><button id="playcanvas">Playcanvas</button></a>
+		<a-scene>
+		  <a-assets>
+			<img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" crossorigin="anonymous">
+			<img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg" crossorigin="anonymous">
+		  </a-assets>
+
+		  <mantis-ryskurl 
+			  id="chloe"
+			  position="0 0 -2" 
+			  volume="1" 
+			  loop="true" 
+			  dataurl="./chloe_battle.syk" 
+			  videourl="./chloe_battle.mp4" >
+		  </mantis-ryskurl>
+
+		  <!-- Background sky. -->
+		  <a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
+
+		  <!-- Ground. -->
+		  <a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
+		</a-scene>
+		<progress id="progress" value="0" min="0"></progress>
+	</body>
+</html>
