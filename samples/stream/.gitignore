@@ -4,8 +4,7 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-public_html/*
-!public_html/.gitkeep
+public_html/build/*
+!public_html/build/.gitkeep
 .pnp.*
 .yarnrc.yml
-!/public_html/index.html
