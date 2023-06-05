@@ -1,9 +1,10 @@
 import * as three from "https://unpkg.com/three@0.151.3";
+import { TimingObject } from "./timingsrc.js";
 import "./MantisSynchronizer.min.js";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
 // variable THREE to be already registered present
 
-const synchronizer = new window.RyskSynchronizer(TIMINGSRC.TimingObject);
+const synchronizer = new window.RyskSynchronizer(TimingObject);
 
 const chloe_video = "./chloe_battle.mp4";
 const chloe_data = "./chloe_battle.syk";

@@ -1,6 +1,6 @@
 {
 	"name": "@mantisvision/rysksamples",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "This is a sample showcase of RYSKUrl class from @mantisvison/rysk and  @mantisvison/ryskplaycanvas",
 	"keywords": [
 		"client",
@@ -19,7 +19,7 @@
 		"@mantisvision/ryskplaycanvas": "^0.7.2",
 		"@mantisvision/ryskthreejs": "^0.8.3",
 		"@mantisvision/ryskurl": "^3.0.3",
-		"@mantisvision/synchronizer": "^0.1.1",
+		"@mantisvision/synchronizer": "^0.1.2",
 		"@mantisvision/utils": "^2.0.2",
 		"@types/three": "^0.152.1",
 		"playcanvas": "^1.63.6",
