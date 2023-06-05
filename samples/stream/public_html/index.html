@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+		<meta http-equiv="Content-Security-Policy" content=
+			  "default-src * gap://ready file: localhost:*;
+			  style-src 'self' 'unsafe-inline';
+			  connect-src 'self' blob: data: *;
+			  img-src 'self' blob: data: *;
+			  script-src 'self' 'unsafe-inline' 'unsafe-eval' apps.8thwall.com cdn.8thwall.com localhost:* ;
+			  script-src-elem 'self' https: blob:;
+			  worker-src 'self' blob:;
+			  child-src 'unsafe-inline' blob: 'self';
+			  media-src 'self' blob: data: https:;">
+		
+		<!-- webpack bundles with application javascripts and libraries -->
+		<script src="./build/vendors.rysk.bundle.js"></script>
+		<script src="./build/rysk.bundle.js"></script>
+		<style type="text/css">
+			#connection { position: absolute; top: 15px; left: 15px; width: 130px; height: 35px; font-size: 17px; z-index: 2; }
+		</style>
+		<title>A-FRAME RYSKStream</title>
+	</head>
+	<body>
+		<button id="connection">CONNECT</button>
+		<a-scene>
+		  <a-assets>
+			<img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" crossorigin="anonymous">
+			<img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg" crossorigin="anonymous">
+		  </a-assets>
+
+		  <mantis-ryskstream
+			  id="rysk"
+			  position="0 0 -2" 
+			  volume="1"  >
+		  </mantis-ryskstream>
+
+		  <!-- Background sky. -->
+		  <a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
+
+		  <!-- Ground. -->
+		  <a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
+		</a-scene>
+	</body>
+</html>
