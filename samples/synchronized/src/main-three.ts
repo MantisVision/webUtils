@@ -2,9 +2,8 @@ import * as THREE from "three";
 import { URLMesh } from "@mantisvision/ryskthreejs";
 import { MantisLog } from "@mantisvision/utils";
 
-import VideoSync from "./synchronizer/VideoSync";
 import * as TIMINGSRC from "./timingsrc.js";
-import TimingObject from "./synchronizer/iTimingObject";
+import VideoSync, { TimingObject } from "@mantisvision/synchronizer";
 
 const chloe_video = "./chloe_battle.mp4";
 const chloe_data = "./chloe_battle.syk";

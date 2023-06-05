@@ -2,9 +2,8 @@ import { URLMesh } from "@mantisvision/ryskplaycanvas";
 import { MantisLog } from "@mantisvision/utils";
 import * as pc from "playcanvas";
 
-import VideoSync from "./synchronizer/VideoSync";
+import VideoSync, { TimingObject } from "@mantisvision/synchronizer";
 import * as TIMINGSRC from "./timingsrc.js";
-import TimingObject from "./synchronizer/iTimingObject";
 import RYSKUrl from "@mantisvision/ryskurl";
 
 const chloe_video = "./chloe_battle.mp4";

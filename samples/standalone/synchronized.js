@@ -1,10 +1,14 @@
 import * as three from "https://unpkg.com/three@0.151.3";
+import "./MantisSynchronizer.min.js";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
 // variable THREE to be already registered present
 
+const synchronizer = new window.RyskSynchronizer(TIMINGSRC.TimingObject);
 
-const video_url = "./chloe_battle.mp4";
-const data_url = "./chloe_battle.syk";
+const chloe_video = "./chloe_battle.mp4";
+const chloe_data = "./chloe_battle.syk";
+const rob_video = "./rob.mp4";
+const rob_data = "./rob.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
@@ -58,57 +62,71 @@ function createRenderer(width,height)
  */
 function run(renderer,scene,camera)
 {
-	const ryskObj = new Rysk.RYSKUrl(video_url,data_url);
-	
-	ryskObj.on("buffering",() => console.log("buffering"));
-	ryskObj.on("playing",() => console.log("playing"));
-	
+	const chloeRYSK = new Rysk.RYSKUrl(chloe_video,chloe_data);
+	const robRYSK = new Rysk.RYSKUrl(rob_video, rob_data);
+	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
+
 	const progress = document.getElementById("progress");
 	
 	progress.addEventListener("click", event => 
 	{
-		const pos = (event.pageX - progress.offsetLeft - progress.offsetParent.offsetLeft) / progress.offsetWidth;
-		ryskObj.getDuration().then(duration => ryskObj.jumpAt(pos * duration));
+		const duration = synchronizer.getDuration();
+		if (duration > 0)
+		{
+			const pos = (event.pageX - progress.offsetLeft - progress.offsetParent.offsetLeft) / progress.offsetWidth;
+			synchronizer.jumpAt(pos * duration);
+		}
 	});
 	
-	ryskObj.getDuration().then(duration =>
+	synchronizer.on("durationchange",newduration =>
 	{
-		progress.setAttribute("max", duration);
+		if (newduration)
+		{
+			progress.setAttribute("max", newduration.toString());
+		}
 	});
+	synchronizer.on("timeupdate",newtime => progress.value = newtime);
 	
-	ryskObj.onVideoEvent("timeupdate",() => 
-	{
-		progress.value = ryskObj.getVideoElement().currentTime;
-	});
-	
-	ryskObj.run().then(mesh => 
+	chloeRYSK.run().then(mesh =>
 	{//add mesh to the scene
-		ryskObj.setVolume(1);
+		chloeRYSK.setVolume(1);
+		mesh.position.set(-1,0,0);
+		mesh.visible = true;
+		scene.add(mesh);
+	});
+
+	robRYSK.run().then(mesh =>
+	{//add mesh to the scene
+		robRYSK.setVolume(1);
+		mesh.position.set(1,0,0);
 		mesh.visible = true;
 		scene.add(mesh);
 	});
 	
 	document.getElementById("play").addEventListener("click",event =>
 	{//event listener for the button which plays/pauses the animation
-		if (ryskObj !== null)
+		if (synchronizer.isPaused())
 		{
-			if (ryskObj.isPaused())
-			{
-				ryskObj.play();
-				event.target.innerHTML = "Pause";
-			}else
-			{
-				ryskObj.pause();
-				event.target.innerHTML = "Play";
-			}
+			console.log("Playing");
+			synchronizer.play();
+			event.target.innerHTML = "Pause";
+		}else
+		{
+			console.log("Pausing");
+			synchronizer.pause();
+			event.target.innerHTML = "Play";
 		}
 	});
 	
 	renderer.setAnimationLoop((timestamp, frame) => 
 	{//animation loop to render each frame-
-		if (ryskObj !== null)
+		if (chloeRYSK !== null)
 		{
-			ryskObj.update();
+			chloeRYSK.update();
+		}
+		if (robRYSK !== null)
+		{
+			robRYSK.update();
 		}
 		renderer.clear(true, true, true);
 		renderer.render(scene, camera);
