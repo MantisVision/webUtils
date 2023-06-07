@@ -83,25 +83,25 @@ __metadata:
   linkType: hard
 
 "@mantisvision/ryskdownloader@npm:^0.5.2":
-  version: 0.5.4
-  resolution: "@mantisvision/ryskdownloader@npm:0.5.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.5.4%2F0685388192474493e19570a9eb940bea0fccc149"
+  version: 0.5.5
+  resolution: "@mantisvision/ryskdownloader@npm:0.5.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.5.5%2F1c3ffbb71043204e5cb144cdc2f8842f9e3303db"
   dependencies:
     "@mantisvision/ryskdecoder": ^0.3.4
     "@types/json-bigint": ^1.0.1
     json-bigint: ^1.0.0
-  checksum: 00c11f95cee77154f17243072a1bcf75e60cde4fd25260336283c28051b351a9732687fdac9c2380cb7bdde4498dda7409265b8bdabe5a70284123cdf33c9f82
+  checksum: 768c1da2b813bdf8d437e1f59ab7a9f28cc884172d925051425a7434b4fa330418dc653bb7f7d541c2a51e6077b62aa8667bb9bf42c0babdccb9a05e1653780f
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.7.2":
-  version: 0.7.2
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.7.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.7.2%2Fade58bd9c9ed421a446f15fba1de1028933b7e24"
+"@mantisvision/ryskplaycanvas@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.7.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.7.3%2F08fc7603e41eb14bf139e2194eca7731805e6bf8"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.2
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
     playcanvas: ^1.63.6
-  checksum: aec2dd069261421701affe2dfa6da0150fec2f1f25ab1c55a14cb7d3866af992d739fc376c6b3f317f7ee5a5510668d14f0d97b1fbd9f5636f48bf371a4759ca
+  checksum: 9f2e5d767c4fb4572af611a2ba67e317f570cb98b2dc25b7268555678a196bc1c9d080c8dbf9be9757b98781c7d935145df939d8dffd2e0ebd31f8e7cc383a43
   languageName: node
   linkType: hard
 
@@ -109,18 +109,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mantisvision/rysksamples@workspace:."
   dependencies:
-    "@mantisvision/ryskplaycanvas": ^0.7.2
+    "@mantisvision/ryskplaycanvas": ^0.7.3
     "@mantisvision/ryskthreejs": ^0.8.3
     "@mantisvision/ryskurl": ^3.0.3
-    "@mantisvision/synchronizer": ^0.1.3
+    "@mantisvision/synchronizer": ^0.1.4
     "@mantisvision/utils": ^2.0.2
     "@types/three": ^0.152.1
     playcanvas: ^1.63.6
     three: ^0.151.3
     ts-loader: ^9.4.3
     typescript: ^5.1.3
-    webpack: ^5.85.0
-    webpack-cli: ^5.1.1
+    webpack: ^5.85.1
+    webpack-cli: ^5.1.3
   languageName: unknown
   linkType: soft
 
@@ -165,13 +165,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/synchronizer@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@mantisvision/synchronizer@npm:0.1.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.1.3%2F07a3c5f65293c84a64c9a7e73f8053676934ebeb"
+"@mantisvision/synchronizer@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@mantisvision/synchronizer@npm:0.1.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.1.4%2Fdc6bea864d5dbe5e26c6e8ec0b239764dc7f77f4"
   dependencies:
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
-  checksum: cfc6f5eaab4ff14b18e719378bd085ded72f37b97ea246a17869b95ee91264158673c9e8e6aa5ec54362e535db601eb208be76b8da9e5fd09fbb570404ea6eaf
+  checksum: 585fe6a1a54b6ba12d435b5ddb769e5cde70e2591bb965cfccadfe1020188691e91d8f40ad9da67183d5601f025ae3e673a210374713c479a98c11cf6f937152
   languageName: node
   linkType: hard
 
@@ -427,36 +427,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@webpack-cli/configtest@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@webpack-cli/configtest@npm:2.1.0"
+"@webpack-cli/configtest@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@webpack-cli/configtest@npm:2.1.1"
   peerDependencies:
     webpack: 5.x.x
     webpack-cli: 5.x.x
-  checksum: b875fccd8be9a936924e24986725823347703e3eb72ea884e74669ca20f007704e859855a6a05940d5d3805ce2fc08b183a0f1658d5395b5454b3f5f88293081
+  checksum: 9f9f9145c2d05471fc83d426db1df85cf49f329836b0c4b9f46b6948bed4b013464c00622b136d2a0a26993ce2306976682592245b08ee717500b1db45009a72
   languageName: node
   linkType: hard
 
-"@webpack-cli/info@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@webpack-cli/info@npm:2.0.1"
+"@webpack-cli/info@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@webpack-cli/info@npm:2.0.2"
   peerDependencies:
     webpack: 5.x.x
     webpack-cli: 5.x.x
-  checksum: b8fba49fee10d297c2affb0b064c9a81e9038d75517c6728fb85f9fb254cae634e5d33e696dac5171e6944ae329d85fddac72f781c7d833f7e9dfe43151ce60d
+  checksum: 8f9a178afca5c82e113aed1efa552d64ee5ae4fdff63fe747c096a981ec74f18a5d07bd6e89bbe6715c3e57d96eea024a410e58977169489fe1df044c10dd94e
   languageName: node
   linkType: hard
 
-"@webpack-cli/serve@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@webpack-cli/serve@npm:2.0.4"
+"@webpack-cli/serve@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@webpack-cli/serve@npm:2.0.5"
   peerDependencies:
     webpack: 5.x.x
     webpack-cli: 5.x.x
   peerDependenciesMeta:
     webpack-dev-server:
       optional: true
-  checksum: 561ea2e6eb551415f0b1675393a8480e1201293fe37eae334cbb1fdc466986668cca76ca1ca327ada9b498eae27cbecef0793e3bb5677288f1a5216cad414efe
+  checksum: 75f0e54681796d567a71ac3e2781d2901a8d8cf1cdfc82f261034dddac59a8343e8c3bc5e32b4bb9d6766759ba49fb29a5cd86ef1701d79c506fe886bb63ac75
   languageName: node
   linkType: hard
 
@@ -1377,14 +1377,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-cli@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "webpack-cli@npm:5.1.1"
+"webpack-cli@npm:^5.1.3":
+  version: 5.1.3
+  resolution: "webpack-cli@npm:5.1.3"
   dependencies:
     "@discoveryjs/json-ext": ^0.5.0
-    "@webpack-cli/configtest": ^2.1.0
-    "@webpack-cli/info": ^2.0.1
-    "@webpack-cli/serve": ^2.0.4
+    "@webpack-cli/configtest": ^2.1.1
+    "@webpack-cli/info": ^2.0.2
+    "@webpack-cli/serve": ^2.0.5
     colorette: ^2.0.14
     commander: ^10.0.1
     cross-spawn: ^7.0.3
@@ -1405,7 +1405,7 @@ __metadata:
       optional: true
   bin:
     webpack-cli: bin/cli.js
-  checksum: 7738e6a84a0098886e1e0c0fd0dab44b7dedfbb0580afbb5ef734c5109dcaee80140bebb5d9f4b40f425029563bb09bcbda8b08d904fa14e60ff632e6dcc8a17
+  checksum: 5bb8326bf8bdbc4118cb5dd17332429434a5ab6cde88d79c3d95abf23571c8213ce5e3ff2ca4e1e7145e6f16a4e78740f5d60f999b2e11a0ee37bb339d4da3e4
   languageName: node
   linkType: hard
 
@@ -1426,9 +1426,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.85.0":
-  version: 5.85.0
-  resolution: "webpack@npm:5.85.0"
+"webpack@npm:^5.85.1":
+  version: 5.85.1
+  resolution: "webpack@npm:5.85.1"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -1459,7 +1459,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: b013be9fbc7f6810d1f229f570c70710ddbc7290f817411acffe4214b2b6c783a041ab1f2005d9e1109f4ab21c136f0f8d8c067a5fb64f20a82dcbc1ee0d3f42
+  checksum: 6fa659ef5e53211e6eeaed1987ac415ddd219584414b2d5ca0d528f0c7dd49be5363a9840e1def33efe1b3305ef3ad3c91f803bd87e41d2771b125340caa4df7
   languageName: node
   linkType: hard
 
