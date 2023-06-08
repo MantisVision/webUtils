@@ -49,7 +49,7 @@ async function connectToAgora()
 	/**
 	 * Callback after disconnected from the Agora
 	 */
-	connection.onUserDisconnectVideo = () => 
+	connection.onUserDisconnectVideo = () => 
 	{
 		RYSKObj.disconnected();
 	};
