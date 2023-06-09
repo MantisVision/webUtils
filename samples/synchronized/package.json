@@ -19,7 +19,7 @@
 		"@mantisvision/ryskplaycanvas": "^0.7.4",
 		"@mantisvision/ryskthreejs": "^0.8.4",
 		"@mantisvision/ryskurl": "^3.0.3",
-		"@mantisvision/synchronizer": "^0.1.4",
+		"@mantisvision/synchronizer": "^0.1.5",
 		"@mantisvision/utils": "^2.0.2",
 		"@types/three": "^0.152.1",
 		"playcanvas": "^1.63.6",
