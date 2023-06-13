@@ -24,18 +24,23 @@ You can import the library in the following way:
 ```javascript
 import { URLMesh, StreamMesh } from "@mantisvision/ryskplaycanvas";
 
-const ryskUrl = new URLMesh("video_url","data_url",PlayCanvas);
-const ryskStream = new StreamMesh(MediaStream,PlayCanvas);
+const ryskUrl = new URLMesh("video_url","data_url");
+const ryskStream = new StreamMesh(MediaStream);
 ```
-where ``PlayCanvas`` is the main object of PlayCanvas engine library (usually ``window.pc``). Note that the current 
-PlayCanvas engine library doesn't exist in npm package form and so it can't be listed as a dependency. It is up to you
-to ensure this library is loaded before ``@mantisvision/ryskplaycanvas``, either through ``import`` statement/function
-or as a ``<script>`` tag in HTML code.
 
 Alternatively, ``MantisRYSKPlayCanvas.min.js`` file can be used on its own. It creates ``window.Rysk`` global variable
 which contains ``URLMesh`` and ``StreamMesh`` classes. When using PlayCanvas editor, this file needs to be uploaded as 
 an asset and then imported inside a custom script attached to an entity. An example of such a script is packed together
 with ``MantisRYSKPlayCanvas.min.js`` inside ``examples`` subdirectory.
+The call to construct both classes is slightly different:
+
+```javascript
+const ryskUrl = new window.Rysk.URLMesh("video_url", "data_url", PlayCanvas);
+const ryskStream = new window.Rysk.StreamMesh(MediaStream, PlayCanvas);
+```
+where ``PlayCanvas`` is the main object of PlayCanvas engine library (usually ``window.pc``). It is up to you
+to ensure this library is loaded before ``@mantisvision/ryskplaycanvas``, either through ``import`` statement/function
+or as a ``<script>`` tag in HTML code.
 
 It is important to periodically call ``update`` method on ``URLMesh`` and ``StreamMesh`` objects to ensure that both mesh
 and texture get updated with the new data each frame. One way to do that is to call ``update`` inside ``frameupdate``
@@ -60,7 +65,8 @@ represent a RYSK 3D mesh, add a new empty script to it and inside it import the 
 const asset = pc.Application.getApplication().assets.find('MantisRYSKPlayCanvas.min.js');
 import(asset.getFileUrl()).then(() => 
 {//from now on, you can use window.RYSK global object.
-	this.ryskObj = new window.Rysk.URLMesh(video_url,data_url,pc); //the third parameter is the global PlayCanvas object
+ //the third parameter is the size of the internal RYSK frame buffer (by default 50) and the fourth global PlayCanvas object
+	this.ryskObj = new window.Rysk.URLMesh(video_url, data_url, 50, pc); 
 	this.ryskObj.play();
 	return this.ryskObj.run();
 }).then(meshInstance => 
@@ -87,7 +93,7 @@ automatically updated; there is therefore no need to listen on ``dataDecoded`` e
 is still necessary to call ``update()`` method on ``URLMesh`` or ``StreamMesh`` to ensure new frames from video/stream
 are read on all browsers.
 
-There is one new method ``getMesh()`` which works similarly to ``getCanvas()``, but returns Three.js mesh instead
+There is one new method ``getMesh()`` which works similarly to ``getCanvas()``, but returns PlayCanvas mesh instead
 (remember that both these methods work only after ``run()`` method is called for the first time, otherwise they return 
 null).
 
@@ -98,6 +104,7 @@ because the mesh can only be constructed after at least one frame from the video
 RYSKUrl example using PlayCanvas engine library:
 ```javascript
 import { URLMesh } from "@mantisvision/ryskplaycanvas";
+import * as pc from "playcanvas";
 
 const canvas = document.getElementById('playcanvas');
 const app = new pc.Application(canvas);
@@ -123,7 +130,7 @@ light.addComponent('light');
 app.root.addChild(light);
 light.setEulerAngles(45, 180, 0);
 
-const ryskObj = new URLMesh(video_url,data_url,pc);
+const ryskObj = new URLMesh(video_url,data_url);
 
 ryskObj.run().then(meshInstance => 
 {//add mesh to the scene
@@ -149,4 +156,8 @@ ryskObj.play();
 ### 0.6.0
 Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
 compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
+
+### 0.7.0
+PlayCanvas engine library is now listed among dependencies and it is not required to privde it through the constructor
+of ``URLMesh`` / ``StreamMesh``.
 

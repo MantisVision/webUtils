@@ -1,6 +1,5 @@
-# RYSKUrl NPM sample project
-This application presents a simple way to use URLMesh class from ``@mantisvision/ryskthreejs`` with Three.js library, 
-``@mantisvision/ryskplaycanvas`` with Playcanvas library or ``@mantisvision/ryskaframe``with A-Frame library.
+# @mantisvision/synchronizer sample project
+This application presents a simple way to use the ``VideoSync`` class from ``@mantisvision/synchronizer`` package in combination with URLMesh class from either ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``.
 
 ## Build the project
 This application is using Yarn as its package manager and Webpack as package bundler. Since ``@mantisvision/rysk*`` libraries
@@ -22,5 +21,5 @@ you can use simple node.js http-server. You can install it running:
 Then enter ``public_html`` directory and run
 ``http-server -p 3000``
 You should now be able to access the sample in your browser using this url: ``http://127.0.0.1:3000``
-After clicking on Play, you should see a 3D animation. You can switch between Three.js, A-Frame and Playcanvas version using
+After clicking on Play, you should see two synchronized 3D animations. You can switch between Three.js and Playcanvas version using
 the button in the upper right corner.

@@ -14,6 +14,7 @@ is sufficiently buffered. In order to see the meshes, set their visibility prope
     * [For Playcanvas](#for-playcanvas-implementation)
     * [For A-Frame](#for-a-frame-implementation)
     * [For a custom integration](#for-a-custom-implementation)
+    * [Synchronizing multiple RYSK videos](#synchronizing-multiple-rysk-videos)
   * [Inner architecture](#inner-architecture)
     * [Dependencies](#dependencies)
     * [Data flow](#data-flow)
@@ -53,6 +54,7 @@ npm i @mantisvision/ryskbuffer
 npm i @mantisvision/ryskwasm
 npm i @mantisvision/utils
 npm i @mantisvision/sentryintegration
+npm i @mantisvision/synchronizer
 ```
 If you prefer using Yarn, run one of the following:
 ```
@@ -68,6 +70,7 @@ yarn add @mantisvision/ryskwasm
 yarn add @mantisvision/ryskbuffer
 yarn add @mantisvision/utils
 yarn add @mantisvision/sentryintegration
+yarn add @mantisvision/synchronizer
 ```
 
 ## Which package to choose
@@ -146,6 +149,14 @@ If you, however, intend to develop your application for a special environment (e
 a WeChat mini program), you should study the following chapter in order to grasp a better understanding of inner links between packages,
 so you can accuratly decide which packages you can use and which you need to reimplement using your own code.
 
+### Synchronizing multiple RYSK videos
+In order to synchrhonize multiple RYSK videos (as well as HTMLVideoElements), one can use a utilitarian package
+``@mantisvision/synchronizer``. The synchronized objects must either descend from the ``RYSKUrl`` class (``@mantisvision/ryskurl``,
+ ``@mantisvision/ryskplaycanvas``, ``@mantisvision/ryskthreejs``) or ``HTMLVideoElement``. Alternatively, they can implement
+ ``SynchronizableObject`` interface from ``@mantisvision/synchronizer``, but this is only for a very specific needs and advanced
+ users.
+
+ The documentation and the API can be found [here](./docs/synchronizer.md).
 
 ## Inner architecture
 This chapter will in short describe how the partial ``@mantisvision/rysk*`` packages are connected.
@@ -189,10 +200,12 @@ Detailed description of APIs of packages can be found here:
 * [@mantisvision/ryskdownloader](./docs/downloader.md)
 * [@mantisvision/ryskdecoder](./docs/decoder.md)
 * [@mantisvision/ryskwasm](./docs/ryskwasm.md)
+* [@mantisvision/synchronizer](./docs/synchronizer.md)
 
 ## Samples
 * [Standalone library sample](./samples/standalone)
 * [NPM packages sample](./samples/npm)
 * [Stream sample](./samples/stream)
 * [PlayCanvas editor sample](./samples/PlayCanvasEditor)
+* [Synchronizer sample](./samples/synchronized)
 

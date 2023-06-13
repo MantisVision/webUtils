@@ -8,6 +8,8 @@ yarn or npm to demonstrate a simple HTML inclusion of the library.
 
 The code of the example is in ``three.js``, ``playcanvas.js`` abd ``aframe.js``.
 
+An example of the use of a standalone ``@mantisvision/synchronizer`` can be found in ``synchronized.js`` file.
+
 ### Note:
 If Three.js in some later versions doesn't register global variable by itself, it must be created manually in ``app.js``
 e.g. like this:
