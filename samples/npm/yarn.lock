@@ -129,15 +129,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskthreejs@npm:^0.8.4":
-  version: 0.8.4
-  resolution: "@mantisvision/ryskthreejs@npm:0.8.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.8.4%2F56301ddd1ad6026775e2b1eaced3d69456322acc"
+"@mantisvision/ryskthreejs@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@mantisvision/ryskthreejs@npm:0.9.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.9.1%2F6bcd48790753cf8216b8f59b1c1a302c0212b766"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.3
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
-    three: 0.151.3
-  checksum: 5c69875b931575dc82ba9c4ce5236e74ff13a0bb5609e550a3ed213897e110fa22751f08d3f713c55555db247ed01ff5fc6f51f62b6387a2002ca76fd01a9751
+    three: 0.153.0
+  checksum: 4d1b31b508b739b2194c6a0c8500a4e94318738b6db53cea367b063a5063fb67a81b99fe9fa86d6c183c49f2521a9a509f089bf110af02c29f6f6e3e7a015f88
   languageName: node
   linkType: hard
 
@@ -471,10 +471,10 @@ __metadata:
   dependencies:
     "@mantisvision/ryskaframe": ^0.5.7
     "@mantisvision/ryskplaycanvas": ^0.7.4
-    "@mantisvision/ryskthreejs": ^0.8.4
+    "@mantisvision/ryskthreejs": ^0.9.1
     "@mantisvision/utils": ^2.0.2
     aframe: ^1.4.2
-    three: ^0.151.3
+    three: ^0.153.0
     webpack: ^5.86.0
     webpack-cli: ^5.1.4
   languageName: unknown
@@ -1663,10 +1663,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:0.151.3, three@npm:^0.151.3":
-  version: 0.151.3
-  resolution: "three@npm:0.151.3"
-  checksum: cb6f10e4e409bbc4677d2128470c4e0bdb29f7879a77bc800180e30bda3527816c45b47ac10228f346cfc7501234457f63a87c1bdd5c3b6e2841d523e5d6eb79
+"three@npm:0.153.0, three@npm:^0.153.0":
+  version: 0.153.0
+  resolution: "three@npm:0.153.0"
+  checksum: 68899ca90e048967a83866a1d54a9d28bba3532d228ede9e4c2a3b9bec347c31d8bb633eeaf7828397d2419cded8f57cf32f2a9c037a3587d45122e793ddc0c4
   languageName: node
   linkType: hard
 

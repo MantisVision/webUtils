@@ -1,4 +1,4 @@
-import * as three from "https://unpkg.com/three@0.151.3";
+import * as three from "https://unpkg.com/three@0.153.0";
 import { TimingObject } from "./timingsrc.js";
 import "./MantisSynchronizer.min.js";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
@@ -63,9 +63,10 @@ function createRenderer(width,height)
  */
 function run(renderer,scene,camera)
 {
-	const chloeRYSK = new Rysk.RYSKUrl(chloe_video,chloe_data);
-	const robRYSK = new Rysk.RYSKUrl(rob_video, rob_data);
+	const chloeRYSK = new Rysk.RYSKUrl(chloe_video, chloe_data, 50, THREE.SRGBColorSpace);
+	const robRYSK = new Rysk.RYSKUrl(rob_video, rob_data, 50, THREE.SRGBColorSpace);
 	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
+	synchronizer.setVolume(1);
 
 	const progress = document.getElementById("progress");
 	
@@ -90,7 +91,6 @@ function run(renderer,scene,camera)
 	
 	chloeRYSK.run().then(mesh =>
 	{//add mesh to the scene
-		chloeRYSK.setVolume(1);
 		mesh.position.set(-1,0,0);
 		mesh.visible = true;
 		scene.add(mesh);
@@ -98,7 +98,6 @@ function run(renderer,scene,camera)
 
 	robRYSK.run().then(mesh =>
 	{//add mesh to the scene
-		robRYSK.setVolume(1);
 		mesh.position.set(1,0,0);
 		mesh.visible = true;
 		scene.add(mesh);

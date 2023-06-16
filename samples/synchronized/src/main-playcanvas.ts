@@ -2,7 +2,7 @@ import { URLMesh } from "@mantisvision/ryskplaycanvas";
 import { MantisLog } from "@mantisvision/utils";
 import * as pc from "playcanvas";
 
-import VideoSync, { TimingObject } from "@mantisvision/synchronizer";
+import VideoSync, { TimingObject, VideoSyncEvents } from "@mantisvision/synchronizer";
 import * as TIMINGSRC from "./timingsrc.js";
 import RYSKUrl from "@mantisvision/ryskurl";
 
@@ -13,6 +13,7 @@ const rob_data = "./rob.syk";
 
 const synchronizer = new VideoSync(<TimingObject>(<any>TIMINGSRC).TimingObject);
 synchronizer.setAutoplay(false);
+synchronizer.setVolume(1);
 
 document.addEventListener('DOMContentLoaded',function()
 {
@@ -79,20 +80,19 @@ function run(app: pc.Application)
 			}
 		});
 
-		synchronizer.on("durationchange",newduration => 
+		synchronizer.on(VideoSyncEvents.durationchange, newduration => 
 		{
-			if (newduration)
-			{
-				progress.setAttribute("max", newduration.toString());
-			}
+			if (newduration) progress.setAttribute("max", newduration.toString());
 		});
-		synchronizer.on("timeupdate",newtime => progress.value = newtime);
+		synchronizer.on(VideoSyncEvents.timeupdate, newtime =>
+		{
+			if (newtime) progress.value = newtime;
+		});
 
 		chloeRYSK.run().then(mesh => 
 		{//add mesh to the scene
 			if (mesh)
 			{
-				chloeRYSK.setVolume(1);
 				mesh.visible = true;
 				const entity = new pc.Entity();
 				
@@ -109,7 +109,6 @@ function run(app: pc.Application)
 		{//add mesh to the scene
 			if (mesh)
 			{
-				robRYSK.setVolume(1);
 				mesh.visible = true;
 				const entity = new pc.Entity();
 				

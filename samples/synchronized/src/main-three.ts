@@ -3,7 +3,7 @@ import { URLMesh } from "@mantisvision/ryskthreejs";
 import { MantisLog } from "@mantisvision/utils";
 
 import * as TIMINGSRC from "./timingsrc.js";
-import VideoSync, { TimingObject } from "@mantisvision/synchronizer";
+import VideoSync, { TimingObject, VideoSyncEvents } from "@mantisvision/synchronizer";
 
 const chloe_video = "./chloe_battle.mp4";
 const chloe_data = "./chloe_battle.syk";
@@ -12,6 +12,7 @@ const rob_data = "./rob.syk";
 
 const synchronizer = new VideoSync(<TimingObject>(<any>TIMINGSRC).TimingObject);
 synchronizer.setAutoplay(false);
+synchronizer.setVolume(1);
 
 document.addEventListener('DOMContentLoaded',function()
 {
@@ -64,8 +65,8 @@ function createRenderer(width: number, height: number)
  */
 function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera)
 {
-	const chloeRYSK = new URLMesh(chloe_video,chloe_data);
-	const robRYSK = new URLMesh(rob_video,rob_data);
+	const chloeRYSK = new URLMesh(chloe_video, chloe_data, 50, THREE.SRGBColorSpace);
+	const robRYSK = new URLMesh(rob_video, rob_data, 50, THREE.SRGBColorSpace);
 	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
 	
 	//ryskObj.on("buffering",() => console.log("buffering"));
@@ -83,7 +84,7 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		}
 	});
 	
-	synchronizer.on("durationchange",newduration => 
+	synchronizer.on(VideoSyncEvents.durationchange,newduration => 
 	{
 		if (newduration)
 		{
@@ -91,13 +92,15 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		}
 	});
 	
-	synchronizer.on("timeupdate",newtime => progress.value = newtime);
+	synchronizer.on(VideoSyncEvents.timeupdate,newtime =>
+ 	{
+		if (newtime) progress.value = newtime;
+	});
 	
 	chloeRYSK.run().then(mesh => 
 	{//add mesh to the scene
 		if (mesh)
 		{
-			chloeRYSK.setVolume(1);
 			mesh.position.set(-1,0,0);
 			mesh.visible = true;
 			scene.add(mesh);
@@ -108,7 +111,6 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 	{//add mesh to the scene
 		if (mesh)
 		{
-			robRYSK.setVolume(1);
 			mesh.position.set(1,0,0);
 			mesh.visible = true;
 			scene.add(mesh);

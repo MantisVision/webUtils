@@ -1,4 +1,4 @@
-import * as three from "https://unpkg.com/three@0.151.3";
+import * as three from "https://unpkg.com/three@0.153.0";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
 // variable THREE to be already registered present
 
@@ -58,7 +58,7 @@ function createRenderer(width,height)
  */
 function run(renderer,scene,camera)
 {
-	const ryskObj = new Rysk.RYSKUrl(video_url,data_url);
+	const ryskObj = new Rysk.RYSKUrl(video_url, data_url, 50, THREE.SRGBColorSpace);
 	
 	ryskObj.on("buffering",() => console.log("buffering"));
 	ryskObj.on("playing",() => console.log("playing"));

@@ -110,16 +110,16 @@ __metadata:
   resolution: "@mantisvision/rysksamples@workspace:."
   dependencies:
     "@mantisvision/ryskplaycanvas": ^0.7.4
-    "@mantisvision/ryskthreejs": ^0.8.4
+    "@mantisvision/ryskthreejs": ^0.9.1
     "@mantisvision/ryskurl": ^3.0.3
-    "@mantisvision/synchronizer": ^0.1.8
+    "@mantisvision/synchronizer": ^0.2.2
     "@mantisvision/utils": ^2.0.2
     "@types/three": ^0.152.1
     playcanvas: ^1.63.6
-    three: ^0.151.3
+    three: ^0.153.0
     ts-loader: ^9.4.3
     typescript: ^5.1.3
-    webpack: ^5.86.0
+    webpack: ^5.87.0
     webpack-cli: ^5.1.4
   languageName: unknown
   linkType: soft
@@ -135,15 +135,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskthreejs@npm:^0.8.4":
-  version: 0.8.4
-  resolution: "@mantisvision/ryskthreejs@npm:0.8.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.8.4%2F56301ddd1ad6026775e2b1eaced3d69456322acc"
+"@mantisvision/ryskthreejs@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@mantisvision/ryskthreejs@npm:0.9.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.9.1%2F6bcd48790753cf8216b8f59b1c1a302c0212b766"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.3
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
-    three: 0.151.3
-  checksum: 5c69875b931575dc82ba9c4ce5236e74ff13a0bb5609e550a3ed213897e110fa22751f08d3f713c55555db247ed01ff5fc6f51f62b6387a2002ca76fd01a9751
+    three: 0.153.0
+  checksum: 4d1b31b508b739b2194c6a0c8500a4e94318738b6db53cea367b063a5063fb67a81b99fe9fa86d6c183c49f2521a9a509f089bf110af02c29f6f6e3e7a015f88
   languageName: node
   linkType: hard
 
@@ -165,13 +165,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/synchronizer@npm:^0.1.8":
-  version: 0.1.8
-  resolution: "@mantisvision/synchronizer@npm:0.1.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.1.8%2F0692a1f43605ef18d5b20223ccb513d03fb1a3ab"
+"@mantisvision/synchronizer@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@mantisvision/synchronizer@npm:0.2.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.2.2%2Fef3c448e1bd37e89c877e7153658c1f6ad5da099"
   dependencies:
     "@mantisvision/ryskurl": ^3.0.3
     "@mantisvision/utils": ^2.0.2
-  checksum: cb6a623c1188d1592900a97db088a9255a24ba8a022ce1f0a10accd10e0f640c7b8c0897cb0a52f3f5ce0258c9478d1dbe815a8c66f32ed153d6eb6c52a8839a
+  checksum: d7191eccf392a598e260e0853ca38682628febb9aac2181a94947405dfb9f3c8e0d827ab618f243764c990efed54a03ed4c809d20709608a9dab4b642f6ea7a8
   languageName: node
   linkType: hard
 
@@ -649,13 +649,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.14.1":
+"enhanced-resolve@npm:^5.0.0":
   version: 5.14.1
   resolution: "enhanced-resolve@npm:5.14.1"
   dependencies:
     graceful-fs: ^4.2.4
     tapable: ^2.2.0
   checksum: ad2a31928b6649eed40d364838449587f731baa63863e83d2629bebaa8be1eabac18b90f89c1784bc805b0818363e99b22547159edd485d7e5ccf18cdc640642
+  languageName: node
+  linkType: hard
+
+"enhanced-resolve@npm:^5.15.0":
+  version: 5.15.0
+  resolution: "enhanced-resolve@npm:5.15.0"
+  dependencies:
+    graceful-fs: ^4.2.4
+    tapable: ^2.2.0
+  checksum: fbd8cdc9263be71cc737aa8a7d6c57b43d6aa38f6cc75dde6fcd3598a130cc465f979d2f4d01bb3bf475acb43817749c79f8eef9be048683602ca91ab52e4f11
   languageName: node
   linkType: hard
 
@@ -1152,14 +1162,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "schema-utils@npm:3.1.2"
+"schema-utils@npm:^3.2.0":
+  version: 3.3.0
+  resolution: "schema-utils@npm:3.3.0"
   dependencies:
     "@types/json-schema": ^7.0.8
     ajv: ^6.12.5
     ajv-keywords: ^3.5.2
-  checksum: 39683edfe3beff018cdb1ae4fa296fc55cea13a080aa2b4d9351895cd64b22ba4d87e2e548c2a2ac1bc76e60980670adb0f413a58104479f1a0c12e5663cb8ca
+  checksum: ea56971926fac2487f0757da939a871388891bc87c6a82220d125d587b388f1704788f3706e7f63a7b70e49fc2db974c41343528caea60444afd5ce0fe4b85c0
   languageName: node
   linkType: hard
 
@@ -1293,10 +1303,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:0.151.3, three@npm:^0.151.3":
-  version: 0.151.3
-  resolution: "three@npm:0.151.3"
-  checksum: cb6f10e4e409bbc4677d2128470c4e0bdb29f7879a77bc800180e30bda3527816c45b47ac10228f346cfc7501234457f63a87c1bdd5c3b6e2841d523e5d6eb79
+"three@npm:0.153.0, three@npm:^0.153.0":
+  version: 0.153.0
+  resolution: "three@npm:0.153.0"
+  checksum: 68899ca90e048967a83866a1d54a9d28bba3532d228ede9e4c2a3b9bec347c31d8bb633eeaf7828397d2419cded8f57cf32f2a9c037a3587d45122e793ddc0c4
   languageName: node
   linkType: hard
 
@@ -1426,9 +1436,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.86.0":
-  version: 5.86.0
-  resolution: "webpack@npm:5.86.0"
+"webpack@npm:^5.87.0":
+  version: 5.87.0
+  resolution: "webpack@npm:5.87.0"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -1439,7 +1449,7 @@ __metadata:
     acorn-import-assertions: ^1.9.0
     browserslist: ^4.14.5
     chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.14.1
+    enhanced-resolve: ^5.15.0
     es-module-lexer: ^1.2.1
     eslint-scope: 5.1.1
     events: ^3.2.0
@@ -1449,7 +1459,7 @@ __metadata:
     loader-runner: ^4.2.0
     mime-types: ^2.1.27
     neo-async: ^2.6.2
-    schema-utils: ^3.1.2
+    schema-utils: ^3.2.0
     tapable: ^2.1.1
     terser-webpack-plugin: ^5.3.7
     watchpack: ^2.4.0
@@ -1459,7 +1469,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 682b1aa8328bb9d52ae66a1d0a1078af88f9e3b3b3a9c9e1ce203e669581a8e61d522420ef253130eacd510d24d7275b840c1311d50bd048d6fd7c1af186ce55
+  checksum: b7d0e390f9d30627e303d54b17cb87b62f49ecffe2d35481f830679904993bae208e23748ffe0e6091b6dd4810562b2f2e88bb0f23b96515d74fb1e3c2898210
   languageName: node
   linkType: hard
 
