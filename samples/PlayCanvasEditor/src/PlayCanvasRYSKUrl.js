@@ -15,7 +15,7 @@ Ryskurl.attributes.add('volumebutton', {type: 'entity', description: 'Button for
  * Initialize method is called once per entity the script is attached to. Its main purpose is to set listeners
  * for control entities (play/pause button, progress bar...) and load @mantisvision/ryskplaycanvas library
  */
-Ryskurl.prototype.initialize = function() 
+Ryskurl.prototype.initialize = function()
 {
     this.playing = false;   // whether the video is currently playing
     this.sound = true;      // whether the sound is turned on
@@ -32,13 +32,16 @@ Ryskurl.prototype.initialize = function()
     this.loopVideoThis = this.loopVideo.bind(this);
     this.canplaythroughThis = this.canplaythrough.bind(this);
 
+    //release resources if "destory" event is received
+    this.on("destroy", this.dispose, this);
+
     //old Safari on MacOS (< 15.4) and Firefox don't have requestVideoFrameCallback method on HTMLVideoElement
     this.firefox = !("requestVideoFrameCallback" in HTMLVideoElement.prototype);
 
     //handle the play/pause button
     if (this.playpausebutton)
     {
-        this.playpausebutton.element.on("click",() => 
+        this.playpausebutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
@@ -48,7 +51,7 @@ Ryskurl.prototype.initialize = function()
                     this.ryskObj.play();
                     //show the mesh in case it's hiddne
                     this.ryskObj.getMesh().visible = true;
-                } 
+                }
                 this.playing = !this.playing;
                 this.playpausebutton.children[0].element.text = this.playing ? "Pause" : "Play"; //change the text of the button
             }
@@ -58,7 +61,7 @@ Ryskurl.prototype.initialize = function()
     //handle the button for turning the volume up/down
     if (this.volumebutton)
     {
-        this.volumebutton.element.on("click",() => 
+        this.volumebutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
@@ -73,13 +76,13 @@ Ryskurl.prototype.initialize = function()
      //handle the stop button
     if (this.stopbutton)
     {
-        this.stopbutton.element.on("click",() => 
+        this.stopbutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
                 this.ryskObj.stop();
                 this.ryskObj.getMesh().visible = false; //hide the mesh
-                if (this.progressbarObj) 
+                if (this.progressbarObj)
                 {
                     this.progressbarObj.setProgress(0); //reset the progress bar
                     this.progressbarObj.setFrameNo(0);
@@ -108,19 +111,19 @@ Ryskurl.prototype.initialize = function()
         this.handleProgressbarClickThis = this.handleProgressbarClick.bind(this);
         //attach listener for "jump" event in order to jump to the given timestamp
         this.progressbarObj.on("jump",this.handleProgressbarClickThis);
-    }    
+    }
 
     //create a promise which will get resolved once the @mantisvision/ryskplaycanvas library gets loaded
-    this.importFinished = new Promise((resolve,reject) => 
+    this.importFinished = new Promise((resolve,reject) =>
     {
         if (!window.hasOwnProperty("Rysk"))
         {//import the library, but only if the Rysk global variable hasn't been set yet (that would mean the library was already imported)
             const asset = pc.Application.getApplication().assets.find('MantisRYSKPlayCanvas.min.js');
-            import(asset.getFileUrl()).then(() => 
+            import(asset.getFileUrl()).then(() =>
             {
                 resolve();
             });
-        }else 
+        }else
         {
             resolve();
         }
@@ -147,8 +150,8 @@ Ryskurl.prototype.play = function(dataURL,videoURL)
     {//if dataURL or videoURL have changed or ryskObj hasn't been created yet
         this.dataURL = dataURL;
         this.videoURL = videoURL;
-        
-        this.importFinished.then(() => 
+
+        this.importFinished.then(() =>
             {// once the import of the @mantisvision/ryskplaycanvas library is finished...
                 window.Rysk.MantisLog.SetLogLevel(4);
                 this.dispose(); //...destroy an existing ryskObj...
@@ -174,11 +177,11 @@ Ryskurl.prototype.createMesh = function(URLMesh,dataURL,videoURL)
     {// when creating the new object, we first need to dispose an old one if there is such
         this.dispose();
     }
-    // Create a new ryskObj using URLMesh class. The third argument is reference to the global
-    // PlayCanvas object and the fourth is the default size of the internal buffer which is used
-    // to store the RYSK data.
-    this.ryskObj = new URLMesh(videoURL,dataURL,pc,50);
-    
+    // Create a new ryskObj using URLMesh class. The third argument is the default size of the internal
+    // buffer which is used to store the RYSK data and the fourth is a reference to the global
+    // PlayCanvas object.
+    this.ryskObj = new URLMesh(videoURL,dataURL,50,pc);
+
     // Register a callback which is triggered each time a new frame is displayed.
     // The callback shows the frame number as text of frameNo entity given as the script's attribute
     this.ryskObj.on("dataDecoded",this.showFrameNoThis);
@@ -203,14 +206,14 @@ Ryskurl.prototype.createMesh = function(URLMesh,dataURL,videoURL)
         this.ryskObj.onVideoEvent("timeupdate",this.showProgressThis);
         this.ryskObj.getDuration().then(duration => this.progressbarObj.setDuration(duration));
     }
-    
+
     // URLMesh constructor sets the necessary variables, but by design doesn't starts
     // the internal processes to downlaod and decode RYSK data. run() must be called
     // in order to do that. It resolves with the PlayCanvas mesh instance which can
     // be inserted into the scene. However, bear in mind that it's resolved only once
     // the video starts playing by calling play() method of ryskObj, because the texture
     // of the mesh can't be constructed unless the video is playing.
-    this.ryskObj.run().then(meshInstance => 
+    this.ryskObj.run().then(meshInstance =>
     {
         if (meshInstance)
         {
@@ -233,16 +236,16 @@ Ryskurl.prototype.createMesh = function(URLMesh,dataURL,videoURL)
  */
 Ryskurl.prototype.playVideo = function()
 {
-    if (this.ryskObj !== null) 
+    if (this.ryskObj !== null)
     {
         this.ryskObj.setVolume(0); //mute the video. On iOS, only muted video can be autoplayed
-        this.ryskObj.play().then(() => 
+        this.ryskObj.play().then(() =>
         {
             this.playing = true; //playing property is to true just to better handle play/pause button
-            setTimeout(() => 
+            setTimeout(() =>
             {//after a certain delay (in this case 0.5s) umnute the video. this should trick iOS into playing it
                 this.ryskObj.setVolume(this.sound ? 1 : 0);
-                if (this.volumebutton) 
+                if (this.volumebutton)
                 {//change the text on the volume button
                     this.volumebutton.children[0].element.text = "Volume " + (this.sound ? "OFF" : "ON");
                 }
@@ -269,7 +272,7 @@ Ryskurl.prototype.canplaythrough = function()
  */
 Ryskurl.prototype.setVolume = function(volume)
 {
-    if (this.ryskObj !== null) 
+    if (this.ryskObj !== null)
     {
         this.ryskObj.setVolume(volume);
         this.sound = volume > 0;
@@ -302,7 +305,7 @@ Ryskurl.prototype.dispose = function()
 };
 
 /**
- * Callback bind to timeupdate event of the video from RYSK mesh
+ * Callback bound to timeupdate event of the video from RYSK mesh
  */
 Ryskurl.prototype.showProgress = function()
 {
@@ -316,7 +319,7 @@ Ryskurl.prototype.showProgress = function()
  * Callback bound to jump event of the progress bar
  * @param {float} timestamp time in seconds where the video should jump.
  */
-Ryskurl.prototype.handleProgressbarClick = function(timestamp) 
+Ryskurl.prototype.handleProgressbarClick = function(timestamp)
 {
     if (this.ryskObj)
     {
@@ -339,7 +342,7 @@ Ryskurl.prototype.updateRyskObj = function()
  */
 Ryskurl.prototype.update = function()
 {
-    if (!this.firefox && this.ryskObj !== null) 
+    if (!this.firefox && this.ryskObj !== null)
     {//the first part of if checks whther browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
         this.ryskObj.update();
     }
@@ -397,7 +400,7 @@ Ryskurl.prototype.showBuffering = function()
 };
 
 /**
- * Callback which gets triggered once the buffering is finished. It sets the volume back to normal.
+ * Callback which gets triggered once the buffering is finished. It's sets volume back to normal.
  */
 Ryskurl.prototype.bufferingFinished = function()
 {

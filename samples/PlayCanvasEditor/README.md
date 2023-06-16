@@ -1,15 +1,14 @@
 # PlayCanvas editor sample project
 
-This project showcases the use ``@mantisvision/ryskplaycanvas`` library in the environment of PlayCanvas editor. 
-To see the description of the library itself, you can read its documentation [here](../../docs/playcanvas.md).
+This project showcases the use ``@mantisvision/ryskplaycanvas`` and ``@mantisvision/synchronizer`` libraries in the environment of PlayCanvas editor. To see the description of the libraries themselves, you can read its documentation [here](../../docs/playcanvas.md) and [here](../../docs/synchronizer.md).
 The sample can be accessed, reviewed and forked [directly through playcanvas.com](https://playcanvas.com/project/939297/overview/chatxr-playcanvas-tests)
 
-The directory with the sample also contains an additional ``src`` directory with the unminified source code of the three
-custom scripts which are attached to the entities representing the RYSK mesh (``PlayCanvasRYSKUrl.js``), the progress
-bar (``ProgressBar.js``) and the buttons pointing towards different URLs of various models (``ModelBtn.js``). A minified
-source code of ``@mantisvision/ryskplaycanvas`` is also present.
+The directory with the sample also contains an additional ``src`` directory with the unminified source code of the
+custom scripts which are attached to the entities representing the RYSK mesh (``PlayCanvasRYSKUrl.js`` and ``PlayCanvasRYSKUrlShort.js`` for use with the synchronizer), the progress bar (``ProgressBar.js``), the synchronizer (``Synchronizer.js``), the buttons pointing towards different URLs of various models (``ModelBtn.js``) and the buttons to switch between the scenes (``SwitchScene.js``).
 
-This documentation presents a guide to creating the sample project. At least a rudimentary knowledge of javascript and
+A minified source code of ``@mantisvision/ryskplaycanvas`` and ``@mantisvision/synchronizer`` is also present togetger with the 3rd party ``TIMINGSRC`` library.
+
+This documentation presents a guide for creating the sample project. At least a rudimentary knowledge of javascript and
 the Playcanvas editor environment is assumed. The sample doesn't necessary present the most optimal way for your personal 
 project; instead, it should rather provide an inspiration for your own integration based on your specific needs.
 

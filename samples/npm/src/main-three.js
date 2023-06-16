@@ -2,8 +2,8 @@ import * as THREE from "three";
 import { URLMesh } from "@mantisvision/ryskthreejs";
 import { MantisLog } from "@mantisvision/utils";
 
-const video_url = "./chloe_battle.mp4";
-const data_url = "./chloe_battle.syk";
+const video_url = "https://supercomputers.sk/app/hls/chloe_battle.m3u8";
+const data_url = "https://supercomputers.sk/app/hls/chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {

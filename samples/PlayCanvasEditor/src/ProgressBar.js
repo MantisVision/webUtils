@@ -2,16 +2,18 @@ var ProgressBar = pc.createScript('progressBar');
 
 // The entity that shows the prgress
 ProgressBar.attributes.add('progressImage', {type: 'entity'});
+//text field for showing the current frame number
+ProgressBar.attributes.add('frameNo', { type: 'entity',default: false });
 
 // initialize code called once per entity
-ProgressBar.prototype.initialize = function() 
+ProgressBar.prototype.initialize = function()
 {
     this.duration = 0;
     this.entity.element.on("click",this.handleClick.bind(this));
 };
 
 /**
- * Exposed API so that the script handling RYSK object can set the duration of the video.
+ * Exposed API, so that the script handling RYSK object can set the duration of the video.
  */
 ProgressBar.prototype.setDuration = function(duration)
 {
@@ -19,7 +21,7 @@ ProgressBar.prototype.setDuration = function(duration)
 };
 
 /**
- * Exposed API so that the script handling RYSK object can change the progress bar based
+ * Exposed API, so that the script handling RYSK object can change the progress bar based
  * on the current timestamp of the video.
  */
 ProgressBar.prototype.setProgress = function(timestamp)
@@ -36,10 +38,21 @@ ProgressBar.prototype.setProgress = function(timestamp)
 };
 
 /**
+ * Display either the frame number or some other text inside the progress bar (e.g. "Buffering...")
+ */
+ProgressBar.prototype.setFrameNo = function(text)
+{
+    if ("element" in this.frameNo && "text" in this.frameNo.element)
+    {
+        this.frameNo.element.text = text;
+    }
+};
+
+/**
  * Callback which listens for click event on the progress bar and fires jump event which the RYSK script
  * listens for to jump to a proper timestamp in the video.
  */
-ProgressBar.prototype.handleClick = function(event) 
+ProgressBar.prototype.handleClick = function(event)
 {
     if (this.duration > 0)
     {
