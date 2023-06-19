@@ -137,7 +137,6 @@ Synchronizer.prototype.initialize = function()
             //we want to wait till the user hits "play" button
             this.videoSync.setAutoplay(false);
             const promises = [];
-            const rysks = [];
 
             for (var mesh of this.ryskmeshes)
             {// now cycle through all the entities which the synchronizer should manage
