@@ -22,13 +22,13 @@ project; instead, it should rather provide an inspiration for your own integrati
 1. [Scene composition](#1-scene-composition)
 2. [External libraries](#2-external-libraries)
 3. [Showcase scene](#3-showcase-scene)
-	3.1 [RYSK mesh script](#31-rysk-mesh-script)
-	3.2 [Progress bar](#32-progress-bar)
-	3.3 [Model buttons](#33-model-buttons)
-	3.4 [Switching the scene](#34-switching-the-scene)
+    1. [RYSK mesh script](#31-rysk-mesh-script)
+    2. [Progress bar](#32-progress-bar)
+    3. [Model buttons](#33-model-buttons)
+    4. [Switching the scene](#34-switching-the-scene)
 4. [Synchronizer scene](#4-synchronizer-scene)
-	4.1 [RYSK mesh script](#41-rysk-mesh-script)
-	4.2 [Synchronizer script](#42-synchronizer-script)
+    1. [RYSK mesh script](#41-rysk-mesh-script)
+    2. [Synchronizer script](#42-synchronizer-script)
 
 ## 1. Scene composition
 First, add all the necessary entities into the scene.
