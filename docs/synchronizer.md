@@ -51,6 +51,7 @@ You can pass videos to the ``VideoSync`` object using ``addMedia`` method and re
 const ryskObj1 = new URLMesh(videourl1,dataurl1);
 const ryskObj2 = new URLMesh(videourl2,dataurl2);
 
+// run method must still be called manually outside of the synchronizer
 ryskObj1.run(mesh => {...});
 ryskObj2.run(mesh => {...});
 
@@ -61,6 +62,8 @@ synchronizer.removeMedia([ryskObj1, ryskObj2]);
 Both methods accept either ``HTMLVideoElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements ``SynchronizableObject`` interface (visible only if using TypeScript). You can also implement this interface yourself, wrap the ``HTMLVideoElement`` or ``RYSKUrl`` in it on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experience users since the inner implementation of the ``SynchronizableObject`` object interface may cause unforseen complications with the synchronization of the videos.
 
 If a new video is passed to the synchronizer once it's playing videos, the synchronizer automatically sets the timestamp of this new video to the current internal timestamp of the synchronizer. Also, if it's the longest video, a "durationchange" event is emmited. The same event is emmited when the longest video is removed from the synchronizer.
+
+Please notice that if you pass ``RYSKUrl`` object, you still have to call ``init()`` / ``run()``  method manually outside of the synchronizer. This is because the they very often resolve with the data which may be of direct use to you (e.g. ``RYSKUrl.init()`` resolves with the canvas and video, ``URLMesh.run()`` with the mesh object etc.).
 
 ### Autoplay
 You can turn on/off the autoplay by calling ``setAutoplay(enabled)`` method where ``enabled`` is either true or false
@@ -301,3 +304,6 @@ You can find an example usage in these two samples:
 
 ### 0.2.0
 Added ``setVolume()`` method and new events: paused, playing and ended.
+
+#### 0.2.3
+When jumping into a timestamp which is higher than some of the videos' durations, those videos automatically jump to their last frame.

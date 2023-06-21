@@ -66,7 +66,9 @@ function run(app: pc.Application)
 	{
 		const chloeRYSK = new URLMesh(chloe_video, chloe_data);
 		const robRYSK = new URLMesh(rob_video, rob_data);
-		synchronizer.addMedia([chloeRYSK as any as RYSKUrl, robRYSK as any as RYSKUrl]).then(() => synchronizer.setLoop([chloeRYSK as any as RYSKUrl, robRYSK as any as RYSKUrl], true));
+		chloeRYSK.setPreviewMode(true);
+		robRYSK.setPreviewMode(true);
+		synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
 
 		const progress = <HTMLProgressElement>document.getElementById("progress");
 	

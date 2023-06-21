@@ -7,7 +7,7 @@ const data_url = "https://supercomputers.sk/app/hls/chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS | MantisLog.DEBUG);
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
 	const viewport = document.getElementById("viewport");
 	const scene = new THREE.Scene();
 	const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);
@@ -54,6 +54,7 @@ function createRenderer(width,height)
 function run(renderer,scene,camera)
 {
 	const ryskObj = new URLMesh(video_url, data_url, 50, THREE.SRGBColorSpace);
+	ryskObj.setPreviewMode(1);
 	
 	ryskObj.on("buffering",() => console.log("buffering"));
 	ryskObj.on("playing",() => console.log("playing"));
@@ -76,9 +77,9 @@ function run(renderer,scene,camera)
 		progress.value = ryskObj.getVideoElement().currentTime;
 	});
 	
-	ryskObj.run().then(mesh => 
+	ryskObj.run().then(mesh =>
 	{//add mesh to the scene
-		ryskObj.setVolume(1);
+		//ryskObj.setVolume(1);
 		mesh.visible = true;
 		scene.add(mesh);
 	}); 

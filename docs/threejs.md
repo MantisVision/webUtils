@@ -55,6 +55,11 @@ WARNING! Even though ``run`` method is marked as async, you shouldn't structure 
 and only then call ``play``. In order to resolve with a mesh, ``run`` method requires you to also call ``play`` (before or after)
 because the mesh can only be constructed after at least one frame from the video is played.
 
+The previous restriction can be bypassed by setting the preview mode via ``setPreviewMode(true)`` method. The method is inherited from ``RYSKUrl``, but here it's effect is even more prominent as it also to obtain the three.js mesh from the ``run()`` method prior to calling the ``play()``. Furthermore, the method is expanded by allowing to pass not only ``true`` or ``false``, but also values from the ``PreviewMode`` enum; namely:
+- ``PreviewMode.disabled`` - same as passing ``false``
+- ``PreviewMode.full`` - same as passing ``true``
+- ``PreviewMode.partial`` - the new mode which at the beginning shows only gray, untextured mesh (i.e. doesn't internally call ``play()`` on the video texture). This can save some bandwidth and is in theory less prone to provoke a negative reaction from the browser due to autoplay restrictions. It is worth noting that the behavior when calling the ``jumpAt()`` method remains the same with the ``partial`` and the ``full`` modes (so the mesh is once again fully textured and not just gray).
+
 ## Examples
 This is an example of how to use ``URLMesh``:
 
@@ -125,3 +130,6 @@ compatibility, but ``*.d.ts`` files with type declarations are included in ``dis
 ### 0.9.1
 ``URLMesh`` and ``StreamMesh`` constructors get additional parameter which can be used to set the color space of the texture.
 Default value is whatever the current three.js version uses as default (currently r153 uses THREE.NoColorSpace).
+
+### 0.10.0
+Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new method ``setPreviewMode(mode: boolean|PreviewMode)`` is added to the ``URLMesh`` class. In addition to the same named method from ``RYSKUrl`` which it overrides, this one allows to set the preview to the partial mode (value 2) which shows an untextured mesh when the RYSK object into the scene (in theory, it should save some bandwidth).

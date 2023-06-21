@@ -28,6 +28,17 @@ const ryskUrl = new URLMesh("video_url","data_url");
 const ryskStream = new StreamMesh(MediaStream);
 ```
 
+``playcanvas`` library is listed among the peer dependencies of ``@mantisvision/ryskplaycanvas``. This is to avoid the issue with simultaniously using two different ``playcanvas`` libraries in one project which would most likely break the functionality of the application. There is even an option to pass the main ``playcanvas`` object as a constructor parameter of ``URLMesh`` and ``StreamMesh``:
+
+```javascript
+import { URLMesh, StreamMesh } from "@mantisvision/ryskplaycanvas";
+import * as PlayCanvas from "playcanvas";
+
+const ryskUrl = new URLMesh("video_url", "data_url", bufferSize, PlayCanvas);
+const ryskStream = new StreamMesh(MediaStream, PlayCanvas);
+```
+where ``buffersize`` is an initial size of the RYSK data buffer (by default it's 50) and ``PlayCanvas`` is the main object of PlayCanvas engine library.
+
 Alternatively, ``MantisRYSKPlayCanvas.min.js`` file can be used on its own. It creates ``window.Rysk`` global variable
 which contains ``URLMesh`` and ``StreamMesh`` classes. When using PlayCanvas editor, this file needs to be uploaded as 
 an asset and then imported inside a custom script attached to an entity. An example of such a script is packed together
@@ -35,12 +46,10 @@ with ``MantisRYSKPlayCanvas.min.js`` inside ``examples`` subdirectory.
 The call to construct both classes is slightly different:
 
 ```javascript
-const ryskUrl = new window.Rysk.URLMesh("video_url", "data_url", PlayCanvas);
+const ryskUrl = new window.Rysk.URLMesh("video_url", "data_url", bufferSize, PlayCanvas);
 const ryskStream = new window.Rysk.StreamMesh(MediaStream, PlayCanvas);
 ```
-where ``PlayCanvas`` is the main object of PlayCanvas engine library (usually ``window.pc``). It is up to you
-to ensure this library is loaded before ``@mantisvision/ryskplaycanvas``, either through ``import`` statement/function
-or as a ``<script>`` tag in HTML code.
+in this case, the ``PlayCanvas`` object is usually reference to ``window.pc``, though this specifically depends on the way you include the library. It is up to you to ensure ``playcanvas`` is loaded before ``@mantisvision/ryskplaycanvas``, either through the ``import`` statement/function or as a ``<script>`` tag in HTML code.
 
 It is important to periodically call ``update`` method on ``URLMesh`` and ``StreamMesh`` objects to ensure that both mesh
 and texture get updated with the new data each frame. One way to do that is to call ``update`` inside ``frameupdate``
@@ -57,7 +66,7 @@ app.on("frameupdate",() => ryskObj.update());
 ```
 
 ### PlayCanvas editor
-Currently, the Playcanvas editor doesn'ŧ work with npm packages, so you have to use minified version of the library in
+Currently, the Playcanvas editor doesn't work with npm packages, so you have to use minified version of the library in
 the file ``MantisRYSKPlayCanvas.min.js``. You have to uploaded to your project as an asset, create an entity which will
 represent a RYSK 3D mesh, add a new empty script to it and inside it import the library, e.g. like this:
 
@@ -98,12 +107,17 @@ There is one new method ``getMesh()`` which works similarly to ``getCanvas()``, 
 null).
 
 WARNING! Even though ``run`` method is marked as async, you shouldn't structure your code in a way you "await" till ``run`` resolves
-and only then call ``play``. In order to resolve with a mesh, ``run`` method requires you to also call ``play``  (before or after)
+and only then call ``play``. In order to resolve with a mesh, ``run`` method requires you to also call ``play`` (before or after)
 because the mesh can only be constructed after at least one frame from the video is played.
+
+The previous restriction can be bypassed by setting the preview mode via ``setPreviewMode(true)`` method. The method is inherited from ``RYSKUrl``, but here it's effect is even more prominent as it also to obtain the three.js mesh from the ``run()`` method prior to calling the ``play()``. Furthermore, the method is expanded by allowing to pass not only ``true`` or ``false``, but also values from the ``PreviewMode`` enum; namely:
+- ``PreviewMode.disabled`` - same as passing ``false``
+- ``PreviewMode.full`` - same as passing ``true``
+- ``PreviewMode.partial`` - the new mode which at the beginning shows only gray, untextured mesh (i.e. doesn't internally call ``play()`` on the video texture). This can save some bandwidth and is in theory less prone to provoke a negative reaction from the browser due to autoplay restrictions. It is worth noting that the behavior when calling the ``jumpAt()`` method remains the same with the ``partial`` and the ``full`` modes (so the mesh is once again fully textured and not just gray).
 
 RYSKUrl example using PlayCanvas engine library:
 ```javascript
-import { URLMesh } from "@mantisvision/ryskplaycanvas";
+import { URLMesh, PreviewMode } from "@mantisvision/ryskplaycanvas";
 import * as pc from "playcanvas";
 
 const canvas = document.getElementById('playcanvas');
@@ -131,6 +145,8 @@ app.root.addChild(light);
 light.setEulerAngles(45, 180, 0);
 
 const ryskObj = new URLMesh(video_url,data_url);
+//shows the RYSK mesh even before play() is called
+ryskObj.setPreviewMode(PreviewMode.full);
 
 ryskObj.run().then(meshInstance => 
 {//add mesh to the scene
@@ -147,8 +163,9 @@ ryskObj.run().then(meshInstance =>
 
 app.start();
 app.on("frameupdate",() => ryskObj.update());
-ryskObj.play();
 ...
+// later on, call play (for instance after a user clicks on a button)
+ryskObj.play();
 ```
 
 ## Release notes
@@ -158,6 +175,9 @@ Source codes were migrated to Typescript. The build of the library still produce
 compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
 
 ### 0.7.0
-PlayCanvas engine library is now listed among dependencies and it is not required to privde it through the constructor
+PlayCanvas engine library is now listed among dependencies and it is not required to provide it through the constructor
 of ``URLMesh`` / ``StreamMesh``.
 
+### 0.8.0
+- Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new method ``setPreviewMode(mode: boolean|PreviewMode)`` is added to the ``URLMesh`` class. In addition to the same named method from ``RYSKUrl`` which it overrides, this one allows to set the preview to the partial mode (value 2) which shows an untextured mesh when the RYSK object into the scene (in theory, it should save some bandwidth).
+- playcanvas library in its npm form is listed as a "peer dependency" in package.json. This is an attempt to avoid potential conflicts between various versions of this library.

@@ -65,3 +65,6 @@ compatibility, but ``*.d.ts`` files with type declarations are included in ``dis
 
 #### 3.0.1
 Includes changes from [@mantisvison/ryskurl 3.0.1](./ryskurlryskstream.md#301) and [@mantisvison/ryskdownloader 0.5.1](./downloader.md#051)
+
+### 3.2.0
+Includes changes from [@mantisvison/ryskurl 3.1.0](./ryskurlryskstream.md#310)

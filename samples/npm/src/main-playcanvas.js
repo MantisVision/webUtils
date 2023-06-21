@@ -1,5 +1,6 @@
 import { URLMesh } from "@mantisvision/ryskplaycanvas";
 import { MantisLog } from "@mantisvision/utils";
+import * as pc from "playcanvas";
 
 const video_url = "./chloe_battle.mp4";
 const data_url = "./chloe_battle.syk";
@@ -50,7 +51,8 @@ function run(app)
 {
 	try
 	{
-		const ryskObj = new URLMesh(video_url,data_url,pc);
+		const ryskObj = new URLMesh(video_url,data_url);
+		ryskObj.setPreviewMode(1);
 		
 		const progress = document.getElementById("progress");
 	
@@ -70,7 +72,7 @@ function run(app)
 			progress.value = ryskObj.getVideoElement().currentTime;
 		});
 
-		ryskObj.run().then(mesh => 
+		ryskObj.run(true).then(mesh =>
 		{//add mesh to the scene
 			ryskObj.setVolume(1);
 			mesh.visible = true;

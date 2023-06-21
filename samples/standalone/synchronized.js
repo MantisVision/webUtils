@@ -65,6 +65,8 @@ function run(renderer,scene,camera)
 {
 	const chloeRYSK = new Rysk.RYSKUrl(chloe_video, chloe_data, 50, THREE.SRGBColorSpace);
 	const robRYSK = new Rysk.RYSKUrl(rob_video, rob_data, 50, THREE.SRGBColorSpace);
+	chloeRYSK.setPreviewMode(true);
+	robRYSK.setPreviewMode(true);
 	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
 	synchronizer.setVolume(1);
 

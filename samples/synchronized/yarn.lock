@@ -82,7 +82,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskdownloader@npm:^0.5.2":
+"@mantisvision/ryskdownloader@npm:^0.5.5":
   version: 0.5.5
   resolution: "@mantisvision/ryskdownloader@npm:0.5.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.5.5%2F1c3ffbb71043204e5cb144cdc2f8842f9e3303db"
   dependencies:
@@ -93,15 +93,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.7.5":
-  version: 0.7.5
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.7.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.7.5%2F7617816b561de05da6d17742219f5d24ed8dfe46"
+"@mantisvision/ryskplaycanvas@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.8.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.8.0%2F1bd2ba6839442df952df600a866a900fb2f893b5"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.3
-    "@mantisvision/ryskurl": ^3.0.3
-    "@mantisvision/utils": ^2.0.2
-    playcanvas: ^1.63.6
-  checksum: f41c62f19dbaf14fa0d40cc7c964129d190dba6e86ead551d5474e21a224a3bdc8a30cbd68c2accf0e6ce3de507010395fa3e15b122c3d2580e37335f6f8d094
+    "@mantisvision/ryskurl": ^3.1.0
+    "@mantisvision/utils": ^2.0.3
+  peerDependencies:
+    playcanvas: ^1.64.0
+  checksum: c0f53b78ff129d51523a861f760c8984de344f457f8b6ccf2685298458417de87f971dbbc0bb19e89d5e28d63e18cdba3f82fb2338d51d5918871f1f62c73a5e
   languageName: node
   linkType: hard
 
@@ -109,13 +110,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mantisvision/rysksamples@workspace:."
   dependencies:
-    "@mantisvision/ryskplaycanvas": ^0.7.5
-    "@mantisvision/ryskthreejs": ^0.9.1
-    "@mantisvision/ryskurl": ^3.0.3
-    "@mantisvision/synchronizer": ^0.2.2
-    "@mantisvision/utils": ^2.0.2
+    "@mantisvision/ryskplaycanvas": ^0.8.0
+    "@mantisvision/ryskthreejs": ^0.10.0
+    "@mantisvision/ryskurl": ^3.1.0
+    "@mantisvision/synchronizer": ^0.2.3
+    "@mantisvision/utils": ^2.0.3
     "@types/three": ^0.152.1
-    playcanvas: ^1.63.6
+    playcanvas: ^1.64.0
     three: ^0.153.0
     ts-loader: ^9.4.3
     typescript: ^5.1.3
@@ -135,26 +136,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskthreejs@npm:^0.9.1":
-  version: 0.9.1
-  resolution: "@mantisvision/ryskthreejs@npm:0.9.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.9.1%2F6bcd48790753cf8216b8f59b1c1a302c0212b766"
+"@mantisvision/ryskthreejs@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@mantisvision/ryskthreejs@npm:0.10.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.10.0%2F27a364c29a9e219a41311dc179a7014f660074c4"
   dependencies:
     "@mantisvision/ryskstream": ^4.0.3
-    "@mantisvision/ryskurl": ^3.0.3
-    "@mantisvision/utils": ^2.0.2
+    "@mantisvision/ryskurl": ^3.1.0
+    "@mantisvision/utils": ^2.0.3
     three: 0.153.0
-  checksum: 4d1b31b508b739b2194c6a0c8500a4e94318738b6db53cea367b063a5063fb67a81b99fe9fa86d6c183c49f2521a9a509f089bf110af02c29f6f6e3e7a015f88
+  checksum: 4ca9785f85572444f53aa43fc860281d33cb0a4149025a49e13803510a5cab7aff306cdd4a415a759f7ee76354bfaa1eca9054c3a2a38b1332cfdef4a9e855d5
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskurl@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "@mantisvision/ryskurl@npm:3.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.0.3%2F3d36dc0533d0bf6632b4a7ed200f7f1487e9eeee"
+"@mantisvision/ryskurl@npm:^3.1.0":
+  version: 3.1.1
+  resolution: "@mantisvision/ryskurl@npm:3.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.1.1%2F0a20dc6d98de9348ad84eaad5118991de514d726"
   dependencies:
     "@mantisvision/ryskbuffer": ^0.5.2
-    "@mantisvision/ryskdownloader": ^0.5.2
-    "@mantisvision/utils": ^2.0.2
-  checksum: 1306312cf2e9f92f28e1df278d73294a41d115e38cb4116d8ba1460b5095985fd10d4566b92f257c64658d5ee8a145c8ebf02cc6fdcf6e03b104f03628e54855
+    "@mantisvision/ryskdownloader": ^0.5.5
+    "@mantisvision/utils": ^2.0.3
+  checksum: 6883cd50403dc9fa35bcfc7f8cbd6808e69c6441d6d7fae9abb030b441eb47b6d43bfcb3fc76bc53ba2592ec175aff57755bdbac634e16fe3f421b6212623cf9
   languageName: node
   linkType: hard
 
@@ -165,25 +166,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/synchronizer@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@mantisvision/synchronizer@npm:0.2.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.2.2%2Fef3c448e1bd37e89c877e7153658c1f6ad5da099"
+"@mantisvision/synchronizer@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@mantisvision/synchronizer@npm:0.2.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.2.3%2F32c362ca70f99074adbe8e94831fa4fea15c8029"
   dependencies:
-    "@mantisvision/ryskurl": ^3.0.3
-    "@mantisvision/utils": ^2.0.2
-  checksum: d7191eccf392a598e260e0853ca38682628febb9aac2181a94947405dfb9f3c8e0d827ab618f243764c990efed54a03ed4c809d20709608a9dab4b642f6ea7a8
+    "@mantisvision/ryskurl": ^3.1.0
+    "@mantisvision/utils": ^2.0.3
+  checksum: a96ad6f4188d8295ca1b457a9c26c1cb26ebcd6d07fc37262e6983873ff085ec42b26570de71393a35bf0971f50b028d4e08db74ba9a6ea55e225dedce535332
   languageName: node
   linkType: hard
 
-"@mantisvision/utils@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@mantisvision/utils@npm:2.0.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.0.2%2Fa6a60d9dea206b42416e346196f1d773b9d29da9"
+"@mantisvision/utils@npm:^2.0.2, @mantisvision/utils@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@mantisvision/utils@npm:2.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.0.3%2Fd84264016b9f9359f75ff379f4034d44ae9df84f"
   dependencies:
-    hls.js: ^1.4.3
+    hls.js: ^1.4.6
   dependenciesMeta:
     hls.js:
       optional: true
-  checksum: 3c5836f4c9f121808471ee66a7d0c7f3ee980aa0d014106f20d3516a323a6cd0336e9a27f4a1e06a9817ca19c6d716668853d4dc98b9a6703a4256e5be87b5b5
+  checksum: 507e172571dff721248a0e1aacd9778c8c7e78f58ba2582d28ec976ffcb27fa1dbb50fdd1d7a6e012db51ca9cbcb10b2ae3a99112085d596f169693a9f6abc81
   languageName: node
   linkType: hard
 
@@ -816,10 +817,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hls.js@npm:^1.4.3":
-  version: 1.4.5
-  resolution: "hls.js@npm:1.4.5"
-  checksum: 7d01e17e5a434e3d6c8579b8d8340bfb4d7affb2f4015c02894466f0ce2719dc4c7e6f8953fb5a38642795e838d06c58d71ced579948e712d58e434001b69320
+"hls.js@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "hls.js@npm:1.4.6"
+  checksum: 7a44107c92e52859bfd5a37b6ea647cfea20848466286c1280b2cf956cfaccf8131fa54867cd8edfb60042a238025fb8788263fd9dfb9d1798ddbdc08f5aab50
   languageName: node
   linkType: hard
 
@@ -1070,10 +1071,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playcanvas@npm:^1.63.6":
-  version: 1.63.6
-  resolution: "playcanvas@npm:1.63.6"
-  checksum: bde01209731fabe6015ad4812d93da233bb5f26e1397b25dcc04aade708f37850ec6c909f723063d6ff8f7669b5aa914d15167bcf525c7b16110fad883573cc7
+"playcanvas@npm:^1.64.0":
+  version: 1.64.0
+  resolution: "playcanvas@npm:1.64.0"
+  checksum: f2334c6eef911d0af118c0e7551c088815ec936b4b38089c6690c7d7e40352e5d083f594e2744c4516c2f1c668565566c485b905049367703888527cd0714564
   languageName: node
   linkType: hard
 

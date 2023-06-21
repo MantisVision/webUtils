@@ -15,11 +15,12 @@ In order to obtain the canvas with the current frame and synced data, a new obje
 ```javascript
 const ryskObj = new RYSKUrl("video_url","data_url");
 ```
-``data_url`` can point to data in one of these four formats:
+``data_url`` can point to data in one of these five formats:
 * SYK1
 * SYK2
 * RYS0
 * RYS1
+* RYS2
 
 They can be packed in a single .syk file or split into multiple .syk files. In the latter case, URL of the JSON manifest
 (having .json extension) must be provided. "video_url" can also point either to the video file or to HLS manifest 
@@ -30,6 +31,7 @@ It returns a promise which resolves with the object containing HTML canvas eleme
 mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient).
 It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
 needs to be turned up through ``setVolume()`` method:
+
 ```javascript
 ryskObj.init()
 	.then(elements => 
@@ -120,6 +122,15 @@ ryskObj.init().then(elements =>
 		/* do something with the canvas */
 	}).catch(err => console.error(err));
 ```
+## Issue of init(), play() and setPreviewMode()
+The pre-buffering (which includes the downloading and decoding of the RYSK data) starts when ``init()`` method is executed. However, the video with the texture normally starts to play only after the ``play()`` method is called. It is only after that the promise from the ``init()`` method gets resolved. This mechanism was chosen so that user is actually forced to call ``play()`` manually due to autoplay issue in modern browsers (and predominantly on mobile devices).
+
+However, you may wish to obtain some sort of "preview image" even before ``play()`` is executed. You can use method ``setPreviewMode(true)`` of the ``RYSKUrl`` object, ideally right after the object is constructed. When then the ``init()`` method is called, the library internally mutes the video (this is done to try to circumvent the autplay ban), plays the video for one frame and then immediately pauses it and returns the volume to the previously set level.
+
+The same thing also happens if ``jumpAt()`` method is called in case the video was paused prior to the jump. After the jump, the video is played for a single frame and then paused again which should result in drawing the first frame after the jump onto the canvas (this is, of course, unnecessary if the video is playing when it jumps).
+
+There is no need to call ``setPreviewMode(true)`` each time you want to obtain the "preview image"; one call enables the behavior until it's turned off again by ``setPreviewMode(false)``.
+
 # RYSKStream
 This class works with a realtime, continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
 RYSKStream decodes delivered frames on its own in the separate worker process. Video is being played realtime, and 
@@ -198,7 +209,7 @@ ryskObj.on(RyskEvents.dataDecoded,async function(data)
 	await doSomething(uvs, indices, vertices, frameNo);
 });
 ```
-The passed callback should either be asynchronous or return a promise. Internally, RyskURL will wait till it resolves
+The passed callback should either be asynchronous or return a promise. Internally, RYSKUrl will wait till it resolves
 in order to continue with matching the current video frame with the data.
 
 At the end of the lifecycle, it is highly recommended to call ``dispose`` on the rysk object in order to free the system
@@ -287,10 +298,19 @@ get seekable();
 ```javascript
 /**
  * Inits the service and returns a promise which resolves with an object containing 2 properties: 
- * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to realize the video is muted!.
+ * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to remember that the video is initialy muted, so you migth want to call setVolume method afterwards.
  * @returns {Promise} promise which resolves after the video is ready to be played.
  */
 async init();
+```
+```javascript
+/**
+ * Enable or disable the preview mode. If the preview mode is enabled, the library will try to obtain
+ * the video frame and data as soon as init() method is run or as soon as jumpAt is finished.
+ * @param {boolean} enable true for the preview mode enable and false to disable it
+ * @returns this object for chaining
+ */
+setPreviewMode(enable);
 ```
 ```javascript
 /**
@@ -504,6 +524,9 @@ occured prior to that.
 #### 3.0.2
 - When ``RYSKUrl.pause`` method is called, the download of RYSK data isn't stopped as before. This is to prevent the situation when the first
 buffering hasn't occured yet and the video gets stopped which actually prevents the first buffering from finishing.
+
+### 3.1.0
+- Added a new method ``setPreviewMode(mode: boolean)`` that can be called to enable a "preview mode" in which the video is played automatically for a single frame in ``init()`` method in order to provide at least one frame to the ``RYSKBuffer`` and to the derived classes. This provide an ability to show a preview of the video even before a user hits a play button. The same functionality applies also to ``jumpAt()`` method.
 
 ## Release notes RYSKStream
 

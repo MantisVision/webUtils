@@ -67,10 +67,9 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 {
 	const chloeRYSK = new URLMesh(chloe_video, chloe_data, 50, THREE.SRGBColorSpace);
 	const robRYSK = new URLMesh(rob_video, rob_data, 50, THREE.SRGBColorSpace);
+	chloeRYSK.setPreviewMode(true);
+	robRYSK.setPreviewMode(true);
 	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
-	
-	//ryskObj.on("buffering",() => console.log("buffering"));
-	//ryskObj.on("playing",() => console.log("playing"));
 	
 	const progress = document.getElementById("progress") as HTMLProgressElement;
 	

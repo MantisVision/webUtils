@@ -48,6 +48,7 @@ function run(app)
 	try
 	{
 		const ryskObj = new window.Rysk.URLMesh(video_url,data_url,50,pc);
+		ryskObj.setPreviewMode(true);
 		
 		const progress = document.getElementById("progress");
 
