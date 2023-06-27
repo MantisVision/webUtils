@@ -68,3 +68,9 @@ Includes changes from [@mantisvison/ryskurl 3.0.1](./ryskurlryskstream.md#301) a
 
 ### 3.2.0
 Includes changes from [@mantisvison/ryskurl 3.1.0](./ryskurlryskstream.md#310)
+
+### 4.0.0
+*Breaking Change!* in the npm (not standalone!) version. 
+- the package has no longer a default export which exports an object carrying multiple properties with classes, but instead uses classic named exports.
+- three.js is now a peer dependency, i.e. the consumers of the library must have three.js listed among their core dependencies.
+- the ``type`` field in ``package.json`` has now value ``module``.

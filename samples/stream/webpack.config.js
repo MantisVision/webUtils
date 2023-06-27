@@ -2,8 +2,8 @@ const webpack = require('webpack');
 const path = require("path");
 
 module.exports = {
-	mode: "development",
-	devtool: "eval-cheap-module-source-map",
+	mode: "production",
+	devtool: "source-map",
 	context: path.resolve(__dirname,'src'),
 	experiments: { topLevelAwait: true },
 	entry: {

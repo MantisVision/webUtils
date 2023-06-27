@@ -3,8 +3,8 @@ const path = require("path");
 
 module.exports = 
 	{
-		mode: "development",
-		devtool: "eval-cheap-module-source-map",
+		mode: "production",
+		devtool: "source-map",
 		context: __dirname,
 
 		entry: {

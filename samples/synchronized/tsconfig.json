@@ -4,8 +4,6 @@
 		"./public_html/**"
 	  ],
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
 		"sourceMap": true,
 		"outDir": "./tmp/",
 		"noImplicitAny": true,

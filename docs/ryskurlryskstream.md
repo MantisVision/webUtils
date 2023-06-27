@@ -528,8 +528,17 @@ buffering hasn't occured yet and the video gets stopped which actually prevents 
 ### 3.1.0
 - Added a new method ``setPreviewMode(mode: boolean)`` that can be called to enable a "preview mode" in which the video is played automatically for a single frame in ``init()`` method in order to provide at least one frame to the ``RYSKBuffer`` and to the derived classes. This provide an ability to show a preview of the video even before a user hits a play button. The same functionality applies also to ``jumpAt()`` method.
 
+#### 3.1.1
+- Fixed the bug when ``setPreviewMode(true)`` didn't behave as intended when the ``stop()`` method was called.
+
+#### 3.1.2
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+
 ## Release notes RYSKStream
 
 ### 4.0.0
 - Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
 - *BREAKING CHANGE*: Method ``RYSKStream.run`` was renamed to ``RYSKStream.init`` to avoid the conflict with the same named method from ``@mantisvision/ryskthreejs`` and other libraries which provide classes that inherit from the ``RYSKStream`` class.
+
+#### 4.0.4
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.

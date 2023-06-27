@@ -6,8 +6,8 @@ const __dirname = path.dirname(__filename);
 
 export default
 {
-	mode: "development",
-	devtool: "eval-cheap-module-source-map",
+	mode: "production",
+	devtool: "source-map",
 	context: __dirname,
 
 	entry: {

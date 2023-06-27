@@ -307,3 +307,6 @@ Added ``setVolume()`` method and new events: paused, playing and ended.
 
 #### 0.2.3
 When jumping into a timestamp which is higher than some of the videos' durations, those videos automatically jump to their last frame.
+
+#### 0.2.4
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.

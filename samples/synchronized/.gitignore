@@ -6,6 +6,8 @@
 !.yarn/sdks
 !.yarn/versions
 nbproject/*
+public_html/*.txt
 public_html/*.js
 public_html/*.wasm
+public_html/*.map
 .yarnrc.yml

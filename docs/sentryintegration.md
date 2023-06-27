@@ -40,3 +40,9 @@ configuration. Method ``setupOnce`` is called automatically by Sentry.
  */
 constructor(options = null)
 ```
+
+## Release notes
+
+### 0.8.0
+- ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+- Source codes have been rewritten to Typescript

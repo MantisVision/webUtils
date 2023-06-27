@@ -4,7 +4,6 @@ import * as pc from "playcanvas";
 
 import VideoSync, { TimingObject, VideoSyncEvents } from "@mantisvision/synchronizer";
 import * as TIMINGSRC from "./timingsrc.js";
-import RYSKUrl from "@mantisvision/ryskurl";
 
 const chloe_video = "./chloe_battle.mp4";
 const chloe_data = "./chloe_battle.syk";

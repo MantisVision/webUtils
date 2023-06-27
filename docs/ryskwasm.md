@@ -37,3 +37,6 @@ GetWasmModule().then(Module =>
 
 ### 0.4.0
 Typescript type annotations were added into ``dist/MantisRYSKWASM.d.ts``.
+
+#### 0.4.2
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.

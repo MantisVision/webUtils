@@ -181,3 +181,6 @@ of ``URLMesh`` / ``StreamMesh``.
 ### 0.8.0
 - Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new method ``setPreviewMode(mode: boolean|PreviewMode)`` is added to the ``URLMesh`` class. In addition to the same named method from ``RYSKUrl`` which it overrides, this one allows to set the preview to the partial mode (value 2) which shows an untextured mesh when the RYSK object into the scene (in theory, it should save some bandwidth).
 - playcanvas library in its npm form is listed as a "peer dependency" in package.json. This is an attempt to avoid potential conflicts between various versions of this library.
+
+#### 0.8.3
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.

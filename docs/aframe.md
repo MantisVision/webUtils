@@ -178,3 +178,6 @@ compatibility, but ``*.d.ts`` files with type declarations are included in ``dis
 
 ### 0.6.0
 Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new attribute ``preview`` is added to the ``ryskurl`` component. It can be set to ``disabled`` (default; equals to false of ``RYSKUrl`` class), ``full`` (equals to true of ``RYSKUrl`` class) or ``partial``. The last one shows an untextured mesh when the RYSK object into the scene (in theory, it should save some bandwidth).
+
+#### 0.6.3
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.

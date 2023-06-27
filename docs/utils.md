@@ -305,5 +305,8 @@ compatibility, but ``*.d.ts`` files with type declarations are included in ``dis
 #### 2.0.2
 Added an option to change the foreground and/or background colors of the debug logs in MantisLog object.
 
-### 2.0.3
+#### 2.0.3
 Added a new typecheck export for data from the Worker.
+
+#### 2.0.5
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.

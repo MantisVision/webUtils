@@ -64,47 +64,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskbuffer@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "@mantisvision/ryskbuffer@npm:0.5.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.5.2%2F43f3ecff4199efa11c609e06c8fb2663f47823e7"
+"@mantisvision/ryskbuffer@portal:/var/www/mantis/buffer::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskbuffer@portal:/var/www/mantis/buffer::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/utils": ^2.0.2
-  checksum: 7fd724a23a7fedd1d3992efe98a88afbcfb8e0d0ddd9562f0772424d14dffa00ea0c485b707bd509a1186473c4dfc0b8ab2dca4ca1ce8fe64c303193b2426c8e
+    "@mantisvision/utils": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/ryskdecoder@npm:^0.3.4":
-  version: 0.3.4
-  resolution: "@mantisvision/ryskdecoder@npm:0.3.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdecoder%2F0.3.4%2F6e8d739441072ef03fbbc1e4badb60bfabfc5a1b"
+"@mantisvision/ryskdecoder@portal:/var/www/mantis/decoder::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskdecoder@portal:/var/www/mantis/decoder::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/ryskwasm": ^0.4.1
-  checksum: 2ac6ee309735c1535dc22f2f3c09bd51bf8244567a0c9440b21ead59a13f8836801cb37a297e64e792f275165908caad9f42d7a4d168dc9c1dfb8c1d15b72504
+    "@mantisvision/ryskwasm": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/ryskdownloader@npm:^0.5.5":
-  version: 0.5.5
-  resolution: "@mantisvision/ryskdownloader@npm:0.5.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.5.5%2F1c3ffbb71043204e5cb144cdc2f8842f9e3303db"
+"@mantisvision/ryskdownloader@portal:/var/www/mantis/downloader::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskdownloader@portal:/var/www/mantis/downloader::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/ryskdecoder": ^0.3.4
+    "@mantisvision/ryskdecoder": "workspace:^"
     "@types/json-bigint": ^1.0.1
     json-bigint: ^1.0.0
-  checksum: 768c1da2b813bdf8d437e1f59ab7a9f28cc884172d925051425a7434b4fa330418dc653bb7f7d541c2a51e6077b62aa8667bb9bf42c0babdccb9a05e1653780f
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/ryskplaycanvas@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.8.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.8.0%2F1bd2ba6839442df952df600a866a900fb2f893b5"
+"@mantisvision/ryskplaycanvas@portal:/var/www/mantis/playcanvas::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskplaycanvas@portal:/var/www/mantis/playcanvas::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/ryskstream": ^4.0.3
-    "@mantisvision/ryskurl": ^3.1.0
-    "@mantisvision/utils": ^2.0.3
+    "@mantisvision/ryskstream": "workspace:^"
+    "@mantisvision/ryskurl": "workspace:^"
+    "@mantisvision/utils": "workspace:^"
   peerDependencies:
     playcanvas: ^1.64.0
-  checksum: c0f53b78ff129d51523a861f760c8984de344f457f8b6ccf2685298458417de87f971dbbc0bb19e89d5e28d63e18cdba3f82fb2338d51d5918871f1f62c73a5e
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@mantisvision/rysksamples@workspace:.":
   version: 0.0.0-use.local
@@ -125,68 +121,63 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mantisvision/ryskstream@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "@mantisvision/ryskstream@npm:4.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskstream%2F4.0.3%2Fc89317b076c231bc39b4a81ac346b7138c2e77f1"
+"@mantisvision/ryskstream@portal:/var/www/mantis/stream::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskstream@portal:/var/www/mantis/stream::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/ryskbuffer": ^0.5.2
-    "@mantisvision/ryskdecoder": ^0.3.4
-    "@mantisvision/utils": ^2.0.2
-  checksum: b69de39c4a4a2ba12fcd4e41644aace885b7a26b4a1c1029be3e4d1f3bd552246986bebb8fc02f6bd4d13ff753bde0e4c0a33a161a5857ebf2f80e3e23ad19ff
+    "@mantisvision/ryskbuffer": "workspace:^"
+    "@mantisvision/ryskdecoder": "workspace:^"
+    "@mantisvision/utils": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/ryskthreejs@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "@mantisvision/ryskthreejs@npm:0.10.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.10.0%2F27a364c29a9e219a41311dc179a7014f660074c4"
+"@mantisvision/ryskthreejs@portal:/var/www/mantis/threejs::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskthreejs@portal:/var/www/mantis/threejs::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/ryskstream": ^4.0.3
-    "@mantisvision/ryskurl": ^3.1.0
-    "@mantisvision/utils": ^2.0.3
-    three: 0.153.0
-  checksum: 4ca9785f85572444f53aa43fc860281d33cb0a4149025a49e13803510a5cab7aff306cdd4a415a759f7ee76354bfaa1eca9054c3a2a38b1332cfdef4a9e855d5
+    "@mantisvision/ryskstream": "workspace:^"
+    "@mantisvision/ryskurl": "workspace:^"
+    "@mantisvision/utils": "workspace:^"
+  peerDependencies:
+    three: ^0.153.0
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/ryskurl@npm:^3.1.0":
-  version: 3.1.1
-  resolution: "@mantisvision/ryskurl@npm:3.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.1.1%2F0a20dc6d98de9348ad84eaad5118991de514d726"
+"@mantisvision/ryskurl@portal:/var/www/mantis/url::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskurl@portal:/var/www/mantis/url::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/ryskbuffer": ^0.5.2
-    "@mantisvision/ryskdownloader": ^0.5.5
-    "@mantisvision/utils": ^2.0.3
-  checksum: 6883cd50403dc9fa35bcfc7f8cbd6808e69c6441d6d7fae9abb030b441eb47b6d43bfcb3fc76bc53ba2592ec175aff57755bdbac634e16fe3f421b6212623cf9
+    "@mantisvision/ryskbuffer": "workspace:^"
+    "@mantisvision/ryskdownloader": "workspace:^"
+    "@mantisvision/utils": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/ryskwasm@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "@mantisvision/ryskwasm@npm:0.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskwasm%2F0.4.1%2Fafdc4f57575154197f2103cb0936a79c23de51a9"
-  checksum: b5294398338777867cf8fd9cbb32976c912238440fe5f2ddc85726039116eee6bd56e16e3a07db11a07f32f71d158eb5ff5ce8a2d4a8ec4743adca452b46a545
+"@mantisvision/ryskwasm@portal:/var/www/mantis/ryskwasm::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/ryskwasm@portal:/var/www/mantis/ryskwasm::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/synchronizer@npm:^0.2.3":
-  version: 0.2.3
-  resolution: "@mantisvision/synchronizer@npm:0.2.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.2.3%2F32c362ca70f99074adbe8e94831fa4fea15c8029"
+"@mantisvision/synchronizer@portal:/var/www/mantis/synchronizer::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/synchronizer@portal:/var/www/mantis/synchronizer::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
-    "@mantisvision/ryskurl": ^3.1.0
-    "@mantisvision/utils": ^2.0.3
-  checksum: a96ad6f4188d8295ca1b457a9c26c1cb26ebcd6d07fc37262e6983873ff085ec42b26570de71393a35bf0971f50b028d4e08db74ba9a6ea55e225dedce535332
+    "@mantisvision/ryskurl": "workspace:^"
+    "@mantisvision/utils": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@mantisvision/utils@npm:^2.0.2, @mantisvision/utils@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@mantisvision/utils@npm:2.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.0.3%2Fd84264016b9f9359f75ff379f4034d44ae9df84f"
+"@mantisvision/utils@portal:/var/www/mantis/utils::locator=%40mantisvision%2Frysksamples%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@mantisvision/utils@portal:/var/www/mantis/utils::locator=%40mantisvision%2Frysksamples%40workspace%3A."
   dependencies:
     hls.js: ^1.4.6
   dependenciesMeta:
     hls.js:
       optional: true
-  checksum: 507e172571dff721248a0e1aacd9778c8c7e78f58ba2582d28ec976ffcb27fa1dbb50fdd1d7a6e012db51ca9cbcb10b2ae3a99112085d596f169693a9f6abc81
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@tweenjs/tween.js@npm:~18.6.4":
   version: 18.6.4
@@ -1304,7 +1295,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:0.153.0, three@npm:^0.153.0":
+"three@npm:^0.153.0":
   version: 0.153.0
   resolution: "three@npm:0.153.0"
   checksum: 68899ca90e048967a83866a1d54a9d28bba3532d228ede9e4c2a3b9bec347c31d8bb633eeaf7828397d2419cded8f57cf32f2a9c037a3587d45122e793ddc0c4

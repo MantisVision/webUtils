@@ -8,4 +8,6 @@
 nbproject/*
 public_html/*.js
 public_html/*.wasm
+public_html/*.map
+public_html/*.txt
 .yarnrc.yml

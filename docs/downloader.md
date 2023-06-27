@@ -208,3 +208,6 @@ capacity too quickly.
 
 #### 0.5.3
 *BUGFIX* Do not pause download after resume method was called (this sometimes caused permanent halt of the download).
+
+#### 0.5.7
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.

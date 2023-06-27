@@ -71,3 +71,5 @@ compatibility, but ``*.d.ts`` files with type declarations are included in ``dis
 #### 0.3.2
 A slightly optimized inner loading of the WASM module.
 
+#### 0.3.6
+``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
