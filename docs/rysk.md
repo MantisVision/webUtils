@@ -39,7 +39,7 @@ if ("THREE" in window)
 ```
 Tested version of three.js compatible with ``@mantisvision/rysk`` is r138. If you use a different version, there might be issues due to frequent changes in three.js API.
 
-``MantisRYSK.min.js`` creates its own, global variable and names it Rysk. It conatins 4 properties:
+``MantisRYSK.min.js`` creates its own, global variable and names it Rysk. It contains 4 properties:
 - URLMesh
 - StreamMesh
 - RYSKUrl (alias of URLMesh)

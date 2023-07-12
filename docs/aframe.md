@@ -1,6 +1,6 @@
 # RYSKaframe
 This is an attempt to integrate RYSK libraries with a-frame. Since A-Frame doesn't use node.js package architecture
-in the usual way and reliaes on global variable ``AFRAME``, this package had to be composed in the similar manner.
+in the usual way and relies on global variable ``AFRAME``, this package had to be composed in the similar manner.
 
 If you intend to use the package together with other node.js packages and install it either through yarn or npm, the
 package depends on ``@mantisvision/ryskstream``, ``@mantisvision/ryskurl`` and ``aframe`` packages. Bear in mind that 
@@ -38,7 +38,7 @@ Minified version can be loaded via HTML ``<script>`` tag in the header:
 It has no dependencies (everything is bundled inside), but again, aframe must be loaded prior to it.
 
 ``@mantisvision/ryskaframe`` registers two new components within A-Frame: ``ryskurl`` and ``ryskstream``.
-For convinience, it also registers two coresponding primitives: ``<mantis-ryskurl></mantis-ryskurl>`` 
+For convenience, it also registers two corresponding primitives: ``<mantis-ryskurl></mantis-ryskurl>`` 
 and ``<mantis-ryskstream></mantis-ryskstream>``.
 
 ### ryskurl
@@ -138,8 +138,8 @@ ryskstream component is based on the following schema:
 }
 ```
 - videoelem: id of the videoelement which will serve as the source of the media stream. Alternatively, media stream can be passed directly through the newdata event (see below)
-- width: width resolution of the video; if not given, it either read from videoelem or from the data that came throuh the data event
-- height: height resolution of the video; if not given, it either read from videoelem or from the data that came throuh the data event
+- width: width resolution of the video; if not given, it either read from videoelem or from the data that came through the data event
+- height: height resolution of the video; if not given, it either read from videoelem or from the data that came through the data event
 - volume: volume level from 0 (mute) to 1 (full volume)
 
 #### Event listeners

@@ -161,15 +161,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/utils@npm:^2.0.3, @mantisvision/utils@npm:^2.0.4, @mantisvision/utils@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@mantisvision/utils@npm:2.0.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.0.5%2Fac5dbc540a81eaf3a1756e72869bd5fab904b4a0"
+"@mantisvision/utils@npm:^2.0.3, @mantisvision/utils@npm:^2.0.4, @mantisvision/utils@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@mantisvision/utils@npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.1.0%2F5a83b2269efe812f6071bc6f2b3a30d22fae4c67"
   dependencies:
     hls.js: ^1.4.6
   dependenciesMeta:
     hls.js:
       optional: true
-  checksum: 2c222c0ef03cf45492cc6d35d8ad7b6cc931f6144ccf0160f4f3de1b790a4afacc0d208af3c288754a909e7e36ac92e856b9daaa13ef289cecfea54115d1661a
+  checksum: d968dd0d4faf46246eab6556dcf45fdde64e872fd85367d7073084111db5ccb8060b526288af9fa25093def527fbfc0507e2f0344572e83d16c93bd048d13a2d
   languageName: node
   linkType: hard
 
@@ -474,11 +474,11 @@ __metadata:
     "@mantisvision/ryskaframe": ^0.6.3
     "@mantisvision/ryskplaycanvas": ^0.8.3
     "@mantisvision/ryskthreejs": ^0.10.1
-    "@mantisvision/utils": ^2.0.5
+    "@mantisvision/utils": ^2.1.0
     aframe: ^1.4.2
-    playcanvas: ^1.64.1
+    playcanvas: ^1.64.3
     three: ^0.153.0
-    webpack: ^5.88.0
+    webpack: ^5.88.1
     webpack-cli: ^5.1.4
   languageName: unknown
   linkType: soft
@@ -1340,10 +1340,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playcanvas@npm:^1.64.1":
-  version: 1.64.1
-  resolution: "playcanvas@npm:1.64.1"
-  checksum: 1a5d2f181e4619044c4aad43f1e6b894fbd6f66af8aac3709ce214cf80290c7f614e6d186b00a67efb325555928984bd9154bb1ae3d839723a5d711a07082607
+"playcanvas@npm:^1.64.3":
+  version: 1.64.3
+  resolution: "playcanvas@npm:1.64.3"
+  checksum: 7c6da6a2487154250437f0b226b66fee8b28055eb61c7c0370dbe0511acd7a83d832689f0def676cd870acfc05f94d2d653b92b6772736fe775061ba5f7fe181
   languageName: node
   linkType: hard
 
@@ -1769,9 +1769,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.88.0":
-  version: 5.88.0
-  resolution: "webpack@npm:5.88.0"
+"webpack@npm:^5.88.1":
+  version: 5.88.1
+  resolution: "webpack@npm:5.88.1"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -1802,7 +1802,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 9fd1568b34ec2e99ba97c8509a15ab2576ec80c396e7015551ec814b24cfc11de173acba3e114dafe95f1a6d460781b09d6201e6a1fb15110e1d01a09f61a283
+  checksum: 726e7e05ab2e7c142609a673dd6aa1a711ed97f349418a2a393d650c5ddad172d191257f60e1e37f6b2a77261571c202aabd5ce9240791a686774f0801cf5ec2
   languageName: node
   linkType: hard
 

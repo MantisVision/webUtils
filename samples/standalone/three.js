@@ -2,8 +2,8 @@ import * as three from "https://unpkg.com/three@0.153.0";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
 // variable THREE to be already registered present
 
-const video_url = "https://supercomputers.sk/app/hls/chloe_battle.m3u8";
-const data_url = "https://supercomputers.sk/app/hls/chloe_battle.syk";
+const video_url = "./chloe_battle.mp4";
+const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {

@@ -33,12 +33,12 @@ MantisLog.warning("Some warning"); //internally uses console.warn()
 ```
 
 ## VideoElement
-This is essentialy a wrapper around a classical HTMLVideo element. Its main purpose is to avoid conflicts between ``play``
+This is essentially a wrapper around a classical HTMLVideo element. Its main purpose is to avoid conflicts between ``play``
 and ``pause`` calls from user and a library. Since these calls are asynchronous, it might happen they get interrupted 
-by one another. VideoElement attempts to solve this by ordering the calls in a meaningful way and potetialy delaying them
+by one another. VideoElement attempts to solve this by ordering the calls in a meaningful way and potentially delaying them
 till the promises from previous calls don't get resolved.
 
-As the video source, one of the followinf three can be used:
+As the video source, one of the following three can be used:
 - URL of a video file
 - URL of m3u8 manifest file for HLS
 - MediaStream 
@@ -310,3 +310,6 @@ Added a new typecheck export for data from the Worker.
 
 #### 2.0.5
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.
+
+### 2.1.0.
+Webpack configuration now emits dist files with ESM exports and imports.

@@ -34,7 +34,7 @@ SentryIntegration Exports a single class as its default export. An instance of t
 configuration. Method ``setupOnce`` is called automatically by Sentry.
 ```javascript
 /**
- * Creates an instance of this calss which should be passed to Sentry.
+ * Creates an instance of this class which should be passed to Sentry.
  * @param {Object} options configuration object which currently supports only one parameter: 
  *					measure -- if set to true, Transactions will be allowed in SentryInternal package, if false they won't
  */

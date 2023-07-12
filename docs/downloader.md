@@ -1,13 +1,13 @@
 # RYSKDownloader
 This package contains a downloader class which is used for downloading data from the given url, splitting them into frames
 and passing those frames to ``@mantisvision/decoder``. Internally it uses standard javascript Streams API together with standard fetch function.
-Downloaded data is being continuesly split to individual frames and then passed to @mantisvision/decoder.
+Downloaded data is being continuously split to individual frames and then passed to @mantisvision/decoder.
 Each decoded frame data consists of UVs, vertices and indices and is identified by the associated frame number.
 (see @mantisvision/decoder documentation).
 
 ## SYK/RYSK data file
 SYK/RYSK data can be stored either in a single .syk file or they can be split into multiple .syk files, each containing
-only the data for certian frames. In the latter case, a manifest must be provided in a form of JSON which primarily describes which
+only the data for certain frames. In the latter case, a manifest must be provided in a form of JSON which primarily describes which
 file contains which frames. The JSON format is as follows:
 ```
 [{
@@ -21,8 +21,8 @@ The root element is an array because SYK/RYSK data can be in multiple qualities 
 files). Each element of the array is an object describing a "single quality". 
 
 ``quality`` property of the object is its quality's
-numeric representation with lower numbers being inferior quality to higher numbers. In the curent version, however, other
-elements of the root array are currenty not considered when downloading the data since HLS support for RYSK data hasn't
+numeric representation with lower numbers being inferior quality to higher numbers. In the current version, however, other
+elements of the root array are currently not considered when downloading the data since HLS support for RYSK data hasn't
 been implemented yet.
 
 ``version`` property describes the version of SYK/RYSK data format; currently either SYK0, SYK1, RYS0 or RYS1.
@@ -77,16 +77,16 @@ Combining these two information together, we get three possible values for the d
 * SYK0
 * SYK1
 * RYS0
-When an instance of [RYSKDecoder](./decoder.md) is created, its constructor accepts single arguement which is this specific data
+When an instance of [RYSKDecoder](./decoder.md) is created, its constructor accepts single argument which is this specific data
 format as a string.
 
 If the data is split into multiple SYK/RYSK files, they do not contain the data format, since that one is already
-already specified in the seperate manifest JSON file.
+already specified in the separate manifest JSON file.
 
-Following the data format are individual frames. Each frame begins with a its size encoded on 4 bytes as an unsinged 32-bit integer
+Following the data format are individual frames. Each frame begins with a its size encoded on 4 bytes as an unsigned 32-bit integer
 in little endian. Size indicates how many following bytes belong to the frame. 
 
-Next 4 bytes specify frame number in an unsinged 32-bit integer in little endian. The size mentioned above includes these
+Next 4 bytes specify frame number in an unsigned 32-bit integer in little endian. The size mentioned above includes these
 four bytes.
 
 The rest is encoded data which needs to be passed to [RYSKDecoder](./decoder.md) which returns decoded uvs, vertices
@@ -111,7 +111,7 @@ constructor(url);
  *			error: called on error
  *			decoding-paused: called in a case the decoding has paused (e.g. enough frames ahead has been decoded)
  *			downloading-finished: the entire file from the given URL has been downloaded
- *			downloading-started: downlaoding has just started
+ *			downloading-started: downloading has just started
  * @param {callable} callback function to call on a specified event
  */
 on(event,callback);

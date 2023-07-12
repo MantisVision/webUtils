@@ -12,8 +12,8 @@ ryskurl and ryskstream) to construct the final 3D animated and textured mesh.
 
 This guide aims to present the way in which both mentioned implementations use the core library. It might not be the
 universal way or the most optimal for each environment, but the guide might give the integration developers at least
-the rough idea of what needs to be done on their end. Furthermore it also poinst some well-known bumps along the way
-(particularly regarding iOS Safari behaviour).
+the rough idea of what needs to be done on their end. Furthermore it also points some well-known bumps along the way
+(particularly regarding iOS Safari behavior).
 
 For the sake of simplicity, the following guide concerns only with ``@mantisvision/ryskurl``, since that is probably
 what the integrators will be mostly interested in. However, ``@mantisvision/ryskstream`` is very similar in essance, save
@@ -105,7 +105,7 @@ const animate = () =>
 requestAnimationFrame(animate);
 
 ```
-If everyhing goes well, you should now see various events in the console, as well as the decoded data being delivered. You
+If everything goes well, you should now see various events in the console, as well as the decoded data being delivered. You
 should also see the video being played in the browser (twice actually -- for the videoElement and for the canvas as well).
 
 You may notice there is no sound. To turn it on, you need to call this:
@@ -115,7 +115,7 @@ ryskObj.setVolume(1.0);
 The huge problem is WHEN to call it. This is due to the restrictions Safari on iOS makes towards autoplay. It should
 allow to autostart video when it's muted, but a particularly severe limitation comes with playing two (or more) videos
 together. Try to create another RYSKUrl object the same way as the first one, and then try to play them together unmuted
-on iOS Safari. You may notice an odd behaviour -- one of the video may not start, or start only muted even if you called
+on iOS Safari. You may notice an odd behavior -- one of the video may not start, or start only muted even if you called
 ``setVolume(1)``, or it may pause due to buffering of data but not start again once the data is buffered, or it may not
 loop etc.
 
@@ -244,18 +244,18 @@ export default class MeshGenerator extends RYSKUrl
 }
 ```
 
-``CustomMesh.js`` is a seperate file which exports class with your own mesh which you construct according to your needs
+``CustomMesh.js`` is a separate file which exports class with your own mesh which you construct according to your needs
 and periodically update.
 
 ```javascript
 export default class CustomMesh
 {
 	/**
-     * Do some prelimenery settings of the mesh according to your needs
+     * Do some preliminary settings of the mesh according to your needs
      */
 	constructor()
 	{
-		this.gemetry = SomehowCreateAppropriateGeometryObject();
+		this.geometry = SomehowCreateAppropriateGeometryObject();
 	}
 
 	/**
@@ -273,7 +273,7 @@ export default class CustomMesh
 Once you call ``MeshGenerator.init()`` and ``MeshGenerator.play()``, your ``CustomMesh`` object should start to receive
 the data and update itself. What is still missing however, is a texture. That one can be constructed either from
 canvas HTML element or from video HTML element. The former is recommend due to the better syncing - canvas gets redrawn only
-once the previous request for the decoded data was resolved, whilest the video may accidently display a frame or two before 
+once the previous request for the decoded data was resolved, while the video may accidentally display a frame or two before 
 it is automatically paused which may result in the texture ill fitting the mesh. This is particularly prominent in
 ``@mantisvision/ryskstrem`` where the video isn't paused due to realtime nature of the mediastream.
 
@@ -300,7 +300,7 @@ class CustomTexture
 }
 ```
 A strange bug was noticed with PlayCanvas library and Firefox or older Safari on Mac. The canvas had to be copied to different,
-canvas prior to uploading to the memory, otherwise syncing issues occured. Chrome as well as newer Safari were unnefected
+canvas prior to uploading to the memory, otherwise syncing issues ocurred. Chrome as well as newer Safari were unaffected
 by the bug. Three.js worked correctly on every browser without he need to copy the canvas. Thus, should you experience
 a similar behavior with your integration, try copying canvas to a temporary one in the update method first.
 
@@ -444,7 +444,7 @@ module: {
 	},
 ...
 ```
-As for the webworkers, Webpack 5 should by itself automatically emit seperate files containing their code. This is because in both
+As for the webworkers, Webpack 5 should by itself automatically emit separate files containing their code. This is because in both
 ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``, the workers are created similar to this:
 ```javascript
 const worker = new Worker(new URL("./package.worker.js",import.meta.url));

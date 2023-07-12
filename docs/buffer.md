@@ -1,6 +1,6 @@
 # RYSKBuffer
 This package buffers encoded data and tries to match it with the current frame of the video.
-Data should be submitted continuesly and preferably in sync (or ahead) of video frames, otherwise some parts of the video 
+Data should be submitted ontinuously and preferably in sync (or ahead) of video frames, otherwise some parts of the video 
 are skipped (in case of the "live" video streaming) or the video is paused till the proper data isn't delivered (in case
 of the pre-recorded video).
 
@@ -22,9 +22,9 @@ frames to sufficiently fill the buffer in order for it to resume playing the vid
 Once the end of the video is reached and the total amount of the decoded frames is known, you might want to rescale the
 buffer size up or down by calling the ```modifyBuffer``` method.
 
-If the video jumps to a different timestamp, you might want to see if the next frame number can be paired with an aleready
-decoded data. This can be done by registering a callbac using the method ```reportIfMissingDataForNextFrame```. 
-It will be triggered if the very next frame number extracted from the frame by RYSKBuffer doesn't have a coresponding
+If the video jumps to a different timestamp, you might want to see if the next frame number can be paired with an already
+decoded data. This can be done by registering a callback using the method ```reportIfMissingDataForNextFrame```. 
+It will be triggered if the very next frame number extracted from the frame by RYSKBuffer doesn't have a corresponding
 volumetric data yet. The number of the frame is returned as the parameter of the callback.  However, the callback won't
 be triggered at all if there already is a data to pair to the next frame
 
@@ -43,7 +43,7 @@ import { RYSKBuffer } from "@mantisvision/ryskbuffer";
 var canvas = null;
 
 /**
- * Buffer some data in the buffer till the appropriete frame comes in the video
+ * Buffer some data in the buffer till the appropriate frame comes in the video
  */
 async function bufferEncodedData(ryskBuffer)
 {
@@ -117,10 +117,10 @@ Helper.setGenerateCanvas(function()
  * Creates a new instance of RYSKBuffer which serves to canvas from the given video and buffers the data which
  * the object needs to be fed with periodically. It then sync the data with the current frame and provides the relevant
  * data through the callback which is passed as the first argument.
- * @param {callable} onDataCallback this function is called once the data for the current frame is availible. Indices, vertices, uvs and frameNo are passed as an object in the parameter. The function should return a promise (or be asynchroneous) which resolves once the next frame is supposed to be processed
+ * @param {callable} onDataCallback this function is called once the data for the current frame is available. Indices, vertices, uvs and frameNo are passed as an object in the parameter. The function should return a promise (or be asynchronous) which resolves once the next frame is supposed to be processed
  * @param {DOMElement} srcVideoElem source video element
- * @param {Boolean} realtime indicates whether video is considered realtime (i.e. a constant stream). RYSKBuffer then knows it shouldn't pause such a video whilest waiting for a proper RYSK data.
- * @param {Integer} videoWidth you can specify width of the video. If set to null (default), widh will be read from the srcVideoElem. If you set this parameter, the srcVideoElem will be stretched (or shrunk) to accomodate the desired size.
+ * @param {Boolean} realtime indicates whether video is considered realtime (i.e. a constant stream). RYSKBuffer then knows it shouldn't pause such a video while waiting for a proper RYSK data.
+ * @param {Integer} videoWidth you can specify width of the video. If set to null (default), width will be read from the srcVideoElem. If you set this parameter, the srcVideoElem will be stretched (or shrunk) to accommodate the desired size.
  * @param {Integer} videoHeight see the previous parameter
  * @param {Integer} frameBufferSize set the size of the framebuffer for the data describing the frames (i.e. uvs, indices, vertices). This parameter has but a limited usage if the "realtime" video is used, since the video can't be realistically paused to wait for the enough data
  */
@@ -137,8 +137,8 @@ modifyBuffer(newSize);
 ```
 ```javascript
 /**
- * Reset the whole data buffer. It is used in the contstructor, and if the user changes current timestamp of the video
- * (e.g. using seek or hitting stop button and returning video to the beginning), this method shoud be called as well.
+ * Reset the whole data buffer. It is used in the constructor, and if the user changes current timestamp of the video
+ * (e.g. using seek or hitting stop button and returning video to the beginning), this method should be called as well.
  */
 resetBuffer();
 ```
@@ -234,7 +234,7 @@ dispose();
 ### Helper
 ```javascript
 /**
- * This method serves for generating the canvas element. If document object is unavailible (e.g. in node.js), it should
+ * This method serves for generating the canvas element. If document object is unavailable (e.g. in node.js), it should
  * be replaced with an appropriate substitute which will return canvas. The replacement method can be set using
  * Helper.setGenerateCanvas(replacement).
  * @returns {Element} Canvas element

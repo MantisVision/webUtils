@@ -28,7 +28,7 @@ const ryskUrl = new URLMesh("video_url","data_url");
 const ryskStream = new StreamMesh(MediaStream);
 ```
 
-``playcanvas`` library is listed among the peer dependencies of ``@mantisvision/ryskplaycanvas``. This is to avoid the issue with simultaniously using two different ``playcanvas`` libraries in one project which would most likely break the functionality of the application. There is even an option to pass the main ``playcanvas`` object as a constructor parameter of ``URLMesh`` and ``StreamMesh``:
+``playcanvas`` library is listed among the peer dependencies of ``@mantisvision/ryskplaycanvas``. This is to avoid the issue with simultaneously using two different ``playcanvas`` libraries in one project which would most likely break the functionality of the application. There is even an option to pass the main ``playcanvas`` object as a constructor parameter of ``URLMesh`` and ``StreamMesh``:
 
 ```javascript
 import { URLMesh, StreamMesh } from "@mantisvision/ryskplaycanvas";
@@ -85,8 +85,8 @@ import(asset.getFileUrl()).then(() =>
 });
 ```
 PlayCanvas scripts attached to entities can have an ``update`` method which is automatically called on each redraw.
-It is therefore an ideal place to put the call to the ``upade`` method of the RYSK object. However, on older version
-of Safari browser and Firefox might exhibita a synchronization issue between the mesh and its texture. In order to fix
+It is therefore an ideal place to put the call to the ``update`` method of the RYSK object. However, on older version
+of Safari browser and Firefox might exhibit a synchronization issue between the mesh and its texture. In order to fix
 it, the ``update`` method of the RYSK object should be called in ``window.requestAnimationFrame`` callback instead.
 
 An example PlayCanvas editor script ins included in the npm package in ``examples`` folder. It should be attached to the

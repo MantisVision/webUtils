@@ -2,7 +2,7 @@
 
 This package contains a helper ``VideoSync`` class which can be used to synchronize playback of multiple ``RYSKUrl`` (or ``RYSKUrl`` derived) objects and/or ``HTMLVideoElement`` objects.
 
-``VideoSync`` class can be instantiated multiple times and each instance can carry its own group of synchronized objects. The synchronization realies heavily on an external time synchronization object class which must be injected into the constructor as its first parameter. It is highly recommended to use [TimingObject from timingsrc project](http://webtiming.github.io/timingsrc/index.html), specifically [v3](https://webtiming.github.io/timingsrc/lib/timingsrc-esm-v3.js). Later on, Timing object might become [standard in the web browsers](https://webtiming.github.io/timingobject/), so no external library will be needed.
+``VideoSync`` class can be instantiated multiple times and each instance can carry its own group of synchronized objects. The synchronization relies heavily on an external time synchronization object class which must be injected into the constructor as its first parameter. It is highly recommended to use [TimingObject from timingsrc project](http://webtiming.github.io/timingsrc/index.html), specifically [v3](https://webtiming.github.io/timingsrc/lib/timingsrc-esm-v3.js). Later on, Timing object might become [standard in the web browsers](https://webtiming.github.io/timingobject/), so no external library will be needed.
 
 ```javascript
 import * as TIMINGSRC from "https://webtiming.github.io/timingsrc/lib/timingsrc-esm-v3.js";
@@ -11,7 +11,7 @@ import VideoSync from "@mantisvision/synchronizer";
 const synchronizer = new VideoSync(TIMINGSRC.TimingObject);
 ```
 
-The synchronizer internally uses the provided ``TimingObject`` class to create its instances in order to match the timestamps among the given videos/RYSK objects. if some of the video starts to fall behind the time from the the ``TimingObject`` instance, the library first increases its playback rate and in case of a big time difference it jumps ahead to the correct timestamp. Reversed priciple apllies if the video is instead too fast.
+The synchronizer internally uses the provided ``TimingObject`` class to create its instances in order to match the timestamps among the given videos/RYSK objects. if some of the video starts to fall behind the time from the the ``TimingObject`` instance, the library first increases its playback rate and in case of a big time difference it jumps ahead to the correct timestamp. Reversed principle applies if the video is instead too fast.
 
 If the videos which should be synchronized are of different length, the longest one is played in its entirety while the rest stop at their last frame. If they are set to loop, they'll loop only once the longest video reaches its end.
 
@@ -59,9 +59,9 @@ synchronizer.addMedia([ryskObj1, ryskObj2]);
 ...
 synchronizer.removeMedia([ryskObj1, ryskObj2]);
 ```
-Both methods accept either ``HTMLVideoElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements ``SynchronizableObject`` interface (visible only if using TypeScript). You can also implement this interface yourself, wrap the ``HTMLVideoElement`` or ``RYSKUrl`` in it on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experience users since the inner implementation of the ``SynchronizableObject`` object interface may cause unforseen complications with the synchronization of the videos.
+Both methods accept either ``HTMLVideoElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements ``SynchronizableObject`` interface (visible only if using TypeScript). You can also implement this interface yourself, wrap the ``HTMLVideoElement`` or ``RYSKUrl`` in it on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experience users since the inner implementation of the ``SynchronizableObject`` object interface may cause unforeseen complications with the synchronization of the videos.
 
-If a new video is passed to the synchronizer once it's playing videos, the synchronizer automatically sets the timestamp of this new video to the current internal timestamp of the synchronizer. Also, if it's the longest video, a "durationchange" event is emmited. The same event is emmited when the longest video is removed from the synchronizer.
+If a new video is passed to the synchronizer once it's playing videos, the synchronizer automatically sets the timestamp of this new video to the current internal timestamp of the synchronizer. Also, if it's the longest video, a "durationchange" event is emitted. The same event is emitted when the longest video is removed from the synchronizer.
 
 Please notice that if you pass ``RYSKUrl`` object, you still have to call ``init()`` / ``run()``  method manually outside of the synchronizer. This is because the they very often resolve with the data which may be of direct use to you (e.g. ``RYSKUrl.init()`` resolves with the canvas and video, ``URLMesh.run()`` with the mesh object etc.).
 
@@ -84,14 +84,14 @@ synchronizer.addMedia(ryskObj2);
 ```
 
 ### Play / Pause / Stop / Volume
-``VideoSync`` class provides ``play()``, ``pause()`` and ``stop()`` methods for playing, pausing and stopping of the videos it currently manages. You must no longer call these methods directly on the passed objects because that would mess up with the internal synchroniozations of the videos. ``VideoSync`` object will also on itself automatically pause its videos if any of them starts buffering either video or RYSK data.
+``VideoSync`` class provides ``play()``, ``pause()`` and ``stop()`` methods for playing, pausing and stopping of the videos it currently manages. You must no longer call these methods directly on the passed objects because that would mess up with the internal synchronizations of the videos. ``VideoSync`` object will also on itself automatically pause its videos if any of them starts buffering either video or RYSK data.
 
 ### Jumping to a different timestamp
 ``VideoSync`` class provides ``jumpAt(timestamp)`` method which allows you to change the current timestamp of all the managed videos to the given value (in seconds). It's possible that the new timestamp will be higher than the duration of some of those videos. In such a case, they stop playing and only the videos with a sufficient duration jump to the desired timestamp. Again, you should not change timestamp of the managed videos yourself because that may lead to troubles with the synchronization.
 
 ### Setting volume
 In order to change the volume of the underlying videos, you should call ``setVolume()`` method of the ``VideoSync`` object. It takes two arguments:
-1. level of the volume - if 0, the videos will mute, if 1, they play in the standard strenght. Bear in mind that Some browsers may only recognize values 0 and 1.
+1. level of the volume - if 0, the videos will mute, if 1, they play in the standard strength. Bear in mind that Some browsers may only recognize values 0 and 1.
 2. RYSKUrl or HTMLVideoElement (or an array of them) which should afflicted by the change. You can use this parameter to set the volume only of some of the managed videos. If the second parameter isn't provided, all of the managed videos (even those added later on) will be set to the new volume.
 
 By default, the volume of Synchronizer is set to 0, so you have to call ``setVolume`` manually at least once to set to to an appropriate value. This is by design because some browsers may want to autoplay videos only if they're mute.
@@ -310,3 +310,7 @@ When jumping into a timestamp which is higher than some of the videos' durations
 
 #### 0.2.4
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.
+
+### 0.3.0
+- Video synchronizer can now handle dynamic duration changes of the managed media.
+- some of tha callbacks are now registered not on the underlying video element/RYSKUrl object, but directly on the wrapper which implements ``SynchronizableObject`` interface

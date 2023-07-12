@@ -48,7 +48,7 @@ getMemoryForInput(length);
  * Decodes the given frame.
  * @param {Array} frame byte data of the frame. This doesn't have to be set if the method getMemoryForInput was used first and the provided input memory was filled with the data.
  * @param {Boolean} returnReference if set to true, the return value will be a direct reference to the memory of wasm -- 
- *			this is very fast for a single reading, but the memmory can overwritten by further calls of this method. 
+ *			this is very fast for a single reading, but the memory can overwritten by further calls of this method. 
  *			If set to false (default and recommended if you're unsure), a safe copy will be made and returned. 
  *			The copy can be freely modified or sent to/from the webworker.
  * @returns {Object} object containing three parameter: vertices, uvs, indices; each of them is a Typed array, they might share the same buffer, but have different offsets!

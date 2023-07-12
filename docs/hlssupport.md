@@ -4,7 +4,7 @@ HTTP Live Streaming (also known as HLS) is an HTTP-based adaptive bitrate stream
 by Apple. It works by breaking the overall stream into a sequence of small files. A list of available "streams", encoded
 at different bit rates, is described int a separate extended M3U playlist.
 
-RYSK libraries utilizes two simultanious data transports: videodata and SYK/RYSK data. Currently HLS support is only
+RYSK libraries utilizes two simultaneous data transports: videodata and SYK/RYSK data. Currently HLS support is only
 implemented with the video since this is what HLS was developed for. However, there is an ongoing effort to provide
 a similar technique for adaptive download of SYK/RYSK data as well. As of the current version, only the first steps
 have been taken towards this goal which will be described in the [Data](#data) chapter.
@@ -37,8 +37,8 @@ file in a similar way to m3u file for mp4 segments. The JSON format is as follow
 The root element is an array which contains one object per one "quality" of data. 
 
 ``quality`` property of the object is its quality's
-numeric representation with lower numbers being inferior quality to higher numbers. In the curent version, however, other
-elements of the root array are currenty not considered when downloading the data since HLS support for RYSK data hasn't
+numeric representation with lower numbers being inferior quality to higher numbers. In the current version, however, other
+elements of the root array are currently not considered when downloading the data since HLS support for RYSK data hasn't
 been implemented yet.
 
 ``version`` property describes the version of SYK/RYSK data format; currently either SYK0, SYK1, RYS0 or RYS1.

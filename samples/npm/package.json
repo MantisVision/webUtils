@@ -18,9 +18,9 @@
 	"devDependencies": {
 		"@mantisvision/ryskaframe": "^0.6.3",
 		"@mantisvision/ryskplaycanvas": "^0.8.3",
-		"playcanvas": "^1.64.1",
+		"playcanvas": "^1.64.3",
 		"three": "^0.153.0",
-		"webpack": "^5.88.0",
+		"webpack": "^5.88.1",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {
@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"@mantisvision/ryskthreejs": "^0.10.1",
-		"@mantisvision/utils": "^2.0.5",
+		"@mantisvision/utils": "^2.1.0",
 		"aframe": "^1.4.2"
 	}
 }

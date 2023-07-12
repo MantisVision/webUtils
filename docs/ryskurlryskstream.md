@@ -125,7 +125,7 @@ ryskObj.init().then(elements =>
 ## Issue of init(), play() and setPreviewMode()
 The pre-buffering (which includes the downloading and decoding of the RYSK data) starts when ``init()`` method is executed. However, the video with the texture normally starts to play only after the ``play()`` method is called. It is only after that the promise from the ``init()`` method gets resolved. This mechanism was chosen so that user is actually forced to call ``play()`` manually due to autoplay issue in modern browsers (and predominantly on mobile devices).
 
-However, you may wish to obtain some sort of "preview image" even before ``play()`` is executed. You can use method ``setPreviewMode(true)`` of the ``RYSKUrl`` object, ideally right after the object is constructed. When then the ``init()`` method is called, the library internally mutes the video (this is done to try to circumvent the autplay ban), plays the video for one frame and then immediately pauses it and returns the volume to the previously set level.
+However, you may wish to obtain some sort of "preview image" even before ``play()`` is executed. You can use method ``setPreviewMode(true)`` of the ``RYSKUrl`` object, ideally right after the object is constructed. When then the ``init()`` method is called, the library internally mutes the video (this is done to try to circumvent the autoplay ban), plays the video for one frame and then immediately pauses it and returns the volume to the previously set level.
 
 The same thing also happens if ``jumpAt()`` method is called in case the video was paused prior to the jump. After the jump, the video is played for a single frame and then paused again which should result in drawing the first frame after the jump onto the canvas (this is, of course, unnecessary if the video is playing when it jumps).
 
@@ -256,7 +256,7 @@ ryskObj.play(); //be aware that if you "await" till "run" resolves and only then
 Both RYSKUrl and RYSKMesh trigger multiple events during their lifecycle. A callback can be registered using ``on(event,func)``
  
  - buffering: either video or data is being buffered (it triggers on either bufferingData event or on "waiting" event of video element)
- - buffered: video and data are buffered, video can play (it triggers when "dataBuffered" event was triggerd together with "playing" event of video element)
+ - buffered: video and data are buffered, video can play (it triggers when "dataBuffered" event was triggered together with "playing" event of video element)
  - bufferingData: data are being buffered
  - dataBuffered: enough data has been buffered
  - dataDecoded: triggers each time data is decoded. The data is passed to the callback as its first parameter
@@ -298,7 +298,7 @@ get seekable();
 ```javascript
 /**
  * Inits the service and returns a promise which resolves with an object containing 2 properties: 
- * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to remember that the video is initialy muted, so you migth want to call setVolume method afterwards.
+ * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to remember that the video is initially muted, so you might want to call setVolume method afterwards.
  * @returns {Promise} promise which resolves after the video is ready to be played.
  */
 async init();
@@ -478,7 +478,7 @@ offVideoEvent(event,callback);
 ```javascript
 /**
  * Proxy for the same method of the VideoElement. Allows to register callback on HLS events of hls.js. Beware that
- * on Safari the native HLS support is used instead of hls.js, so no callback will be emited and an exception might
+ * on Safari the native HLS support is used instead of hls.js, so no callback will be emitted and an exception might
  * be thrown on an attempt to register the callback.
  * @param {String} event name of the event from hls.js
  * @param {callable} func callback which gets called on the event
@@ -519,11 +519,11 @@ dispose();
 
 #### 3.0.1
 - *POTENTIAL BREAKING CHANGE* buffered event of RYSKUrl is fired not when the underlying HTMLVideo element triggers "playing" event, but when it triggers "canplay". This is because the "playing" event gets triggered every time a user plays a paused video, even if no buffering 
-occured prior to that.
+ocurred prior to that.
 
 #### 3.0.2
 - When ``RYSKUrl.pause`` method is called, the download of RYSK data isn't stopped as before. This is to prevent the situation when the first
-buffering hasn't occured yet and the video gets stopped which actually prevents the first buffering from finishing.
+buffering hasn't ocurred yet and the video gets stopped which actually prevents the first buffering from finishing.
 
 ### 3.1.0
 - Added a new method ``setPreviewMode(mode: boolean)`` that can be called to enable a "preview mode" in which the video is played automatically for a single frame in ``init()`` method in order to provide at least one frame to the ``RYSKBuffer`` and to the derived classes. This provide an ability to show a preview of the video even before a user hits a play button. The same functionality applies also to ``jumpAt()`` method.
