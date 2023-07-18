@@ -113,14 +113,14 @@ __metadata:
     "@mantisvision/ryskplaycanvas": ^0.8.3
     "@mantisvision/ryskthreejs": ^0.10.1
     "@mantisvision/ryskurl": ^3.1.2
-    "@mantisvision/synchronizer": ^0.3.0
+    "@mantisvision/synchronizer": ^0.4.1
     "@mantisvision/utils": ^2.1.0
     "@types/three": 0.152.1
-    playcanvas: ^1.64.3
+    playcanvas: ^1.64.4
     three: ^0.153.0
     ts-loader: ^9.4.4
     typescript: ^5.1.6
-    webpack: ^5.88.1
+    webpack: ^5.88.2
     webpack-cli: ^5.1.4
   languageName: unknown
   linkType: soft
@@ -167,13 +167,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/synchronizer@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@mantisvision/synchronizer@npm:0.3.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.3.0%2Fd74e1c64b05d83feecdc0925be58d9e4ad098257"
+"@mantisvision/synchronizer@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@mantisvision/synchronizer@npm:0.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.4.1%2F2ebb9bed8b5ca0b8594ea1f20c455008a0f7588c"
   dependencies:
     "@mantisvision/ryskurl": ^3.1.2
     "@mantisvision/utils": ^2.1.0
-  checksum: ca73ac61f9c54acbb04472f1862dc9eddf0a742e8bf1402c8e4e514f5c3dabb07ecf824d7708623f8c8c3c67038fb69afc4925614880f6c6fad1687afdb394a3
+  checksum: 51858a69e7665ce118a58b2bb7ef99b597f4199f42eb85ae44bee9827639936848d493f4136c055565c831f1adde4fbd8aebf0e874ad61a132ccb5bacf07b310
   languageName: node
   linkType: hard
 
@@ -1072,10 +1072,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playcanvas@npm:^1.64.3":
-  version: 1.64.3
-  resolution: "playcanvas@npm:1.64.3"
-  checksum: 7c6da6a2487154250437f0b226b66fee8b28055eb61c7c0370dbe0511acd7a83d832689f0def676cd870acfc05f94d2d653b92b6772736fe775061ba5f7fe181
+"playcanvas@npm:^1.64.4":
+  version: 1.64.4
+  resolution: "playcanvas@npm:1.64.4"
+  checksum: 74c0298c1b9a1a6e1a7ded9d89491e2659e0a5996bab47d6de5e2272d887e686b232514f6fc7766645593ab36cb15257041e1c3f1fbeaf558d2345d6a40c378f
   languageName: node
   linkType: hard
 
@@ -1438,9 +1438,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.88.1":
-  version: 5.88.1
-  resolution: "webpack@npm:5.88.1"
+"webpack@npm:^5.88.2":
+  version: 5.88.2
+  resolution: "webpack@npm:5.88.2"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -1471,7 +1471,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 726e7e05ab2e7c142609a673dd6aa1a711ed97f349418a2a393d650c5ddad172d191257f60e1e37f6b2a77261571c202aabd5ce9240791a686774f0801cf5ec2
+  checksum: 79476a782da31a21f6dd38fbbd06b68da93baf6a62f0d08ca99222367f3b8668f5a1f2086b7bb78e23172e31fa6df6fa7ab09b25e827866c4fc4dc2b30443ce2
   languageName: node
   linkType: hard
 

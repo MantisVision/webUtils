@@ -20,14 +20,14 @@
 		"@mantisvision/ryskplaycanvas": "^0.8.3",
 		"@mantisvision/ryskthreejs": "^0.10.1",
 		"@mantisvision/ryskurl": "^3.1.2",
-		"@mantisvision/synchronizer": "^0.3.0",
+		"@mantisvision/synchronizer": "^0.4.1",
 		"@mantisvision/utils": "^2.1.0",
 		"@types/three": "0.152.1",
-		"playcanvas": "^1.64.3",
+		"playcanvas": "^1.64.4",
 		"three": "^0.153.0",
 		"ts-loader": "^9.4.4",
 		"typescript": "^5.1.6",
-		"webpack": "^5.88.1",
+		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {

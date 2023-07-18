@@ -203,7 +203,7 @@ Detailed description of APIs of packages can be found here:
 * [@mantisvision/synchronizer](./docs/synchronizer.md)
 
 ## Samples
-* [Standalone library sample](./samples/standalone)
+* [Standalone library sample](./samples/standalone) ([link](./samples/standalone/index.html) to live version through Github pages)
 * [NPM packages sample](./samples/npm)
 * [Stream sample](./samples/stream)
 * [PlayCanvas editor sample](./samples/PlayCanvasEditor)

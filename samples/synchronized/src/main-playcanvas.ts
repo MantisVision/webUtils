@@ -139,6 +139,15 @@ function run(app: pc.Application)
 				}
 			}
 		});
+
+		document.getElementById("playbackrate")?.addEventListener("change", event =>
+		{
+			const value = (<HTMLInputElement>event.target).value;
+			if (synchronizer !== null && value)
+			{
+				synchronizer.setPlaybackRate(parseFloat(value));
+			}
+		});
 		
 		app.start();
 		app.on("frameupdate",() => 

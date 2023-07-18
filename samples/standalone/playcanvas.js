@@ -97,6 +97,14 @@ function run(app)
 				}
 			}
 		});
+
+		document.getElementById("playbackrate").addEventListener("change", event =>
+		{
+			if (ryskObj !== null)
+			{
+				ryskObj.playbackRate = parseFloat(event.target.value);
+			}
+		});
 		
 		app.start();
 		app.on("frameupdate",() => ryskObj.update());

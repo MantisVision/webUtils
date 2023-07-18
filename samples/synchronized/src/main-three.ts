@@ -133,6 +133,15 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 			}
 		}
 	});
+
+	document.getElementById("playbackrate")?.addEventListener("change", event =>
+	{
+		const value = (<HTMLInputElement>event.target).value;
+		if (synchronizer !== null && value)
+		{
+			synchronizer.setPlaybackRate(parseFloat(value));
+		}
+	});
 	
 	renderer.setAnimationLoop((timestamp, frame) => 
 	{//animation loop to render each frame-

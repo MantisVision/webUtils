@@ -16,11 +16,11 @@
 	},
 	"packageManager": "yarn@3.6.0",
 	"devDependencies": {
-		"@mantisvision/ryskaframe": "^0.6.3",
+		"@mantisvision/ryskaframe": "^0.7.0",
 		"@mantisvision/ryskplaycanvas": "^0.8.3",
-		"playcanvas": "^1.64.3",
+		"playcanvas": "^1.64.4",
 		"three": "^0.153.0",
-		"webpack": "^5.88.1",
+		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {

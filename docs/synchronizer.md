@@ -158,11 +158,26 @@ constructor(classPrototype: TimingClass)
 ```
 ```typescript
 /**
+ * Sets a new rate of the playback for all the managed media. 
+ * @param newRate new rate of the playback
+ * @returns this object for chaining
+ */
+setPlaybackRate(newRate: number);
+```
+```typescript
+/**
  * Returns the duration of the longest currently playing video. 
  * This may change with the time as new videos are added or existing are looped.
  * @returns duration of the longest currently playing video in seconds
  */
 getDuration();
+```
+```typescript
+/**
+ * Gets the current timestamp when playing videos
+ * @returns current timestamp
+ */
+getCurrentTimestamp(): number;
 ```
 ```typescript
 /**
@@ -314,3 +329,7 @@ When jumping into a timestamp which is higher than some of the videos' durations
 ### 0.3.0
 - Video synchronizer can now handle dynamic duration changes of the managed media.
 - some of tha callbacks are now registered not on the underlying video element/RYSKUrl object, but directly on the wrapper which implements ``SynchronizableObject`` interface
+
+### 0.4.0
+- new ``setPlaybackRate(newRate: number)`` method which allows to change the playback for all the managed media
+- new ``getCurrentTimestamp`` method which returns the current timestamp of the synchronizer

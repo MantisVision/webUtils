@@ -26,6 +26,7 @@
 			#aframe { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; }
 			#synchronized { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; }
 			#playcanvas { width: 100%; height: 100% }
+			#playbackratediv { top: 55px; position: absolute; left:15px; font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif; }
 			body {margin: 0}
 		</style>
 	</head>
@@ -36,6 +37,10 @@
 			<a href="./index.html"><button id="three">Three.js</button></a>
 			<a href="./index-aframe.html"><button id="aframe">A-Frame</button></a>
 			<a href="./index-synchronized.html"><button id="synchronized">Synced</button></a>
+			<div id="playbackratediv">
+				<label for="playbackrate">Playback rate:</label><br />
+				<input id="playbackrate" type="range" min="0.07" max="1.0" step="0.01" value="1.0" />
+			</div>
 			<canvas id="playcanvas"></canvas>
 		</div>
 	</body>

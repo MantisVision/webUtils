@@ -22,6 +22,12 @@ window.addEventListener('load',function()
 			aframeModel.setAttribute("time",pos * duration);
 		}
 	});
+
+	const playbackRate = document.getElementById("playbackrate");
+	playbackRate.addEventListener("change", event => 
+	{
+		aframeModel.setAttribute("playbackrate", playbackRate.value);
+	});
 	
 	aframeModel.addEventListener("timeupdate", event => 
 	{

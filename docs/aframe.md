@@ -61,7 +61,9 @@ ryskurl component is based on the following schema:
 	buffer: { type: "int", default: 50 },
 	loop: { type: "boolean", default: true },
 	volume: { type: "number", default: 0 },
-	time: { type: "number", default: 0 }
+	time: { type: "number", default: 0 },
+	playbackrate: { type: "number", default: 1 },
+	preview: { type: "all"|"full"|true|1|"partial"|2|"disabled"|false|0, default: 1 }
 }
 ```
 - video: url of the video for the texture of the mesh
@@ -70,6 +72,8 @@ ryskurl component is based on the following schema:
 - loop: marks if the video should loop after it ends
 - volume: volume level from 0 (mute) to 1 (full volume)
 - time: current timestamp of the video (can be used for e.g. progress bar)
+- playbackrate: playback rate of the video with 1 being the default, normal playback (as well as the default value), higher is faster speed and lower is slower
+- preview: whether the mesh should be displayed even before the playback starts ore immediately after the user jumps to a different timestamp. "all", "full", true and 1 are synonyms and enable full preview (default), "partial" and 2 enable partial preview (only mesh without a texture) and "disabled", false and 0 completely disable the preview.
 
 #### Event listeners
 ryskurl listens for the following events that you can emit on its element (i.e. ``<a-entity>`` or 
@@ -181,3 +185,6 @@ Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new attri
 
 #### 0.6.3
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+
+### 0.7.0
+A new attribute ``playbackrate`` us added to the ``ryskurl`` component. Setting it will

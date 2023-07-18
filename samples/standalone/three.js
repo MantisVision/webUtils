@@ -103,6 +103,14 @@ function run(renderer,scene,camera)
 			}
 		}
 	});
+
+	document.getElementById("playbackrate").addEventListener("change", event =>
+	{
+		if (ryskObj !== null)
+		{
+			ryskObj.playbackRate = parseFloat(event.target.value);
+		}
+	});
 	
 	renderer.setAnimationLoop((timestamp, frame) => 
 	{//animation loop to render each frame-

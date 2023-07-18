@@ -24,6 +24,7 @@
 			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; z-index: 2 }
 			#three { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
 			#playcanvas { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
+			#playbackratediv { top: 55px; position: absolute; left:15px; font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif; color: white; }
 		</style>
 		<title>A-Frame Rysk</title>
 	</head>
@@ -53,6 +54,10 @@
 		  <!-- Ground. -->
 		  <a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
 		</a-scene>
+		<div id="playbackratediv">
+			<label for="playbackrate">Playback rate:</label><br />
+			<input id="playbackrate" type="range" min="0.07" max="1.0" step="0.01" value="1.0" />
+		</div>
 		<progress id="progress" value="0" min="0"></progress>
 	</body>
 </html>
