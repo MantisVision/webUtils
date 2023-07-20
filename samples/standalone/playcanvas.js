@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded',function()
 			fov: 70
 		});
 		app.root.addChild(camera);
-		camera.setPosition(0, 1.5, -1);
-		camera.setEulerAngles(0, 180, 0);
+		camera.setPosition(0, 1.5, 2.2);
+		camera.setEulerAngles(-13, 0, 0);
 
 		// create directional light entity
 		const light = new pc.Entity('light');
@@ -68,18 +68,11 @@ function run(app)
 			progress.value = ryskObj.getVideoElement().currentTime;
 		});
 		
-		ryskObj.run().then(mesh => 
+		ryskObj.run().then(ryskEntity => 
 		{//add mesh to the scene
 			ryskObj.setVolume(1);
-			mesh.visible = true;
-			const entity = new pc.Entity();
-			
-			entity.addComponent('render',{ meshInstances: [mesh] });		
-			
-			app.root.addChild(entity);
-			entity.setPosition(0,0,1)
-			const scale = new pc.Vec3(0.001,0.001,0.001);
-			entity.setLocalScale(scale);
+			ryskEntity.enabled = true;
+			app.root.addChild(ryskEntity);
 		}); 
 
 		document.getElementById("play").addEventListener("click",event =>

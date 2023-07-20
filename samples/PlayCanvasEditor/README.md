@@ -12,7 +12,7 @@ custom scripts:
 - ``ModelBtn.js`` the buttons pointing towards different URLs of various models ,
 - ``SwitchScene.js`` the buttons to switch between the scenes.
 
-A minified source code of ``@mantisvision/ryskplaycanvas`` and ``@mantisvision/synchronizer`` is also present togetger with the 3rd party [TIMINGSRC library](https://webtiming.github.io/timingsrc/).
+A minified source code of ``@mantisvision/ryskplaycanvas`` and ``@mantisvision/synchronizer`` is also present together with the 3rd party [TIMINGSRC library](https://webtiming.github.io/timingsrc/).
 
 This documentation presents a guide for creating the sample project. At least a rudimentary knowledge of the javascript and
 the Playcanvas editor environment is assumed. The sample doesn't necessary present the most optimal way for your personal 
@@ -36,7 +36,7 @@ There is a 2D screen which carries all of the UI elements:
 
 - four buttons representing four different 3D models, 
 - Play/Pause, Stop and Volume buttons (all of them disabled by default till the mesh loads)
-- Progress bar consisting of the outer "shell" and the inner progress "fill" with the text entity for diplaying the frame number
+- Progress bar consisting of the outer "shell" and the inner progress "fill" with the text entity for displaying the frame number
 
 The main entity representing the RYSK mesh itself is positioned in the center of the scene. It will connect to the UI elements
 and displays the 3D model based on the clicked button.
@@ -85,7 +85,7 @@ Ryskurl.attributes.add('stopbutton', {type: 'entity', description: 'Button to st
 Ryskurl.attributes.add('volumebutton', {type: 'entity', description: 'Button for turning the volume on/off', default: false});
 ```
 
-You could also add an attribute to connect it to the four buttons specifing the 3D models, but in this sample project, we 
+You could also add an attribute to connect it to the four buttons specifying the 3D models, but in this sample project, we 
 do that the opposite way by adding the proper attribute to the script attached to these buttons (see the chapter
 [3.3 Model buttons](#33-model-buttons)).
 
@@ -120,7 +120,7 @@ The update() method of the ryskObj must be called periodically, so that the text
 in accordance with the playing video. This is normally done in the ``update`` method of the custom script which PlayCanvas 
 editor automatically calls each rendered frame, however, there were issues with synchronization of the texture
 and the mesh on Firefox and old Safari browsers unless the ryskObj wasn't updated in ``window.requestAnimationFrame``
-callback. Therefore we detect the browser type based on "requestVideoFrameCallback" method being availible for the
+callback. Therefore we detect the browser type based on "requestVideoFrameCallback" method being available for the
 HTMLVideoElement, since both, the Firefox and the old Safari (prior to 15.4), don't have this method.
 
 ```javascript
@@ -148,14 +148,14 @@ Ryskurl.prototype.updateRyskObj = function()
 Ryskurl.prototype.update = function()
 {
     if (!this.firefox && this.ryskObj !== null) 
-    {//the first part of if checks whther browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
+    {//the first part of if checks whether browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
         this.ryskObj.update();
     }
 };
 
 ```
 
-If the attributes of the script were set through the Playcanvas editor, we bind event listeners for "click" on the various
+If the attributes of the script were set through the PlayCanvas editor, we bind event listeners for "click" on the various
 buttons:
 
 ```javascript
@@ -170,8 +170,8 @@ if (this.playpausebutton)
 			else
 			{
 				this.ryskObj.play();
-				//show the mesh in case it's hiddne
-				this.ryskObj.getMesh().visible = true;
+				//show the entity in case it's disabled
+				this.ryskObj.getEntity().enabled = true;
 			} 
 			this.playing = !this.playing;
 			this.playpausebutton.children[0].element.text = this.playing ? "Pause" : "Play"; //change the text of the button
@@ -202,7 +202,7 @@ if (this.stopbutton)
 		if (this.ryskObj)
 		{
 			this.ryskObj.stop();
-			this.ryskObj.getMesh().visible = false; //hide the mesh
+			this.ryskObj.getEntity().enabled = false; //hide the mesh
 			if (this.progressbarObj) this.progressbarObj.setProgress(0); //reset the progress bar
 			this.playing = false;
 			if (this.playpausebutton) this.playpausebutton.children[0].element.text = "Play";
@@ -406,22 +406,23 @@ Ryskurl.prototype.bufferingFinished = function()
 };
 ```
 The main part of ``createMesh`` method is a call to ``ryskObj.run()``. It returns a promise which gets resolved with
-a PlayCanvas ``meshInstance`` object which can be then inserted into the scene via the new ``render`` component attached to the
-same entity this script belongs to.
+a PlayCanvas ``Entity`` object which can then be inserted into the scene as a child of the same entity this script belongs to.
 
 ```javascript
-this.ryskObj.run().then(meshInstance => 
+this.ryskObj.run().then(entity => 
 {
-	if (meshInstance)
+	if (entity)
 	{
-		meshInstance.visible = true; //meshinstance has the visibility set to false by default
 		//display the control elements
 		if (this.playpausebutton) this.playpausebutton.enabled = true;
 		if (this.volumebutton) this.volumebutton.enabled = true;
 		if (this.progressbar) this.progressbar.enabled = true;
 		if (this.stopbutton) this.stopbutton.enabled = true;
-		//add the mesh instance to the scene as a render component of this entity
-		this.entity.addComponent('render',{ meshInstances: [meshInstance] });
+		//remove the old render component (the preview figurine)
+		this.entity.removeComponent("render");
+		entity.enabled = true; //entity is by default disabled
+		//add the RYSK entity as a child of this entity
+		this.entity.addChild(entity);
 	}
 });
 ```

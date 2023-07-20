@@ -11,7 +11,7 @@ RyskurlShort.attributes.add('dataurl', { type: 'string',default: '' });
  * Initialize method is called once per entity the script is attached to. Its main purpose is to set listeners
  * for control entities (play/pause button, progress bar...) and load @mantisvision/ryskplaycanvas library
  */
-RyskurlShort.prototype.initialize = function()
+RyskurlShort.prototype.initialize = function() 
 {
     this.playing = false;   // whether the video is currently playing
     this.sound = true;      // whether the sound is turned on
@@ -28,18 +28,18 @@ RyskurlShort.prototype.initialize = function()
     this.on("destroy", this.dispose, this);
 
     //create a promise which will get resolved once the @mantisvision/ryskplaycanvas library gets loaded
-    this.importFinished = new Promise((resolve,reject) =>
+    this.importFinished = new Promise((resolve,reject) => 
     {
         if (!window.hasOwnProperty("Rysk"))
         {//import the library, but only if the Rysk global variable hasn't been set yet (that would mean the library was already imported)
             const asset = pc.Application.getApplication().assets.find('MantisRYSKPlayCanvas.min.js');
-            import(asset.getFileUrl()).then(() =>
+            import(asset.getFileUrl()).then(() => 
             {
                 window.MantisUtils = { MantisLog: window.Rysk.MantisLog };
                 window.Rysk.MantisLog.SetLogLevel(4);
                 resolve();
             });
-        }else
+        }else 
         {
             resolve();
         }
@@ -64,8 +64,8 @@ RyskurlShort.prototype.run = async function()
         this.dispose();
     }else if (this.ryskObj === null)
     {//if dataURL or videoURL have changed or ryskObj hasn't been created yet
-
-        await this.importFinished;
+        
+        await this.importFinished; 
          // once the import of the @mantisvision/ryskplaycanvas library is finished create a new mesh
         this.createMesh(window.Rysk.URLMesh,this.dataurl,this.videourl);
     }
@@ -91,11 +91,12 @@ RyskurlShort.prototype.createMesh = function(URLMesh,dataURL,videoURL)
     {// when creating the new object, we first need to dispose an old one if there is such
         this.dispose();
     }
-    console.log(pc);
+
     // Create a new ryskObj using URLMesh class. The third argument is the default size of the internal
     // buffer which is used to store the RYSK data and the fourth is a reference to the global
     // PlayCanvas object.
     this.ryskObj = new URLMesh(videoURL,dataURL,50,pc);
+    this.ryskObj.setPreviewMode(true);
 
     //shows errors in the console
     this.ryskObj.on("error",console.error);
@@ -105,21 +106,23 @@ RyskurlShort.prototype.createMesh = function(URLMesh,dataURL,videoURL)
     // trouble with looping the video on iOS if there is more than one mesh in the scene (iOS doesn't
     // particularly like playing two unmuted videos at the same time),
     this.ryskObj.loop = this.loop;
-
+    
     // URLMesh constructor sets the necessary variables, but by design doesn't starts
     // the internal processes to downlaod and decode RYSK data. run() must be called
-    // in order to do that. It resolves with the PlayCanvas mesh instance which can
+    // in order to do that. It resolves with the PlayCanvas entity which can
     // be inserted into the scene. However, bear in mind that it's resolved only once
     // the video starts playing by calling play() method of ryskObj, because the texture
     // of the mesh can't be constructed unless the video is playing.
-    this.ryskObj.run().then(meshInstance =>
+    this.ryskObj.run().then(entity => 
     {
-        if (meshInstance)
+        if (entity)
         {
-            console.log("Got mesh instance");
-            meshInstance.visible = true; //meshinstance has the visibility set to false by default
-            //add the mesh instance to the scene as a render component of this entity
-            this.entity.addComponent('render',{ meshInstances: [meshInstance] });
+            //remove the old render component (the preview figurine)
+            this.entity.removeComponent("render");
+            
+            entity.enabled = true; //entity is by default disabled
+            //add the entity to the scene as a child this entity
+            this.entity.addChild(entity);
         }
     }).catch(console.error);
 };
@@ -137,7 +140,7 @@ RyskurlShort.prototype.dispose = function()
         const obj = this.ryskObj;
         this.ryskObj = null;
 
-        this.entity.removeComponent('render');
+        this.entity.removeChild(obj.getEntity());
         obj.dispose();
     }
 };
@@ -157,7 +160,7 @@ RyskurlShort.prototype.updateRyskObj = function()
  */
 RyskurlShort.prototype.update = function()
 {
-    if (!this.firefox && this.ryskObj !== null)
+    if (!this.firefox && this.ryskObj !== null) 
     {//the first part of if checks whther browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
         this.ryskObj.update();
     }

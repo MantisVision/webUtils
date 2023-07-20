@@ -1,6 +1,6 @@
 # Synchronizer
 
-This package contains a helper ``VideoSync`` class which can be used to synchronize playback of multiple ``RYSKUrl`` (or ``RYSKUrl`` derived) objects and/or ``HTMLVideoElement`` objects.
+This package contains a helper ``VideoSync`` class which can be used to synchronize playback of multiple ``RYSKUrl`` (or ``RYSKUrl`` derived) objects and/or ``HTMLMediaElement`` objects.
 
 ``VideoSync`` class can be instantiated multiple times and each instance can carry its own group of synchronized objects. The synchronization relies heavily on an external time synchronization object class which must be injected into the constructor as its first parameter. It is highly recommended to use [TimingObject from timingsrc project](http://webtiming.github.io/timingsrc/index.html), specifically [v3](https://webtiming.github.io/timingsrc/lib/timingsrc-esm-v3.js). Later on, Timing object might become [standard in the web browsers](https://webtiming.github.io/timingobject/), so no external library will be needed.
 
@@ -59,7 +59,7 @@ synchronizer.addMedia([ryskObj1, ryskObj2]);
 ...
 synchronizer.removeMedia([ryskObj1, ryskObj2]);
 ```
-Both methods accept either ``HTMLVideoElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements ``SynchronizableObject`` interface (visible only if using TypeScript). You can also implement this interface yourself, wrap the ``HTMLVideoElement`` or ``RYSKUrl`` in it on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experience users since the inner implementation of the ``SynchronizableObject`` object interface may cause unforeseen complications with the synchronization of the videos.
+Both methods accept either ``HTMLMediaElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements ``SynchronizableObject`` interface (visible only if using TypeScript). You can also implement this interface yourself, wrap the ``HTMLMediaElement`` or ``RYSKUrl`` in it on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experience users since the inner implementation of the ``SynchronizableObject`` object interface may cause unforeseen complications with the synchronization of the videos.
 
 If a new video is passed to the synchronizer once it's playing videos, the synchronizer automatically sets the timestamp of this new video to the current internal timestamp of the synchronizer. Also, if it's the longest video, a "durationchange" event is emitted. The same event is emitted when the longest video is removed from the synchronizer.
 
@@ -92,7 +92,7 @@ synchronizer.addMedia(ryskObj2);
 ### Setting volume
 In order to change the volume of the underlying videos, you should call ``setVolume()`` method of the ``VideoSync`` object. It takes two arguments:
 1. level of the volume - if 0, the videos will mute, if 1, they play in the standard strength. Bear in mind that Some browsers may only recognize values 0 and 1.
-2. RYSKUrl or HTMLVideoElement (or an array of them) which should afflicted by the change. You can use this parameter to set the volume only of some of the managed videos. If the second parameter isn't provided, all of the managed videos (even those added later on) will be set to the new volume.
+2. RYSKUrl or HTMLMediaElement (or an array of them) which should afflicted by the change. You can use this parameter to set the volume only of some of the managed videos. If the second parameter isn't provided, all of the managed videos (even those added later on) will be set to the new volume.
 
 By default, the volume of Synchronizer is set to 0, so you have to call ``setVolume`` manually at least once to set to to an appropriate value. This is by design because some browsers may want to autoplay videos only if they're mute.
 
@@ -108,7 +108,7 @@ synchronizer.setVolume(0, ryskObj1); //sets only the ryskObj1 to mute; ryskObj2 
 ```
 
 ### Setting videos to loop
-There are two ways to set the videos to loop. You can set the loop parameter directly on the ``HTMLVideoElement`` or ``RYSKUrl`` object BEFORE you pass it to the ``VideoSync`` object through the ``addMedia()`` method. If you wish to (un)set the loop of the media after you've passed to ``VideoSync`` object, use the ``setLoop(media, loop)`` method of the ``VideoSync``. The first parameter is the media object (or array of media objects), the second parameter is true if they should loop or false if they shouldn't:
+There are two ways to set the videos to loop. You can set the loop parameter directly on the ``HTMLMediaElement`` or ``RYSKUrl`` object BEFORE you pass it to the ``VideoSync`` object through the ``addMedia()`` method. If you wish to (un)set the loop of the media after you've passed to ``VideoSync`` object, use the ``setLoop(media, loop)`` method of the ``VideoSync``. The first parameter is the media object (or array of media objects), the second parameter is true if they should loop or false if they shouldn't:
 ```javascript
 const ryskObj1 = new URLMesh(videourl1,dataurl1);
 const ryskObj2 = new URLMesh(videourl2,dataurl2);
@@ -131,7 +131,7 @@ export enum VideoSyncEvents {
 };
 ```
 
-``timeupdate`` is similar to the timeupdate event emitted by a progress in o ``HTMLVideoElement``. The main difference is that the listeners obtains the current timestamp of the ``VideoSync`` object directly as its parameters.
+``timeupdate`` is similar to the timeupdate event emitted by a progress in o ``HTMLMediaElement``. The main difference is that the listeners obtains the current timestamp of the ``VideoSync`` object directly as its parameters.
 
 ``durationchange`` signals the duration of the longest currently playing video managed by the ``VideoSync`` object. This event is fired e.g. when a new, longer video is added to the ``VideoSync`` or if the longest video is removed or after the loop if the longest video wasn't set to loop (for example you've added a short 5 second video and a longer 10 second video and set only the shorter one to loop. At the first play, the duration is going to be 10 seconds, but once the ``VideoSync`` object loops, only the shorter video loops, so the "durationchange" event is fired and the duration changes to 5 seconds)
 
@@ -249,13 +249,13 @@ getMedia();
 /**
  * Adds media to this VideoSync object. 
  * If this is the first time addMedia is called and autoplay of the VideoSync object was set to true (by default it's false),
- * and noone has called autostartAfter method, VideoSync will autoplay automatically after the method ends.
- * @param media can be either instance of RYSKUrl (including descendants; e.g. from @mantisvision/ryskthreejs), HTMLVideoElement or an object which implements SynchronizableObject interface
+ * and none has called autostartAfter method, VideoSync will autoplay automatically after the method ends.
+ * @param media can be either instance of RYSKUrl (including descendants; e.g. from @mantisvision/ryskthreejs), HTMLMediaElement or an object which implements SynchronizableObject interface
  */
 addMedia(media: SynchronizableObject): Promise<void>;
 addMedia(media: RYSKUrl): Promise<void>;
-addMedia(media: HTMLVideoElement): Promise<void>;
-addMedia(media: (HTMLVideoElement|RYSKUrl|SynchronizableObject)[]): Promise<void>;
+addMedia(media: HTMLMediaElement): Promise<void>;
+addMedia(media: (HTMLMediaElement|RYSKUrl|SynchronizableObject)[]): Promise<void>;
 ```
 ```typescript
 /**
@@ -264,8 +264,8 @@ addMedia(media: (HTMLVideoElement|RYSKUrl|SynchronizableObject)[]): Promise<void
  */
 removeMedia(media: SynchronizableObject): this;
 removeMedia(media: RYSKUrl): this;
-removeMedia(media: HTMLVideoElement): this;
-removeMedia(media: (HTMLVideoElement|RYSKUrl|SynchronizableObject)[]): this;
+removeMedia(media: HTMLMediaElement): this;
+removeMedia(media: (HTMLMediaElement|RYSKUrl|SynchronizableObject)[]): this;
 ```
 ```typescript
 /**
@@ -306,8 +306,8 @@ async stop();
  * @param media specific (or an array of specific) videos which should have their volume adjusted
  */
 setVolume(level: number): this;
-setVolume(level: number, media: RYSKUrl|HTMLVideoElement|SynchronizableObject): this;
-setVolume(level: number, media: (RYSKUrl|HTMLVideoElement|SynchronizableObject)[]): this;
+setVolume(level: number, media: RYSKUrl|HTMLMediaElement|SynchronizableObject): this;
+setVolume(level: number, media: (RYSKUrl|HTMLMediaElement|SynchronizableObject)[]): this;
 ```
 
 ## Sample
@@ -333,3 +333,6 @@ When jumping into a timestamp which is higher than some of the videos' durations
 ### 0.4.0
 - new ``setPlaybackRate(newRate: number)`` method which allows to change the playback for all the managed media
 - new ``getCurrentTimestamp`` method which returns the current timestamp of the synchronizer
+
+### 0.5.0
+VideoSynchronizer should now be able to handle any media element, not just the video.

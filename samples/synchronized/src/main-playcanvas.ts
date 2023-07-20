@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded',function()
 				fov: 70
 			});
 			app.root.addChild(camera);
-			camera.setPosition(0, 1.5, -1);
-			camera.setEulerAngles(0, 180, 0);
+			camera.setPosition(0, 1.5, 2.2);
+			camera.setEulerAngles(-13, 0, 0);
 
 			// create directional light entity
 			const light = new pc.Entity('light');
@@ -90,35 +90,23 @@ function run(app: pc.Application)
 			if (newtime) progress.value = newtime;
 		});
 
-		chloeRYSK.run().then(mesh => 
+		chloeRYSK.run().then(entity => 
 		{//add mesh to the scene
-			if (mesh)
+			if (entity)
 			{
-				mesh.visible = true;
-				const entity = new pc.Entity();
-				
-				entity.addComponent('render',{ meshInstances: [mesh] });		
-				
+				entity.enabled = true;
+				entity.setPosition(-1,0,0);
 				app.root.addChild(entity);
-				entity.setPosition(0.5,0.5,1);
-				const scale = new pc.Vec3(0.001,0.001,0.001);
-				entity.setLocalScale(scale);
 			}
 		}).catch(console.error); 
 
-		robRYSK.run().then(mesh => 
+		robRYSK.run().then(entity => 
 		{//add mesh to the scene
-			if (mesh)
+			if (entity)
 			{
-				mesh.visible = true;
-				const entity = new pc.Entity();
-				
-				entity.addComponent('render',{ meshInstances: [mesh] });		
-				
+				entity.enabled = true;
+				entity.setPosition(1,0,0);
 				app.root.addChild(entity);
-				entity.setPosition(-0.5,0.5,1);
-				const scale = new pc.Vec3(0.001,0.001,0.001);
-				entity.setLocalScale(scale);
 			}
 		}).catch(console.error); 
 

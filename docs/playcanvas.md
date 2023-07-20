@@ -78,10 +78,10 @@ import(asset.getFileUrl()).then(() =>
 	this.ryskObj = new window.Rysk.URLMesh(video_url, data_url, 50, pc); 
 	this.ryskObj.play();
 	return this.ryskObj.run();
-}).then(meshInstance => 
+}).then(entity => 
 {//add the created mesh to this entity as its render component
-	meshInstance.visible = true; //meshinstance has the visibility set to false by default
-	this.entity.addComponent('render',{ meshInstances: [meshInstance] });
+	entity.enabled = true; //entity is by default disabled
+	this.entity.addChild(entity);
 });
 ```
 PlayCanvas scripts attached to entities can have an ``update`` method which is automatically called on each redraw.
@@ -97,12 +97,12 @@ Exported class ``URLMesh`` extends class ``RYSKUrl`` from ``@mantisvision/ryskur
 extends class ``RYSKStream`` from ``@mantisvision/ryskstream``. You can find the description of their API [here](./ryskurlryskstream.md).
 
 Instead of ``init`` method, you should call ``URLMesh.run()`` and ``StreamMesh.run(videoWidth, videoHeight)``. Instead of canvas,
-these methods resolve with Three.js mesh object which can be used in the scene. Object's texture and geometry gets 
+these methods resolve with PlayCanvas entity object which can be used in the scene. Object's texture and geometry gets 
 automatically updated; there is therefore no need to listen on ``dataDecoded`` event from parent classes. However, it
 is still necessary to call ``update()`` method on ``URLMesh`` or ``StreamMesh`` to ensure new frames from video/stream
 are read on all browsers.
 
-There is one new method ``getMesh()`` which works similarly to ``getCanvas()``, but returns PlayCanvas mesh instead
+There is one new method ``getEntity()`` which works similarly to ``getCanvas()``, but returns PlayCanvas entity instead
 (remember that both these methods work only after ``run()`` method is called for the first time, otherwise they return 
 null).
 
@@ -110,7 +110,7 @@ WARNING! Even though ``run`` method is marked as async, you shouldn't structure 
 and only then call ``play``. In order to resolve with a mesh, ``run`` method requires you to also call ``play`` (before or after)
 because the mesh can only be constructed after at least one frame from the video is played.
 
-The previous restriction can be bypassed by setting the preview mode via ``setPreviewMode(true)`` method. The method is inherited from ``RYSKUrl``, but here it's effect is even more prominent as it also to obtain the three.js mesh from the ``run()`` method prior to calling the ``play()``. Furthermore, the method is expanded by allowing to pass not only ``true`` or ``false``, but also values from the ``PreviewMode`` enum; namely:
+The previous restriction can be bypassed by setting the preview mode via ``setPreviewMode(true)`` method. The method is inherited from ``RYSKUrl``, but here it's effect is even more prominent as it also allows to obtain the PlayCanvas entity from the ``run()`` method prior to calling the ``play()``. Furthermore, the method is expanded by allowing to pass not only ``true`` or ``false``, but also values from the ``PreviewMode`` enum; namely:
 - ``PreviewMode.disabled`` - same as passing ``false``
 - ``PreviewMode.full`` - same as passing ``true``
 - ``PreviewMode.partial`` - the new mode which at the beginning shows only gray, untextured mesh (i.e. doesn't internally call ``play()`` on the video texture). This can save some bandwidth and is in theory less prone to provoke a negative reaction from the browser due to autoplay restrictions. It is worth noting that the behavior when calling the ``jumpAt()`` method remains the same with the ``partial`` and the ``full`` modes (so the mesh is once again fully textured and not just gray).
@@ -134,9 +134,10 @@ camera.addComponent('camera', {
 	projection: pc.PROJECTION_PERSPECTIVE,
 	fov: 70
 });
+
 app.root.addChild(camera);
-camera.setPosition(0, 1.5, -1);
-camera.setEulerAngles(0, 180, 0);
+camera.setPosition(0, 1.5, 2.2);
+camera.setEulerAngles(-13, 0, 0);
 
 // create directional light entity
 const light = new pc.Entity('light');
@@ -148,17 +149,10 @@ const ryskObj = new URLMesh(video_url,data_url);
 //shows the RYSK mesh even before play() is called
 ryskObj.setPreviewMode(PreviewMode.full);
 
-ryskObj.run().then(meshInstance => 
-{//add mesh to the scene
-	meshInstance.visible = true;
-	const entity = new pc.Entity();
-
-	entity.addComponent('render',{ meshInstances: [meshInstance] });		
-
+ryskObj.run().then(entity => 
+{//add entity to the scene
+	entity.enabled = true; //entity is by default disabled
 	app.root.addChild(entity);
-	entity.setPosition(0,0,1)
-	const scale = new pc.Vec3(0.001,0.001,0.001);
-	entity.setLocalScale(scale);
 }); 
 
 app.start();
@@ -184,3 +178,7 @@ of ``URLMesh`` / ``StreamMesh``.
 
 #### 0.8.3
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.
+
+### 0.9.0
+Breaking change! ``run()`` method no longer returns a mere mesh instance object, but the whole entity instead. The entity is correctly rotated and scaled and can be added directly to the scene or as a child under another entity.
+Due to the same change, ``getMesh()`` method has been renamed to ``getEntity()``.
