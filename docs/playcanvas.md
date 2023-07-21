@@ -182,3 +182,6 @@ of ``URLMesh`` / ``StreamMesh``.
 ### 0.9.0
 Breaking change! ``run()`` method no longer returns a mere mesh instance object, but the whole entity instead. The entity is correctly rotated and scaled and can be added directly to the scene or as a child under another entity.
 Due to the same change, ``getMesh()`` method has been renamed to ``getEntity()``.
+
+#### 0.9.1
+Minified version of ``@mantisvision/ryskplaycanvas`` (which bundles all the dependencies) now exports also ``RYSKUrl`` class from the bundled ``@mantisvision/ryskurl`` library.
