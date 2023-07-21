@@ -1,21 +1,21 @@
-var Ryskurl = pc.createScript('ryskurl');
+var Urlmesh = pc.createScript('urlmesh');
 
 // true - video will loop, false - video stops at the end
-Ryskurl.attributes.add('loop', { type: 'boolean',default: false });
+Urlmesh.attributes.add('loop', { type: 'boolean',default: false });
 //entity for showing the progress of the video
-Ryskurl.attributes.add('progressbar', {type: 'entity', description: 'Progressbar showing the play progress of the mesh', default: false});
+Urlmesh.attributes.add('progressbar', {type: 'entity', description: 'Progressbar showing the play progress of the mesh', default: false});
 //button for playing/pausing the video
-Ryskurl.attributes.add('playpausebutton', {type: 'entity', description: 'Button for Playing/Pausing', default: false});
+Urlmesh.attributes.add('playpausebutton', {type: 'entity', description: 'Button for Playing/Pausing', default: false});
 //button for stopping the video
-Ryskurl.attributes.add('stopbutton', {type: 'entity', description: 'Button to stop the video', default: false});
+Urlmesh.attributes.add('stopbutton', {type: 'entity', description: 'Button to stop the video', default: false});
 //button for turning the volume on/off
-Ryskurl.attributes.add('volumebutton', {type: 'entity', description: 'Button for turning the volume on/off', default: false});
+Urlmesh.attributes.add('volumebutton', {type: 'entity', description: 'Button for turning the volume on/off', default: false});
 
 /**
  * Initialize method is called once per entity the script is attached to. Its main purpose is to set listeners
  * for control entities (play/pause button, progress bar...) and load @mantisvision/ryskplaycanvas library
  */
-Ryskurl.prototype.initialize = function() 
+Urlmesh.prototype.initialize = function() 
 {
     this.playing = false;   // whether the video is currently playing
     this.sound = true;      // whether the sound is turned on
@@ -81,7 +81,7 @@ Ryskurl.prototype.initialize = function()
             if (this.ryskObj)
             {
                 this.ryskObj.stop();
-                this.ryskObj.getMesh().visible = false; //hide the mesh
+                this.ryskObj.getEntity().enabled = false; //hide the mesh
                 if (this.progressbarObj) 
                 {
                     this.progressbarObj.setProgress(0); //reset the progress bar
@@ -141,7 +141,7 @@ Ryskurl.prototype.initialize = function()
  * @param {String} dataURL url of the .syk file
  * @param {String} videoURL url of the video
  */
-Ryskurl.prototype.play = function(dataURL,videoURL)
+Urlmesh.prototype.play = function(dataURL,videoURL)
 {
     if (this.ryskObj && (!dataURL || !videoURL))
     {//remove an already existing ryksObj if dataURL or videoURL aren't set
@@ -170,7 +170,7 @@ Ryskurl.prototype.play = function(dataURL,videoURL)
  * @param {String} dataURL URL of the .syk file
  * @param {String} videoURL URL of the video (or m3u8 playlist for HLS)
  */
-Ryskurl.prototype.createMesh = function(URLMesh,dataURL,videoURL)
+Urlmesh.prototype.createMesh = function(URLMesh,dataURL,videoURL)
 {
     this.showBuffering();
     if (this.ryskObj !== null)
@@ -211,9 +211,7 @@ Ryskurl.prototype.createMesh = function(URLMesh,dataURL,videoURL)
     // URLMesh constructor sets the necessary variables, but by design doesn't starts
     // the internal processes to downlaod and decode RYSK data. run() must be called
     // in order to do that. It resolves with the PlayCanvas entity which can
-    // be inserted into the scene. However, bear in mind that it's resolved only once
-    // the video starts playing by calling play() method of ryskObj, because the texture
-    // of the mesh can't be constructed unless the video is playing.
+    // be inserted into the scene.
     this.ryskObj.run().then(entity => 
     {
         if (entity)
@@ -223,7 +221,7 @@ Ryskurl.prototype.createMesh = function(URLMesh,dataURL,videoURL)
             if (this.volumebutton) this.volumebutton.enabled = true;
             if (this.progressbar) this.progressbar.enabled = true;
             if (this.stopbutton) this.stopbutton.enabled = true;
-            //remove the old render component (the preview figurine)
+            //remove the original render component (the preview mesh)
             this.entity.removeComponent("render");
             entity.enabled = true; //entity is by default disabled
             //add the RYSK entity as a child of this entity
@@ -236,7 +234,7 @@ Ryskurl.prototype.createMesh = function(URLMesh,dataURL,videoURL)
  * This method is called in order to start playing the video. It incorporates some
  * dirty hacks in order to achieve autoplay on iOS Safaril.
  */
-Ryskurl.prototype.playVideo = function()
+Urlmesh.prototype.playVideo = function()
 {
     if (this.ryskObj !== null) 
     {
@@ -257,10 +255,10 @@ Ryskurl.prototype.playVideo = function()
 };
 
 /**
- * Callback which is triggered onnce canplaythrough video event is fired. At that moment, it calls
+ * Callback which is triggered once the canplaythrough video event is fired. At that moment, it calls
  * playVideo() method of this script()
  */
-Ryskurl.prototype.canplaythrough = function()
+Urlmesh.prototype.canplaythrough = function()
 {
     if (this.ryskObj)
     {
@@ -272,7 +270,7 @@ Ryskurl.prototype.canplaythrough = function()
 /**
  * Sets the volume of the video.
  */
-Ryskurl.prototype.setVolume = function(volume)
+Urlmesh.prototype.setVolume = function(volume)
 {
     if (this.ryskObj !== null) 
     {
@@ -286,7 +284,7 @@ Ryskurl.prototype.setVolume = function(volume)
  * the render component from this entity and destroys the RYSK mesh in order
  * to free the memory.
  */
-Ryskurl.prototype.dispose = function()
+Urlmesh.prototype.dispose = function()
 {
     if (this.ryskObj !== null)
     {
@@ -309,7 +307,7 @@ Ryskurl.prototype.dispose = function()
 /**
  * Callback bound to timeupdate event of the video from RYSK mesh
  */
-Ryskurl.prototype.showProgress = function()
+Urlmesh.prototype.showProgress = function()
 {
     if (this.progressbar)
     {
@@ -321,7 +319,7 @@ Ryskurl.prototype.showProgress = function()
  * Callback bound to jump event of the progress bar
  * @param {float} timestamp time in seconds where the video should jump.
  */
-Ryskurl.prototype.handleProgressbarClick = function(timestamp) 
+Urlmesh.prototype.handleProgressbarClick = function(timestamp) 
 {
     if (this.ryskObj)
     {
@@ -333,7 +331,7 @@ Ryskurl.prototype.handleProgressbarClick = function(timestamp)
  * For Firefox and old Safari on MacOS, update() method of ryskObj must be called in requestAnimationFrame
  * of window, otherwise there might be issues with the texture.
  */
-Ryskurl.prototype.updateRyskObj = function()
+Urlmesh.prototype.updateRyskObj = function()
 {
     if (this.ryskObj !== null) this.ryskObj.update();
     window.requestAnimationFrame(this.updateRyskObjThis);
@@ -342,7 +340,7 @@ Ryskurl.prototype.updateRyskObj = function()
 /**
  * For other browsers, we can rely on update() method which is automatically called by PlayCanvas each rendering frame.
  */
-Ryskurl.prototype.update = function()
+Urlmesh.prototype.update = function()
 {
     if (!this.firefox && this.ryskObj !== null) 
     {//the first part of if checks whther browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
@@ -353,7 +351,7 @@ Ryskurl.prototype.update = function()
 /**
  * Pause the RYSK mesh
  */
-Ryskurl.prototype.pause = function()
+Urlmesh.prototype.pause = function()
 {
     if (this.ryskObj)
     {
@@ -367,7 +365,7 @@ Ryskurl.prototype.pause = function()
  * This could also be achieved simply by setting loop property on ryskObj, but iOS might then exhibit some issues with playing more than
  * one video.
  */
-Ryskurl.prototype.loopVideo = function()
+Urlmesh.prototype.loopVideo = function()
 {
     if (this.loop)
     {
@@ -379,7 +377,7 @@ Ryskurl.prototype.loopVideo = function()
  * Callback which gets triggered each time a new frame is decoded. It is responsible for showing the frame number
  * on the screen.
  */
-Ryskurl.prototype.showFrameNo = function(data)
+Urlmesh.prototype.showFrameNo = function(data)
 {
     if (!this.buffering && this.progressbarObj)
     {
@@ -391,7 +389,7 @@ Ryskurl.prototype.showFrameNo = function(data)
  * Callback which gets triggered if the video or data starts to buffer. It shows "Buffering..." text
  * instead of the frame number and mutes the video to avoid a possible issue with iOS.
  */
-Ryskurl.prototype.showBuffering = function()
+Urlmesh.prototype.showBuffering = function()
 {
     this.buffering = true;
     if (this.sound && this.ryskObj) this.ryskObj.setVolume(0);
@@ -404,7 +402,7 @@ Ryskurl.prototype.showBuffering = function()
 /**
  * Callback which gets triggered once the buffering is finished. It's sets volume back to normal.
  */
-Ryskurl.prototype.bufferingFinished = function()
+Urlmesh.prototype.bufferingFinished = function()
 {
     console.log("Finished buffering");
     this.buffering = false;

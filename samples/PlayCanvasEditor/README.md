@@ -1,72 +1,78 @@
 # PlayCanvas editor sample project
 
-This project showcases the use ``@mantisvision/ryskplaycanvas`` and ``@mantisvision/synchronizer`` libraries in the environment of PlayCanvas editor. To see the description of the libraries themselves, you can read its documentation [here](../../docs/playcanvas.md) and [here](../../docs/synchronizer.md).
+This project showcases the use ``@mantisvision/ryskplaycanvas``, ``@mantisvision/ryskurl`` and ``@mantisvision/synchronizer`` libraries in the environment of PlayCanvas editor. To see the description of the libraries themselves, you can read its documentation here:
+- [ryskplaycanvas](../../docs/playcanvas.md) 
+- [ryskurl](../../docs/ryskurlryskstream.md)
+- [synchronizer](../../docs/synchronizer.md)
+
 The sample can be accessed, reviewed and forked [directly through playcanvas.com](https://playcanvas.com/project/939297/overview/chatxr-playcanvas-tests)
 
-The directory with the sample also contains an additional ``src`` directory with the unminified source code of the
-custom scripts:
-- ``PlayCanvasRYSKUrl.js`` attached to the entities representing the RYSK mesh,
-- ``PlayCanvasRYSKUrlShort.js`` same as ``PlayCanvasRYSKUrl.js`` but it's used with the synchronizer (synchronizer handles play, pause, volume etc., so these functionalities don't need to be in the ``PlayCanvasRYSKUrlShort.js`` script),
-- ``ProgressBar.js`` the progress bar,
-- ``Synchronizer.js`` the synchronizer,
-- ``ModelBtn.js`` the buttons pointing towards different URLs of various models ,
-- ``SwitchScene.js`` the buttons to switch between the scenes.
+PlayCanvas editor sample on this repository contains two main directories:
+- ``build`` has exported test project which can be run directly in the browser
+- ``src`` contains scripts which are used directly in the PlayCanvas editor
 
-A minified source code of ``@mantisvision/ryskplaycanvas`` and ``@mantisvision/synchronizer`` is also present together with the 3rd party [TIMINGSRC library](https://webtiming.github.io/timingsrc/).
+Tha latter contains the following files:
+- ``./ModelBtn.js`` the buttons pointing towards different URLs of various models 
+- ``./SwitchScene.js`` the buttons to switch between the scenes
+- ``./ProgressBar.js`` the progress bar
+- ``./scene_layout.png`` a screen capture from the PlayCanvas editor environment
+- ``./RYSK/PlayCanvasURLMesh.js`` a script attached to the entities representing the RYSK mesh
+- ``./RYSK/PlayCanvasURLMeshShort.js`` same as ``PlayCanvasURLMesh.js`` but it's used with the synchronizer (synchronizer handles play, pause, volume etc., so these functionalities don't need to be in the ``PlayCanvasURLMeshShort.js`` script)
+- ``./RYSK/PlayCanvasRYSKUrl.js`` version of ``PlayCanvasURLMesh.js`` which uses ``RYSKUrl`` class instead of ``URLMesh`` and constructs PlayCanvas mesh, texture and entity all by itself (suitable for finer grained modifications).
+- ``./RYSK/libs/MantisRYSKPlayCanvas.min.js`` minified version of ``@mantisvision/ryskplaycanvas`` library (also contains ``RYSKUrl`` class from ``@mantisvision/ryskurl``)
+- ``./RYSK/libs/MantisSynchronizer.min.js`` minified version of ``@mantisvision/synchronizer`` library
+- ``./RYSK/libs/timingsrc.js`` 3rd party [TIMINGSRC library](https://webtiming.github.io/timingsrc/) used by the synchronizer for its reference timer
 
 This documentation presents a guide for creating the sample project. At least a rudimentary knowledge of the javascript and
-the Playcanvas editor environment is assumed. The sample doesn't necessary present the most optimal way for your personal 
+the PlayCanvas editor environment is assumed. The sample doesn't necessary present the most optimal way for your personal 
 project; instead, it should rather provide an inspiration for your own integration based on your specific needs.
 
 ## Table of contents
 1. [Scene composition](#1-scene-composition)
 2. [External libraries](#2-external-libraries)
 3. [Showcase scene](#3-showcase-scene)
-    1. [RYSK mesh script](#31-rysk-mesh-script)
+    1. [RYSK mesh script](#31-rysk-urlmesh-script)
     2. [Progress bar](#32-progress-bar)
     3. [Model buttons](#33-model-buttons)
     4. [Switching the scene](#34-switching-the-scene)
 4. [Synchronizer scene](#4-synchronizer-scene)
     1. [RYSK mesh script](#41-rysk-mesh-script)
     2. [Synchronizer script](#42-synchronizer-script)
+5. [Low level scripting scene](#5-low-level-scripting-scene)
 
 ## 1. Scene composition
 First, add all the necessary entities into the scene.
 There is a 2D screen which carries all of the UI elements:
 
-- four buttons representing four different 3D models, 
 - Play/Pause, Stop and Volume buttons (all of them disabled by default till the mesh loads)
 - Progress bar consisting of the outer "shell" and the inner progress "fill" with the text entity for displaying the frame number
+- In "Showcase" and "Low level scripting" scenes, there are also four buttons representing four different 3D models
 
-The main entity representing the RYSK mesh itself is positioned in the center of the scene. It will connect to the UI elements
-and displays the 3D model based on the clicked button.
+The main entities representing the RYSK meshes are positioned in the center of the scene (one in "Showcase" and "Low level scripting", two in "Synchronizer" scene). You can add a render component to these entities with an appropriate external 3D object, so their handling in the editor environment is more user friendly.
 ![alt Scene layout](./src/scene_layout.png)
 
 ## 2. External libraries
-Playcanvas editor currently doesn't provide an integral way to use the NPM packages, so the standalone minified version
+PlayCanvas editor currently doesn't provide an integral way to use the NPM packages, so the standalone minified version
 of the external libraries must be loaded manually:
-- ``@mantisvision/ryskplaycanvas`` copy file ``MantisRYSKPlayCanvas.min.js`` from the NPM package
+- ``@mantisvision/ryskplaycanvas`` - copy file ``MantisRYSKPlayCanvas.min.js`` from the NPM package
 - ``@mantisvision/synchronizer`` copy file ``MantisSynchronizer.min.js`` from the NPM package
 - ``TIMINGSRC`` can be downloaded from [here](http://webtiming.github.io/timingsrc/lib/timingsrc-min-v3.js)
 
-If you use directly this minified standalone version,
-you don't need to install any other dependencies because all of the RYSK dependencies are already included in the package
-and the only external dependency - the PlayCanvas engine - is already present in the editor's environment and you have to pass
-it through the ``window.Rysk.URLMesh`` constructor parameter.
+If you use directly this minified standalone versions, you don't need to install any other dependencies because all of the RYSK dependencies are already included in the packages and the only external dependency - the PlayCanvas engine - is already present in the editor's environment and you have to pass it through the ``window.Rysk.URLMesh`` constructor parameter.
 
 Upload the libraries to the scripts folder in your PlayCanvas editor project (you can create a separate RYSK subdirectory for it if you wish).
 
 ## 3. Showcase scene
-The sample project consists of two scenes. The first is a simple showcase of various RYSK meshes and it is called Showcase:
+The sample project consists of three scenes. The first is a simple showcase of various RYSK meshes and it is called Showcase:
 
-### 3.1 RYSK mesh script
-This will be the main script for the scene. Create an empty script in the file ``PlayCanvasRYSKUrl.js`` and attach it to the
-RYSKMesh entity as a script component (the final script can be found [here](./src/PlayCanvasRYSKUrl.js)). 
-Its purpose is to load the Mantisvision library and expose its API to the other entities in the PlayCanvas editor. For brevity,
-the script will be internally called ryskurl:
+### 3.1 RYSK URLMesh script
+This will be the main script for the scene. Create an empty script in the file ``PlayCanvasURLMesh.js`` and attach it to the
+RYSKMesh entity as a script component (the final script can be found [here](./src/RYSK/PlayCanvasURLMesh.js)). 
+Its purpose is to load the MantisVision library and expose its API to the other entities in the PlayCanvas editor. For brevity,
+the script will be internally called urlmesh:
 
 ```javascript
-var Ryskurl = pc.createScript('ryskurl');
+var Urlmesh = pc.createScript('urlmesh');
 ```
 
 Then add 5 configurable attributes which will link the RYSK mesh entity with the UI elements and allow to configure whether
@@ -74,22 +80,22 @@ the played video should loop:
 
 ```javascript
 // true - video will loop, false - video stops at the end
-Ryskurl.attributes.add('loop', { type: 'boolean',default: false });
+Urlmesh.attributes.add('loop', { type: 'boolean',default: false });
 //entity for showing the progress of the video
-Ryskurl.attributes.add('progressbar', {type: 'entity', description: 'Progressbar showing the play progress of the mesh', default: false});
+Urlmesh.attributes.add('progressbar', {type: 'entity', description: 'Progressbar showing the play progress of the mesh', default: false});
 //button for playing/pausing the video
-Ryskurl.attributes.add('playpausebutton', {type: 'entity', description: 'Button for Playing/Pausing', default: false});
+Urlmesh.attributes.add('playpausebutton', {type: 'entity', description: 'Button for Playing/Pausing', default: false});
 //button for stopping the video
-Ryskurl.attributes.add('stopbutton', {type: 'entity', description: 'Button to stop the video', default: false});
+Urlmesh.attributes.add('stopbutton', {type: 'entity', description: 'Button to stop the video', default: false});
 //button for turning the volume on/off
-Ryskurl.attributes.add('volumebutton', {type: 'entity', description: 'Button for turning the volume on/off', default: false});
+Urlmesh.attributes.add('volumebutton', {type: 'entity', description: 'Button for turning the volume on/off', default: false});
 ```
 
 You could also add an attribute to connect it to the four buttons specifying the 3D models, but in this sample project, we 
 do that the opposite way by adding the proper attribute to the script attached to these buttons (see the chapter
 [3.3 Model buttons](#33-model-buttons)).
 
-The initialize method of the ryskurl script will declare and define three properties to store the internal state of a Ryskurl
+The initialize method of the urlmesh script will declare and define three properties to store the internal state of a Urlmesh
 instance, the video and the data URLs and a reference to the RYSK object created by ``@mantisvision/ryskplaycanvas`` library.
 This is the heart of the script onto which various calls shall be proxied:
 
@@ -103,7 +109,7 @@ this.ryskObj = null;
 ```
 
 Then follows the creation of specific event listener functions by binding ``this`` to the methods which already exist
-as memebers of ryskurl script object. Without the binding, the listeners wouldn't have access to ``this`` once they were triggered
+as members of urlmesh script object. Without the binding, the listeners wouldn't have access to ``this`` once they were triggered
 as callbacks of the event listeners, and if they were anonymous functions, they couldn't be manually detached to mitigate
 the risk of memory leaks.
 
@@ -136,7 +142,7 @@ if (this.firefox)
  * For the Firefox and the old Safari on MacOS, update() method of ryskObj must be called in requestAnimationFrame
  * of window, otherwise there might be issues with the texture.
  */
-Ryskurl.prototype.updateRyskObj = function()
+Urlmesh.prototype.updateRyskObj = function()
 {
     if (this.ryskObj !== null) this.ryskObj.update();
     window.requestAnimationFrame(this.updateRyskObjThis);
@@ -145,7 +151,7 @@ Ryskurl.prototype.updateRyskObj = function()
 /**
  * For other browsers, we can rely on update() method which is automatically called by PlayCanvas each rendering frame.
  */
-Ryskurl.prototype.update = function()
+Urlmesh.prototype.update = function()
 {
     if (!this.firefox && this.ryskObj !== null) 
     {//the first part of if checks whether browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
@@ -212,9 +218,7 @@ if (this.stopbutton)
 }
 ```
 
-We also connect to the Progress bar entity if its given. The entity is going to carry its own custom script (see 
-[3.2 Progress bar](#32-progress-bar)) which will allow to register a callback on a ``jump`` event. The progresbar will emit this
-event each time a user clicks somewhere on the progress bar and the callback receives a specific timestamp in seconds.
+We also connect to the Progress bar entity if the reference is given through the defined script attribute. The entity is going to carry its own custom script (see [3.2 Progress bar](#32-progress-bar)) which will allow to register a callback on a ``jump`` event. The progressbar will emit this event each time a user clicks somewhere on the progress bar and the callback receives a specific timestamp in seconds.
 
 ```javascript
 //handle the progress bar
@@ -242,7 +246,7 @@ if (this.progressbar)
  * Callback bound to the jump event of the progress bar
  * @param {float} timestamp time in seconds where the video should jump.
  */
-Ryskurl.prototype.handleProgressbarClick = function(timestamp) 
+Urlmesh.prototype.handleProgressbarClick = function(timestamp) 
 {
     if (this.ryskObj)
     {
@@ -273,7 +277,7 @@ this.importFinished = new Promise((resolve,reject) =>
 });
 
 ```
-The ``import`` function is asynchronous and returns a promise. It is wraped in our own new promise so we can test whether
+The ``import`` function is asynchronous and returns a promise. It is wrapped in our own new promise so we can test whether
 the import wasn't done already (i.e. ``window.Rysk`` already exists). The reference to this new Promise is kept in
 ``importFinished`` for use in the ``play`` method.
 
@@ -289,7 +293,7 @@ a new mesh is created:
  * @param {String} dataURL url of the .syk file
  * @param {String} videoURL url of the video
  */
-Ryskurl.prototype.play = function(dataURL,videoURL)
+Urlmesh.prototype.play = function(dataURL,videoURL)
 {
     if (this.ryskObj && (!dataURL || !videoURL))
     {//remove an already existing ryksObj if dataURL or videoURL aren't set
@@ -322,6 +326,7 @@ callbacks are attached to the various events.
 // PlayCanvas object and the fourth is the default size of the internal buffer which is used
 // to store the RYSK data.
 this.ryskObj = new URLMesh(videoURL,dataURL,pc,50);
+this.ryskObj.setPreviewMode(true); //show the RYSK mesh even before hitting the play button
 ```
 
 There are two ways how to ensure the video loops if the ``loop`` attribute is set to ``true``. You can simply set the
@@ -332,13 +337,13 @@ try to circumvent this issue by looping the video manually in the following way:
 2) register a callback on the "ended" event
 3) in the callback, first mute the video by calling ``ryskObj.setVolume(0)``
 4) then call ``ryskObj.play()`` 
-5) after cca 500ms unmute the video (you can see this procedure in ``Ryskurl.prototype.playVideo`` method, since it's also used when you want to autoplay the video)
+5) after cca 500ms unmute the video (you can see this procedure in ``Urlmesh.prototype.playVideo`` method, since it's also used when you want to autoplay the video)
 
 ```javascript
 this.ryskObj.loop = false;
 this.ryskObj.onVideoEvent("ended",this.loopVideoThis);
 ...
-Ryskurl.prototype.loopVideo = function()
+Urlmesh.prototype.loopVideo = function()
 {
     if (this.loop)
     {
@@ -361,7 +366,7 @@ this.ryskObj.on("buffered",this.bufferingFinishedThis);
 /**
  * Callback bound to timeupdate event of the video from RYSK mesh
  */
-Ryskurl.prototype.showProgress = function()
+Urlmesh.prototype.showProgress = function()
 {
     if (this.progressbar)
     {
@@ -373,7 +378,7 @@ Ryskurl.prototype.showProgress = function()
  * Callback which gets triggered each time a new frame is decoded. It is responsible for showing the frame number
  * on the screen.
  */
-Ryskurl.prototype.showFrameNo = function(data)
+Urlmesh.prototype.showFrameNo = function(data)
 {
     if (!this.buffering && this.progressbarObj)
     {
@@ -385,7 +390,7 @@ Ryskurl.prototype.showFrameNo = function(data)
  * Callback which gets triggered if the video or data starts to buffer. It shows "Buffering..." text
  * instead of the frame number and mutes the video to avoid a possible issue with iOS.
  */
-Ryskurl.prototype.showBuffering = function()
+Urlmesh.prototype.showBuffering = function()
 {
     this.buffering = true;
     if (this.sound && this.ryskObj) this.ryskObj.setVolume(0);
@@ -398,7 +403,7 @@ Ryskurl.prototype.showBuffering = function()
 /**
  * Callback which gets triggered once the buffering is finished. It sets the volume back to normal.
  */
-Ryskurl.prototype.bufferingFinished = function()
+Urlmesh.prototype.bufferingFinished = function()
 {
     console.log("Finished buffering");
     this.buffering = false;
@@ -418,7 +423,7 @@ this.ryskObj.run().then(entity =>
 		if (this.volumebutton) this.volumebutton.enabled = true;
 		if (this.progressbar) this.progressbar.enabled = true;
 		if (this.stopbutton) this.stopbutton.enabled = true;
-		//remove the old render component (the preview figurine)
+		//remove the original render component (the preview mesh)
 		this.entity.removeComponent("render");
 		entity.enabled = true; //entity is by default disabled
 		//add the RYSK entity as a child of this entity
@@ -426,17 +431,18 @@ this.ryskObj.run().then(entity =>
 	}
 });
 ```
-Bear in mind that the promise resolves only after ``ryskObj.play()`` has been called; that is only after the video and
-the RYSK data decoding processes have been started. You can, for instance, start playing the video once the internal HTMLVideoElement
-emits ``canplaythrough`` event:
+Bear in mind that the promise normally resolves only after ``ryskObj.play()`` has been called; that is only after the video and
+the RYSK data decoding processes have been started. There is, however, an important exception from this. If you call ``ryskObj.setPreviewMode(true);``, then internally RYSK library access the first frame of the video (along with its data) even before ``play()`` is called in order to render the "preview" of the RYSK mesh.
+
+You can start playing the video for example when the internal HTMLVideoElement emits ``canplaythrough`` event:
 ```javascript
 this.ryskObj.onVideoEvent("canplaythrough",this.canplaythroughThis);
 ...
 /**
- * Callback which is triggered onnce canplaythrough video event is fired. At that moment, it calls
+ * Callback which is triggered once the canplaythrough video event is fired. At that moment, it calls
  * playVideo() method of this script()
  */
-Ryskurl.prototype.canplaythrough = function()
+Urlmesh.prototype.canplaythrough = function()
 {
     if (this.ryskObj)
     {
@@ -449,7 +455,7 @@ Ryskurl.prototype.canplaythrough = function()
 The ``playVideo`` method wraps ``ryskObj.play()`` method in the code which should ensure that the video can be played
 unmuted on iOS Safari. However, the solution is rather "hacky" and it's not guaranteed it will work forever:
 ```javascript
-Ryskurl.prototype.playVideo = function()
+Urlmesh.prototype.playVideo = function()
 {
     if (this.ryskObj !== null) 
     {
@@ -473,9 +479,9 @@ Also bear in mind that mobile browsers aren't very cooperative when it comes to 
 interaction (e.g. clicking on a button) is often required before the video can be played.
 
 It is advisable to manually dispose the RYSK object once it is not needed. This will ease the work for the javascript
-garbage collector and can prevent accidental memmory leaks:
+garbage collector and can prevent accidental memory leaks:
 ```javascript
-Ryskurl.prototype.dispose = function()
+Urlmesh.prototype.dispose = function()
 {
     if (this.ryskObj !== null)
     {
@@ -498,7 +504,7 @@ Ryskurl.prototype.dispose = function()
 
 ### 3.2 Progress bar
 Create a script called ``ProgressBar.js`` and attach it as a script component to the topmost ProgressBar element. It will allow other scripts
-(in this particular case the ``PlayCanvasRYSKUrl.js`` script) to set the length of the progress bar, set the current
+(in this particular case the ``PlayCanvasURLMesh.js`` script) to set the length of the progress bar, set the current
 status/frame number and listen on ``jump`` events when to user wants to jump to a different time position in the video.
 The full code of this script can be found [here](./src/ProgressBar.js).
 
@@ -592,9 +598,13 @@ ModelBtn.prototype.initialize = function()
         const scripts = this.RYSKMesh.findComponents("script");
         for (var script of scripts)
         {
-            if ("ryskurl" in script)
-            {
-                script.ryskurl.play(this.dataURL,this.videoURL);
+            if ("urlmesh" in script)
+            {//for the "Showcase" scene
+                script.urlmesh.play(this.dataURL, this.videoURL);
+                break;
+            }else if ("ryskurl" in script)
+            {//for the "Low level scripting" scene
+                script.ryskurl.play(this.dataURL, this.videoURL);
                 break;
             }
         }
@@ -603,7 +613,7 @@ ModelBtn.prototype.initialize = function()
 ```
 
 ### 3.4 Switching the scene
-``SwitchScene.js`` should be attached to the button which will be used for switching between the Showcase and the Synchronizer scene. The script register a single user provided parameter: the name of the scene the application should switch to.
+``SwitchScene.js`` should be attached to the button which will be used for switching between the three scenes. The script registers single user provided parameter: the name of the scene the application should switch to.
 ```javascript
 var SwitchScene = pc.createScript('switchScene');
 SwitchScene.attributes.add('nextscene', { type: 'string' });
@@ -621,17 +631,17 @@ SwitchScene.prototype.initialize = function()
 };
 ```
 ## 4 Synchronizer scene
-This scene presents an example of ``@mantisvision/synchronizer``. The layout is slightly different from the [Showcase scene](#3-showcase-scene). There are two positions for RYSK videos. Playback of both videos is synchronized using the Synchronizer script attached to the root node of the scene. [SwitchScene.js](#34-switching-the-scene) and [ProgressBar.js](#32-progress-bar) are used in the same fashion like in the first scene. [ModelBtn.js](#33-model-buttons) isn't used at all since for the sake of simplicity, both RYSK meshes have predefined URLs.
+This scene presents an example of ``@mantisvision/synchronizer``. The layout is slightly different from the [Showcase scene](#3-showcase-scene). There are two positions for RYSK videos. Playback of both videos is synchronized using the Synchronizer script attached to the root node of the scene. [SwitchScene.js](#34-switching-the-scene) and [ProgressBar.js](#32-progress-bar) are used in the same fashion like in the first scene. [ModelBtn.js](#33-model-buttons) isn't used at all since, for the sake of simplicity, both RYSK meshes have predefined URLs.
 
 ### 4.1 RYSK mesh script
-The second scene uses modified version of the ``PlayCanvasRYSKUrls.js`` script called ``PlayCanvasRYSKUrlShort.js`` which is attached to both RYSK entities in the scene. The script specifies three configurable parameters:
+The second scene uses modified version of the ``PlayCanvasURLMesh.js`` script called ``PlayCanvasURLMeshShort.js`` which is attached to the both RYSK entities in the scene. The script specifies three configurable parameters:
 
 ```javascript
-RyskurlShort.attributes.add('loop', { type: 'boolean',default: false });
-RyskurlShort.attributes.add('videourl', { type: 'string',default: '' });
-RyskurlShort.attributes.add('dataurl', { type: 'string',default: '' });
+UrlmeshShort.attributes.add('loop', { type: 'boolean',default: false });
+UrlmeshShort.attributes.add('videourl', { type: 'string',default: '' });
+UrlmeshShort.attributes.add('dataurl', { type: 'string',default: '' });
 ```
-As you can see, video url and data url are now defined specifically on the both entities and the only returning parameter is the loop. There is no need to define buttons or progressbar reference since those are going to be manage by the [Synchronizer script](#42-synchronizer-script). For the same reason the script is missing methods which were attached as callbacks to buttons an progress bar events. Other than that, the script is actually very similar to the original ``PlayCanvasRYSKUrls.js``, so you can look at [its description](#31-rysk-mesh-script) for further details.
+As you can see, video url and data url are now defined specifically on the both entities and the only returning parameter is the loop. There is no need to define buttons or progressbar reference since those are going to be managed by the [Synchronizer script](#42-synchronizer-script). For the same reason the script is missing methods which were attached as callbacks to buttons an progress bar events. Other than that, the script is actually very similar to the original ``PlayCanvasURLMesh.js``, so you can look at [its description](#31-rysk-urlmesh-script) for further details.
 
 ### 4.2 Synchronizer script
 ``Synchronizer.js`` is the main script of the second scene. Its main purpose is to create the synchronizer object using ``@mantisvision/synchronizer`` library which will take control over the both RYSK meshes and syncs their playbacks so they match their timestamps as closely as possible. The library also takes care of pausing all the videos once any of them starts to buffer and starts playing them again as soon as the buffering is finished. The details about the ``@mantisvision/synchronizer`` library can be found in [its documentation](../../docs/synchronizer.md).
@@ -651,7 +661,7 @@ Synchronizer.attributes.add('ryskmeshes', {type: 'entity', array: true, descript
 ```
 Aside from the play/pause/stop/volume buttons and the progressbar, there is also a list of entities (i.e. RYSK meshes) which are supposed to be synchronized.
 
-In the ``Initialize()`` listeners are attached to the buttons and the progress bar in the same way as in the ``PlayCanvasRYSKUrls.js`` script in the first scene. The main difference is that ``play()``, ``pause()``, ``stop()``, ``jumpAt()`` and ``setVolume()`` are called upon ``this.videoSync`` object instead of the ``this.ryskObj``.
+In the ``Initialize()`` method, listeners are attached to the buttons and the progress bar in the same way as in the ``PlayCanvasURLMesh.js`` script in the first scene. The main difference is that ``play()``, ``pause()``, ``stop()``, ``jumpAt()`` and ``setVolume()`` are called upon ``this.videoSync`` object instead of the ``this.ryskObj``.
 
 The ``videoSync`` is initialized after ``@mantisvision/synchronizer`` and ``TIMINGSRC`` libraries are imported.
 ```javascript
@@ -671,12 +681,12 @@ Promise.all(imports).then(() =>
 ```
 ``window.RyskSynchronizer`` and ``window.TIMINGSRC`` are two new global objects which were automatically created by the imported libraries. The autoplay of the RYSK videos is set to ``false`` in order to avoid issues with the automatic playback on some mobile browsers.
 
-Event listeners are attached to the ``durationchange`` and ``timeupdate`` events. Their goal is to set the appropriete attributes of the progress bar, namely its current timestamp (``timeupdate`` event) and its max value ``durationchange``.
+Event listeners are attached to the ``durationchange`` and ``timeupdate`` events. Their goal is to set the appropriate attributes of the progress bar, namely its current timestamp (``timeupdate`` event) and its max value ``durationchange``.
 ```javascript
 this.videoSync.on("timeupdate", this.showProgressThis);
 this.videoSync.on("durationchange", this.changeDurationThis);
 ```
-Then the script cycles through all the ryskmeshes entities defined in the configurable parameter, locates their script and calls its ``run()`` method.
+Then the script cycles through all the ryskmesh entities defined in the configurable parameter, locates their script and calls its ``run()`` method.
 ```javascript
 const promises = [];
 
@@ -686,10 +696,10 @@ for (var mesh of this.ryskmeshes)
 	const meshscripts = mesh.findComponents("script");
 	for (var script of meshscripts)
 	{
-		if ("RyskurlShort" in script)
+		if ("urlmeshshort" in script)
 		{
-			promises.push(script.RyskurlShort.run());
-			scripts.push(script.RyskurlShort);
+			promises.push(script.urlmeshshort.run());
+			scripts.push(script.urlmeshshort);
 			break;
 		}
 	}
@@ -709,3 +719,114 @@ if (this.videoSync)
 	this.videoSync.addMedia(rysks);
 }
 ```
+
+## 5 Low level scripting scene
+This is a variant of the [Showcase](#3-showcase-scene) scene. It uses the same layout and very similar mechanics. The only difference is in the script attached to RYSK mesh entities. Instead of ``PlayCanvasURLMesh.js``, the scene now uses ``PlayCanvasRYSKUrl.js`` script. It differs from the former in the way it creates the RYSK mesh. ``PlayCanvasURLMesh.js`` instantiate ``URLMesh`` class which provides the whole Playcanvas entity ready to be inserted into the scene and all the updates of its geometry and the texture are handled internally.
+
+``PlayCanvasRYSKUrl.js`` instead instantiate ``RYSKUrl`` class, which is a library agnostic parent of ``URLMesh`` and only provides HTML canvas element and decoded RYSK data. This is to expose the process of creating PlayCanvas mesh for those users who need a more direct acceess to the geometric data and source texure for a finer manipulation.
+
+The code is actually similar to the inner code of ``@mantisvision/ryskplaycanvas`` library, only adjusted for the environment of the PlayCanvas editor.
+
+```javascript
+this.ryskObj = new RYSKUrl(videoURL,dataURL,50);
+this.ryskObj.setPreviewMode(true);
+...
+
+this.ryskObj.init().then(res => 
+{
+	const {canvas} = res;
+	if (canvas)
+	{
+		this.mesh = new RYSKMesh(canvas);
+		return this.mesh.waitForEntity();
+	}else throw "Failed to create texture for RYSK object";
+}).then(entity => 
+{
+	//display the control elements
+	if (this.playpausebutton) this.playpausebutton.enabled = true;
+	if (this.volumebutton) this.volumebutton.enabled = true;
+	if (this.progressbar) this.progressbar.enabled = true;
+	if (this.stopbutton) this.stopbutton.enabled = true;
+	//remove the old render component (the preview figurine)
+	this.entity.removeComponent("render");
+	entity.enabled = true; //entity is by default disabled
+	//add the RYSK entity as a child of this entity
+	this.entity.addChild(entity);
+}).catch(console.error);
+```
+The first ``then()`` resolves with canvas which is needed for creating the texture. The second ``then()`` is actually pretty much same as the one from ``PlayCanvasURLMesh.js`` file.
+
+``RYSKMesh`` class is defined further down in the script. In its constructor, it creates a PlayCanvas mesh and texture:
+```javascript
+this.#mesh = new pc.Mesh(application.graphicsDevice);
+this.#material = new pc.BasicMaterial();
+
+this.#texture = new RYSKVideoTexture(canvas);
+const texture = this.#texture.getTexture();
+if (texture)
+{
+	this.#material.colorMap = texture;
+	this.#promiseEntity = new Promise((resolve,reject) => 
+	{
+		this.#promiseResolve = resolve;
+	});
+```
+The object of this class must be constantly fed with the decoded RYSK data in order to update the mesh geometry:
+```javascript
+async updateMesh(data)
+{
+	if (data && this.#texture && this.#mesh)
+	{
+		this.#mesh.setIndices(data.indices);
+
+		this.#mesh.setPositions(data.vertices,3);
+		this.#mesh.setUvs(0,data.uvs,2);
+		this.#texture.update();
+		this.#mesh.update(this.playCanvas.PRIMITIVE_TRIANGLES,true);
+```
+After the first call to ```updateMesh```, we can actually create a PlayCanvas meshInstance and entity and thus resolve the promise from the constructor:
+```javascript
+if (this.#meshInstance === null && this.#promiseResolve && this.#material)
+{
+	this.#meshInstance = new this.playCanvas.MeshInstance(this.#mesh,this.#material);
+	this.#entity = new this.playCanvas.Entity();
+	this.#entity.rotateLocal(0, 180, 0);
+	this.#entity.setLocalScale(0.001, 0.001, 0.001);
+	this.#entity.enabled = false;
+	this.#entity.addComponent('render',{ meshInstances: [this.#meshInstance] });	
+
+	this.#promiseResolve(this.#entity);
+}
+```
+Notice that the entity is by default rotated 180° in y-axis and scale is set to 0.001. This is necessary to compensate for the RYSK data which are always rotated by 180° and the scale 1000-times bigger than the default scale of the PlayCanvas scene.
+
+To obtain the entity, there is ``waitForEntity()`` method and ``getEntity()`` method (the latter doesn't wait for the promise to resolve, so it's only usable after the resolve):
+```javascript
+async waitForEntity()
+{
+	return await this.#promiseEntity;
+}
+
+getEntity()
+{
+	return this.#entity;
+}
+```
+``RYSKMesh`` also needs a ``RYSKVideoTexture`` class which is defined further down and is responsible for generating the PlayCanvas texture from the HTML canvas. The code is pretty simple, the most important thing is to periodically call its ``update`` method, so the mesh's texture is correctly updated with the current frame drawn onto the canvas.
+
+Notice that in case of Firefox (and older Safari), it's safer to copy the given canvas first in order to avoid broken mesh.
+
+The data to the instance of ``RYSKMesh`` class are delivered via 
+```javascript
+RyskUrl.prototype.updateMesh = function(data)
+{
+	if (this.mesh) this.mesh.updateMesh(data);
+};
+```
+This method gets attached to the ``RYSKUrl`` object at the end of the ``RyskUrl.prototype.createMesh`` method:
+```javascript
+//updateMesh method will listen for decoded RYSK data, so it can update
+//the mesh's geometry.
+this.ryskObj.on("dataDecoded", this.updateMeshThis);
+```
+After you no longer need RYSK mesh, don't forget to call all the necessary ``dispose`` methods as can be seen in ``RyskUrl.prototype.dispose`` method.

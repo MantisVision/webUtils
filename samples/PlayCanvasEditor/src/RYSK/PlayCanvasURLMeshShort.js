@@ -1,17 +1,17 @@
-var RyskurlShort = pc.createScript('RyskurlShort');
+var UrlmeshShort = pc.createScript('urlmeshshort');
 
 // true - video will loop, false - video stops at the end
-RyskurlShort.attributes.add('loop', { type: 'boolean',default: false });
+UrlmeshShort.attributes.add('loop', { type: 'boolean',default: false });
 
-RyskurlShort.attributes.add('videourl', { type: 'string',default: '' });
+UrlmeshShort.attributes.add('videourl', { type: 'string',default: '' });
 
-RyskurlShort.attributes.add('dataurl', { type: 'string',default: '' });
+UrlmeshShort.attributes.add('dataurl', { type: 'string',default: '' });
 
 /**
  * Initialize method is called once per entity the script is attached to. Its main purpose is to set listeners
  * for control entities (play/pause button, progress bar...) and load @mantisvision/ryskplaycanvas library
  */
-RyskurlShort.prototype.initialize = function() 
+UrlmeshShort.prototype.initialize = function() 
 {
     this.playing = false;   // whether the video is currently playing
     this.sound = true;      // whether the sound is turned on
@@ -57,7 +57,7 @@ RyskurlShort.prototype.initialize = function()
  * @param {String} dataURL url of the .syk file
  * @param {String} videoURL url of the video
  */
-RyskurlShort.prototype.run = async function()
+UrlmeshShort.prototype.run = async function()
 {
     if (this.ryskObj && (!this.dataurl || !this.videourl))
     {//remove an already existing ryksObj if dataURL or videoURL aren't set
@@ -74,7 +74,7 @@ RyskurlShort.prototype.run = async function()
 /**
  * Returns the underlying RYSK object
  */
-RyskurlShort.prototype.getRYSKObj = function()
+UrlmeshShort.prototype.getRYSKObj = function()
 {
     return this.ryskObj;
 };
@@ -85,7 +85,7 @@ RyskurlShort.prototype.getRYSKObj = function()
  * @param {String} dataURL URL of the .syk file
  * @param {String} videoURL URL of the video (or m3u8 playlist for HLS)
  */
-RyskurlShort.prototype.createMesh = function(URLMesh,dataURL,videoURL)
+UrlmeshShort.prototype.createMesh = function(URLMesh,dataURL,videoURL)
 {
     if (this.ryskObj !== null)
     {// when creating the new object, we first need to dispose an old one if there is such
@@ -110,9 +110,7 @@ RyskurlShort.prototype.createMesh = function(URLMesh,dataURL,videoURL)
     // URLMesh constructor sets the necessary variables, but by design doesn't starts
     // the internal processes to downlaod and decode RYSK data. run() must be called
     // in order to do that. It resolves with the PlayCanvas entity which can
-    // be inserted into the scene. However, bear in mind that it's resolved only once
-    // the video starts playing by calling play() method of ryskObj, because the texture
-    // of the mesh can't be constructed unless the video is playing.
+    // be inserted into the scene. 
     this.ryskObj.run().then(entity => 
     {
         if (entity)
@@ -133,7 +131,7 @@ RyskurlShort.prototype.createMesh = function(URLMesh,dataURL,videoURL)
  * the render component from this entity and destroys the RYSK mesh in order
  * to free the memory.
  */
-RyskurlShort.prototype.dispose = function()
+UrlmeshShort.prototype.dispose = function()
 {
     if (this.ryskObj !== null)
     {
@@ -149,7 +147,7 @@ RyskurlShort.prototype.dispose = function()
  * For Firefox and old Safari on MacOS, update() method of ryskObj must be called in requestAnimationFrame
  * of window, otherwise there might be issues with the texture.
  */
-RyskurlShort.prototype.updateRyskObj = function()
+UrlmeshShort.prototype.updateRyskObj = function()
 {
     if (this.ryskObj !== null) this.ryskObj.update();
     window.requestAnimationFrame(this.updateRyskObjThis);
@@ -158,7 +156,7 @@ RyskurlShort.prototype.updateRyskObj = function()
 /**
  * For other browsers, we can rely on update() method which is automatically called by PlayCanvas each rendering frame.
  */
-RyskurlShort.prototype.update = function()
+UrlmeshShort.prototype.update = function()
 {
     if (!this.firefox && this.ryskObj !== null) 
     {//the first part of if checks whther browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)

@@ -132,7 +132,6 @@ Synchronizer.prototype.initialize = function()
             //we want to wait till the user hits "play" button
             this.videoSync.setAutoplay(false);
             const promises = [];
-            const rysks = [];
 
             for (var mesh of this.ryskmeshes)
             {// now cycle through all the entities which the synchronizer should manage
@@ -140,17 +139,18 @@ Synchronizer.prototype.initialize = function()
                 const meshscripts = mesh.findComponents("script");
                 for (var script of meshscripts)
                 {
-                    if ("RyskurlShort" in script)
+                     console.log(script);
+                    if ("urlmeshshort" in script)
                     {
-                        promises.push(script.RyskurlShort.run());
-                        scripts.push(script.RyskurlShort);
+                        promises.push(script.urlmeshshort.run());
+                        scripts.push(script.urlmeshshort);
                         break;
                     }
                 }
             }
             return Promise.all(promises);
         }).then(() =>
-        {// run() method of all RyskurlShort scripts was executed
+        {// run() method of all UrlmeshShort scripts was executed
             const rysks = [];
             if (this.videoSync)
             {// turn on the volume and add the rysks to the synchronizer
