@@ -53,7 +53,7 @@ function createRenderer(width,height)
  */
 function run(renderer,scene,camera)
 {
-	const ryskObj = new URLMesh(video_url, data_url, 50, THREE.SRGBColorSpace);
+	const ryskObj = new URLMesh(video_url, data_url, 12, THREE.SRGBColorSpace);
 	ryskObj.setPreviewMode(1);
 	
 	ryskObj.on("buffering",() => console.log("buffering"));

@@ -136,3 +136,6 @@ Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new metho
 
 #### 0.10.1
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+
+### 0.11.0
+Connects to 3.2.0 release of ``@mantisvision/ryskurl``.

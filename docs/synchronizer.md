@@ -336,3 +336,15 @@ When jumping into a timestamp which is higher than some of the videos' durations
 
 ### 0.5.0
 VideoSynchronizer should now be able to handle any media element, not just the video.
+
+#### 0.5.1
+Fixed a bug with incorrect total length when jumping to a different timestamp.
+
+#### 0.5.2
+Fixed a potential race condition after jumping to a different timestamp
+
+#### 0.5.3
+Fixed a bug with looping the videos with the same duration (might happen that the video marked as the longest ends before some other).
+
+#### 0.5.5
+Couple of fixes around racing conditions during a jump to a different timestamp.

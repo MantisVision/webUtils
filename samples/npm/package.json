@@ -17,8 +17,8 @@
 	"packageManager": "yarn@3.6.0",
 	"devDependencies": {
 		"@mantisvision/ryskaframe": "^0.7.0",
-		"@mantisvision/ryskplaycanvas": "^0.9.0",
-		"playcanvas": "^1.64.4",
+		"@mantisvision/ryskplaycanvas": "^0.10.1",
+		"playcanvas": "^1.65.0",
 		"three": "^0.154.0",
 		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4"
@@ -28,8 +28,8 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"@mantisvision/ryskthreejs": "^0.10.3",
-		"@mantisvision/utils": "^2.1.0",
+		"@mantisvision/ryskthreejs": "^0.11.1",
+		"@mantisvision/utils": "^2.2.0",
 		"aframe": "^1.4.2"
 	}
 }

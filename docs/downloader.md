@@ -211,3 +211,6 @@ capacity too quickly.
 
 #### 0.5.7
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+
+### 0.6.0
+Added a mechanic which guesses the download speed of the RYSK data and waits an approximate time till the enough data is downloaded.

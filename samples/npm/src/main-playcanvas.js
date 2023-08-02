@@ -51,7 +51,7 @@ function run(app)
 {
 	try
 	{
-		const ryskObj = new URLMesh(video_url,data_url);
+		const ryskObj = new URLMesh(video_url,data_url,12);
 		ryskObj.setPreviewMode(1);
 		
 		const progress = document.getElementById("progress");

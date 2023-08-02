@@ -296,6 +296,12 @@ pause();
  */
 async dispose();
 ```
+```javascript	
+/**
+ * Getter for the current time of the video.
+ */
+get currentTime(): number;
+```
 ## Release notes
 
 ### 2.0.0
@@ -313,3 +319,6 @@ Added a new typecheck export for data from the Worker.
 
 ### 2.1.0.
 Webpack configuration now emits dist files with ESM exports and imports.
+
+### 2.2.0
+Video element has a new getter for ``currentTime`` property.

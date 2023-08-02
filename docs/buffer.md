@@ -260,3 +260,6 @@ Added searching for the frame in the whole buffer even if it's not fully filled.
 
 #### 0.5.3
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+
+#### 0.5.5
+Main loop which decodes frame numbers from the video header now doesn't stop when the video is paused (with the exception of Firefox due to missing "requestVideoFrameCallback"). This changes means that even after the jump, at least one new frame is read.

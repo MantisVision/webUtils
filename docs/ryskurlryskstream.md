@@ -534,6 +534,10 @@ buffering hasn't ocurred yet and the video gets stopped which actually prevents 
 #### 3.1.2
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
 
+### 3.2.0
+- for the buffering purposes, the library now listens for ``canplaythrough`` event instead of ``canplay`` event of the video
+- ``jumpAt()`` method now resolves only after the ``seeked`` event is fired by the underlying video element
+
 ## Release notes RYSKStream
 
 ### 4.0.0
