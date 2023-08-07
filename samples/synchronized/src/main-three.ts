@@ -65,8 +65,8 @@ function createRenderer(width: number, height: number)
  */
 function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera)
 {
-	const chloeRYSK = new URLMesh(chloe_video, chloe_data, 12, THREE.SRGBColorSpace);
-	const robRYSK = new URLMesh(rob_video, rob_data, 12, THREE.SRGBColorSpace);
+	const chloeRYSK = new URLMesh(chloe_video, chloe_data, 25, THREE.SRGBColorSpace);
+	const robRYSK = new URLMesh(rob_video, rob_data, 25, THREE.SRGBColorSpace);
 	chloeRYSK.setPreviewMode(true);
 	robRYSK.setPreviewMode(true);
 

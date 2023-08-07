@@ -63,8 +63,8 @@ function run(app: pc.Application)
 {
 	try
 	{
-		const chloeRYSK = new URLMesh(chloe_video, chloe_data, 12);
-		const robRYSK = new URLMesh(rob_video, rob_data, 12);
+		const chloeRYSK = new URLMesh(chloe_video, chloe_data, 25);
+		const robRYSK = new URLMesh(rob_video, rob_data, 25);
 		chloeRYSK.setPreviewMode(true);
 		robRYSK.setPreviewMode(true);
 		synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
