@@ -214,3 +214,6 @@ capacity too quickly.
 
 ### 0.6.0
 Added a mechanic which guesses the download speed of the RYSK data and waits an approximate time till the enough data is downloaded.
+
+#### 0.6.1
+Fixed bug with call to resume the downloader (if it was called with the frame number 0, the downloader didn't jump to the beginning of the file).

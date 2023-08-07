@@ -297,6 +297,22 @@ get seekable();
 ```
 ```javascript
 /**
+ * Sets the timestamp in which the video should start its playback. 
+ * @param timestamp the end of the video
+ * @returns 
+ */
+setBeginning(timestamp);
+```
+```javascript
+/**
+ * Sets the timestamp in which the video should end its playback. 
+ * @param timestamp the end of the video
+ * @returns 
+ */
+setEnd(timestamp);
+```
+```javascript
+/**
  * Inits the service and returns a promise which resolves with an object containing 2 properties: 
  * canvas (HTML canvas which gets updated with new frames) and video (HTML video element which serves as a "decoder" of video stream). It is important to remember that the video is initially muted, so you might want to call setVolume method afterwards.
  * @returns {Promise} promise which resolves after the video is ready to be played.
@@ -538,6 +554,9 @@ buffering hasn't ocurred yet and the video gets stopped which actually prevents 
 - for the buffering purposes, the library now listens for ``canplaythrough`` event instead of ``canplay`` event of the video
 - ``jumpAt()`` method now resolves only after the ``seeked`` event is fired by the underlying video element
 
+### 3.3.0
+Allows to set beginning and end timestamps of the video in order to trim it into a shorter duration (this is actually related to [@mantisvision/utils v2.3.0](./utils.md#230))
+
 ## Release notes RYSKStream
 
 ### 4.0.0
@@ -546,3 +565,6 @@ buffering hasn't ocurred yet and the video gets stopped which actually prevents 
 
 #### 4.0.4
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+
+#### 4.0.7
+Upgrade due to version [0.6.0](./buffer.md#060) of ``@mantisvision/ryskbuffer`` 

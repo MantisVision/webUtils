@@ -222,6 +222,74 @@ isHlsLibrary();
  */
 isHls();
 ```
+```javascript
+/**
+ * Attach event listener to the underlying HTMLVideo element.
+ * @param event a name of the event from the HTMLVideo element. 
+ *              It is also possible to attach a listener to "durationchange" event which is emitted each time the duration of the video changes
+ * @param callback event listener to attach
+ */
+addEventListener(event, callback);
+```
+```javascript
+/**
+ * Detach event listener from the underlying HTMLVideo element.
+ * @param event a name of the event from the HTMLVideo element. 
+ *              It is also possible to detach a listener from the "durationchange" event.
+ * @param callback event listener to detach
+ */
+removeEventListener(event, callback);
+```
+```javascript
+/**
+ * Sets the timestamp in which the video should begin its playback. 
+ * @param timestamp the start of the video
+ * @returns 
+ */
+setBeginning(timestamp);
+```
+```javascript
+/**
+ * Sets the timestamp in which the video should end its playback. 
+ * @param timestamp the end of the video
+ * @returns 
+ */
+setEnd(timestamp);
+```
+```javascript
+/**
+ * Getter and setter for the loop property of the video
+ */
+get loop();
+set loop(val);
+```
+```javascript
+/**
+ * Getter and setter for the playbackRate property of the video
+ */
+get playbackRate();
+set playbackRate(value);
+```
+```javascript
+/**
+ * Getter and setter for the muted property of the video
+ */
+get muted();
+set muted(val);
+```
+```javascript
+/**
+ * Getter and setter for the volume property of the video
+ */ 
+get volume();
+set volume(val);
+```
+```javascript
+/**
+ * Getter for ended property of the video
+ */ 
+get ended();
+```
 ```javascript	
 /**
  * Registers a listener for HLS events. It's basically a proxy for the same functionality from hls.js library. Be aware
@@ -322,3 +390,9 @@ Webpack configuration now emits dist files with ESM exports and imports.
 
 ### 2.2.0
 Video element has a new getter for ``currentTime`` property.
+
+### 2.3.0
+- Video element has a couple of new methods and getters/setters for standard HTMLVideo element properties.
+- Video element has two new special methods for setting the beginning (``setBeginning``) and the end (``setEnd``) timestamps of the vide to trim it to a desired length.
+- the abstract class ``AbstractRYSK`` has a modified way to handle ``pause`` message from the worker. Now it checks whether the ``RYSKBuffer`` still waits for a frame and if it does, ``AbstractRYSK`` immediately sends ``continue`` message to the worker and the decoding continues.
+

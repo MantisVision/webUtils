@@ -187,4 +187,6 @@ Due to the same change, ``getMesh()`` method has been renamed to ``getEntity()``
 Minified version of ``@mantisvision/ryskplaycanvas`` (which bundles all the dependencies) now exports also ``RYSKUrl`` class from the bundled ``@mantisvision/ryskurl`` library.
 
 ### 0.10.0
-Connects to 3.2.0 release of ``@mantisvision/ryskurl``.
+Connects to [3.2.0](./ryskurlryskstream.md#320) release of ``@mantisvision/ryskurl``.
+### 0.11.0
+Connects to [3.3.0](./ryskurlryskstream.md#330) release of ``@mantisvision/ryskurl``.

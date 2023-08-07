@@ -348,3 +348,9 @@ Fixed a bug with looping the videos with the same duration (might happen that th
 
 #### 0.5.5
 Couple of fixes around racing conditions during a jump to a different timestamp.
+
+#### 0.5.7
+A fix for an unnecessary change of duration when jumping to a different timestamp.
+
+#### 0.5.8
+Stricter limits for video sync correction (starts at +- 0.1s difference from the main timing object).

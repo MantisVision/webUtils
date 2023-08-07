@@ -162,6 +162,19 @@ getCanvas();
 ```
 ```javascript
 /**
+ * Returns the number of the frame the buffer is currently waiting for or -1 if it doesn't wait for any.
+ */
+getWaitingFrameNumber();
+```
+```javascript
+/**
+ * Returns how many frames ahead should be pre-decoded (usually one third of the buffer size).
+ * @returns {number} number of frames
+ */
+getAheadReadCount();
+```
+```javascript
+/**
  * Add geometry data to the buffer
  * @param {Integer} frameNo frame number for which the data should be delivered
  * @param {Float32Array} vertices 
@@ -255,7 +268,7 @@ setGenerateCanvas: function(customMethod);
 Source codes were migrated to Typescript. The build of the library still produces javascript files for backwards
 compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
 
-### 0.5.2
+#### 0.5.2
 Added searching for the frame in the whole buffer even if it's not fully filled.
 
 #### 0.5.3
@@ -263,3 +276,6 @@ Added searching for the frame in the whole buffer even if it's not fully filled.
 
 #### 0.5.5
 Main loop which decodes frame numbers from the video header now doesn't stop when the video is paused (with the exception of Firefox due to missing "requestVideoFrameCallback"). This changes means that even after the jump, at least one new frame is read.
+
+### 0.6.0
+Added ``getWaitingFrameNumber()`` and ``getAheadReadCount()`` methods.

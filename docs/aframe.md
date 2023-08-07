@@ -187,4 +187,4 @@ Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new attri
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
 
 ### 0.7.0
-A new attribute ``playbackrate`` us added to the ``ryskurl`` component. Setting it will
+A new attribute ``playbackrate`` us added to the ``ryskurl`` component. It can control the speed of the video playback.

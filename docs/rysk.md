@@ -76,4 +76,6 @@ Includes changes from [@mantisvison/ryskurl 3.1.0](./ryskurlryskstream.md#310)
 - the ``type`` field in ``package.json`` has now value ``module``.
 
 ### 4.1.0
-Connects to 3.2.0 release of ``@mantisvision/ryskurl``.
+Connects to [3.2.0](./ryskurlryskstream.md#320) release of ``@mantisvision/ryskurl``.
+### 4.2.0
+Connects to [3.3.0](./ryskurlryskstream.md#330) release of ``@mantisvision/ryskurl``.
