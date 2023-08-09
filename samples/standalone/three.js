@@ -57,11 +57,11 @@ function createRenderer(width,height)
  */
 function run(renderer,scene,camera)
 {
-	const ryskObj = new Rysk.RYSKUrl(video_url, data_url, 12, THREE.SRGBColorSpace);
+	const ryskObj = new Rysk.RYSKUrl(video_url, data_url, 25, THREE.SRGBColorSpace);
 	ryskObj.setPreviewMode(true);
 	
 	ryskObj.on("buffering",() => console.log("buffering"));
-	ryskObj.on("playing",() => console.log("playing"));
+	ryskObj.on("buffered",() => console.log("buffered"));
 	
 	const progress = document.getElementById("progress");
 	

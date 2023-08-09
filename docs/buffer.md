@@ -213,6 +213,13 @@ getCurrentVideoFrame();
 ```
 ```javascript
 /**
+* Resets the current video frame to -1. This method should be called when a jump to a different timestamp
+* occurs in order to prevent check for frame number difference.
+*/
+resetCurrentVideoFrame();
+```
+```javascript
+/**
  * Get the current size of the frame buffer.
  * @returns {Integer} size of the buffer in videoframes (e.g. 30 means max 30 video frames will be buffered)
  */
@@ -279,3 +286,6 @@ Main loop which decodes frame numbers from the video header now doesn't stop whe
 
 ### 0.6.0
 Added ``getWaitingFrameNumber()`` and ``getAheadReadCount()`` methods.
+
+### 0.6.1
+Added ``resetCurrentVideoFrame()`` method which should be called each time video jumps to a different timestamp in order to prevent skipping of frames in case of HLS videos (the skipping is normally done as a prevention from a sudden resolution changes).

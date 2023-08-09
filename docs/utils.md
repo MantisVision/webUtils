@@ -396,3 +396,6 @@ Video element has a new getter for ``currentTime`` property.
 - Video element has two new special methods for setting the beginning (``setBeginning``) and the end (``setEnd``) timestamps of the vide to trim it to a desired length.
 - the abstract class ``AbstractRYSK`` has a modified way to handle ``pause`` message from the worker. Now it checks whether the ``RYSKBuffer`` still waits for a frame and if it does, ``AbstractRYSK`` immediately sends ``continue`` message to the worker and the decoding continues.
 
+#### 2.3.3
+Fixed incorrect duration bug.
+

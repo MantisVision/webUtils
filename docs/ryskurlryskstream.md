@@ -557,6 +557,9 @@ buffering hasn't ocurred yet and the video gets stopped which actually prevents 
 ### 3.3.0
 Allows to set beginning and end timestamps of the video in order to trim it into a shorter duration (this is actually related to [@mantisvision/utils v2.3.0](./utils.md#230))
 
+#### 3.3.2
+On buffering events (``bufferingData``, ``waiting`` for video element) the library issues ``pauseLibrary()`` call to the video element and only unpause when the both ``canplaythrough`` and ``databuffered`` have been triggered.
+
 ## Release notes RYSKStream
 
 ### 4.0.0

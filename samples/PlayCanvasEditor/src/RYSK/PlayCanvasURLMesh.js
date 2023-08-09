@@ -15,7 +15,7 @@ Urlmesh.attributes.add('volumebutton', {type: 'entity', description: 'Button for
  * Initialize method is called once per entity the script is attached to. Its main purpose is to set listeners
  * for control entities (play/pause button, progress bar...) and load @mantisvision/ryskplaycanvas library
  */
-Urlmesh.prototype.initialize = function() 
+Urlmesh.prototype.initialize = function()
 {
     this.playing = false;   // whether the video is currently playing
     this.sound = true;      // whether the sound is turned on
@@ -41,7 +41,7 @@ Urlmesh.prototype.initialize = function()
     //handle the play/pause button
     if (this.playpausebutton)
     {
-        this.playpausebutton.element.on("click",() => 
+        this.playpausebutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
@@ -51,7 +51,7 @@ Urlmesh.prototype.initialize = function()
                     this.ryskObj.play();
                     //show the mesh in case it's hiddne
                     this.ryskObj.getEntity().enabled = true;
-                } 
+                }
                 this.playing = !this.playing;
                 this.playpausebutton.children[0].element.text = this.playing ? "Pause" : "Play"; //change the text of the button
             }
@@ -61,7 +61,7 @@ Urlmesh.prototype.initialize = function()
     //handle the button for turning the volume up/down
     if (this.volumebutton)
     {
-        this.volumebutton.element.on("click",() => 
+        this.volumebutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
@@ -76,13 +76,13 @@ Urlmesh.prototype.initialize = function()
      //handle the stop button
     if (this.stopbutton)
     {
-        this.stopbutton.element.on("click",() => 
+        this.stopbutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
                 this.ryskObj.stop();
                 this.ryskObj.getEntity().enabled = false; //hide the mesh
-                if (this.progressbarObj) 
+                if (this.progressbarObj)
                 {
                     this.progressbarObj.setProgress(0); //reset the progress bar
                     this.progressbarObj.setFrameNo(0);
@@ -111,19 +111,19 @@ Urlmesh.prototype.initialize = function()
         this.handleProgressbarClickThis = this.handleProgressbarClick.bind(this);
         //attach listener for "jump" event in order to jump to the given timestamp
         this.progressbarObj.on("jump",this.handleProgressbarClickThis);
-    }    
+    }
 
     //create a promise which will get resolved once the @mantisvision/ryskplaycanvas library gets loaded
-    this.importFinished = new Promise((resolve,reject) => 
+    this.importFinished = new Promise((resolve,reject) =>
     {
         if (!window.hasOwnProperty("Rysk"))
         {//import the library, but only if the Rysk global variable hasn't been set yet (that would mean the library was already imported)
             const asset = pc.Application.getApplication().assets.find('MantisRYSKPlayCanvas.min.js');
-            import(asset.getFileUrl()).then(() => 
+            import(asset.getFileUrl()).then(() =>
             {
                 resolve();
             });
-        }else 
+        }else
         {
             resolve();
         }
@@ -141,7 +141,7 @@ Urlmesh.prototype.initialize = function()
  * @param {String} dataURL url of the .syk file
  * @param {String} videoURL url of the video
  */
-Urlmesh.prototype.play = function(dataURL,videoURL)
+Urlmesh.prototype.play = function(dataURL, videoURL, beginning = 0, end = 0)
 {
     if (this.ryskObj && (!dataURL || !videoURL))
     {//remove an already existing ryksObj if dataURL or videoURL aren't set
@@ -150,12 +150,12 @@ Urlmesh.prototype.play = function(dataURL,videoURL)
     {//if dataURL or videoURL have changed or ryskObj hasn't been created yet
         this.dataURL = dataURL;
         this.videoURL = videoURL;
-        
-        this.importFinished.then(() => 
+
+        this.importFinished.then(() =>
             {// once the import of the @mantisvision/ryskplaycanvas library is finished...
-                window.Rysk.MantisLog.SetLogLevel(4);
+                window.Rysk.MantisLog.SetLogLevel(3);
                 this.dispose(); //...destroy an existing ryskObj...
-                this.createMesh(window.Rysk.URLMesh,dataURL,videoURL); //...and create a new one
+                this.createMesh(window.Rysk.URLMesh, dataURL, videoURL, beginning, end); //...and create a new one
             });
     }else
     {//if nothing has changed, merely trigger play() on the ryskObj
@@ -170,7 +170,7 @@ Urlmesh.prototype.play = function(dataURL,videoURL)
  * @param {String} dataURL URL of the .syk file
  * @param {String} videoURL URL of the video (or m3u8 playlist for HLS)
  */
-Urlmesh.prototype.createMesh = function(URLMesh,dataURL,videoURL)
+Urlmesh.prototype.createMesh = function(URLMesh, dataURL, videoURL, beginning = 0, end = 0)
 {
     this.showBuffering();
     if (this.ryskObj !== null)
@@ -180,9 +180,11 @@ Urlmesh.prototype.createMesh = function(URLMesh,dataURL,videoURL)
     // Create a new ryskObj using URLMesh class. The third argument is the default size of the internal
     // buffer which is used to store the RYSK data and the fourth is a reference to the global
     // PlayCanvas object.
-    this.ryskObj = new URLMesh(videoURL,dataURL,50,pc);
-    this.ryskObj.setPreviewMode(true);
-    
+    this.ryskObj = new URLMesh(videoURL,dataURL,25,pc);
+    this.ryskObj.setPreviewMode(true)
+                .setBeginning(beginning)
+                .setEnd(end);
+
     // Register a callback which is triggered each time a new frame is displayed.
     // The callback shows the frame number as text of frameNo entity given as the script's attribute
     this.ryskObj.on("dataDecoded",this.showFrameNoThis);
@@ -205,14 +207,18 @@ Urlmesh.prototype.createMesh = function(URLMesh,dataURL,videoURL)
     {//attach a listener to the "timeupdate" event of the RYSK mesh's video in order to update
     // the progressbar as the video plays
         this.ryskObj.onVideoEvent("timeupdate",this.showProgressThis);
-        this.ryskObj.getDuration().then(duration => this.progressbarObj.setDuration(duration));
+        this.ryskObj.getDuration().then(duration =>
+        {
+            console.log("Duration is " + duration);
+            this.progressbarObj.setDuration(duration);
+        });
     }
-    
+
     // URLMesh constructor sets the necessary variables, but by design doesn't starts
     // the internal processes to downlaod and decode RYSK data. run() must be called
     // in order to do that. It resolves with the PlayCanvas entity which can
     // be inserted into the scene.
-    this.ryskObj.run().then(entity => 
+    this.ryskObj.run().then(entity =>
     {
         if (entity)
         {
@@ -236,16 +242,16 @@ Urlmesh.prototype.createMesh = function(URLMesh,dataURL,videoURL)
  */
 Urlmesh.prototype.playVideo = function()
 {
-    if (this.ryskObj !== null) 
+    if (this.ryskObj !== null)
     {
         this.ryskObj.setVolume(0); //mute the video. On iOS, only muted video can be autoplayed
-        this.ryskObj.play().then(() => 
+        this.ryskObj.play().then(() =>
         {
             this.playing = true; //playing property is to true just to better handle play/pause button
-            setTimeout(() => 
+            setTimeout(() =>
             {//after a certain delay (in this case 0.5s) umnute the video. this should trick iOS into playing it
                 this.ryskObj.setVolume(this.sound ? 1 : 0);
-                if (this.volumebutton) 
+                if (this.volumebutton)
                 {//change the text on the volume button
                     this.volumebutton.children[0].element.text = "Volume " + (this.sound ? "OFF" : "ON");
                 }
@@ -272,7 +278,7 @@ Urlmesh.prototype.canplaythrough = function()
  */
 Urlmesh.prototype.setVolume = function(volume)
 {
-    if (this.ryskObj !== null) 
+    if (this.ryskObj !== null)
     {
         this.ryskObj.setVolume(volume);
         this.sound = volume > 0;
@@ -311,7 +317,7 @@ Urlmesh.prototype.showProgress = function()
 {
     if (this.progressbar)
     {
-        this.progressbarObj.setProgress(this.ryskObj.getVideoElement().currentTime);
+        this.progressbarObj.setProgress(this.ryskObj.getCurrentTime());
     }
 };
 
@@ -319,7 +325,7 @@ Urlmesh.prototype.showProgress = function()
  * Callback bound to jump event of the progress bar
  * @param {float} timestamp time in seconds where the video should jump.
  */
-Urlmesh.prototype.handleProgressbarClick = function(timestamp) 
+Urlmesh.prototype.handleProgressbarClick = function(timestamp)
 {
     if (this.ryskObj)
     {
@@ -342,7 +348,7 @@ Urlmesh.prototype.updateRyskObj = function()
  */
 Urlmesh.prototype.update = function()
 {
-    if (!this.firefox && this.ryskObj !== null) 
+    if (!this.firefox && this.ryskObj !== null)
     {//the first part of if checks whther browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
         this.ryskObj.update();
     }

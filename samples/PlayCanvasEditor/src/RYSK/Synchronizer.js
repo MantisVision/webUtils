@@ -12,11 +12,13 @@ Synchronizer.attributes.add('volumebutton', {type: 'entity', description: 'Butto
 Synchronizer.attributes.add('ryskmeshes', {type: 'entity', array: true, description: 'List of meshes to synchronize'});
 
 // initialize code called once per entity
-Synchronizer.prototype.initialize = function() 
+Synchronizer.prototype.initialize = function()
 {
     this.videoSync = null;
     this.playing = false;
     this.sound = true;
+    this.showBufferingThis = this.showBuffering.bind(this);
+    this.hideBufferingThis = this.hideBuffering.bind(this);
 
     // play, pause, stop, jump and volume are now all handled through the RyskSynchronizer object
     // which internally calls the appropriate methods on the videos it manages
@@ -24,16 +26,16 @@ Synchronizer.prototype.initialize = function()
     //handle the play/pause button
     if (this.playpausebutton)
     {
-        this.playpausebutton.element.on("click",() => 
+        this.playpausebutton.element.on("click",() =>
         {
             if (this.videoSync)
             {
-                if (this.playing) 
+                if (this.playing)
                 {
                     this.videoSync.pause();
                 } else
                 {//show the mesh in case it's hidden
-                    this.videoSync.play().then(() => 
+                    this.videoSync.play().then(() =>
                     {
                         for (var ryskUrl of this.videoSync.getMedia())
                         {//make all the underlying meshes visible
@@ -41,7 +43,7 @@ Synchronizer.prototype.initialize = function()
                             if (entity) entity.enabled = true;
                         }
                     });
-                } 
+                }
                 this.playing = !this.playing;
                 this.playpausebutton.children[0].element.text = this.playing ? "Pause" : "Play"; //change the text of the button
             }
@@ -51,13 +53,13 @@ Synchronizer.prototype.initialize = function()
     //handle the button for turning the volume up/down
     if (this.volumebutton)
     {
-        this.volumebutton.element.on("click",() => 
+        this.volumebutton.element.on("click",() =>
         {
             if (this.videoSync)
             {
                 const volume = this.sound ? 0 : 1;
                 this.videoSync.setVolume(volume);
-                
+
                 this.sound = !this.sound;
                 this.volumebutton.children[0].element.text = this.sound ? "Volume OFF" : "Volume ON"; //change the text of the button
             }
@@ -67,11 +69,11 @@ Synchronizer.prototype.initialize = function()
      //handle the stop button
     if (this.stopbutton)
     {
-        this.stopbutton.element.on("click",() => 
+        this.stopbutton.element.on("click",() =>
         {
             if (this.videoSync)
             {
-                this.videoSync.stop();               
+                this.videoSync.stop();
                 this.playing = false;
                 if (this.playpausebutton) this.playpausebutton.children[0].element.text = "Play";
             }
@@ -108,7 +110,7 @@ Synchronizer.prototype.initialize = function()
             this.videoSync = null;
         }
     });
-    
+
     if (this.videoSync === null)
     {// We have to import not only MantisSynchronizer library, but also the 3rd party
      // timingsrc which provides TimingObject that the RyskSynchronizer internally uses
@@ -121,13 +123,15 @@ Synchronizer.prototype.initialize = function()
         ];
 
         const scripts = [];
-        Promise.all(imports).then(() => 
+        Promise.all(imports).then(() =>
         {//libraries are imported, so we can create the RyskSynchronizer object
             this.videoSync = new window.RyskSynchronizer(window.TIMINGSRC.TimingObject);
-            
+
             //now we attach the listeners to timeupdate and durationchange event to set the progressbar
             this.videoSync.on("timeupdate", this.showProgressThis);
             this.videoSync.on("durationchange", this.changeDurationThis);
+            this.videoSync.on("buffering", this.showBufferingThis);
+            this.videoSync.on("buffered", this.hideBufferingThis);
 
             //we want to wait till the user hits "play" button
             this.videoSync.setAutoplay(false);
@@ -135,11 +139,10 @@ Synchronizer.prototype.initialize = function()
 
             for (var mesh of this.ryskmeshes)
             {// now cycle through all the entities which the synchronizer should manage
-             // and execute the run() call 
+             // and execute the run() call
                 const meshscripts = mesh.findComponents("script");
                 for (var script of meshscripts)
                 {
-                     console.log(script);
                     if ("urlmeshshort" in script)
                     {
                         promises.push(script.urlmeshshort.run());
@@ -166,7 +169,7 @@ Synchronizer.prototype.initialize = function()
             if (this.volumebutton) this.volumebutton.enabled = true;
             if (this.progressbar) this.progressbar.enabled = true;
             if (this.stopbutton) this.stopbutton.enabled = true;
-        }).catch(err => 
+        }).catch(err =>
         {
             console.log("error caught");
             console.error(err);
@@ -207,11 +210,35 @@ Synchronizer.prototype.changeDuration = function(newDuration)
  * Callback attached to jump event of the progress bar
  * @param {float} timestamp time in seconds where the video should jump.
  */
-Synchronizer.prototype.handleProgressbarClick = function(timestamp) 
+Synchronizer.prototype.handleProgressbarClick = function(timestamp)
 {
     if (this.videoSync)
     {
         this.videoSync.jumpAt(timestamp);
+    }
+};
+
+/**
+ * This method shows the "buffering" inscription once the synchronizer emits the same named event.
+ */
+Synchronizer.prototype.showBuffering = function()
+{
+    this.buffering = true;
+    if (this.progressbarObj)
+    {
+        this.progressbarObj.setFrameNo("Buffering...");
+    }
+};
+
+/**
+ * This method hides the "buffering" inscription once the synchronizer emits buffered event
+ */
+Synchronizer.prototype.hideBuffering = function()
+{
+    this.buffering = false;
+    if (this.progressbarObj)
+    {
+        this.progressbarObj.setFrameNo("");
     }
 };
 
@@ -228,7 +255,10 @@ Synchronizer.prototype.dispose = function()
 
         videoSync.off("timeupdate",this.showProgressThis);
         videoSync.off("durationchange",this.changeDurationThis);
-        
+        videoSync.off("durationchange",this.changeDurationThis);
+        videoSync.off("buffering", this.showBufferingThis);
+        videoSync.off("buffered", this.hideBufferingThis);
+
         if (this.progressbar)
         {
             videoSync.offVideoEvent("timeupdate",this.showProgressThis);

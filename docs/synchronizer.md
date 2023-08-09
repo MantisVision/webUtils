@@ -127,7 +127,9 @@ export enum VideoSyncEvents {
 	durationchange = "durationchange", // fired when the new longest video is added or the longest video is removed
 	ended = "ended", // fired when the longest video in VideoSync stops playing and no video is supposed to loop
 	paused = "paused", // fired when the playing is paused
-	playing = "playing" // fired when the playing continues
+	playing = "playing", // fired when the playing continues
+	buffering = "buffering", // fired when the synchronizer starts buffering (due to one or many videos managed by the synchronizer start buffering)
+	buffered = "buffered" // fired when the synchronizer starts buffering (due to one or many videos managed by the synchronizer start buffering)
 };
 ```
 
@@ -354,3 +356,6 @@ A fix for an unnecessary change of duration when jumping to a different timestam
 
 #### 0.5.8
 Stricter limits for video sync correction (starts at +- 0.1s difference from the main timing object).
+
+### 0.6.0
+Synchronizer now emits two additional events: ``VideoSyncEvents.buffering`` and ``VideoSyncEvents.buffered``.

@@ -15,7 +15,7 @@ RyskUrl.attributes.add('volumebutton', {type: 'entity', description: 'Button for
  * Initialize method is called once per entity the script is attached to. Its main purpose is to set listeners
  * for control entities (play/pause button, progress bar...) and load @mantisvision/ryskplaycanvas library
  */
-RyskUrl.prototype.initialize = function() 
+RyskUrl.prototype.initialize = function()
 {
     this.playing = false;   // whether the video is currently playing
     this.sound = true;      // whether the sound is turned on
@@ -43,7 +43,7 @@ RyskUrl.prototype.initialize = function()
     //handle the play/pause button
     if (this.playpausebutton)
     {
-        this.playpausebutton.element.on("click",() => 
+        this.playpausebutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
@@ -53,7 +53,7 @@ RyskUrl.prototype.initialize = function()
                     this.ryskObj.play();
                     //show the mesh in case it's hiddne
                     this.entity.enabled = true;
-                } 
+                }
                 this.playing = !this.playing;
                 this.playpausebutton.children[0].element.text = this.playing ? "Pause" : "Play"; //change the text of the button
             }
@@ -63,7 +63,7 @@ RyskUrl.prototype.initialize = function()
     //handle the button for turning the volume up/down
     if (this.volumebutton)
     {
-        this.volumebutton.element.on("click",() => 
+        this.volumebutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
@@ -78,13 +78,13 @@ RyskUrl.prototype.initialize = function()
      //handle the stop button
     if (this.stopbutton)
     {
-        this.stopbutton.element.on("click",() => 
+        this.stopbutton.element.on("click",() =>
         {
             if (this.ryskObj)
             {
                 this.ryskObj.stop();
                 this.entity.enabled = false;
-                if (this.progressbarObj) 
+                if (this.progressbarObj)
                 {
                     this.progressbarObj.setProgress(0); //reset the progress bar
                     this.progressbarObj.setFrameNo(0);
@@ -113,19 +113,19 @@ RyskUrl.prototype.initialize = function()
         this.handleProgressbarClickThis = this.handleProgressbarClick.bind(this);
         //attach listener for "jump" event in order to jump to the given timestamp
         this.progressbarObj.on("jump",this.handleProgressbarClickThis);
-    }    
+    }
 
     //create a promise which will get resolved once the @mantisvision/ryskplaycanvas library gets loaded
-    this.importFinished = new Promise((resolve,reject) => 
+    this.importFinished = new Promise((resolve,reject) =>
     {
         if (!window.hasOwnProperty("Rysk"))
         {//import the library, but only if the Rysk global variable hasn't been set yet (that would mean the library was already imported)
             const asset = pc.Application.getApplication().assets.find('MantisRYSKPlayCanvas.min.js');
-            import(asset.getFileUrl()).then(() => 
+            import(asset.getFileUrl()).then(() =>
             {
                 resolve();
             });
-        }else 
+        }else
         {
             resolve();
         }
@@ -143,7 +143,7 @@ RyskUrl.prototype.initialize = function()
  * @param {String} dataURL url of the .syk file
  * @param {String} videoURL url of the video
  */
-RyskUrl.prototype.play = function(dataURL,videoURL)
+RyskUrl.prototype.play = function(dataURL, videoURL, beginning = 0, end = 0)
 {
     if (this.ryskObj && (!dataURL || !videoURL))
     {//remove an already existing ryksObj if dataURL or videoURL aren't set
@@ -152,12 +152,12 @@ RyskUrl.prototype.play = function(dataURL,videoURL)
     {//if dataURL or videoURL have changed or ryskObj hasn't been created yet
         this.dataURL = dataURL;
         this.videoURL = videoURL;
-        
-        this.importFinished.then(() => 
+
+        this.importFinished.then(() =>
             {// once the import of the @mantisvision/ryskplaycanvas library is finished...
-                window.Rysk.MantisLog.SetLogLevel(4);
+                window.Rysk.MantisLog.SetLogLevel(3);
                 this.dispose(); //...destroy an existing ryskObj...
-                this.createMesh(window.Rysk.RYSKUrl,dataURL,videoURL); //...and create a new one
+                this.createMesh(window.Rysk.RYSKUrl, dataURL, videoURL, beginning, end); //...and create a new one
             });
     }else
     {//if nothing has changed, merely trigger play() on the ryskObj
@@ -172,7 +172,7 @@ RyskUrl.prototype.play = function(dataURL,videoURL)
  * @param {String} dataURL URL of the .syk file
  * @param {String} videoURL URL of the video (or m3u8 playlist for HLS)
  */
-RyskUrl.prototype.createMesh = function(RYSKUrl,dataURL,videoURL)
+RyskUrl.prototype.createMesh = function(RYSKUrl, dataURL, videoURL, beginning = 0, end = 0)
 {
     this.showBuffering();
     if (this.ryskObj !== null)
@@ -183,9 +183,11 @@ RyskUrl.prototype.createMesh = function(RYSKUrl,dataURL,videoURL)
     // buffer which is used to store the RYSK data. URLMesh also had a fourth parameter - a reference to the global
     // PlayCanvas object - but since RYSKUrl doesn't create a mesh geometry or texture, it doesn't use PlayCanvas (or
     // any other 3rd party) library.
-    this.ryskObj = new RYSKUrl(videoURL,dataURL,50);
-    this.ryskObj.setPreviewMode(true);
-    
+    this.ryskObj = new RYSKUrl(videoURL, dataURL, 25);
+    this.ryskObj.setPreviewMode(true)
+                .setBeginning(beginning)
+                .setEnd(end);
+
     // Register a callback which is triggered each time a new frame is displayed.
     // The callback shows the frame number as text of frameNo entity given as the script's attribute
     this.ryskObj.on("dataDecoded",this.showFrameNoThis);
@@ -210,12 +212,12 @@ RyskUrl.prototype.createMesh = function(RYSKUrl,dataURL,videoURL)
         this.ryskObj.onVideoEvent("timeupdate",this.showProgressThis);
         this.ryskObj.getDuration().then(duration => this.progressbarObj.setDuration(duration));
     }
-    
+
     // RYSKUrl constructor sets the necessary variables, but by design doesn't start
     // the internal processes to downlaod and decode RYSK data. Init() must be called
     // in order to do that. It resolves with HTML canvas element which can be used to
     // create a texture for the PlayCanvas mesh.
-    this.ryskObj.init().then(res => 
+    this.ryskObj.init().then(res =>
     {
         const {canvas} = res;
         if (canvas)
@@ -223,7 +225,7 @@ RyskUrl.prototype.createMesh = function(RYSKUrl,dataURL,videoURL)
             this.mesh = new RYSKMesh(canvas);
             return this.mesh.waitForEntity();
         }else throw "Failed to create texture for RYSK object";
-    }).then(entity => 
+    }).then(entity =>
     {
         //display the control elements
         if (this.playpausebutton) this.playpausebutton.enabled = true;
@@ -239,13 +241,13 @@ RyskUrl.prototype.createMesh = function(RYSKUrl,dataURL,videoURL)
 
     //updateMesh method will listen for decoded RYSK data, so it can update
     //the mesh's geometry.
-    this.ryskObj.on("dataDecoded", this.updateMeshThis);
+    this.ryskObj.on("dataDecoded", (data) => this.updateMesh(this.ryskObj, data));
 };
 
 /**
  * This metod simply passes the decrypted volumetric data further to the RYSK mesh.
  */
-RyskUrl.prototype.updateMesh = function(data)
+RyskUrl.prototype.updateMesh = function(ryskObj, data)
 {
 	if (this.mesh) this.mesh.updateMesh(data);
 };
@@ -256,16 +258,16 @@ RyskUrl.prototype.updateMesh = function(data)
  */
 RyskUrl.prototype.playVideo = function()
 {
-    if (this.ryskObj !== null) 
+    if (this.ryskObj !== null)
     {
         this.ryskObj.setVolume(0); //mute the video. On iOS, only muted video can be autoplayed
-        this.ryskObj.play().then(() => 
+        this.ryskObj.play().then(() =>
         {
             this.playing = true; //playing property is to true just to better handle play/pause button
-            setTimeout(() => 
+            setTimeout(() =>
             {//after a certain delay (in this case 0.5s) umnute the video. this should trick iOS into playing it
                 this.ryskObj.setVolume(this.sound ? 1 : 0);
-                if (this.volumebutton) 
+                if (this.volumebutton)
                 {//change the text on the volume button
                     this.volumebutton.children[0].element.text = "Volume " + (this.sound ? "OFF" : "ON");
                 }
@@ -292,7 +294,7 @@ RyskUrl.prototype.canplaythrough = function()
  */
 RyskUrl.prototype.setVolume = function(volume)
 {
-    if (this.ryskObj !== null) 
+    if (this.ryskObj !== null)
     {
         this.ryskObj.setVolume(volume);
         this.sound = volume > 0;
@@ -338,7 +340,7 @@ RyskUrl.prototype.showProgress = function()
 {
     if (this.progressbar)
     {
-        this.progressbarObj.setProgress(this.ryskObj.getVideoElement().currentTime);
+        this.progressbarObj.setProgress(this.ryskObj.getCurrentTime());
     }
 };
 
@@ -346,7 +348,7 @@ RyskUrl.prototype.showProgress = function()
  * Callback bound to jump event of the progress bar
  * @param {float} timestamp time in seconds where the video should jump.
  */
-RyskUrl.prototype.handleProgressbarClick = function(timestamp) 
+RyskUrl.prototype.handleProgressbarClick = function(timestamp)
 {
     if (this.ryskObj)
     {
@@ -369,7 +371,7 @@ RyskUrl.prototype.updateRyskObj = function()
  */
 RyskUrl.prototype.update = function()
 {
-    if (!this.firefox && this.ryskObj !== null) 
+    if (!this.firefox && this.ryskObj !== null)
     {//the first part of if checks whther browser isn't Firefox or old Safari (they have event name lodeddata and use requestAnimationFrame callback instead)
         this.ryskObj.update();
     }
@@ -472,15 +474,15 @@ class RYSKMesh
 			if (texture)
 			{
 				this.#material.colorMap = texture;
-				
-				this.#promiseEntity = new Promise((resolve,reject) => 
+
+				this.#promiseEntity = new Promise((resolve,reject) =>
 				{
 					this.#promiseResolve = resolve;
 				});
 			}
 		}
 	}
-		
+
 	/**
 	 * Returns entity object of PlayCanvas entity containing the instance of the mesh
 	 * @returns {MeshInstance}
@@ -489,12 +491,12 @@ class RYSKMesh
 	{
 		return this.#entity;
 	}
-	
+
 	async waitForEntity()
 	{
 		return await this.#promiseEntity;
 	}
-	
+
 	async updateMesh(data)
 	{
 		if (data && this.#texture && this.#mesh)
@@ -505,7 +507,7 @@ class RYSKMesh
 			this.#mesh.setUvs(0,data.uvs,2);
 			this.#texture.update();
 			this.#mesh.update(this.playCanvas.PRIMITIVE_TRIANGLES,true);
-			
+
 			if (this.#meshInstance === null && this.#promiseResolve && this.#material)
 			{
 				this.#meshInstance = new this.playCanvas.MeshInstance(this.#mesh,this.#material);
@@ -513,13 +515,13 @@ class RYSKMesh
 				this.#entity.rotateLocal(0, 180, 0);
 				this.#entity.setLocalScale(0.001, 0.001, 0.001);
 				this.#entity.enabled = false;
-				this.#entity.addComponent('render',{ meshInstances: [this.#meshInstance] });	
+				this.#entity.addComponent('render',{ meshInstances: [this.#meshInstance] });
 
 				this.#promiseResolve(this.#entity);
 			}
 		}
 	}
-	
+
 	/**
 	 * Defacto a destructor. This method should be called after the object is no longer needed in order to clean after
 	 * itself.
@@ -535,19 +537,19 @@ class RYSKMesh
 			this.#meshInstance.visible = false;
 			this.#meshInstance = null;
 		}
-		
+
 		if (this.#mesh)
 		{
 			this.#mesh = undefined;
 		}
-				
+
 		if (this.#material)
 		{
 			this.#material.colorMap = null;
 			this.#material.destroy();
 			this.#material = undefined;
 		}
-		
+
 		if (texture)
 		{
 			texture.dispose();
@@ -571,7 +573,7 @@ class RYSKVideoTexture
 	context = null;
 	contextSrc = null;
 
-	constructor(canvas, magFilter, minFilter, format, anisotropy) 
+	constructor(canvas, magFilter, minFilter, format, anisotropy)
 	{
 		const application = pc.Application.getApplication();
 
@@ -586,7 +588,7 @@ class RYSKVideoTexture
 				anisotropy: anisotropy
 			};
 			this.texture = new pc.Texture(application.graphicsDevice, options);
-		
+
 			if (this.canvasCopy)
 			{//this code runs in browsers which do not support requestVideoFrameCallback method on their videoElements (e.g. Firefox)
 				this.canvas = document.createElement("canvas");
@@ -602,12 +604,12 @@ class RYSKVideoTexture
 			}
 		}
 	}
-	
+
 	getTexture()
 	{
 		return this.texture;
 	}
-	
+
 	update()
 	{
 		try
@@ -628,11 +630,11 @@ class RYSKVideoTexture
 			console.error(err);
 		}
 	}
-	
+
 	/**
 	 * Cleanup.
 	 */
-	dispose() 
+	dispose()
 	{
 		if (this.texture)
 		{
@@ -641,7 +643,7 @@ class RYSKVideoTexture
 			texture.lock();
 			texture.destroy();
 		}
-		
+
 		if (this.canvasCopy && this.canvas)
 		{
 			this.canvasSrc = undefined;
