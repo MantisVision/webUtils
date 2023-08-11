@@ -70,7 +70,7 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 	chloeRYSK.setPreviewMode(true);
 	robRYSK.setPreviewMode(true);
 
-	synchronizer.addMedia([ robRYSK]).then(() => synchronizer.setLoop([ robRYSK], false));
+	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
 	
 	const progress = document.getElementById("progress") as HTMLProgressElement;
 	
