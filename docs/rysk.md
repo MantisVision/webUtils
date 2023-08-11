@@ -79,3 +79,6 @@ Includes changes from [@mantisvison/ryskurl 3.1.0](./ryskurlryskstream.md#310)
 Connects to [3.2.0](./ryskurlryskstream.md#320) release of ``@mantisvision/ryskurl``.
 ### 4.2.0
 Connects to [3.3.0](./ryskurlryskstream.md#330) release of ``@mantisvision/ryskurl``.
+
+#### 4.2.4
+Important bugfix from [0.6.2](./buffer.md#062) release of ``@mantisvision/ryskbuffer``.

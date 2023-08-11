@@ -216,4 +216,7 @@ capacity too quickly.
 Added a mechanic which guesses the download speed of the RYSK data and waits an approximate time till the enough data is downloaded.
 
 #### 0.6.1
-Fixed bug with call to resume the downloader (if it was called with the frame number 0, the downloader didn't jump to the beginning of the file).
+Fixed bug with the call to resume the downloader (if it was called with the frame number 0, the downloader didn't jump to the beginning of the file).
+
+#### 0.6.2
+Downloader now remembers the number of the last frame in the .syk file. When a jump to a different frame is attempted, it is check against this number and if the requested frame is higher, it is assumed that in fact frame number 0 was requested, so it starts the download process from the beginning.

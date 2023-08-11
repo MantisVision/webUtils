@@ -71,25 +71,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskaframe@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@mantisvision/ryskaframe@npm:0.8.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.8.2%2F99402accfc60cdc64e40befdd0f061271fb44d88"
+"@mantisvision/ryskaframe@npm:^0.8.5":
+  version: 0.8.5
+  resolution: "@mantisvision/ryskaframe@npm:0.8.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.8.5%2Fc81be14ae2c527f590d6d9b63ac9698474651e22"
   dependencies:
-    "@mantisvision/ryskstream": ^4.0.8
-    "@mantisvision/ryskurl": ^3.3.1
-    "@mantisvision/utils": ^2.3.3
+    "@mantisvision/ryskstream": ^4.0.9
+    "@mantisvision/ryskurl": ^3.3.3
+    "@mantisvision/utils": ^2.3.4
     "@types/three": ^0.154.0
     aframe: ^1.4.2
-  checksum: b193e74c9935a960cbcbdf7db5a7b81a8d183ccf910d02c3de3d97620ff7177602428887976588c2c897fa0382429ea8133239ef704bf55eec3fb0820fb1572f
+  checksum: e59da937244e02f7bc08b52017cbaf5c2b805f41e4186b59132f664e5b2e5fb51c7bb6faf4a2edfa08e431850f258826d8e64e572f38c87ee2a73f4141eedf8f
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskbuffer@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "@mantisvision/ryskbuffer@npm:0.6.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.6.1%2F328ab4ce71824fdc29029ef058edba7f30e92cf2"
+"@mantisvision/ryskbuffer@npm:^0.6.3":
+  version: 0.6.3
+  resolution: "@mantisvision/ryskbuffer@npm:0.6.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.6.3%2Fd854be0007558b09f3c86b525b3035b009993641"
   dependencies:
-    "@mantisvision/utils": ^2.3.3
-  checksum: dc53c3c73223ac732543d80549b4a3d34a033d6d5892e8d61cf5b71fa7f26704b21b439d355f3ac41f1e17b1f29fc4d2306e4edf35d3b637ed966e2d21d36626
+    "@mantisvision/utils": ^2.3.4
+  checksum: e0612a956af679d639b33d8086276b57c9dc7ce5a54b61738c462d1db56825db4136d60c2feac9dc8855b037f5dfa849b34ff4d06968d0fe22828902f7d9ee00
   languageName: node
   linkType: hard
 
@@ -102,62 +102,62 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskdownloader@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "@mantisvision/ryskdownloader@npm:0.6.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.6.1%2F092e0a61dc36b78b522eb9bbf4fbd92e8f15a296"
+"@mantisvision/ryskdownloader@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "@mantisvision/ryskdownloader@npm:0.6.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.6.2%2Fc50ad38b5a83bf1ad1d8cb8977a0f7f18cc1ad3d"
   dependencies:
     "@mantisvision/ryskdecoder": ^0.3.6
     "@types/json-bigint": ^1.0.1
     json-bigint: ^1.0.0
-  checksum: 68f431285bcc7e0e8d64b51cc9c1676e3cd8c446dcb4e0657856b11ee5e51deb3cce0b56b371ce11b46082d0dbd4be033701ded8e2010802cd725ec63f6d3a29
+  checksum: 48334190896ba9557efc98c7b12e813e537a2843eaa37dada1e847bd01adaaeae15133c075b4fb3b3697e75e3d2d3ec3736aa49e36be8a7eb973b0efb11a46d7
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.11.3":
-  version: 0.11.3
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.3%2F0fcb358be8f0fd302917fe7d0dc15e434821dfb7"
+"@mantisvision/ryskplaycanvas@npm:^0.11.5":
+  version: 0.11.5
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.5%2F829b8092a94b3dd462649c629b3ccd8c231e5eeb"
   dependencies:
-    "@mantisvision/ryskstream": ^4.0.8
-    "@mantisvision/ryskurl": ^3.3.2
-    "@mantisvision/utils": ^2.3.3
+    "@mantisvision/ryskstream": ^4.0.9
+    "@mantisvision/ryskurl": ^3.3.3
+    "@mantisvision/utils": ^2.3.4
   peerDependencies:
     playcanvas: ^1.64.0
-  checksum: dc0fe48f0596bc6b70df003383ae7fd5fd3ee3493e2ee1eecf91e0785caca3977f7648ca84e2e09fa4bb33e03cfa65696848deb8952d48a3f309b3315c807703
+  checksum: 361eb360492e6c798a3df92b15b14bf1e1df2ca5987e92b810297534e36e0b5dab4aeb0998d98c026cabe48165185b36181274dfd88ab4178086728973f93706
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskstream@npm:^4.0.8":
-  version: 4.0.8
-  resolution: "@mantisvision/ryskstream@npm:4.0.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskstream%2F4.0.8%2F1ba7f9be4803b6da604b1de262bc963baac42e8a"
+"@mantisvision/ryskstream@npm:^4.0.9":
+  version: 4.0.9
+  resolution: "@mantisvision/ryskstream@npm:4.0.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskstream%2F4.0.9%2Fc65c95de774250b3944f393c2ecba18753d48dbf"
   dependencies:
-    "@mantisvision/ryskbuffer": ^0.6.1
+    "@mantisvision/ryskbuffer": ^0.6.3
     "@mantisvision/ryskdecoder": ^0.3.6
-    "@mantisvision/utils": ^2.3.3
-  checksum: 9d4f8a153e596359039c906454a2d994a404dbeb54c11cb2715c62ef8e38e874dbd7285f634e8876dc3e6a28d295bde4e544db366c77204ae4e28d46e88a9746
+    "@mantisvision/utils": ^2.3.4
+  checksum: 0ee9c61974ba47b3c197310fe93ebf6b91976ad2bda672439e865da61488aa9e6520f9e6df2eedffebbce18dead8d4d59241f52146a5820e3c960baa27eb8e78
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskthreejs@npm:^0.12.1":
-  version: 0.12.1
-  resolution: "@mantisvision/ryskthreejs@npm:0.12.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.12.1%2F1352335bcdc42f1d8230dc41e271faabeeed8696"
+"@mantisvision/ryskthreejs@npm:^0.12.2":
+  version: 0.12.2
+  resolution: "@mantisvision/ryskthreejs@npm:0.12.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.12.2%2F7698a195882f1d5ac3499cd7b0dad3773d47ddfb"
   dependencies:
-    "@mantisvision/ryskstream": ^4.0.8
-    "@mantisvision/ryskurl": ^3.3.1
-    "@mantisvision/utils": ^2.3.3
+    "@mantisvision/ryskstream": ^4.0.9
+    "@mantisvision/ryskurl": ^3.3.3
+    "@mantisvision/utils": ^2.3.4
   peerDependencies:
     three: ^0.154.0
-  checksum: a4927ab9949274ce86ee82687eaeb0d2064e1cc059feb207c09dcc03debfef21c178803ae92f5a981bce098a44836fd88cddee63931b0475c62c6d506cb40f4b
+  checksum: 31e4663cbc8be6488fecfba6d1265db5ef6d723af35f31189ff4f985b8cbcf1ffbe9fde2c6bffe68f22dea936e56b1bafb37108e1ec6ce114db99be4585c56f9
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskurl@npm:^3.3.1, @mantisvision/ryskurl@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "@mantisvision/ryskurl@npm:3.3.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.2%2Fcf127d940a614019c0e40998398b530913a16889"
+"@mantisvision/ryskurl@npm:^3.3.3":
+  version: 3.3.3
+  resolution: "@mantisvision/ryskurl@npm:3.3.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.3%2Fcd3da7d96a7fd8a70d2d71e3afcc1d42f5d2d88f"
   dependencies:
-    "@mantisvision/ryskbuffer": ^0.6.1
-    "@mantisvision/ryskdownloader": ^0.6.1
-    "@mantisvision/utils": ^2.3.3
-  checksum: 1b95afc5ca7b8c112a6e18fe6d9377ac54abfb23d653d11a195f977fd9745e0e3816de670383be67fd8aac1f0f1613f5f66430f0c9b2b8bfba2e8b0944c88e8b
+    "@mantisvision/ryskbuffer": ^0.6.3
+    "@mantisvision/ryskdownloader": ^0.6.2
+    "@mantisvision/utils": ^2.3.4
+  checksum: 9bd6ae5ec9ea2dbfe6e91b37f9a02fee9ed37ffb0aedb6cea9ed0ca81097d0cf72a6669b3431aa2a01193a69f61255bf27479af1bf5a8875b25cdcbdc383670c
   languageName: node
   linkType: hard
 
@@ -168,15 +168,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/utils@npm:^2.3.3":
-  version: 2.3.3
-  resolution: "@mantisvision/utils@npm:2.3.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.3.3%2F4433ce6cada5a62268abc5a88e858cacc9b47bdf"
+"@mantisvision/utils@npm:^2.3.4":
+  version: 2.3.4
+  resolution: "@mantisvision/utils@npm:2.3.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.3.4%2F77ebd22cce3719ac2dc9dc2ddcb31729ed766c8e"
   dependencies:
     hls.js: ^1.4.10
   dependenciesMeta:
     hls.js:
       optional: true
-  checksum: 28b902fb575f61d6f8b581d66cf60903466cbee96354972aec21c83e3e34eb24dff993a48487454a1a19ebf9ea5095d39069df6afcf467f463e45e9f51a9eb10
+  checksum: 8df0465cbb092d4f162c5a38f9f029d9c1a47ebc6adaf38beb1c187132fb99d85512c8f6995026f2da662ee391d4b0e26c5a222ed8113885e1ac5dcbf4b9d083
   languageName: node
   linkType: hard
 
@@ -472,10 +472,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "RYSKUrl sample@workspace:."
   dependencies:
-    "@mantisvision/ryskaframe": ^0.8.2
-    "@mantisvision/ryskplaycanvas": ^0.11.3
-    "@mantisvision/ryskthreejs": ^0.12.1
-    "@mantisvision/utils": ^2.3.3
+    "@mantisvision/ryskaframe": ^0.8.5
+    "@mantisvision/ryskplaycanvas": ^0.11.5
+    "@mantisvision/ryskthreejs": ^0.12.2
+    "@mantisvision/utils": ^2.3.4
     aframe: ^1.4.2
     playcanvas: ^1.65.0
     three: ^0.154.0

@@ -287,5 +287,9 @@ Main loop which decodes frame numbers from the video header now doesn't stop whe
 ### 0.6.0
 Added ``getWaitingFrameNumber()`` and ``getAheadReadCount()`` methods.
 
-### 0.6.1
+#### 0.6.1
 Added ``resetCurrentVideoFrame()`` method which should be called each time video jumps to a different timestamp in order to prevent skipping of frames in case of HLS videos (the skipping is normally done as a prevention from a sudden resolution changes).
+
+#### 0.6.2
+- ``getWaitingFrameNumber()`` method returns -1 as soon as the frame was given even if the buffer still waits for additional data frames to buffer (in that case the, the frame position in ``waitingFrame`` internal structure is already filled, but the structure itself hasn't been emptied yet)
+- Attempt to fix a bug in ``private_getDiff`` method, so that it now correctly returns 0 if the last inserted frame is also a current frame (instead of the full length of the buffer as before).

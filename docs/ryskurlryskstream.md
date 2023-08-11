@@ -560,6 +560,9 @@ Allows to set beginning and end timestamps of the video in order to trim it into
 #### 3.3.2
 On buffering events (``bufferingData``, ``waiting`` for video element) the library issues ``pauseLibrary()`` call to the video element and only unpause when the both ``canplaythrough`` and ``databuffered`` have been triggered.
 
+#### 3.3.3
+Attempt at fixing jumps in case of videos using old RYSK format by better handling ``paused`` events from the worker and modifying ``jumpAt()`` method.
+
 ## Release notes RYSKStream
 
 ### 4.0.0
@@ -570,4 +573,5 @@ On buffering events (``bufferingData``, ``waiting`` for video element) the libra
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
 
 #### 4.0.7
-Upgrade due to version [0.6.0](./buffer.md#060) of ``@mantisvision/ryskbuffer`` 
+Upgrade due to version [0.6.0](./buffer.md#060) of ``@mantisvision/ryskbuffer``
+

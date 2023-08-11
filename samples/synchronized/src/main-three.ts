@@ -70,7 +70,7 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 	chloeRYSK.setPreviewMode(true);
 	robRYSK.setPreviewMode(true);
 
-	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
+	synchronizer.addMedia([ robRYSK]).then(() => synchronizer.setLoop([ robRYSK], false));
 	
 	const progress = document.getElementById("progress") as HTMLProgressElement;
 	
@@ -97,7 +97,7 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		if (newtime) progress.value = newtime;
 	});
 	
-	chloeRYSK.run().then(mesh => 
+	chloeRYSK.run().then(mesh =>
 	{//add mesh to the scene
 		if (mesh)
 		{

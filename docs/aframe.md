@@ -188,3 +188,9 @@ Closely connected to the 3.1.0 release of ``@mantisvision/ryskurl``. A new attri
 
 ### 0.7.0
 A new attribute ``playbackrate`` us added to the ``ryskurl`` component. It can control the speed of the video playback.
+
+### 0.8.0
+A new attributes ``beginning`` and ``end`` (values given in seconds) which can trim the video to a desired length.
+
+#### 0.8.4
+Important bugfix from [0.6.2](./buffer.md#062) release of ``@mantisvision/ryskbuffer``.
