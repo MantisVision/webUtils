@@ -350,6 +350,13 @@ async jumpAt(timestamp);
  */
 async getDuration()
 ```
+```javascript
+/**
+ * Gets the current time of the video.
+ * @returns Current timestamp of the video in seconds.
+ */
+getCurrentTime();
+```
 ## RYSKStream
 RYSKStream provides the following methods:
 ```javascript
