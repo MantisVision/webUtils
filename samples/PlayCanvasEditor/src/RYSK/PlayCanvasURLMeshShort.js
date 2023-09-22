@@ -4,6 +4,8 @@ var UrlmeshShort = pc.createScript('urlmeshshort');
 UrlmeshShort.attributes.add('loop', { type: 'boolean', default: false });
 UrlmeshShort.attributes.add('videourl', { type: 'string', default: '' });
 UrlmeshShort.attributes.add('dataurl', { type: 'string', default: '' });
+UrlmeshShort.attributes.add('videoasset', { type: 'asset', default: '' });
+UrlmeshShort.attributes.add('dataasset', { type: 'asset', default: '' });
 UrlmeshShort.attributes.add('beginning', { type: 'number', default: 0 });
 UrlmeshShort.attributes.add('end', { type: 'number', default: 0 });
 
@@ -59,7 +61,8 @@ UrlmeshShort.prototype.initialize = function()
  */
 UrlmeshShort.prototype.run = async function()
 {
-    if (this.ryskObj && (!this.dataurl || !this.videourl))
+    if (this.ryskObj
+    && (!(this.dataurl && this.videourl) || !(this.videoasset && this.dataasset)))
     {//remove an already existing ryksObj if dataURL or videoURL aren't set
         this.dispose();
     }else if (this.ryskObj === null)
@@ -67,7 +70,10 @@ UrlmeshShort.prototype.run = async function()
 
         await this.importFinished;
          // once the import of the @mantisvision/ryskplaycanvas library is finished create a new mesh
-        this.createMesh(window.Rysk.URLMesh, this.dataurl, this.videourl, this.beginning, this.end);
+        const dataurl = this.dataurl ? this.dataurl : this.dataasset.getFileUrl();
+        const videourl = this.videourl ? this.videourl : this.videoasset.getFileUrl();
+
+        this.createMesh(window.Rysk.URLMesh, dataurl, videourl, this.beginning, this.end);
     }
 };
 
