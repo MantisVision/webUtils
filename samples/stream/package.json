@@ -8,14 +8,14 @@
     "angle": "^0.9.1",
     "css-loader": "^6.8.1",
     "style-loader": "^3.3.3",
-    "webpack": "^5.88.0",
+    "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@mantisvision/ryskaframe": "^0.6.3",
-    "@mantisvision/utils": "^2.0.5",
+    "@mantisvision/ryskaframe": "^0.8.6",
+    "@mantisvision/utils": "^2.3.4",
     "aframe": "^1.4.2",
-    "agora-rtc-sdk-ng": "^4.18.0",
+    "agora-rtc-sdk-ng": "^4.19.0",
     "agora-rtm-sdk": "^1.6.0-205"
   }
 }
