@@ -17,14 +17,14 @@
 	},
 	"packageManager": "yarn@3.6.0",
 	"devDependencies": {
-		"@mantisvision/ryskplaycanvas": "^0.11.6",
+		"@mantisvision/ryskplaycanvas": "^0.11.7",
 		"@mantisvision/ryskthreejs": "^0.12.2",
 		"@mantisvision/synchronizer": "^0.6.1",
-		"@mantisvision/utils": "^2.3.4",
+		"@mantisvision/utils": "^2.3.6",
 		"@types/three": "0.154.0",
-		"playcanvas": "^1.65.4",
+		"playcanvas": "^1.66.0",
 		"three": "^0.154.0",
-		"ts-loader": "^9.4.4",
+		"ts-loader": "^9.5.0",
 		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4"
 	},
