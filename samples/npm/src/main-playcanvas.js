@@ -7,7 +7,7 @@ const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS | MantisLog.DEBUG);
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
 	var app = null;
 	try
 	{
@@ -72,7 +72,7 @@ function run(app)
 			progress.value = ryskObj.getVideoElement().currentTime;
 		});
 
-		ryskObj.run(true).then(entity =>
+		ryskObj.run().then(entity =>
 		{//add mesh to the scene
 			ryskObj.setVolume(1);
 			entity.enabled = true;			
