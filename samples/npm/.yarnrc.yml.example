@@ -1,5 +1,7 @@
 nodeLinker: pnp
 
+enableGlobalCache: true
+
 npmRegistries:
   //npm.pkg.github.com:
     npmAlwaysAuth: true

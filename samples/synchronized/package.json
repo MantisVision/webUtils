@@ -15,10 +15,10 @@
 		"name": "Lubomir Daniel Fedor",
 		"email": "lubomir.fedor@supercomputers.sk"
 	},
-	"packageManager": "yarn@3.6.0",
+	"packageManager": "yarn@4.0.1",
 	"devDependencies": {
 		"@mantisvision/ryskplaycanvas": "^0.11.9",
-		"@mantisvision/ryskthreejs": "^0.13.0",
+		"@mantisvision/ryskthreejs": "^0.13.1",
 		"@mantisvision/synchronizer": "^0.6.2",
 		"@mantisvision/utils": "^2.3.7",
 		"@types/three": "0.158.2",
@@ -33,6 +33,6 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"typescript": "5.1.*"
+		"typescript": "^5.2.2"
 	}
 }
