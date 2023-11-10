@@ -19,7 +19,7 @@
 		"@mantisvision/ryskaframe": "^0.8.9",
 		"@mantisvision/ryskplaycanvas": "^0.11.9",
 		"playcanvas": "^1.66.2",
-		"three": "^0.154.0",
+		"three": "^0.158.0",
 		"webpack": "^5.89.0",
 		"webpack-cli": "^5.1.4"
 	},
@@ -31,5 +31,23 @@
 		"@mantisvision/ryskthreejs": "^0.12.2",
 		"@mantisvision/utils": "^2.3.7",
 		"aframe": "^1.4.2"
+	},
+	"resolutions": {
+		"@mantisvision/ryskaframe": "portal:/var/www/mantis/aframe",
+		"@mantisvision/ryskbuffer": "portal:/var/www/mantis/buffer",
+		"@mantisvision/sentryintegration": "portal:/var/www/mantis/debug",
+		"@mantisvision/ryskdecoder": "portal:/var/www/mantis/decoder",
+		"@mantisvision/ryskdownloader": "portal:/var/www/mantis/downloader",
+		"@mantisvision/ryskplaycanvas": "portal:/var/www/mantis/playcanvas",
+		"@mantisvision/rysk": "portal:/var/www/mantis/rysk",
+		"@mantisvision/ryskwasm": "portal:/var/www/mantis/ryskwasm",
+		"@mantisvision/ryskstream": "portal:/var/www/mantis/stream",
+		"@mantisvision/synchronizer": "portal:/var/www/mantis/synchronizer",
+		"@mantisvision/testsite": "portal:/var/www/mantis/testsite",
+		"@mantisvision/ryskthreejs": "portal:/var/www/mantis/threejs",
+		"@mantisvision/ryskunity3d": "portal:/var/www/mantis/unity",
+		"@mantisvision/ryskurl": "portal:/var/www/mantis/url",
+		"@mantisvision/utils": "portal:/var/www/mantis/utils",
+		"@mantisvision/ryskwechat": "portal:/var/www/mantis/wechat"
 	}
 }

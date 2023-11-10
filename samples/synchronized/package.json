@@ -18,12 +18,12 @@
 	"packageManager": "yarn@3.6.0",
 	"devDependencies": {
 		"@mantisvision/ryskplaycanvas": "^0.11.9",
-		"@mantisvision/ryskthreejs": "^0.12.2",
+		"@mantisvision/ryskthreejs": "^0.13.0",
 		"@mantisvision/synchronizer": "^0.6.2",
 		"@mantisvision/utils": "^2.3.7",
-		"@types/three": "0.154.0",
+		"@types/three": "0.158.2",
 		"playcanvas": "^1.66.2",
-		"three": "^0.154.0",
+		"three": "^0.158.0",
 		"ts-loader": "^9.5.0",
 		"webpack": "^5.89.0",
 		"webpack-cli": "^5.1.4"

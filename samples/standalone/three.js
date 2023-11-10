@@ -1,4 +1,4 @@
-import * as three from "https://unpkg.com/three@0.154.0";
+import * as three from "https://unpkg.com/three@0.158.0";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
 // variable THREE to be already registered present
 
