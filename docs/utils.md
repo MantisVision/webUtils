@@ -402,3 +402,6 @@ Fixed incorrect duration bug.
 #### 2.3.4
 Attempt at fixing jumps in case of videos using old RYSK format by better handling ``paused`` events from the worker.
 
+#### 2.3.6
+Fixed video not resetting _ended attribute after the first loop.
+

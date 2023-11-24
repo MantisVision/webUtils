@@ -293,3 +293,10 @@ Added ``resetCurrentVideoFrame()`` method which should be called each time video
 #### 0.6.2
 - ``getWaitingFrameNumber()`` method returns -1 as soon as the frame was given even if the buffer still waits for additional data frames to buffer (in that case the, the frame position in ``waitingFrame`` internal structure is already filled, but the structure itself hasn't been emptied yet)
 - Attempt to fix a bug in ``private_getDiff`` method, so that it now correctly returns 0 if the last inserted frame is also a current frame (instead of the full length of the buffer as before).
+
+#### 0.6.4
+Trying to more effectively free the memory when the Header decoder is destroyed.
+
+#### 0.6.5
+Trying to solve the issue when the preview mode was set, therefore the first frame might have read from the video before initial buffering was
+finished which might have resulted in a deadlock because the "first buffering finished" event wasn't triggered.

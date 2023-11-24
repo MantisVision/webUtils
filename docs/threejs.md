@@ -142,3 +142,6 @@ Connects to [3.2.0](./ryskurlryskstream.md#320) release of ``@mantisvision/rysku
 
 ### 0.12.0
 Connects to [3.2.0](./ryskurlryskstream.md#320) release of ``@mantisvision/ryskurl``.
+
+### 0.13.0
+Switch to three.js r158

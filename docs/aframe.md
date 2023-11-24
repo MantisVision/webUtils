@@ -194,3 +194,6 @@ A new attributes ``beginning`` and ``end`` (values given in seconds) which can t
 
 #### 0.8.4
 Important bugfix from [0.6.2](./buffer.md#062) release of ``@mantisvision/ryskbuffer``.
+
+#### 0.8.9
+Important bugfix from [0.6.5](./buffer.md#065) release of ``@mantisvision/ryskbuffer``.

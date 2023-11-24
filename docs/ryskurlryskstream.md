@@ -570,6 +570,12 @@ On buffering events (``bufferingData``, ``waiting`` for video element) the libra
 #### 3.3.3
 Attempt at fixing jumps in case of videos using old RYSK format by better handling ``paused`` events from the worker and modifying ``jumpAt()`` method.
 
+#### 3.3.4
+Fixed bug with the volume being incorrectly set to 1 instead of staying 0 if the preview mode was enabled.
+
+#### 3.3.5
+Wait till RYSKUrl is loaded when ``pause`` is called. Also checking whether preview mode is active as to avoid interfering with it.
+
 ## Release notes RYSKStream
 
 ### 4.0.0

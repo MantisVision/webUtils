@@ -59,7 +59,7 @@ synchronizer.addMedia([ryskObj1, ryskObj2]);
 ...
 synchronizer.removeMedia([ryskObj1, ryskObj2]);
 ```
-Both methods accept either ``HTMLMediaElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements ``SynchronizableObject`` interface (visible only if using TypeScript). You can also implement this interface yourself, wrap the ``HTMLMediaElement`` or ``RYSKUrl`` in it on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experience users since the inner implementation of the ``SynchronizableObject`` object interface may cause unforeseen complications with the synchronization of the videos.
+Both methods accept either ``HTMLMediaElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements either ``SynchronizableRYSKObject`` or ``SynchronizableMediaObject`` interface (visible only if using TypeScript). You can also implement one of these interfaces yourself, wrap the ``HTMLMediaElement`` or ``RYSKUrl`` in them on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experienced users since the inner implementation of the ``SynchronizableRYSKObject`` or ``SynchronizableMediaObject`` object interface may cause unforeseen complications with the synchronization of the videos.
 
 If a new video is passed to the synchronizer once it's playing videos, the synchronizer automatically sets the timestamp of this new video to the current internal timestamp of the synchronizer. Also, if it's the longest video, a "durationchange" event is emitted. The same event is emitted when the longest video is removed from the synchronizer.
 
@@ -129,7 +129,7 @@ export enum VideoSyncEvents {
 	paused = "paused", // fired when the playing is paused
 	playing = "playing", // fired when the playing continues
 	buffering = "buffering", // fired when the synchronizer starts buffering (due to one or many videos managed by the synchronizer start buffering)
-	buffered = "buffered" // fired when the synchronizer starts buffering (due to one or many videos managed by the synchronizer start buffering)
+	buffered = "buffered" // fired when the synchronizer finishes buffering (due to all the videos managed by the synchronizer finishing buffering)
 };
 ```
 
@@ -229,7 +229,7 @@ setAutoplay(val: boolean): this;
  * @param callback callback which receives either the current timestamp ("timeupdate") or the new longest duration ("durationchange") in seconds
  */
 on(event: VideoSyncEvents.durationchange|VideoSyncEvents.timeupdate, callback: (data: number) => void): this;
-on(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing, callback: () => void): this;
+on(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing|VideoSyncEvents.buffering|VideoSyncEvents.buffered, callback: () => void): this;
 ```
 ```typescript	
 /**
@@ -238,7 +238,7 @@ on(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing, 
  * @param callback callback to detach
  */
 off(event: VideoSyncEvents.durationchange|VideoSyncEvents.timeupdate, callback: (data: number) => void): this;
-off(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing, callback: () => void): this;
+off(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing|VideoSyncEvents.buffering|VideoSyncEvents.buffered, callback: () => void): this;
 ```
 ```typescript
 /**
@@ -254,20 +254,18 @@ getMedia();
  * and none has called autostartAfter method, VideoSync will autoplay automatically after the method ends.
  * @param media can be either instance of RYSKUrl (including descendants; e.g. from @mantisvision/ryskthreejs), HTMLMediaElement or an object which implements SynchronizableObject interface
  */
-addMedia(media: SynchronizableObject): Promise<void>;
+addMedia(media: SynchronizableRYSKObject|SynchronizableMediaObject): Promise<void>;
 addMedia(media: RYSKUrl): Promise<void>;
 addMedia(media: HTMLMediaElement): Promise<void>;
-addMedia(media: (HTMLMediaElement|RYSKUrl|SynchronizableObject)[]): Promise<void>;
 ```
 ```typescript
 /**
  * Remove a media from this VideoSync object
  * @param media 
  */
-removeMedia(media: SynchronizableObject): this;
+removeMedia(media: SynchronizableRYSKObject|SynchronizableMediaObject): this;
 removeMedia(media: RYSKUrl): this;
 removeMedia(media: HTMLMediaElement): this;
-removeMedia(media: (HTMLMediaElement|RYSKUrl|SynchronizableObject)[]): this;
 ```
 ```typescript
 /**
@@ -359,3 +357,6 @@ Stricter limits for video sync correction (starts at +- 0.1s difference from the
 
 ### 0.6.0
 Synchronizer now emits two additional events: ``VideoSyncEvents.buffering`` and ``VideoSyncEvents.buffered``.
+
+### 0.7.0
+Interface SynchronizableObject is split into SynchronizableRYSKObject and SynchronizableMediaObject (both inherits from the original SynchronizableObject). This is to better separate events which both those interfaces can emit.

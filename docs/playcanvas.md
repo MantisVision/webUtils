@@ -188,7 +188,10 @@ Minified version of ``@mantisvision/ryskplaycanvas`` (which bundles all the depe
 
 ### 0.10.0
 Connects to [3.2.0](./ryskurlryskstream.md#320) release of ``@mantisvision/ryskurl``.
+
 ### 0.11.0
 Connects to [3.3.0](./ryskurlryskstream.md#330) release of ``@mantisvision/ryskurl``.
-### 0.11.4
+#### 0.11.4
 Important bugfix from [0.6.2](./buffer.md#062) release of ``@mantisvision/ryskbuffer``.
+#### 0.11.9
+Important bugfix from [0.6.5](./buffer.md#065) release of ``@mantisvision/ryskbuffer``.

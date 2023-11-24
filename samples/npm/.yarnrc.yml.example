@@ -1,5 +1,5 @@
 nodeLinker: pnp
-
+compressionLevel: mixed
 enableGlobalCache: true
 
 npmRegistries:
@@ -12,4 +12,4 @@ npmScopes:
     npmPublishRegistry: "https://npm.pkg.github.com"
     npmRegistryServer: "https://npm.pkg.github.com"
 
-yarnPath: .yarn/releases/yarn-3.6.0.cjs
+yarnPath: .yarn/releases/yarn-4.0.2.cjs
