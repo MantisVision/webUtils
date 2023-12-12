@@ -5,8 +5,8 @@ import { MantisLog } from "@mantisvision/utils";
 import * as TIMINGSRC from "./timingsrc.js";
 import VideoSync, { TimingObject, VideoSyncEvents } from "@mantisvision/synchronizer";
 
-const chloe_video = "./chloe_battle.mp4";
-const chloe_data = "./chloe_battle.syk";
+const chloe_video = "./rob.mp4";
+const chloe_data = "./rob.syk";
 const rob_video = "./rob.mp4";
 const rob_data = "./rob.syk";
 
@@ -16,7 +16,7 @@ synchronizer.setVolume(1);
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS | MantisLog.DEBUG);
 	const viewport = document.getElementById("viewport");
 	if (viewport)
 	{

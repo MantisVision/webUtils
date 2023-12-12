@@ -94,15 +94,15 @@ __metadata:
   linkType: hard
 
 "@mantisvision/ryskplaycanvas@npm:^0.11.11":
-  version: 0.11.11
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.11::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.11%2Fa5ec7f95630c5b45b6aa99c80314a5aa98d6e8ac"
+  version: 0.11.13
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.13::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.13%2F7cc73ed9a44762ef3cc3d6338fd2c28d65e3a6c8"
   dependencies:
     "@mantisvision/ryskstream": "npm:^4.0.9"
-    "@mantisvision/ryskurl": "npm:^3.3.6"
+    "@mantisvision/ryskurl": "npm:^3.3.9"
     "@mantisvision/utils": "npm:^2.4.0"
   peerDependencies:
     playcanvas: ^1.67.0
-  checksum: 529bc4c14a22ff76bb052d4c0e61ff187bde99bb464ed96fc56386f65a3b202531644a729599a7307c1d3c6e8b26ed45d82e255336d452f7424d5473d84b1971
+  checksum: 4daf3c2b196c7c03548fae8028634ed51145a9f88b208aa59b86bc8b1847af77ed4d0075b29ce782c3cd5d2a84b5700c1209b260b8c03d4bcb0c47ade728c63c
   languageName: node
   linkType: hard
 
@@ -112,7 +112,7 @@ __metadata:
   dependencies:
     "@mantisvision/ryskplaycanvas": "npm:^0.11.11"
     "@mantisvision/ryskthreejs": "npm:^0.13.4"
-    "@mantisvision/synchronizer": "npm:^0.10.3"
+    "@mantisvision/synchronizer": "npm:^0.10.4"
     "@mantisvision/utils": "npm:^2.4.0"
     "@types/three": "npm:0.158.3"
     playcanvas: "npm:^1.67.3"
@@ -148,7 +148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskurl@npm:^3.3.6, @mantisvision/ryskurl@npm:^3.3.7, @mantisvision/ryskurl@npm:^3.3.8":
+"@mantisvision/ryskurl@npm:^3.3.7, @mantisvision/ryskurl@npm:^3.3.9":
   version: 3.3.9
   resolution: "@mantisvision/ryskurl@npm:3.3.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.9%2F5d5257b009e8dae883eabaf9a78b06149670f507"
   dependencies:
@@ -166,13 +166,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/synchronizer@npm:^0.10.3":
-  version: 0.10.3
-  resolution: "@mantisvision/synchronizer@npm:0.10.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.10.3%2F83628deaf5a7b298e157d42ba0d19b41f9bcb8de"
+"@mantisvision/synchronizer@npm:^0.10.4":
+  version: 0.10.4
+  resolution: "@mantisvision/synchronizer@npm:0.10.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fsynchronizer%2F0.10.4%2Ffe74e0f6bf2a3845d89ca9f746835c13edbf295b"
   dependencies:
-    "@mantisvision/ryskurl": "npm:^3.3.8"
+    "@mantisvision/ryskurl": "npm:^3.3.9"
     "@mantisvision/utils": "npm:^2.4.0"
-  checksum: 7c7be9470652203b2d925105aa6d2485de365183f0f7d0089d4d60a84c7e89ca856fd75cca3ad56ee83f86f26b539c06a2f6dc64b2f01793a9db40c672fb11ed
+  checksum: d7d25f1ad9fdaa5f8ff7e9de81c347ccc72492c8f0feb8d07c7a77f674d4891b31095ac59cc9e019254c5862f0841f21c14a7c178e97d1e65d00c30adef5243e
   languageName: node
   linkType: hard
 
