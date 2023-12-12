@@ -149,13 +149,13 @@ __metadata:
   linkType: hard
 
 "@mantisvision/ryskurl@npm:^3.3.6, @mantisvision/ryskurl@npm:^3.3.7, @mantisvision/ryskurl@npm:^3.3.8":
-  version: 3.3.8
-  resolution: "@mantisvision/ryskurl@npm:3.3.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.8%2Fd4f267e3c01db3e0d0a698afcb0e4ac1967f3565"
+  version: 3.3.9
+  resolution: "@mantisvision/ryskurl@npm:3.3.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.9%2F5d5257b009e8dae883eabaf9a78b06149670f507"
   dependencies:
     "@mantisvision/ryskbuffer": "npm:^0.6.6"
     "@mantisvision/ryskdownloader": "npm:^0.6.3"
     "@mantisvision/utils": "npm:^2.4.0"
-  checksum: a1c4d6da3a2d3784efcd820aa976a26be9cee245aac815c9770c894294d508b50e2d771ee71b24591ef4235018536931bf4b11e7f1672beba3402ebf9df8be99
+  checksum: 8d0a0354864aa39a7a2782a5dd8bd09f186fe90569194123f973e6338695cecff1e287cf9ffe8c0f5e7c4ce6ac48957c3bf6ba736f2895ce759b5672311744dc
   languageName: node
   linkType: hard
 
