@@ -300,3 +300,6 @@ Trying to more effectively free the memory when the Header decoder is destroyed.
 #### 0.6.5
 Trying to solve the issue when the preview mode was set, therefore the first frame might have read from the video before initial buffering was
 finished which might have resulted in a deadlock because the "first buffering finished" event wasn't triggered.
+
+#### 0.6.6
+Method ``resetCurrentVideoFrame`` now also resets ``waitingFrame`` structure if it is filled and if the header decoder is waiting for a frame, its resolve from the said structure is also called with -1 in order to prevent the decoder getting stuck with waiting for a data which won't come.

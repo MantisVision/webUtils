@@ -55,7 +55,7 @@ const ryskObj2 = new URLMesh(videourl2,dataurl2);
 ryskObj1.run(mesh => {...});
 ryskObj2.run(mesh => {...});
 
-synchronizer.addMedia([ryskObj1, ryskObj2]);
+await synchronizer.addMedia([ryskObj1, ryskObj2]);
 ...
 synchronizer.removeMedia([ryskObj1, ryskObj2]);
 ```
@@ -64,6 +64,17 @@ Both methods accept either ``HTMLMediaElement`` or objects derived from ``RYSKUr
 If a new video is passed to the synchronizer once it's playing videos, the synchronizer automatically sets the timestamp of this new video to the current internal timestamp of the synchronizer. Also, if it's the longest video, a "durationchange" event is emitted. The same event is emitted when the longest video is removed from the synchronizer.
 
 Please notice that if you pass ``RYSKUrl`` object, you still have to call ``init()`` / ``run()``  method manually outside of the synchronizer. This is because the they very often resolve with the data which may be of direct use to you (e.g. ``RYSKUrl.init()`` resolves with the canvas and video, ``URLMesh.run()`` with the mesh object etc.).
+
+### Regime
+The synchronize currently supports two modes of operation which differs in what media is chosen as the main "pivot".
+In ``"longest"`` regime (which is set by default), all the media will play till in their entirety and will wait till the longest finishes.
+In ``"shortest"`` regime, all the media ends immediately after the shortest one ends.
+You can set the regime either through the constructor or later through the separate method:
+```javascript
+const synchronizer = new window.RyskSynchronizer(TimingObject, "shortest");
+...
+synchronizer.setRegime("longest");
+```
 
 ### Autoplay
 You can turn on/off the autoplay by calling ``setAutoplay(enabled)`` method where ``enabled`` is either true or false
@@ -116,7 +127,7 @@ const ryskObj2 = new URLMesh(videourl2,dataurl2);
 ryskObj1.run(mesh => {...});
 ryskObj2.run(mesh => {...});
 
-synchronizer.addMedia([ryskObj1, ryskObj2]);
+await synchronizer.addMedia([ryskObj1, ryskObj2]);
 synchronizer.setLoop([ryskObj1, ryskObj2]);
 ```
 ### Events
@@ -124,8 +135,9 @@ You can use ``on()`` and ``off()`` methods do attach/detach event listeners to t
 ```typescript
 export enum VideoSyncEvents {
 	timeupdate = "timeupdate", // fired each time the internal TimeObject emits "timeupdate"
-	durationchange = "durationchange", // fired when the new longest video is added or the longest video is removed
-	ended = "ended", // fired when the longest video in VideoSync stops playing and no video is supposed to loop
+	durationchange = "durationchange", // fired when the new pivot video is added or the pivot video is removed
+	ended = "ended", // fired when the pivot video in VideoSync stops playing and no video is supposed to loop
+	looping = "looping", // fired when the pivot video in VideoSync stops playing, but there is at least one video which is going to loop 
 	paused = "paused", // fired when the playing is paused
 	playing = "playing", // fired when the playing continues
 	buffering = "buffering", // fired when the synchronizer starts buffering (due to one or many videos managed by the synchronizer start buffering)
@@ -155,8 +167,9 @@ videoSync.on("durationchange",newDuration =>
 /**
  * Create a new instance of VideoSync class
  * @param classPrototype the class passed as the parameter will be used to contstruct the internal Timing Object. It's highly recommended to use the Timing Object from here: https://webtiming.github.io/timingsrc/lib/timingsrc-esm-v3.js
+ * @param regime type of the regime the synchronizer will work. By default, VideoSyncRegime.longest is chosen - that means that all the videos will be played fully
  */
-constructor(classPrototype: TimingClass)
+constructor(classPrototype: TimingClass, regime: VideoSyncRegime = VideoSyncRegime.longest)
 ```
 ```typescript
 /**
@@ -164,7 +177,46 @@ constructor(classPrototype: TimingClass)
  * @param newRate new rate of the playback
  * @returns this object for chaining
  */
-setPlaybackRate(newRate: number);
+setPlaybackRate(newRate: number): this
+```
+```typescript
+/**
+ * Returns the currently set playback rate of the media
+ * @returns the current playback rate
+ */
+getPlaybackRate(): number
+```
+```typescript
+/**
+ * Changes the regime in which the synchronizer should work.
+ * "Longest" means that the all the media will wait for the longest to end
+ *  and "shortest" means they will end immediately with the first one to end.
+ * @param newRegime the new regime for the Synchronizer
+ * @returns this object for chaining
+ */
+changeRegime(newRegime: VideoSyncRegime): this
+```
+```typescript
+/**
+ * Tells what regime the synchronizer is currently working in
+ * @returns either "longest" or "shortest"
+ */
+getCurrentRegime(): VideoSyncRegime
+```
+```typescript
+/**
+ * Sets how often should the synchronizer check for the sync issues
+ * @param frequency check frequency in seconds
+ * @returns this object for chaining
+ */
+setSyncCheckFrequency(frequency: number): this
+```
+```typescript
+/**
+ * Tells how often the synchronizer checks of the sync issues
+ * @returns check frequency in seconds
+ */
+getSyncCheckFrequency(): number
 ```
 ```typescript
 /**
@@ -172,7 +224,7 @@ setPlaybackRate(newRate: number);
  * This may change with the time as new videos are added or existing are looped.
  * @returns duration of the longest currently playing video in seconds
  */
-getDuration();
+getDuration(): number
 ```
 ```typescript
 /**
@@ -229,7 +281,7 @@ setAutoplay(val: boolean): this;
  * @param callback callback which receives either the current timestamp ("timeupdate") or the new longest duration ("durationchange") in seconds
  */
 on(event: VideoSyncEvents.durationchange|VideoSyncEvents.timeupdate, callback: (data: number) => void): this;
-on(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing|VideoSyncEvents.buffering|VideoSyncEvents.buffered, callback: () => void): this;
+on(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing|VideoSyncEvents.buffering|VideoSyncEvents.buffered|VideoSyncEvents.looping, callback: () => void): this;
 ```
 ```typescript	
 /**
@@ -238,7 +290,7 @@ on(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing|V
  * @param callback callback to detach
  */
 off(event: VideoSyncEvents.durationchange|VideoSyncEvents.timeupdate, callback: (data: number) => void): this;
-off(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing|VideoSyncEvents.buffering|VideoSyncEvents.buffered, callback: () => void): this;
+off(event: VideoSyncEvents.ended|VideoSyncEvents.paused|VideoSyncEvents.playing|VideoSyncEvents.buffering|VideoSyncEvents.buffered|VideoSyncEvents.looping, callback: () => void): this;
 ```
 ```typescript
 /**
@@ -360,3 +412,24 @@ Synchronizer now emits two additional events: ``VideoSyncEvents.buffering`` and 
 
 ### 0.7.0
 Interface SynchronizableObject is split into SynchronizableRYSKObject and SynchronizableMediaObject (both inherits from the original SynchronizableObject). This is to better separate events which both those interfaces can emit.
+
+### 0.8.0
+Mainly code refactoring for better readability (``forEach`` and ``while`` replaced with ``for...of`` loops).
+- Fixed a bug when the synchronizer didn't start by itself if it was empty and the media were added only after the ``play()`` was called
+- The synchronizer should now check for sync issues by default every 0.5 seconds unless changed via a dedicated method
+- added a couple of service methods
+
+#### 0.8.2
+Added "looping" event which gets fired when the synchronizer is looping.
+
+### 0.9.0
+Attempt to fix synchronizing issues when the media loops:
+- ``loopVideo()`` method of the media must now be asynchronous so that the synchronizer can wait till all the media finish looping before starting them again
+- some of the function calls were rearranged in order to lessen a probability of desync
+
+### 0.10.0
+Change in interfaces which must implement synchronizable objects:
+callbacks passed in ``on`` and ``off`` can accept a single data parameter (e.g. new duration of the video after the change)
+
+### 0.10.3
+If a ``buffering`` event arrive from RYSK media, first check if the media isn't already buffering to prevent calling the same methods redundantly multiple times.

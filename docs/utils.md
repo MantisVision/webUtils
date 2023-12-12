@@ -130,7 +130,7 @@ finish();
 ### MantisLog
 This class is used by @mantisvision libraries to log into console. The following methods can be called as static on the
 MantisLog itself, or the class can be instantiated to create a new, independent logger.
-```javascript
+```typescript
 /**
  * Creates an independent instance of the Logger.
  * @param fgcolor HTML color code for the color of the text (applied only when using debug method!)
@@ -161,14 +161,15 @@ warning(msg);
  */
 error(msg);
 ```
-```javascript
+```typescript
 /**
  * Wrapper around console.log
  * @param {string} msg Message to log
- * @param {string} fg color of the writing (optional)
- * @param {string} bg color of the background (optional)
+ * @param {string} fg color of the writing (optional) - this could be also boolean and in that case it is treated as the trace param
+ * @param {string} bg color of the background (optional) - this could be also boolean and in that case it is treated as the trace param
+ * @param {boolean} trace if set to true will output the stacktrace
  */
-debug: function(msg: string, fg?: string, bg?: string);
+static debug(msg: string, fg?: string|boolean, bg?: string|boolean, trace?: boolean)
 ```
 
 ### VideoElement
@@ -405,3 +406,5 @@ Attempt at fixing jumps in case of videos using old RYSK format by better handli
 #### 2.3.6
 Fixed video not resetting _ended attribute after the first loop.
 
+### 2.4.0
+Added the fourth parameter to ``MantisLog.debug()`` -- the ``trace`` which makes the debug to output the trace log.

@@ -79,7 +79,7 @@ function run(renderer,scene,camera)
 	
 	ryskObj.run().then(mesh =>
 	{//add mesh to the scene
-		//ryskObj.setVolume(1);
+		ryskObj.setVolume(1);
 		mesh.visible = true;
 		scene.add(mesh);
 	}); 

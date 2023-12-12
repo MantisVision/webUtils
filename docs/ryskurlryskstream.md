@@ -576,6 +576,17 @@ Fixed bug with the volume being incorrectly set to 1 instead of staying 0 if the
 #### 3.3.5
 Wait till RYSKUrl is loaded when ``pause`` is called. Also checking whether preview mode is active as to avoid interfering with it.
 
+#### 3.3.6
+JumpAt method modified, so it emits ``buffering`` event in case video element isn't in readyState 4 and doesn't emit them by itself.
+
+#### 3.3.7
+When the ``play()`` method is called, preview is set to ``false`` because otherwise the video might not have played if ``play()`` was called right after ``jumpAt()`` method.
+
+#### 3.3.8
+- When the ``canplaythrough`` event is received from the video, the library emits ``databuffered`` event only after the ``playLib()`` call is resolved and no buffering is going on.
+- ``jumpAt`` method fires ``buffering`` event before the real jump and then ``buffered`` event after the ``seeked`` event came from video element (but only if the video itself isn't buffering, is in ready state 4 a nd RYSK data isn't buffering).
+
+
 ## Release notes RYSKStream
 
 ### 4.0.0
