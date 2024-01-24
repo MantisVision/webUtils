@@ -54,7 +54,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/trace-mapping@npm:^0.3.17, @jridgewell/trace-mapping@npm:^0.3.9":
+"@jridgewell/trace-mapping@npm:^0.3.20":
+  version: 0.3.22
+  resolution: "@jridgewell/trace-mapping@npm:0.3.22"
+  dependencies:
+    "@jridgewell/resolve-uri": "npm:^3.1.0"
+    "@jridgewell/sourcemap-codec": "npm:^1.4.14"
+  checksum: 48d3e3db00dbecb211613649a1849876ba5544a3f41cf5e6b99ea1130272d6cf18591b5b67389bce20f1c871b4ede5900c3b6446a7aab6d0a3b2fe806a834db7
+  languageName: node
+  linkType: hard
+
+"@jridgewell/trace-mapping@npm:^0.3.9":
   version: 0.3.20
   resolution: "@jridgewell/trace-mapping@npm:0.3.20"
   dependencies:
@@ -64,15 +74,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskaframe@npm:^0.8.11":
-  version: 0.8.11
-  resolution: "@mantisvision/ryskaframe@npm:0.8.11::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.8.11%2Fe192c5d411e8de32ff8bf2e6b74329d84dc005aa"
+"@mantisvision/ryskaframe@npm:^0.8.13":
+  version: 0.8.13
+  resolution: "@mantisvision/ryskaframe@npm:0.8.13::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.8.13%2F8fdda7834aab7f5ae8a135c53f05706030b566b2"
   dependencies:
     "@mantisvision/ryskstream": "npm:^4.0.9"
-    "@mantisvision/ryskurl": "npm:^3.3.6"
+    "@mantisvision/ryskurl": "npm:^3.3.9"
     "@mantisvision/utils": "npm:^2.4.0"
     aframe: "npm:^1.5.0"
-  checksum: 7ceb351553d5268d87dfba92041e838e4022a12823aecb90272d9f22b20b44a9f620a78fbdfba29fb3214e3f2dcd42b87d063c2072d4842b1b5cc761bfd1508f
+  checksum: 8c9192810e799311fda216cc42027c80b7320e56283afc1261ac0314717f4dcbd9743326644aeab0597cef1668efea0be817f0eded93dab86b9b797c6722083a
   languageName: node
   linkType: hard
 
@@ -105,16 +115,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.11.11":
-  version: 0.11.11
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.11::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.11%2Fa5ec7f95630c5b45b6aa99c80314a5aa98d6e8ac"
+"@mantisvision/ryskplaycanvas@npm:^0.11.13":
+  version: 0.11.13
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.13::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.13%2F7cc73ed9a44762ef3cc3d6338fd2c28d65e3a6c8"
   dependencies:
     "@mantisvision/ryskstream": "npm:^4.0.9"
-    "@mantisvision/ryskurl": "npm:^3.3.6"
+    "@mantisvision/ryskurl": "npm:^3.3.9"
     "@mantisvision/utils": "npm:^2.4.0"
   peerDependencies:
     playcanvas: ^1.67.0
-  checksum: 529bc4c14a22ff76bb052d4c0e61ff187bde99bb464ed96fc56386f65a3b202531644a729599a7307c1d3c6e8b26ed45d82e255336d452f7424d5473d84b1971
+  checksum: 4daf3c2b196c7c03548fae8028634ed51145a9f88b208aa59b86bc8b1847af77ed4d0075b29ce782c3cd5d2a84b5700c1209b260b8c03d4bcb0c47ade728c63c
   languageName: node
   linkType: hard
 
@@ -142,7 +152,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskurl@npm:^3.3.6, @mantisvision/ryskurl@npm:^3.3.7":
+"@mantisvision/ryskurl@npm:^3.3.7, @mantisvision/ryskurl@npm:^3.3.9":
   version: 3.3.9
   resolution: "@mantisvision/ryskurl@npm:3.3.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.9%2F5d5257b009e8dae883eabaf9a78b06149670f507"
   dependencies:
@@ -169,6 +179,18 @@ __metadata:
     hls.js:
       optional: true
   checksum: cb85d22f367e4fdc589e4c4b3daf4314a3a266c286c3fedd89fe6b302a8e76ddb51fc6f1940a7a71a272420926234296ec7bfec379c3cc4aead9d0096d3f9462
+  languageName: node
+  linkType: hard
+
+"@mantisvision/utils@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "@mantisvision/utils@npm:2.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.4.1%2F99e297547ceebed23bc7fceb8b8a8c0b6e2737cc"
+  dependencies:
+    hls.js: "npm:^1.4.14"
+  dependenciesMeta:
+    hls.js:
+      optional: true
+  checksum: f6cf37675c1d245dee076abc3b15a15d90827bf3e4355665c41244de89d17ba214fadbe9c1fd83ce10e698cf139a2e7bc561326c89f818f8dfb5a89b2d7bf69a
   languageName: node
   linkType: hard
 
@@ -208,7 +230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:*, @types/estree@npm:^1.0.0":
+"@types/estree@npm:*, @types/estree@npm:^1.0.5":
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
   checksum: 7de6d928dd4010b0e20c6919e1a6c27b61f8d4567befa89252055fad503d587ecb9a1e3eab1b1901f923964d7019796db810b7fd6430acb26c32866d126fd408
@@ -479,14 +501,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "RYSKUrl sample@workspace:."
   dependencies:
-    "@mantisvision/ryskaframe": "npm:^0.8.11"
-    "@mantisvision/ryskplaycanvas": "npm:^0.11.11"
+    "@mantisvision/ryskaframe": "npm:^0.8.13"
+    "@mantisvision/ryskplaycanvas": "npm:^0.11.13"
     "@mantisvision/ryskthreejs": "npm:^0.13.4"
-    "@mantisvision/utils": "npm:^2.4.0"
+    "@mantisvision/utils": "npm:^2.4.1"
     aframe: "npm:^1.5.0"
     playcanvas: "npm:^1.67.3"
     three: "npm:^0.158.0"
-    webpack: "npm:^5.89.0"
+    webpack: "npm:^5.90.0"
     webpack-cli: "npm:^5.1.4"
   languageName: unknown
   linkType: soft
@@ -586,7 +608,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.14.5":
+"browserslist@npm:^4.21.10":
   version: 4.22.2
   resolution: "browserslist@npm:4.22.2"
   dependencies:
@@ -1000,6 +1022,13 @@ __metadata:
   version: 1.4.13
   resolution: "hls.js@npm:1.4.13"
   checksum: 8d54aaeaa6f396be85e0dde4fe6b6e6c0f8a60d821a581aa465ce63041a31bc553af154dd945b3da854a24e626cbd1e7667f7922452ccdab9e5f2984071f7aac
+  languageName: node
+  linkType: hard
+
+"hls.js@npm:^1.4.14":
+  version: 1.5.1
+  resolution: "hls.js@npm:1.5.1"
+  checksum: 1e2452892ec62a370fecf5c8d643154fdb7f49c41693a9b757c3d9f62a1383402f1d4be78456a764956533621676a67bc584fec7b7c1ed50c1415951b125b02b
   languageName: node
   linkType: hard
 
@@ -1696,15 +1725,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.3.7":
-  version: 5.3.9
-  resolution: "terser-webpack-plugin@npm:5.3.9"
+"terser-webpack-plugin@npm:^5.3.10":
+  version: 5.3.10
+  resolution: "terser-webpack-plugin@npm:5.3.10"
   dependencies:
-    "@jridgewell/trace-mapping": "npm:^0.3.17"
+    "@jridgewell/trace-mapping": "npm:^0.3.20"
     jest-worker: "npm:^27.4.5"
     schema-utils: "npm:^3.1.1"
     serialize-javascript: "npm:^6.0.1"
-    terser: "npm:^5.16.8"
+    terser: "npm:^5.26.0"
   peerDependencies:
     webpack: ^5.1.0
   peerDependenciesMeta:
@@ -1714,13 +1743,13 @@ __metadata:
       optional: true
     uglify-js:
       optional: true
-  checksum: 339737a407e034b7a9d4a66e31d84d81c10433e41b8eae2ca776f0e47c2048879be482a9aa08e8c27565a2a949bc68f6e07f451bf4d9aa347dd61b3d000f5353
+  checksum: fb1c2436ae1b4e983be043fa0a3d355c047b16b68f102437d08c736d7960c001e7420e2f722b9d99ce0dc70ca26a68cc63c0b82bc45f5b48671142b352a9d938
   languageName: node
   linkType: hard
 
-"terser@npm:^5.16.8":
-  version: 5.25.0
-  resolution: "terser@npm:5.25.0"
+"terser@npm:^5.26.0":
+  version: 5.27.0
+  resolution: "terser@npm:5.27.0"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.8.2"
@@ -1728,7 +1757,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 820623b22b7f04e207ca08643d1ba15a0f9e3c1e67b1727d82fe6292f4393b6a1dd08f459c3463fd3eeefa2b9eb12322bdef2f11940c46e0763922624a9b4e0c
+  checksum: 9b2c5cb00747dea5994034ca064fb3cc7efc1be6b79a35247662d51ab43bdbe9cbf002bbf29170b5f3bd068c811d0212e22d94acd2cf0d8562687b96f1bffc9f
   languageName: node
   linkType: hard
 
@@ -1857,18 +1886,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.89.0":
-  version: 5.89.0
-  resolution: "webpack@npm:5.89.0"
+"webpack@npm:^5.90.0":
+  version: 5.90.0
+  resolution: "webpack@npm:5.90.0"
   dependencies:
     "@types/eslint-scope": "npm:^3.7.3"
-    "@types/estree": "npm:^1.0.0"
+    "@types/estree": "npm:^1.0.5"
     "@webassemblyjs/ast": "npm:^1.11.5"
     "@webassemblyjs/wasm-edit": "npm:^1.11.5"
     "@webassemblyjs/wasm-parser": "npm:^1.11.5"
     acorn: "npm:^8.7.1"
     acorn-import-assertions: "npm:^1.9.0"
-    browserslist: "npm:^4.14.5"
+    browserslist: "npm:^4.21.10"
     chrome-trace-event: "npm:^1.0.2"
     enhanced-resolve: "npm:^5.15.0"
     es-module-lexer: "npm:^1.2.1"
@@ -1882,7 +1911,7 @@ __metadata:
     neo-async: "npm:^2.6.2"
     schema-utils: "npm:^3.2.0"
     tapable: "npm:^2.1.1"
-    terser-webpack-plugin: "npm:^5.3.7"
+    terser-webpack-plugin: "npm:^5.3.10"
     watchpack: "npm:^2.4.0"
     webpack-sources: "npm:^3.2.3"
   peerDependenciesMeta:
@@ -1890,7 +1919,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: ee19b070279c9bc3bf21eeaac3ea08e6583c1b8da334e595b3c9badedbd7f9fad071b9f785076081af661ef247bb72441e86e8b903bf253ae9300007a048ea6e
+  checksum: 7ff6286be54e00b2580274d8009b014fd03c6d8ade898434376c739e460da1f3a63a51006966024710061f440d6723813365b8a54ae6bcb93b94867c42cf017e
   languageName: node
   linkType: hard
 
