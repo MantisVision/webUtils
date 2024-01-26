@@ -74,15 +74,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskaframe@npm:^0.8.13":
-  version: 0.8.13
-  resolution: "@mantisvision/ryskaframe@npm:0.8.13::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.8.13%2F8fdda7834aab7f5ae8a135c53f05706030b566b2"
+"@mantisvision/ryskaframe@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@mantisvision/ryskaframe@npm:0.9.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Fryskaframe%2F0.9.0%2F965ef0fb165816d50dd54bbf788a1a060c0723ed"
   dependencies:
     "@mantisvision/ryskstream": "npm:^4.0.9"
     "@mantisvision/ryskurl": "npm:^3.3.9"
-    "@mantisvision/utils": "npm:^2.4.0"
+    "@mantisvision/utils": "npm:^2.4.1"
     aframe: "npm:^1.5.0"
-  checksum: 8c9192810e799311fda216cc42027c80b7320e56283afc1261ac0314717f4dcbd9743326644aeab0597cef1668efea0be817f0eded93dab86b9b797c6722083a
+  checksum: 7a14e62d832fb6572a95f66777392d3f3675185874ec097d74284e70ef533aea6e2d72f9098677aa31674e88c79e25d6788bbd9586e6352ae4c68ae43d5a8f38
   languageName: node
   linkType: hard
 
@@ -501,7 +501,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "RYSKUrl sample@workspace:."
   dependencies:
-    "@mantisvision/ryskaframe": "npm:^0.8.13"
+    "@mantisvision/ryskaframe": "npm:^0.9.0"
     "@mantisvision/ryskplaycanvas": "npm:^0.11.13"
     "@mantisvision/ryskthreejs": "npm:^0.13.4"
     "@mantisvision/utils": "npm:^2.4.1"

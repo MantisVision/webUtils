@@ -59,20 +59,26 @@ ryskurl component is based on the following schema:
 	video: { type: "string", default: '' },
 	data: { type: "string", default: '' },
 	buffer: { type: "int", default: 50 },
+	colorspace: { type: "string", default: "srgb" },
 	loop: { type: "boolean", default: true },
 	volume: { type: "number", default: 0 },
 	time: { type: "number", default: 0 },
 	playbackrate: { type: "number", default: 1 },
+	beginning: { type: "number", default: 0 },
+	end: { type: "number", default: 0 },
 	preview: { type: "all"|"full"|true|1|"partial"|2|"disabled"|false|0, default: 1 }
 }
 ```
 - video: url of the video for the texture of the mesh
 - data: url of the SYK/RYSK volumetric data
 - buffer: size of data buffer 
+- colorspace: should be set to colorspace used in the scene (default to srgb)
 - loop: marks if the video should loop after it ends
 - volume: volume level from 0 (mute) to 1 (full volume)
 - time: current timestamp of the video (can be used for e.g. progress bar)
 - playbackrate: playback rate of the video with 1 being the default, normal playback (as well as the default value), higher is faster speed and lower is slower
+- beginning: timestamp in which the video should start its playback
+- end: timestamp in which the video should finish its playback
 - preview: whether the mesh should be displayed even before the playback starts ore immediately after the user jumps to a different timestamp. "all", "full", true and 1 are synonyms and enable full preview (default), "partial" and 2 enable partial preview (only mesh without a texture) and "disabled", false and 0 completely disable the preview.
 
 #### Event listeners
@@ -116,8 +122,11 @@ Compenent properties are mapped to the HTML attributes in the following way:
 - video: videourl
 - data: dataurl
 - buffer: buffer
+- colorspace: colorspace
 - loop: loop
 - volume: volume
+- time: time
+- playbackrate: playbackrate
 
 ### ryskstream
 This component creates a 3D mesh from media stream and SYK/RYSK volumetric data which must be periodically delivered
@@ -136,12 +145,14 @@ ryskstream component is based on the following schema:
 ```javascript
 {
 	videoelem: { type: "string", default: '' },
+	colorspace: { type: "string", default: 'srgb' },
 	width: { type: "int", default: 0 },
 	height: { type: "int", default: 0 },
 	volume: { type: "number", default: 0 }
 }
 ```
 - videoelem: id of the videoelement which will serve as the source of the media stream. Alternatively, media stream can be passed directly through the newdata event (see below)
+- colorspace: should be set to colorspace used in the scene (default to srgb)
 - width: width resolution of the video; if not given, it either read from videoelem or from the data that came through the data event
 - height: height resolution of the video; if not given, it either read from videoelem or from the data that came through the data event
 - volume: volume level from 0 (mute) to 1 (full volume)
@@ -170,6 +181,7 @@ For your convinience, there is a mantis-ryskstream primitive:
 ```
 Component properties are mapped to the HTML attributes in the following way:
 - videoelem: videoelem
+- colorspace: colorspace
 - width: width
 - height: height
 - volume: volume
@@ -197,3 +209,6 @@ Important bugfix from [0.6.2](./buffer.md#062) release of ``@mantisvision/ryskbu
 
 #### 0.8.9
 Important bugfix from [0.6.5](./buffer.md#065) release of ``@mantisvision/ryskbuffer``.
+
+### 0.9.0
+Added the option to define the colorspace (defaults to "srgb")
