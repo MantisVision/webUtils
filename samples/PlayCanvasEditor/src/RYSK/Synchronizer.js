@@ -1,6 +1,8 @@
 var Synchronizer = pc.createScript('synchronizer');
 
 //entity for showing the progress of the video
+Synchronizer.attributes.add('longestVideo', {type: 'boolean', description: 'Synchronizer will play all the videos in full length', default: true});
+//entity for showing the progress of the video
 Synchronizer.attributes.add('progressbar', {type: 'entity', description: 'Progressbar showing the play progress of the mesh', default: false});
 //button for playing/pausing the video
 Synchronizer.attributes.add('playpausebutton', {type: 'entity', description: 'Button for Playing/Pausing', default: false});
@@ -125,7 +127,7 @@ Synchronizer.prototype.initialize = function()
         const scripts = [];
         Promise.all(imports).then(() =>
         {//libraries are imported, so we can create the RyskSynchronizer object
-            this.videoSync = new window.RyskSynchronizer(window.TIMINGSRC.TimingObject);
+            this.videoSync = new window.RyskSynchronizer(window.TIMINGSRC.TimingObject, this.longestVideo ? "longest" : "shortest");
 
             //now we attach the listeners to timeupdate and durationchange event to set the progressbar
             this.videoSync.on("timeupdate", this.showProgressThis);
