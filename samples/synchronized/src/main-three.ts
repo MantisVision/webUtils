@@ -5,8 +5,8 @@ import { MantisLog } from "@mantisvision/utils";
 import * as TIMINGSRC from "./timingsrc.js";
 import VideoSync, { TimingObject, VideoSyncEvents } from "@mantisvision/synchronizer";
 
-const chloe_video = "./rob.mp4";
-const chloe_data = "./rob.syk";
+const chloe_video = "./chloe_battle.mp4";
+const chloe_data = "./chloe_battle.syk";
 const rob_video = "./rob.mp4";
 const rob_data = "./rob.syk";
 

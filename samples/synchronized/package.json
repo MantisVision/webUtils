@@ -18,14 +18,14 @@
 	"packageManager": "yarn@4.0.2",
 	"devDependencies": {
 		"@mantisvision/ryskplaycanvas": "^0.11.11",
-		"@mantisvision/ryskthreejs": "^0.13.4",
+		"@mantisvision/ryskthreejs": "^0.13.5",
 		"@mantisvision/synchronizer": "^0.10.4",
-		"@mantisvision/utils": "^2.4.0",
-		"@types/three": "0.158.3",
-		"playcanvas": "^1.67.3",
-		"three": "^0.158.0",
+		"@mantisvision/utils": "^2.4.2",
+		"@types/three": "^0.160.0",
+		"playcanvas": "^1.68.0",
+		"three": "^0.160.0",
 		"ts-loader": "^9.5.1",
-		"webpack": "^5.89.0",
+		"webpack": "^5.90.1",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {

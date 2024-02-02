@@ -54,7 +54,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/trace-mapping@npm:^0.3.17, @jridgewell/trace-mapping@npm:^0.3.9":
+"@jridgewell/trace-mapping@npm:^0.3.20":
+  version: 0.3.22
+  resolution: "@jridgewell/trace-mapping@npm:0.3.22"
+  dependencies:
+    "@jridgewell/resolve-uri": "npm:^3.1.0"
+    "@jridgewell/sourcemap-codec": "npm:^1.4.14"
+  checksum: 48d3e3db00dbecb211613649a1849876ba5544a3f41cf5e6b99ea1130272d6cf18591b5b67389bce20f1c871b4ede5900c3b6446a7aab6d0a3b2fe806a834db7
+  languageName: node
+  linkType: hard
+
+"@jridgewell/trace-mapping@npm:^0.3.9":
   version: 0.3.20
   resolution: "@jridgewell/trace-mapping@npm:0.3.20"
   dependencies:
@@ -111,15 +121,15 @@ __metadata:
   resolution: "@mantisvision/rysksamples@workspace:."
   dependencies:
     "@mantisvision/ryskplaycanvas": "npm:^0.11.11"
-    "@mantisvision/ryskthreejs": "npm:^0.13.4"
+    "@mantisvision/ryskthreejs": "npm:^0.13.5"
     "@mantisvision/synchronizer": "npm:^0.10.4"
-    "@mantisvision/utils": "npm:^2.4.0"
-    "@types/three": "npm:0.158.3"
-    playcanvas: "npm:^1.67.3"
-    three: "npm:^0.158.0"
+    "@mantisvision/utils": "npm:^2.4.2"
+    "@types/three": "npm:^0.160.0"
+    playcanvas: "npm:^1.68.0"
+    three: "npm:^0.160.0"
     ts-loader: "npm:^9.5.1"
     typescript: "npm:^5.3.3"
-    webpack: "npm:^5.89.0"
+    webpack: "npm:^5.90.1"
     webpack-cli: "npm:^5.1.4"
   languageName: unknown
   linkType: soft
@@ -135,20 +145,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskthreejs@npm:^0.13.4":
-  version: 0.13.4
-  resolution: "@mantisvision/ryskthreejs@npm:0.13.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.13.4%2Fe1f7fe30636131622f4f108c8cc8b9333dfc1d79"
+"@mantisvision/ryskthreejs@npm:^0.13.5":
+  version: 0.13.5
+  resolution: "@mantisvision/ryskthreejs@npm:0.13.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskthreejs%2F0.13.5%2F6c7e9ef4a1bdfa7c7a05019ff64cd9f72501cdfa"
   dependencies:
     "@mantisvision/ryskstream": "npm:^4.0.9"
-    "@mantisvision/ryskurl": "npm:^3.3.7"
-    "@mantisvision/utils": "npm:^2.4.0"
+    "@mantisvision/ryskurl": "npm:^3.3.9"
+    "@mantisvision/utils": "npm:^2.4.2"
   peerDependencies:
-    three: ^0.158.0
-  checksum: a99b9555c870f9d397b9c3dc0c5b5485e0c7d13cb82d6697bba4545fdbf90f50680d2fac96758655bf766faa8e86daedeca60e5bac9a59f9e08e66220a9aa42b
+    three: ^0.160.0
+  checksum: 4ca0bf530923fee181bf84bf4ff74c7ff302c7a7ddecac1395321146dcd37974af01d1f08c75ec92fafb1b1f8540877694675bef50a9a1803eb9cb66fe1b43df
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskurl@npm:^3.3.7, @mantisvision/ryskurl@npm:^3.3.9":
+"@mantisvision/ryskurl@npm:^3.3.9":
   version: 3.3.9
   resolution: "@mantisvision/ryskurl@npm:3.3.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.9%2F5d5257b009e8dae883eabaf9a78b06149670f507"
   dependencies:
@@ -188,6 +198,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mantisvision/utils@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "@mantisvision/utils@npm:2.4.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Futils%2F2.4.2%2F33244a2c8eaef72057c7e2588150f81f2123256b"
+  dependencies:
+    hls.js: "npm:^1.5.3"
+  dependenciesMeta:
+    hls.js:
+      optional: true
+  checksum: 262b949bbd6869ca4d5bafbe3c2c6d1d136d36b39db1b1263b7580940bdc6aff07966c562acc629f52047d0f5ecd4ec6b39a50206ef2105d0252e009864a95ac
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.3":
   version: 3.7.7
   resolution: "@types/eslint-scope@npm:3.7.7"
@@ -208,7 +230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:*, @types/estree@npm:^1.0.0":
+"@types/estree@npm:*, @types/estree@npm:^1.0.5":
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
   checksum: 7de6d928dd4010b0e20c6919e1a6c27b61f8d4567befa89252055fad503d587ecb9a1e3eab1b1901f923964d7019796db810b7fd6430acb26c32866d126fd408
@@ -245,15 +267,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:0.158.3":
-  version: 0.158.3
-  resolution: "@types/three@npm:0.158.3"
+"@types/three@npm:^0.160.0":
+  version: 0.160.0
+  resolution: "@types/three@npm:0.160.0"
   dependencies:
     "@types/stats.js": "npm:*"
     "@types/webxr": "npm:*"
     fflate: "npm:~0.6.10"
     meshoptimizer: "npm:~0.18.1"
-  checksum: ee714f3e3727c4c9f9f48c611f5cb91bc5775b41158e2f3a518eff3119543579c333ae0cbd00e68ac43c659b593de5ee7256ce0399405601f37a1596b0e7169b
+  checksum: cb65496c7592988d6d1e0df563e42435c60fd113136ef362edf9861c384c957bb376acd1bea163cf9ae81caea116a5c297e334f9a66e7ffe25b413742bf003c3
   languageName: node
   linkType: hard
 
@@ -533,17 +555,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.14.5":
-  version: 4.22.1
-  resolution: "browserslist@npm:4.22.1"
+"browserslist@npm:^4.21.10":
+  version: 4.22.3
+  resolution: "browserslist@npm:4.22.3"
   dependencies:
-    caniuse-lite: "npm:^1.0.30001541"
-    electron-to-chromium: "npm:^1.4.535"
-    node-releases: "npm:^2.0.13"
+    caniuse-lite: "npm:^1.0.30001580"
+    electron-to-chromium: "npm:^1.4.648"
+    node-releases: "npm:^2.0.14"
     update-browserslist-db: "npm:^1.0.13"
   bin:
     browserslist: cli.js
-  checksum: 4a515168e0589c7b1ccbf13a93116ce0418cc5e65d228ec036022cf0e08773fdfb732e2abbf1e1188b96d19ecd4dd707504e75b6d393cba2782fc7d6a7fdefe8
+  checksum: d46a906c79dfe95d9702c020afbe5b7b4dbe2019b85432e7a020326adff27e63e3c0a52dc8d4e73247060bbe2c13f000714741903cf96a16baae9c216dc74c75
   languageName: node
   linkType: hard
 
@@ -554,10 +576,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001541":
-  version: 1.0.30001564
-  resolution: "caniuse-lite@npm:1.0.30001564"
-  checksum: eb63d0b5be8a4609ac89c02e4518c6a3adb2884fffd6b43151b43f06a5f367bde3e2c90a5df2213d094ef1af2d43f5b8756601955d077116f2a2897534b9ce33
+"caniuse-lite@npm:^1.0.30001580":
+  version: 1.0.30001583
+  resolution: "caniuse-lite@npm:1.0.30001583"
+  checksum: 8e7b5ffeb1229efacc1022fbe19eb136f39e4512363322d175e836fef9d798d7308a0763ce654670d45a55c3f25f34c12f87e90e1da34c5d9531fac2327d2063
   languageName: node
   linkType: hard
 
@@ -637,10 +659,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-to-chromium@npm:^1.4.535":
-  version: 1.4.593
-  resolution: "electron-to-chromium@npm:1.4.593"
-  checksum: 836463303815c1e599183e4cd84549b76c1451602c68119bfd428f706202c7d2e799cdbf1408e2d154155f84bc85020491b3244b2f5a29614d96fa7d6967b114
+"electron-to-chromium@npm:^1.4.648":
+  version: 1.4.655
+  resolution: "electron-to-chromium@npm:1.4.655"
+  checksum: 2d0f623288d2da9f943c331a6e2fd1a65de151d67c32d034478d6ced34fa6c4cb73d78af9852f5b67cb8d5b4aebc16ee21d52922f4b21f0ffdb9733a85d4b789
   languageName: node
   linkType: hard
 
@@ -817,6 +839,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hls.js@npm:^1.5.3":
+  version: 1.5.3
+  resolution: "hls.js@npm:1.5.3"
+  checksum: c5b7cb6fddd6ad425a82e1b8b4f818552e6e242254b35c7d7c7b9d3beb4dd40cc85d8bbc32a5d1b57031305d7d9f4973f9d0f80b70351bb8597393f4629072fc
+  languageName: node
+  linkType: hard
+
 "import-local@npm:^3.0.2":
   version: 3.1.0
   resolution: "import-local@npm:3.1.0"
@@ -988,10 +1017,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-releases@npm:^2.0.13":
-  version: 2.0.13
-  resolution: "node-releases@npm:2.0.13"
-  checksum: c9bb813aab2717ff8b3015ecd4c7c5670a5546e9577699a7c84e8d69230cd3b1ce8f863f8e9b50f18b19a5ffa4b9c1a706bbbfe4c378de955fedbab04488a338
+"node-releases@npm:^2.0.14":
+  version: 2.0.14
+  resolution: "node-releases@npm:2.0.14"
+  checksum: 0f7607ec7db5ef1dc616899a5f24ae90c869b6a54c2d4f36ff6d84a282ab9343c7ff3ca3670fe4669171bb1e8a9b3e286e1ef1c131f09a83d70554f855d54f24
   languageName: node
   linkType: hard
 
@@ -1064,13 +1093,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playcanvas@npm:^1.67.3":
-  version: 1.67.3
-  resolution: "playcanvas@npm:1.67.3"
+"playcanvas@npm:^1.68.0":
+  version: 1.68.0
+  resolution: "playcanvas@npm:1.68.0"
   dependencies:
     "@types/webxr": "npm:^0.5.7"
     "@webgpu/types": "npm:^0.1.38"
-  checksum: 9093401b61e2ecd3f5f2e0ebef00b7b46283c5c39f24ef78074fb33ff7c71dbd076063ab78b94ed7081c4dcdce00ef6d7e566fe30bc59bcb4f969c74dc2e3e8c
+  checksum: f90e9bf09c602e9af78489fa80b0e3f4fb4799d93b1c8cd61c67a4b994f37db75f97fcfdfc76fc3650fa103ead328f98a382f3dd9b114e1566b58e3dadab71a3
   languageName: node
   linkType: hard
 
@@ -1260,15 +1289,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.3.7":
-  version: 5.3.9
-  resolution: "terser-webpack-plugin@npm:5.3.9"
+"terser-webpack-plugin@npm:^5.3.10":
+  version: 5.3.10
+  resolution: "terser-webpack-plugin@npm:5.3.10"
   dependencies:
-    "@jridgewell/trace-mapping": "npm:^0.3.17"
+    "@jridgewell/trace-mapping": "npm:^0.3.20"
     jest-worker: "npm:^27.4.5"
     schema-utils: "npm:^3.1.1"
     serialize-javascript: "npm:^6.0.1"
-    terser: "npm:^5.16.8"
+    terser: "npm:^5.26.0"
   peerDependencies:
     webpack: ^5.1.0
   peerDependenciesMeta:
@@ -1278,13 +1307,13 @@ __metadata:
       optional: true
     uglify-js:
       optional: true
-  checksum: 339737a407e034b7a9d4a66e31d84d81c10433e41b8eae2ca776f0e47c2048879be482a9aa08e8c27565a2a949bc68f6e07f451bf4d9aa347dd61b3d000f5353
+  checksum: fb1c2436ae1b4e983be043fa0a3d355c047b16b68f102437d08c736d7960c001e7420e2f722b9d99ce0dc70ca26a68cc63c0b82bc45f5b48671142b352a9d938
   languageName: node
   linkType: hard
 
-"terser@npm:^5.16.8":
-  version: 5.24.0
-  resolution: "terser@npm:5.24.0"
+"terser@npm:^5.26.0":
+  version: 5.27.0
+  resolution: "terser@npm:5.27.0"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.8.2"
@@ -1292,14 +1321,14 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: bd7ba6bfef58f8c179592894923c8c933d980e17287d3f2a9927550be853d1601beebb724cf015929599b32945641c44f9c3db8dd242c7933af3830bcb853510
+  checksum: 9b2c5cb00747dea5994034ca064fb3cc7efc1be6b79a35247662d51ab43bdbe9cbf002bbf29170b5f3bd068c811d0212e22d94acd2cf0d8562687b96f1bffc9f
   languageName: node
   linkType: hard
 
-"three@npm:^0.158.0":
-  version: 0.158.0
-  resolution: "three@npm:0.158.0"
-  checksum: 0dcb30fde67495337d129af55f3e4ed5f16425bb55c8fe2ec871bbde8264bdbdf3141fce4733c4739fe394f7840c4b37f6210754f657cfe98554f8f9a02eeb92
+"three@npm:^0.160.0":
+  version: 0.160.1
+  resolution: "three@npm:0.160.1"
+  checksum: 49d5d2d563bfac67a5776579ea3f38e5c9bbd3d20b4bd1bfc035b2ac2cb09649ae4084c1bf4baf933a51930b57716ad2084303601785df827a9bfc643a7acb66
   languageName: node
   linkType: hard
 
@@ -1438,18 +1467,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.89.0":
-  version: 5.89.0
-  resolution: "webpack@npm:5.89.0"
+"webpack@npm:^5.90.1":
+  version: 5.90.1
+  resolution: "webpack@npm:5.90.1"
   dependencies:
     "@types/eslint-scope": "npm:^3.7.3"
-    "@types/estree": "npm:^1.0.0"
+    "@types/estree": "npm:^1.0.5"
     "@webassemblyjs/ast": "npm:^1.11.5"
     "@webassemblyjs/wasm-edit": "npm:^1.11.5"
     "@webassemblyjs/wasm-parser": "npm:^1.11.5"
     acorn: "npm:^8.7.1"
     acorn-import-assertions: "npm:^1.9.0"
-    browserslist: "npm:^4.14.5"
+    browserslist: "npm:^4.21.10"
     chrome-trace-event: "npm:^1.0.2"
     enhanced-resolve: "npm:^5.15.0"
     es-module-lexer: "npm:^1.2.1"
@@ -1463,7 +1492,7 @@ __metadata:
     neo-async: "npm:^2.6.2"
     schema-utils: "npm:^3.2.0"
     tapable: "npm:^2.1.1"
-    terser-webpack-plugin: "npm:^5.3.7"
+    terser-webpack-plugin: "npm:^5.3.10"
     watchpack: "npm:^2.4.0"
     webpack-sources: "npm:^3.2.3"
   peerDependenciesMeta:
@@ -1471,7 +1500,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: ee19b070279c9bc3bf21eeaac3ea08e6583c1b8da334e595b3c9badedbd7f9fad071b9f785076081af661ef247bb72441e86e8b903bf253ae9300007a048ea6e
+  checksum: 6ad23518123f1742238177920cefa61152d981f986adac5901236845c86ba9bb375a3ba75e188925c856c3d2a76a2ba119e95b8a608a51424968389041089075
   languageName: node
   linkType: hard
 
