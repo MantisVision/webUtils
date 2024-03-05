@@ -291,8 +291,8 @@ Added ``getWaitingFrameNumber()`` and ``getAheadReadCount()`` methods.
 Added ``resetCurrentVideoFrame()`` method which should be called each time video jumps to a different timestamp in order to prevent skipping of frames in case of HLS videos (the skipping is normally done as a prevention from a sudden resolution changes).
 
 #### 0.6.2
-- ``getWaitingFrameNumber()`` method returns -1 as soon as the frame was given even if the buffer still waits for additional data frames to buffer (in that case the, the frame position in ``waitingFrame`` internal structure is already filled, but the structure itself hasn't been emptied yet)
-- Attempt to fix a bug in ``private_getDiff`` method, so that it now correctly returns 0 if the last inserted frame is also a current frame (instead of the full length of the buffer as before).
+- ``getWaitingFrameNumber()`` method returns -1 as soon as the frame was given even if the buffer still waits for additional data frames to buffer (in that case, the frame position in ``waitingFrame`` internal structure is already filled, but the structure itself hasn't been emptied yet)
+- Attempt to fix a bug in ``private_getDiff`` method, so that it now correctly returns 0 if the last inserted frame is also the current frame (instead of the full length of the buffer as before).
 
 #### 0.6.4
 Trying to more effectively free the memory when the Header decoder is destroyed.
@@ -303,3 +303,6 @@ finished which might have resulted in a deadlock because the "first buffering fi
 
 #### 0.6.6
 Method ``resetCurrentVideoFrame`` now also resets ``waitingFrame`` structure if it is filled and if the header decoder is waiting for a frame, its resolve from the said structure is also called with -1 in order to prevent the decoder getting stuck with waiting for a data which won't come.
+
+#### 0.6.7
+When a new a frame is sent to buffer via ``addData`` method, it is first checked whether the buffer is not waiting for a different frame and if it is, the sent frame is considered no longer valid. This situation happened if the pause/reset/jumpTo was sent to ``@mantisvision/ryskdownloader``, but before receiving it, the downloader still managed to sent some decoded frames. 

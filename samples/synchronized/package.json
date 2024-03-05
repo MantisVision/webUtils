@@ -17,7 +17,7 @@
 	},
 	"packageManager": "yarn@4.0.2",
 	"devDependencies": {
-		"@mantisvision/ryskplaycanvas": "^0.11.15",
+		"@mantisvision/ryskplaycanvas": "^0.11.16",
 		"@mantisvision/ryskthreejs": "^0.13.6",
 		"@mantisvision/synchronizer": "^0.10.4",
 		"@mantisvision/utils": "^2.4.3",

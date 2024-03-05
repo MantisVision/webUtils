@@ -74,12 +74,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskbuffer@npm:^0.6.6":
-  version: 0.6.6
-  resolution: "@mantisvision/ryskbuffer@npm:0.6.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.6.6%2F65b2dee992c3f8238afd47c250555188e526e64d"
+"@mantisvision/ryskbuffer@npm:^0.6.6, @mantisvision/ryskbuffer@npm:^0.6.7":
+  version: 0.6.7
+  resolution: "@mantisvision/ryskbuffer@npm:0.6.7::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskbuffer%2F0.6.7%2F10538955c902758b1b209f3b6f2430b6f36b283b"
   dependencies:
-    "@mantisvision/utils": "npm:^2.4.0"
-  checksum: f3ab63e8e2459340a9e7c974aace63d936ec51562a8cc4f03c17a62890dd2a73bbc30c5501b8483267b7460a3e75e5429013de939fdf1c252aa7d775e9fc56a3
+    "@mantisvision/utils": "npm:^2.4.3"
+  checksum: aca81e3783e17e6a5c5e7f7398eb1e6041d5d929b7c8096c689a3b6762d7dcdb95c384fac54613c530454ae3869c44f2985c1f7a919b6033037968efbe0474e0
   languageName: node
   linkType: hard
 
@@ -92,7 +92,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskdownloader@npm:^0.6.3":
+"@mantisvision/ryskdownloader@npm:^0.6.4":
   version: 0.6.4
   resolution: "@mantisvision/ryskdownloader@npm:0.6.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.6.4%2F6c58d5d1730ae0ff2509a71601d6a49c3a726657"
   dependencies:
@@ -103,16 +103,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.11.15":
-  version: 0.11.15
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.15::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.15%2F59b28ac4b4b858f0765a7a3f86ca140fe1aa2ac7"
+"@mantisvision/ryskplaycanvas@npm:^0.11.16":
+  version: 0.11.16
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.11.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.11.16%2Fb9dc0227384bbd0afc69271b3cafe39c2f014b71"
   dependencies:
     "@mantisvision/ryskstream": "npm:^4.0.10"
-    "@mantisvision/ryskurl": "npm:^3.3.10"
+    "@mantisvision/ryskurl": "npm:^3.3.11"
     "@mantisvision/utils": "npm:^2.4.3"
   peerDependencies:
     playcanvas: ^1.67.0
-  checksum: 7ad0910be1d9b5449243265a6ad3ad1bbe299742c4fed53e01c3ffc19490b46b4f8f3bd3c9b8fa6dd091ab8e236a5f1811b6f05b0d0e67b82fcfb6bae3e2bcce
+  checksum: 9b64a31b9ca32ae8ea4db36acdd8b09b88884e9af1a1148d2fcbcb84f03b9ccb056aa51c6f091077f1e00038cce794ca6805d614891a3eeaa69c8da803cf229c
   languageName: node
   linkType: hard
 
@@ -120,7 +120,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mantisvision/rysksamples@workspace:."
   dependencies:
-    "@mantisvision/ryskplaycanvas": "npm:^0.11.15"
+    "@mantisvision/ryskplaycanvas": "npm:^0.11.16"
     "@mantisvision/ryskthreejs": "npm:^0.13.6"
     "@mantisvision/synchronizer": "npm:^0.10.4"
     "@mantisvision/utils": "npm:^2.4.3"
@@ -158,14 +158,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskurl@npm:^3.3.10, @mantisvision/ryskurl@npm:^3.3.9":
-  version: 3.3.10
-  resolution: "@mantisvision/ryskurl@npm:3.3.10::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.10%2Fe04e96cbef9407d925e38e5bd84c5c9e8e4e4321"
+"@mantisvision/ryskurl@npm:^3.3.10, @mantisvision/ryskurl@npm:^3.3.11, @mantisvision/ryskurl@npm:^3.3.9":
+  version: 3.3.11
+  resolution: "@mantisvision/ryskurl@npm:3.3.11::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskurl%2F3.3.11%2F9efdbdfc47db617bb8a7ff45f3ac6722d6fb9f68"
   dependencies:
-    "@mantisvision/ryskbuffer": "npm:^0.6.6"
-    "@mantisvision/ryskdownloader": "npm:^0.6.3"
-    "@mantisvision/utils": "npm:^2.4.2"
-  checksum: fc22ef2d2288ed4f5dda9a50f226c5607c5972767b089f450096adf6479870f702f481527d2618362b33983240caf16dafd55f27ca8b465268ca4ffcf1fc7ca4
+    "@mantisvision/ryskbuffer": "npm:^0.6.7"
+    "@mantisvision/ryskdownloader": "npm:^0.6.4"
+    "@mantisvision/utils": "npm:^2.4.3"
+  checksum: 70a316278794e317024eb3c17a44ed8fb2581ecc06bea5db26e4f4b37a6b02a0acb723e89661fc0d53a5d28763ebf629545be1255afbdd7317935fde099b41c0
   languageName: node
   linkType: hard
 

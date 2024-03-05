@@ -586,6 +586,11 @@ When the ``play()`` method is called, preview is set to ``false`` because otherw
 - When the ``canplaythrough`` event is received from the video, the library emits ``databuffered`` event only after the ``playLib()`` call is resolved and no buffering is going on.
 - ``jumpAt`` method fires ``buffering`` event before the real jump and then ``buffered`` event after the ``seeked`` event came from video element (but only if the video itself isn't buffering, is in ready state 4 a nd RYSK data isn't buffering).
 
+#### 3.3.9
+When the RYSK data was buffered, video element was checked for ``readyState`` equal to 4 to see whether ``buffered`` event should be fired. However at times video element didn't emit ``canplaythrough`` event and thus didn't reach state 4. So the mentioned check was in this version lowered to ``readyState`` equals 3.
+
+#### 3.3.11
+``stop()`` method was reworked. Now it simply pauses the playback and jumps to timestamp 0.
 
 ## Release notes RYSKStream
 
