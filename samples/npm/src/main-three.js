@@ -54,7 +54,8 @@ function createRenderer(width,height)
 function run(renderer,scene,camera)
 {
 	const ryskObj = new URLMesh(video_url, data_url, 12, THREE.SRGBColorSpace);
-	ryskObj.setPreviewMode(0);
+	ryskObj.setPreviewMode("full");
+	ryskObj.loop = true;
 	
 	ryskObj.on("buffering",() => console.log("buffering"));
 	ryskObj.on("playing",() => console.log("playing"));
@@ -99,6 +100,15 @@ function run(renderer,scene,camera)
 				ryskObj.pause();
 				event.target.innerHTML = "Play";
 			}
+		}
+	});
+
+	document.getElementById("stop").addEventListener("click",event =>
+	{//event listener for the button which plays/pauses the animation
+		if (ryskObj !== null)
+		{
+			ryskObj.stop();
+			document.getElementById("play").innerHTML = "Play";
 		}
 	});
 

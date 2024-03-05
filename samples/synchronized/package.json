@@ -17,15 +17,15 @@
 	},
 	"packageManager": "yarn@4.0.2",
 	"devDependencies": {
-		"@mantisvision/ryskplaycanvas": "^0.11.11",
-		"@mantisvision/ryskthreejs": "^0.13.5",
+		"@mantisvision/ryskplaycanvas": "^0.11.15",
+		"@mantisvision/ryskthreejs": "^0.13.6",
 		"@mantisvision/synchronizer": "^0.10.4",
-		"@mantisvision/utils": "^2.4.2",
-		"@types/three": "^0.160.0",
-		"playcanvas": "^1.68.0",
-		"three": "^0.160.0",
+		"@mantisvision/utils": "^2.4.3",
+		"@types/three": "^0.162.0",
+		"playcanvas": "^1.68.2",
+		"three": "^0.162.0",
 		"ts-loader": "^9.5.1",
-		"webpack": "^5.90.1",
+		"webpack": "^5.90.3",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {

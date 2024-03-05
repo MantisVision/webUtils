@@ -40,3 +40,6 @@ Typescript type annotations were added into ``dist/MantisRYSKWASM.d.ts``.
 
 #### 0.4.2
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability.
+
+#### 0.4.3
+WASM file recompiled with Draco v 1.5.7 and emsdk 3.1.53

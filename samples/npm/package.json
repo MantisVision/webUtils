@@ -16,11 +16,11 @@
 	},
 	"packageManager": "yarn@4.0.2",
 	"devDependencies": {
-		"@mantisvision/ryskaframe": "^0.9.0",
-		"@mantisvision/ryskplaycanvas": "^0.11.14",
-		"playcanvas": "^1.68.0",
-		"three": "^0.160.0",
-		"webpack": "^5.90.1",
+		"@mantisvision/ryskaframe": "^0.9.1",
+		"@mantisvision/ryskplaycanvas": "^0.11.15",
+		"playcanvas": "^1.68.2",
+		"three": "^0.162.0",
+		"webpack": "^5.90.3",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {
@@ -28,8 +28,8 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"@mantisvision/ryskthreejs": "^0.13.5",
-		"@mantisvision/utils": "^2.4.2",
+		"@mantisvision/ryskthreejs": "^0.13.6",
+		"@mantisvision/utils": "^2.4.3",
 		"aframe": "^1.5.0"
 	}
 }

@@ -11,7 +11,7 @@ is sufficiently buffered. In order to see the meshes, set their visibility prope
   * [Installing a package in your project](#installing-a-package-in-your-project)
   * [Which package to choose](#which-package-to-choose)
     * [For Three.js](#for-threejs-implementation)
-    * [For Playcanvas](#for-playcanvas-implementation)
+    * [For PlayCanvas](#for-playcanvas-implementation)
     * [For A-Frame](#for-a-frame-implementation)
     * [For a custom integration](#for-a-custom-implementation)
     * [Synchronizing multiple RYSK videos](#synchronizing-multiple-rysk-videos)
@@ -76,8 +76,7 @@ yarn add @mantisvision/synchronizer
 ## Which package to choose
 
 ### For Three.js implementation
-The simplest option is to install just ``@mantisvision/rysk`` package. It bundles all other rysk-* packages and exports RYSKStream/StreamMesh 
-and RYSKUrl/URLMesh classes (each couple in fact represents the same class, but named differently for backwards compatibility).
+The simplest option is to install just ``@mantisvision/rysk`` package. It bundles all other rysk-* packages and exports ``RYSKStream``/``StreamMesh`` and ``RYSKUrl``/``URLMesh`` classes (each couple in fact represents the same class, but named differently for backwards compatibility).
 The source code is minified and packed in the single javascript file. Workers and webassembly files are inlined. This means you shouldn't need
 any special loader for webworkers or wasm in your own package bundler. ``@mantisvision/rysk`` was built using Webpack 5, but due to the inlining, it should
 be usable across common package builders. However, it must be used inside a browser which supports webassembly and webworkers (currently, all common modern
@@ -104,12 +103,12 @@ const worker = new Worker(new URL("./package.worker.js",import.meta.url));
 ```
 Webpack 5 will automatically recognize this code and does what is necessary.
 
-Bear in mind that ``@mantisvision/ryskthreejs`` exports classes named StreamMesh (Three.js mesh created from mediastream) 
-and URLMesh (Three.js mesh created from video and data urls), but not RYSKStream and RYSKUrl akin to ``@mantisvision/rysk``,
-(although, as was stated, in ``@mantisvision/rysk`` these are in fact the same classes, but named differently). 
-The change was made to prevent confusion, because ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream`` themselves 
-export RYSKUrl and RYSKStream which are, however, different than StreamMesh and URLMesh (in particular, StreamMesh 
-and URLMesh are meant to provide actual Three.js 3D meshes, whereas RYSKUrl and RYSKStream from ``@mantisvision/ryskurl``
+Bear in mind that ``@mantisvision/ryskthreejs`` exports classes named ``StreamMesh`` (Three.js mesh created from mediastream)
+and ``URLMesh`` (Three.js mesh created from video and data urls), but not ``RYSKStream`` and ``RYSKUrl`` akin to ``@mantisvision/rysk``,
+(although, as was stated, in ``@mantisvision/rysk`` these are in fact the same classes, but named differently).
+The change was made to prevent confusion, because ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream`` themselves
+export ``RYSKUrl`` and ``RYSKStream`` which are, however, different than ``StreamMesh`` and ``URLMesh`` (in particular, ``StreamMesh``
+and ``URLMesh`` are meant to provide actual Three.js 3D meshes, whereas ``RYSKUrl`` and ``RYSKStream`` from ``@mantisvision/ryskurl``
 and ``@mantisvision/ryskstream`` are now entirely decoupled from Three.js and only provide decoded data and canvas which
 gets updated with the current frame).
 
@@ -126,7 +125,7 @@ There is an A-Frame integration package called ``@mantisvision/ryskaframe``, but
 a bit specific. Even though A-Frame seemingly uses Three.js under the hood, in truth it is built on Three.js fork called
 super-three (see [this GitHub issue](https://github.com/aframevr/aframe/issues/4898) ). This means that the integration
 using the existing package ``@mantisvision/ryskthreejs`` is not possible. Furthermore, A-Frame library doesn't have traditional
-module exports (rather it creates a global AFRAME variable) and so neither does ``@mantisvision/ryskaframe``.
+module exports (rather it creates a global ``AFRAME`` variable) and so neither does ``@mantisvision/ryskaframe``.
 It must be therefore imported only after the A-Frame library, and only then it registers its own components.
 
 Beside a traditional, small dependency package, ``@mantisvision/ryskaframe`` offers also a complete, minified, single-file
@@ -174,10 +173,10 @@ The following diagrams show a simplified data flow between the packages. "Applic
 uses these libraries.
 
 It is important to remember that data doesn't always flow sequentially like in the diagrams. In order to synchronize
-decoded data with the video, the data must be sometimes buffered or video paused (in case of RYSKUrl), or some frames
+decoded data with the video, the data must be sometimes buffered or video paused (in case of ``RYSKUrl``), or some frames
 from the incoming stream have to be omitted. The latter happens in the case of RYSKStream, since this is most likely
 a realtime video and as such it can't be paused and wait for the proper data. It is therefore necessary for the third 
-party developer using RYSKStream to provide encoded data with zero delay relatively to the video stream, otherwise
+party developer using ``RYSKStream`` to provide encoded data with zero delay relatively to the video stream, otherwise
 the tearing due to the skipped frames will be visible.
 
 ![alt RYSKUrl flow](./docs/images/RYSKUrl_flow2.png)
@@ -208,4 +207,3 @@ Detailed description of APIs of packages can be found here:
 * [Stream sample](./samples/stream)
 * [PlayCanvas editor sample](./samples/PlayCanvasEditor)
 * [Synchronizer sample](./samples/synchronized)
-
