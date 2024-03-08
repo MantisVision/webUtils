@@ -592,6 +592,9 @@ When the RYSK data was buffered, video element was checked for ``readyState`` eq
 #### 3.3.11
 ``stop()`` method was reworked. Now it simply pauses the playback and jumps to timestamp 0.
 
+### 3.4.0
+``@mantisvision/ryskdownloader`` version [0.7.0](./downloader.md#070) is incorporated.
+
 ## Release notes RYSKStream
 
 ### 4.0.0

@@ -86,3 +86,5 @@ Important bugfix from [0.6.2](./buffer.md#062) release of ``@mantisvision/ryskbu
 Important bugfix from [0.6.5](./buffer.md#065) release of ``@mantisvision/ryskbuffer``.
 #### 4.2.10
 Switch to three.js r158
+### 4.3.0
+``@mantisvision/ryskdownloader`` version [0.7.0](./downloader.md#070) is incorporated.

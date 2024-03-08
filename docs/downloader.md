@@ -226,3 +226,6 @@ Fixed a typo in a log
 
 #### 0.6.4
 Previously, if the .syk file started with a higher frame (e.g. 50), when a jump occurred, the downloader was ordered to download too many frames ahead because it assumed that the .syk file starts with the frame 0. Now it should correctly process the file till it finds the requested frame and only then start to count how many frames it should download ahead.
+
+### 0.7.0
+In case of SYK or RYSK0 type data files, the downloader will now pro-actively creates a map of all keyframes in order to allow jumps to different timestamps without the need to download the .syk file from the beginning.

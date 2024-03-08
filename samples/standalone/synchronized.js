@@ -1,4 +1,4 @@
-import * as three from "https://unpkg.com/three@0.158.0";
+import * as three from "https://unpkg.com/three@0.160.0";
 import { TimingObject } from "./timingsrc.js";
 import "./MantisSynchronizer.min.js";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global

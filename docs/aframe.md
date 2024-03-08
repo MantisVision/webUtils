@@ -212,3 +212,6 @@ Important bugfix from [0.6.5](./buffer.md#065) release of ``@mantisvision/ryskbu
 
 ### 0.9.0
 Added the option to define the colorspace (defaults to "srgb")
+
+### 0.10.0
+``@mantisvision/ryskdownloader`` version [0.7.0](./downloader.md#070) is incorporated.

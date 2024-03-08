@@ -16,7 +16,7 @@ synchronizer.setVolume(1);
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS | MantisLog.DEBUG);
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
 	const viewport = document.getElementById("viewport");
 	if (viewport)
 	{
@@ -67,8 +67,6 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 {
 	const chloeRYSK = new URLMesh(chloe_video, chloe_data, 25, THREE.SRGBColorSpace);
 	const robRYSK = new URLMesh(rob_video, rob_data, 25, THREE.SRGBColorSpace);
-	chloeRYSK.setPreviewMode(true);
-	robRYSK.setPreviewMode(true);
 
 	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
 	
@@ -107,7 +105,7 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		}
 	});
 
-	robRYSK.run().then(mesh => 
+	robRYSK.run().then(mesh =>
 	{//add mesh to the scene
 		if (mesh)
 		{
