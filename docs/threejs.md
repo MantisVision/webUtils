@@ -145,3 +145,6 @@ Connects to [3.2.0](./ryskurlryskstream.md#320) release of ``@mantisvision/rysku
 
 ### 0.13.0
 Switch to three.js r158
+
+### 0.15.0
+Added caching of .syk files into IndexedDB where available (``@mantisvision/ryskdownloader`` version [0.8.0](./downloader.md#080)). The caching is made to persist only a single session in the browser.

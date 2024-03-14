@@ -229,3 +229,9 @@ Previously, if the .syk file started with a higher frame (e.g. 50), when a jump 
 
 ### 0.7.0
 In case of SYK or RYSK0 type data files, the downloader will now pro-actively creates a map of all keyframes in order to allow jumps to different timestamps without the need to download the .syk file from the beginning.
+
+#### 0.7.1
+Fixed searching for a chunk of data with the nearest frame - previously, the algorithm sometimes returned an index of a frame one point lower than the searched one.
+
+### 0.8.0
+Added caching of .syk files into IndexedDB where available. The caching is made to persist only a single session in the browser.

@@ -595,6 +595,12 @@ When the RYSK data was buffered, video element was checked for ``readyState`` eq
 ### 3.4.0
 ``@mantisvision/ryskdownloader`` version [0.7.0](./downloader.md#070) is incorporated.
 
+#### 3.4.1
+When jumping to a different timestamp, do not pause and then play the video, because it may conflicts with the buffer pausing video when it looks for a next frame.
+
+### 3.5.0
+Added caching of .syk files into IndexedDB where available (``@mantisvision/ryskdownloader`` version [0.8.0](./downloader.md#080)). The caching is made to persist only a single session in the browser.
+
 ## Release notes RYSKStream
 
 ### 4.0.0

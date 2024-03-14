@@ -431,5 +431,12 @@ Attempt to fix synchronizing issues when the media loops:
 Change in interfaces which must implement synchronizable objects:
 callbacks passed in ``on`` and ``off`` can accept a single data parameter (e.g. new duration of the video after the change)
 
-### 0.10.3
+#### 0.10.3
 If a ``buffering`` event arrive from RYSK media, first check if the media isn't already buffering to prevent calling the same methods redundantly multiple times.
+
+#### 0.10.4
+When ``video.ended`` event arrives from RYSK media, Synchronizer checks the current time of media if it is at 0.1 sec around the duration because the media might have already looped (which happens it multiple medias have equal or very similar duration).
+
+### 0.11.0
+- timeUpdate object is being periodically checked in ``requestAnimationFrame``, so the library doesn't rely on timeUpdate object's own event emitter.
+- on Safari, checks after correction are performed less frequently, since Safari has a tendency to jump a different timestamps when the library changes playback rate of the video.

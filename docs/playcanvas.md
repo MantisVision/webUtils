@@ -197,3 +197,5 @@ Important bugfix from [0.6.2](./buffer.md#062) release of ``@mantisvision/ryskbu
 Important bugfix from [0.6.5](./buffer.md#065) release of ``@mantisvision/ryskbuffer``.
 ### 0.12.0
 ``@mantisvision/ryskdownloader`` version [0.7.0](./downloader.md#070) is incorporated.
+### 0.13.0
+Added caching of .syk files into IndexedDB where available (``@mantisvision/ryskdownloader`` version [0.8.0](./downloader.md#080)). The caching is made to persist only a single session in the browser.
