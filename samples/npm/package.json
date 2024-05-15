@@ -1,6 +1,7 @@
 {
-	"name": "RYSKUrl sample",
+	"name": "ryskurl-sample",
 	"version": "3.0.2",
+	"type": "module",
 	"description": "This is a sample showcase of RYSKUrl class from @mantisvison/rysk and  @mantisvison/ryskplaycanvas",
 	"keywords": [
 		"client",
@@ -14,13 +15,13 @@
 		"name": "Lubomir Daniel Fedor",
 		"email": "lubomir.fedor@supercomputers.sk"
 	},
-	"packageManager": "yarn@4.1.1",
+	"packageManager": "yarn@4.2.2",
 	"devDependencies": {
 		"@mantisvision/ryskaframe": "^0.11.0",
-		"@mantisvision/ryskplaycanvas": "^0.13.0",
-		"playcanvas": "^1.68.2",
-		"three": "^0.162.0",
-		"webpack": "^5.90.3",
+		"@mantisvision/ryskplaycanvas": "^0.13.2",
+		"playcanvas": "^1.70.2",
+		"three": "^0.164.1",
+		"webpack": "^5.91.0",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {
@@ -28,8 +29,8 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"@mantisvision/ryskthreejs": "^0.15.0",
-		"@mantisvision/utils": "^2.4.3",
+		"@mantisvision/ryskthreejs": "^0.15.2",
+		"@mantisvision/utils": "^2.4.4",
 		"aframe": "^1.5.0"
 	}
 }

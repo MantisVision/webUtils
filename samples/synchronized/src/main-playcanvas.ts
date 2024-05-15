@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded',function()
 		if (canvas)
 		{
 			app = new pc.Application(canvas);
-			const scene = app.scene;
 
 			app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
 			app.setCanvasResolution(pc.RESOLUTION_AUTO);

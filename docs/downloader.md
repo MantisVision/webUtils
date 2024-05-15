@@ -1,11 +1,11 @@
 # RYSKDownloader
-This package contains a downloader class which is used for downloading data from the given url, splitting them into frames
+This package contains a downloader class which is used for downloading SYK/RYSK data from the given url, splitting it into frames
 and passing those frames to ``@mantisvision/decoder``. Internally it uses standard javascript Streams API together with standard fetch function.
-Downloaded data is being continuously split to individual frames and then passed to @mantisvision/decoder.
+The downloaded data is being continuously split to individual frames and then passed to ``@mantisvision/decoder``.
 Each decoded frame data consists of UVs, vertices and indices and is identified by the associated frame number.
-(see @mantisvision/decoder documentation).
+(see [RYSKDecoder documentation](./decoder.md)).
 
-## SYK/RYSK data file
+## SYK/RYSK data file
 SYK/RYSK data can be stored either in a single .syk file or they can be split into multiple .syk files, each containing
 only the data for certain frames. In the latter case, a manifest must be provided in a form of JSON which primarily describes which
 file contains which frames. The JSON format is as follows:
@@ -18,7 +18,7 @@ file contains which frames. The JSON format is as follows:
 },...]
 ```
 The root element is an array because SYK/RYSK data can be in multiple qualities (similar to HLS or MPEG-DASH with video
-files). Each element of the array is an object describing a "single quality". 
+files). Each element of the array is an object describing a "single quality".
 
 ``quality`` property of the object is its quality's
 numeric representation with lower numbers being inferior quality to higher numbers. In the current version, however, other
@@ -31,7 +31,7 @@ been implemented yet.
 the URL of the manifest file,
 
 ``data`` field is an array containing tuples; a two element arrays of which the first element is the number of the first frame
-in a single split SYK/RYSK data file. The second element contains the path to that single split file. The path is 
+in a single split SYK/RYSK data file. The second element contains the path to that single split file. The path is
 relative to the baseUrl property. Bear in mind that the first RYSK data in each split SYK/RYSK data file must be a keyframe,
 otherwise the decoding fails. The split files also shouldn't contain 4 byte identification of the file's format version (e.g.
 RYS0, SYK0 etc) since that one is already specified by the ``version`` property.
@@ -58,7 +58,7 @@ You can use RYSKDownloader like this:
 import RYSKDownloader from "@mantisvision/ryskdownloader";
 
 const downloader = new RYSKDownloader("https://example.com/data.bin");
-downloader.on("frame-downloaded",event => 
+downloader.on("frame-downloaded",event =>
 {
 	const { frameNo, vertices, uvs, indices } = event.data;
 	//vertices, uvs and indices are TypedArrays which share the same ArrayBuffer.
@@ -84,7 +84,7 @@ If the data is split into multiple SYK/RYSK files, they do not contain the data 
 already specified in the separate manifest JSON file.
 
 Following the data format are individual frames. Each frame begins with a its size encoded on 4 bytes as an unsigned 32-bit integer
-in little endian. Size indicates how many following bytes belong to the frame. 
+in little endian. Size indicates how many following bytes belong to the frame.
 
 Next 4 bytes specify frame number in an unsigned 32-bit integer in little endian. The size mentioned above includes these
 four bytes.
@@ -95,7 +95,7 @@ and indices (see its API).
 ## Public API
 ```javascript
 /**
- * Creates a new downloader object which will later, after calling connect method, connects to a given url, 
+ * Creates a new downloader object which will later, after calling connect method, connects to a given url,
  * downloads frames and decrypts them.
  * @param {String} url url from which to download the RYSK data. The URL points either to the data file or to the JSON
  *                 manifest if the data is split to multiple separate SYK/RYSK files. the end of the URL (i.e. .json extension)
@@ -142,7 +142,7 @@ async pause();
 /**
  * Resume paused downloading
  * @param {Integer} frameCount how many frames should be decoded after the downloading resumes
- * @param {Integer} frameToResume number of the first frame which should be decoded after the decoding is resumed. 
+ * @param {Integer} frameToResume number of the first frame which should be decoded after the decoding is resumed.
  *                  If not given, the decoding continues from the frame where it was paused.
  */
 resume(frameCount,frameToResume = null);
@@ -166,7 +166,7 @@ reset(frameCount,frameToResume = null);
 /**
  * Jump to a specific frame in RYSK/SYK file(s).
  * @param {Integer} frameNo number of the frame which should be seek
- * @param {Integer} forwardRead how many frames ahead should be read 
+ * @param {Integer} forwardRead how many frames ahead should be read
  */
 async jumpAt(frameNo,forwardRead);
 ```
@@ -199,7 +199,7 @@ Source codes were migrated to Typescript. The build of the library still produce
 compatibility, but ``*.d.ts`` files with type declarations are included in ``dist/src`` folder for typechecking.
 
 #### 0.5.1
-*BUGFIX* when the video jumped to a different time and it didn't contain a framemap, downloader was unnecessary 
+*BUGFIX* when the video jumped to a different time and it didn't contain a framemap, downloader was unnecessary
 sending all the frames from the very first one to the buffer which might have caused the buffer exhausting its
 capacity too quickly.
 

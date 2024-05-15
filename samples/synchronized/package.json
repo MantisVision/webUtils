@@ -15,17 +15,17 @@
 		"name": "Lubomir Daniel Fedor",
 		"email": "lubomir.fedor@supercomputers.sk"
 	},
-	"packageManager": "yarn@4.1.1",
+	"packageManager": "yarn@4.2.2",
 	"devDependencies": {
-		"@mantisvision/ryskplaycanvas": "^0.13.0",
-		"@mantisvision/ryskthreejs": "^0.15.0",
+		"@mantisvision/ryskplaycanvas": "^0.13.2",
+		"@mantisvision/ryskthreejs": "^0.15.2",
 		"@mantisvision/synchronizer": "^0.11.0",
-		"@mantisvision/utils": "^2.4.3",
-		"@types/three": "^0.162.0",
-		"playcanvas": "^1.68.2",
-		"three": "^0.162.0",
+		"@mantisvision/utils": "^2.4.4",
+		"@types/three": "^0.164.0",
+		"playcanvas": "^1.70.2",
+		"three": "^0.164.1",
 		"ts-loader": "^9.5.1",
-		"webpack": "^5.90.3",
+		"webpack": "^5.91.0",
 		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {
@@ -33,6 +33,6 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"typescript": "^5.4.2"
+		"typescript": "^5.4.5"
 	}
 }
