@@ -95,7 +95,7 @@ and indices (see its API).
 ## Public API
 ```javascript
 /**
- * Creates a new downloader object which will later, after calling connect method, connects to a given url,
+ * Creates a new downloader object which will later, after calling start method, connects to a given url,
  * downloads frames and decrypts them.
  * @param {String} url url from which to download the RYSK data. The URL points either to the data file or to the JSON
  *                 manifest if the data is split to multiple separate SYK/RYSK files. the end of the URL (i.e. .json extension)
@@ -126,10 +126,11 @@ off(event,callback);
 ```
 ```javascript
 /**
- * Starts downloading and decoding.
- * @param {Integer} frameCount how many frames should be decoded. This is used so you don't unnecessary decode too many frames ahead.
- */
-start(frameCount);
+	* Starts downloading and decoding.
+	* @param {number} frameCount how many frames should be decoded. This is used so you don't unnecessary decode too many frames ahead.
+	* @param {number} toEnd how much video time is till the end of the video (used to predict the number of frames to buffer in order)
+	*/
+async start(frameCount, toEnd?);
 ```
 ```javascript
 /**
