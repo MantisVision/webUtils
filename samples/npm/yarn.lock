@@ -106,16 +106,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskplaycanvas@npm:^0.13.2":
-  version: 0.13.2
-  resolution: "@mantisvision/ryskplaycanvas@npm:0.13.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.13.2%2F62e5490e108908a93751b9c075924881bbbb9686"
+"@mantisvision/ryskplaycanvas@npm:^0.13.3":
+  version: 0.13.3
+  resolution: "@mantisvision/ryskplaycanvas@npm:0.13.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskplaycanvas%2F0.13.3%2F360a844e7a4484d510f4fe6e718e35bedffbed55"
   dependencies:
     "@mantisvision/ryskstream": "npm:^4.0.10"
     "@mantisvision/ryskurl": "npm:^3.5.0"
     "@mantisvision/utils": "npm:^2.4.4"
   peerDependencies:
-    playcanvas: ^1.70.0
-  checksum: 10/4207c5857fc2e93b10ac74481d0c54ee2e4e76fc5fa0b9eb736c22e95f5b8fd8dc170e504cb82198a0704a0810843d1158c6a5036a23e278fd9707ce4a9ca214
+    playcanvas: ^1.70.3
+  checksum: 10/0c53c4c35ebbe08b317a705d82adba28270ae134da50ce107ca8b0a3d8f46d1fc5a66aabcfb8c65de322faa78ecb393e584bc77b69442354e74e33033e2b5ae2
   languageName: node
   linkType: hard
 
@@ -1440,13 +1440,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playcanvas@npm:^1.70.2":
-  version: 1.70.2
-  resolution: "playcanvas@npm:1.70.2"
+"playcanvas@npm:^1.70.3":
+  version: 1.70.3
+  resolution: "playcanvas@npm:1.70.3"
   dependencies:
     "@types/webxr": "npm:^0.5.14"
     "@webgpu/types": "npm:^0.1.40"
-  checksum: 10/b59dc1047fad266e7044994e7ec07d99ada5d7e2988abc1aa28f427dcf5abd20a46a24cda5457d717a5f618edcc7a3a9b98de95c429bcf3055259f18a60ab313
+  checksum: 10/0d0800d774000a166321150b02c74bd957e3fa5cb996803204eacf810cff3a04ef465e97223098e995453f3fd1535e468f38b6a34682e81e92afc55e4533f937
   languageName: node
   linkType: hard
 
@@ -1580,11 +1580,11 @@ __metadata:
   resolution: "ryskurl-sample@workspace:."
   dependencies:
     "@mantisvision/ryskaframe": "npm:^0.11.0"
-    "@mantisvision/ryskplaycanvas": "npm:^0.13.2"
+    "@mantisvision/ryskplaycanvas": "npm:^0.13.3"
     "@mantisvision/ryskthreejs": "npm:^0.15.2"
     "@mantisvision/utils": "npm:^2.4.4"
     aframe: "npm:^1.5.0"
-    playcanvas: "npm:^1.70.2"
+    playcanvas: "npm:^1.70.3"
     three: "npm:^0.164.1"
     webpack: "npm:^5.91.0"
     webpack-cli: "npm:^5.1.4"
