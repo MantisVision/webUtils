@@ -1,6 +1,6 @@
 {
 	"name": "ryskurl-sample",
-	"version": "3.0.2",
+	"version": "4.0.0",
 	"type": "module",
 	"description": "This is a sample showcase of RYSKUrl class from @mantisvison/rysk and  @mantisvison/ryskplaycanvas",
 	"keywords": [
@@ -17,8 +17,8 @@
 	},
 	"packageManager": "yarn@4.11.0",
 	"devDependencies": {
-		"@mantisvision/ryskaframe": "^0.12.0",
-		"@mantisvision/ryskplaycanvas": "^0.14.2",
+		"@mantisvision/ryskaframe": "^0.13.0",
+		"@mantisvision/ryskplaycanvas": "^0.15.0",
 		"playcanvas": "^2.13.0",
 		"three": "^0.181.1",
 		"webpack": "^5.102.1",
@@ -29,28 +29,8 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"@mantisvision/ryskthreejs": "^0.16.2",
-		"@mantisvision/utils": "^2.5.0",
+		"@mantisvision/ryskthreejs": "^0.17.0",
+		"@mantisvision/utils": "^3.0.0",
 		"aframe": "^1.7.1"
-	},
-	"resolutions": {
-		"@mantisvision/ryskaframe": "portal:/var/www/mantis/aframe",
-		"@mantisvision/ryskbuffer": "portal:/var/www/mantis/buffer",
-		"@mantisvision/sentryintegration": "portal:/var/www/mantis/debug",
-		"@mantisvision/ryskdecoder": "portal:/var/www/mantis/decoder",
-		"@mantisvision/ryskdownloader": "portal:/var/www/mantis/downloader",
-		"@mantisvision/ryskplaycanvas": "portal:/var/www/mantis/playcanvas",
-		"@mantisvision/rysk": "portal:/var/www/mantis/rysk",
-		"@mantisvision/ryskwasm": "portal:/var/www/mantis/ryskwasm",
-		"@mantisvision/ryskstream": "portal:/var/www/mantis/stream",
-		"@mantisvision/synchronizer": "portal:/var/www/mantis/synchronizer",
-		"@mantisvision/testsite": "portal:/var/www/mantis/testsite",
-		"@mantisvision/ryskthreejs": "portal:/var/www/mantis/threejs",
-		"@mantisvision/ryskunity3d": "portal:/var/www/mantis/unity",
-		"@mantisvision/ryskurl": "portal:/var/www/mantis/url",
-		"@mantisvision/utils": "portal:/var/www/mantis/utils",
-		"@mantisvision/ryskwechat": "portal:/var/www/mantis/wechat",
-		"@mantisvision/spackwasm": "portal:/var/www/mantis/spackwasm",
-		"@mantisvision/rysksplat": "portal:/var/www/mantis/splat"
 	}
 }

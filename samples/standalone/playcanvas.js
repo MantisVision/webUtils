@@ -3,37 +3,39 @@ const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	window.Rysk.MantisLog.SetLogLevel(window.Rysk.MantisLog.WARNINGS | window.Rysk.MantisLog.ERRORS);
-	var app = null;
-	try
+	import("./MantisRYSKPlayCanvas.min.js").then(() => 
 	{
-		const canvas = document.getElementById('playcanvas');
-		app = new pc.Application(canvas);
-		const scene = app.scene;
+		Rysk.MantisLog.SetLogLevel(window.Rysk.MantisLog.WARNINGS | window.Rysk.MantisLog.ERRORS);
+		var app = null;
+		try
+		{
+			const canvas = document.getElementById('playcanvas');
+			app = new pc.Application(canvas);
 
-		app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
-		app.setCanvasResolution(pc.RESOLUTION_AUTO);
+			app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+			app.setCanvasResolution(pc.RESOLUTION_AUTO);
 
-		const camera = new pc.Entity('camera');
-		camera.addComponent('camera', {
-			clearColor: new pc.Color(1, 1, 1),
-			projection: pc.PROJECTION_PERSPECTIVE,
-			fov: 70
-		});
-		app.root.addChild(camera);
-		camera.setPosition(0, 1.5, 2.2);
-		camera.setEulerAngles(-13, 0, 0);
+			const camera = new pc.Entity('camera');
+			camera.addComponent('camera', {
+				clearColor: new pc.Color(1, 1, 1),
+				projection: pc.PROJECTION_PERSPECTIVE,
+				fov: 70
+			});
+			app.root.addChild(camera);
+			camera.setPosition(0, 1.5, 2.2);
+			camera.setEulerAngles(-13, 0, 0);
 
-		// create directional light entity
-		const light = new pc.Entity('light');
-		light.addComponent('light');
-		app.root.addChild(light);
-		light.setEulerAngles(45, 180, 0);
-	}catch (err)
-	{
-		console.error(err);
-	}
-	run(app);
+			// create directional light entity
+			const light = new pc.Entity('light');
+			light.addComponent('light');
+			app.root.addChild(light);
+			light.setEulerAngles(-13, 0, 0);
+		}catch (err)
+		{
+			console.error(err);
+		}
+		run(app);
+	});
 });
 
 /**
