@@ -1,4 +1,4 @@
-import * as three from "https://unpkg.com/three@0.160.0";
+import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.js";
 // Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
 // variable THREE to be already registered present
 
@@ -7,6 +7,7 @@ const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
+	window.THREE = THREE;
 	import("./MantisRYSK.min.js").then(() => 
 	{
 		Rysk.MantisLog.SetLogLevel(Rysk.MantisLog.WARNINGS | Rysk.MantisLog.ERRORS);
@@ -78,7 +79,11 @@ function run(renderer,scene,camera)
 	
 	ryskObj.onVideoEvent("timeupdate",() => 
 	{
-		progress.value = ryskObj.getVideoElement().currentTime;
+		const videoElement = ryskObj.getVideoElement();
+		if (videoElement)
+		{
+			progress.value = videoElement.currentTime;
+		}
 	});
 	
 	ryskObj.run().then(mesh => 
