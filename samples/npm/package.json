@@ -29,6 +29,7 @@
 		"build": "webpack"
 	},
 	"dependencies": {
+		"@mantisvision/rysksplat": "^0.1.4",
 		"@mantisvision/ryskthreejs": "^0.17.0",
 		"@mantisvision/utils": "^3.0.0",
 		"aframe": "^1.7.1"

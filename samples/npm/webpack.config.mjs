@@ -12,6 +12,7 @@ export default
 
 		entry: {
 			three: './src/main-three.js',
+			spack: './src/main-spack.js',
 			playcanvas: './src/main-playcanvas.js',
 			aframe: './src/main-aframe.js'
 		},
