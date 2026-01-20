@@ -22,9 +22,10 @@
 			#viewport { width: 100vw; height: 100vh; position: relative }
 			#progress { width: 100%; position: absolute; bottom: 5px }
 			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; }
-			#playcanvas { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; }
-			#aframe { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; }
-			#spack { position: absolute; top: 15px; right: 245px; width: 100px; height: 35px; font-size: 17px; }
+			#splinter { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; }
+			#spack { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; }
+			#playcanvas { position: absolute; top: 15px; right: 245px; width: 100px; height: 35px; font-size: 17px; }
+			#aframe { position: absolute; top: 15px; right: 360px; width: 100px; height: 35px; font-size: 17px; }
 			#playbackratediv { top: 55px; position: absolute; left:15px; font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif; }
 			body {margin: 0}
 		</style>
@@ -32,7 +33,8 @@
 	<body>
 		<div id="viewport">
 			<button id="play">Play</button>
-			<a href="./index-spack.html"><button id="spack">Spack</button></a>
+			<a href="./index-spack.html?type=splinter"><button id="splinter">Splinter</button></a>
+			<a href="./index-splat.html?type=spack"><button id="spack">Spack</button></a>
 			<a href="./index-playcanvas.html"><button id="playcanvas">Playcanvas</button></a>
 			<a href="./index-aframe.html"><button id="aframe">A-Frame</button></a>
 			<div id="playbackratediv">

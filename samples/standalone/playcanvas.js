@@ -65,9 +65,9 @@ function run(app)
 			progress.setAttribute("max", duration);
 		});
 
-		ryskObj.onVideoEvent("timeupdate",() => 
+		ryskObj.onMediaEvent("timeupdate",() => 
 		{
-			progress.value = ryskObj.getVideoElement().currentTime;
+			progress.value = ryskObj.getMediaElement().currentTime;
 		});
 		
 		ryskObj.run().then(ryskEntity => 

@@ -51,8 +51,21 @@ function run(app)
 {
 	try
 	{
-		const ryskObj = new URLMesh(video_url,data_url,12);
-		ryskObj.setPreviewMode(1);
+		const ryskObj = new URLMesh({ 
+			mediaurl: video_url,
+			dataurl: data_url,
+			frameBufferSize: 12,
+			previewMode: 1,
+			autorun: {
+				onSuccess(entity)
+				{
+					ryskObj.setVolume(1);
+					entity.enabled = true;			
+					app.root.addChild(entity);
+				},
+				onError: console.error
+			}
+		});
 		
 		const progress = document.getElementById("progress");
 	
@@ -67,17 +80,10 @@ function run(app)
 			progress.setAttribute("max", duration);
 		});
 
-		ryskObj.onVideoEvent("timeupdate",() => 
+		ryskObj.onMediaEvent("timeupdate",() => 
 		{
-			progress.value = ryskObj.getVideoElement().currentTime;
+			progress.value = ryskObj.getMediaElement().currentTime;
 		});
-
-		ryskObj.run().then(entity =>
-		{//add mesh to the scene
-			ryskObj.setVolume(1);
-			entity.enabled = true;			
-			app.root.addChild(entity);
-		}).catch(console.error); 
 
 		document.getElementById("play").addEventListener("click",event =>
 		{//event listener for the button which plays/pauses the animation

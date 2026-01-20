@@ -1,14 +1,14 @@
 import * as THREE from "three";
-import { URLMesh } from "@mantisvision/ryskthreejs";
 import { MantisLog } from "@mantisvision/utils";
+import { SplatMesh, SPACKUrl } from "@mantisvision/rysksplat";
 
 import * as TIMINGSRC from "./timingsrc.js";
 import VideoSync, { TimingObject, VideoSyncEvents } from "@mantisvision/synchronizer";
 
-const chloe_video = "./chloe_battle.mp4";
-const chloe_data = "./chloe_battle.syk";
-const rob_video = "./rob.mp4";
-const rob_data = "./rob.syk";
+const splinteraudio_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.m4a";
+const splinterdata_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.splinter";
+const spackvideo_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/ElfLabs/2025-10-09_david_phillips_pitch_09-dp_spack_50k_spack.mp4";
+const spackdata_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/ElfLabs/2025-10-09_david_phillips_pitch_09-dp_spack_50k_spack.spack";
 
 const synchronizer = new VideoSync(<TimingObject>(<any>TIMINGSRC).TimingObject);
 synchronizer.setAutoplay(false);
@@ -65,45 +65,72 @@ function createRenderer(width: number, height: number)
  */
 function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera)
 {
-	const chloeRYSK = new URLMesh({
-		mediaurl: chloe_video, 
-		dataurl: chloe_data, 
-		frameBufferSize: 25, 
-		textureColorSpace: THREE.SRGBColorSpace,
-		autorun: {
+	let res1:  (value: any) => void;
+	const promise1 = new Promise<SPACKUrl>((resolve, reject) => 
+	{
+		res1 = resolve;
+	});
+
+	const splinterMesh = new SplatMesh({
+		mediaurl: splinteraudio_url,
+		dataurl: splinterdata_url,
+		loop: true,
+		renderer,
+		autoinit: {
 			onError: console.error,
-			onSuccess(mesh)
+			onSuccess(splatRYSK)
 			{
-				if (mesh)
-				{
-					mesh.position.set(-1,0,0);
-					mesh.visible = true;
-					scene.add(mesh);
-				}
+				splinterMesh.position.set(1,0,0);
+				splinterMesh.rotateY(Math.PI);
+				splinterMesh.visible = true;
+				splinterMesh.setVolume(1);
+				scene.add(splinterMesh);
+				res1(splatRYSK);
 			}
 		}
 	});
 
-	const robRYSK = new URLMesh({
-		mediaurl: rob_video, 
-		dataurl: rob_data, 
-		frameBufferSize: 25, 
-		textureColorSpace: THREE.SRGBColorSpace,
-		autorun: {
+	let res2: (value: any) => void;
+	const promise2 = new Promise<SPACKUrl>((resolve, reject) => 
+	{
+		res2 = resolve;
+	});
+
+	const spackMesh = new SplatMesh({
+		mediaurl: spackvideo_url,
+		dataurl: spackdata_url,
+		loop: true,
+		renderer,
+		autoinit: {
 			onError: console.error,
-			onSuccess(mesh)
+			onSuccess(splatRYSK)
 			{
-				if (mesh)
-				{
-					mesh.position.set(1, 0, 0);
-					mesh.visible = true;
-					scene.add(mesh);
-				}
+				spackMesh.position.set(-1,0,0);
+				spackMesh.rotateY(Math.PI);
+				spackMesh.visible = true;
+				spackMesh.setVolume(1);
+				scene.add(spackMesh);
+				res2(splatRYSK);
 			}
 		}
 	});
+	
 
-	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
+	Promise.allSettled([promise1, promise2]).then(results => 
+	{
+		const ryskObjs: SPACKUrl[] = [];
+		for (const res of results)
+		{
+			if (res.status === "fulfilled" && res.value !== null)
+			{
+				ryskObjs.push(res.value);
+			}
+		}
+		if (ryskObjs.length > 0)
+		{
+			synchronizer.addMedia(ryskObjs).then(() => synchronizer.setLoop(ryskObjs, true));
+		}
+	});
 	
 	const progress = document.getElementById("progress") as HTMLProgressElement;
 	
@@ -129,7 +156,10 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
  	{
 		if (newtime) progress.value = newtime;
 	});
-		
+
+	synchronizer.on(VideoSyncEvents.buffered, () => MantisLog.debug("VideoSync is buffered", "aqua", "purple"))
+	
+	
 	document.getElementById("play")?.addEventListener("click",event =>
 	{//event listener for the button which plays/pauses the animation
 		if (event.target)
@@ -159,8 +189,17 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 	
 	renderer.setAnimationLoop((timestamp, frame) => 
 	{//animation loop to render each frame-
-		if (chloeRYSK !== null) chloeRYSK.update();
-		if (robRYSK !== null) robRYSK.update();
+		//if (chloeRYSK !== null) chloeRYSK.update();
+		if (spackMesh !== null)
+		{
+			spackMesh.update(camera);
+			spackMesh.renderTextureOverlay(renderer, false);
+		}
+		if (splinterMesh !== null)
+		{
+			splinterMesh.update(camera);
+			splinterMesh.renderTextureOverlay(renderer, false);
+		}
 		
 		renderer.clear(true, true, true);
 		renderer.render(scene, camera);

@@ -1,13 +1,14 @@
 import * as THREE from "three";
 import { SplatMesh, SpackLoader, OrbitControls } from "@mantisvision/rysksplat";
-import { MantisLog } from "@mantisvision/utils";
+import { MantisLog, RyskEvents } from "@mantisvision/utils";
 
-const video_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/ophelia_70_frames_spack2.mp4";
-const data_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/ophelia_70_frames_spack2.spack";
+const splinteraudio_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.m4a";
+const splinterdata_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.splinter";
+const spackvideo_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/ElfLabs/2025-10-09_david_phillips_pitch_09-dp_spack_50k_spack.mp4";
+const spackdata_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/ElfLabs/2025-10-09_david_phillips_pitch_09-dp_spack_50k_spack.spack";
 
 let _renderer;
 let _controls;
-let _splatRenderReady = false;
 
 document.addEventListener('DOMContentLoaded',function()
 {
@@ -118,41 +119,26 @@ async function run(renderer,scene,camera)
 {
 	addLight(scene);
 	addPlane(scene);
-	window.spackLoader = SpackLoader;
-	const opt =  SplatMesh.createDefaultOptions();	
-	opt.devicePixelRatio = window.devicePixelRatio;
-	opt.logLevel = 3;
-	// opt.sharedMemoryForWorkers = false;
-	// opt.splatSortDistanceMapPrecision = 20;
 	
-	// const splatMesh = new SplatMesh("./splat/4_AUTOGS_6566d8c_spack2.mp4","./splat/4_AUTOGS_6566d8c_spack2.spack", opt);
-	//const splatMesh = new SplatMesh("./splat/ophelia_fixed_topo_50k_70_frames_spack2.mp4","./splat/ophelia_fixed_topo_50k_70_frames_spack2.spack", opt);	
-	const splatMesh = new SplatMesh(video_url, data_url, opt);	
+	const urlParams = new URLSearchParams(window.location.search);
+	const type = urlParams.get('type');
+	const media_url = type && type === "splinter" ? splinteraudio_url : spackvideo_url;
+	const data_url = type && type === "splinter" ? splinterdata_url : spackdata_url;
+
+	const splatMesh = new SplatMesh({
+		mediaurl: media_url,
+		dataurl: data_url,
+		loop: true,
+		autoinit: {
+			onError: console.error,
+			onSuccess()
+			{
+				splatMesh.setVolume(1);
+				scene.add(splatMesh);
+			}
+		}
+	});	
 	splatMesh.setRenderer(renderer);
-	window.splatMesh = splatMesh;
-
-	try {
-		const elements = await splatMesh.loadFromRyskURL();
-
-		// const splatBuffer = await SpackLoader.loadFromURL("./splat/3/webInfo.json", (percentComplete, percentCompleteLabel, loaderStatus) => {
-		// 	//console.log("[MATUS] Progress: ", percentComplete, percentCompleteLabel);
-		// })
-		
-		// console.log("[MATUS] Loaded SplatBuffer:", splatBuffer);
-		// const results = await splatMesh.build([splatBuffer], [], true, true, () => {}, () => {}, true);
-		// console.log("[MATUS] SplatMesh.build result:", results);
-
-		// await splatMesh.setupSortWorker(results);
-
-		// console.log("[MATUS] Splat Render Ready");
-		// splatMesh.isRenderReady = true;
-
-		splatMesh.setVolume(1);
-	}
-	catch(err)
-	{
-		console.error(err);
-	}
 	
 	const progress = document.getElementById("progress");
 	
@@ -188,15 +174,16 @@ async function run(renderer,scene,camera)
 		}
 	});
 	
-	splatMesh.on("buffering",() => console.log("buffering"));
-	splatMesh.on("playing",() => console.log("playing"));
+	splatMesh.on(RyskEvents.buffering, () => console.log("buffering"));
+	splatMesh.on(RyskEvents.playing, () => console.log("playing"));
+	splatMesh.on(RyskEvents.videoEnded, () => console.log("vide ended"));
 
 	splatMesh.getDuration().then(duration =>
 	{
 		progress.setAttribute("max", duration);
 	});
 
-	splatMesh.onVideoEvent("timeupdate",() => 
+	splatMesh.onMediaEvent("timeupdate",() => 
 	{
 		progress.value = splatMesh.getCurrentTime();
 	});
@@ -219,8 +206,6 @@ async function run(renderer,scene,camera)
 			fpsCounter.innerHTML = `FPS: ${fps}<br/>Decode: ${splatMesh.fps}<br/>Sort: ${splatMesh.lastSortTime.toFixed(2)}ms`;
 		}
 	}
-
-	scene.add(splatMesh);
 
 	renderer.setAnimationLoop((timestamp, frame) => 
 	{		

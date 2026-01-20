@@ -1,6 +1,6 @@
 {
 	"name": "@mantisvision/rysksamples",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "This is a sample showcase of RYSKUrl class from @mantisvison/rysk and  @mantisvison/ryskplaycanvas",
 	"keywords": [
 		"client",
@@ -15,17 +15,17 @@
 		"name": "Lubomir Daniel Fedor",
 		"email": "lubomir.fedor@supercomputers.sk"
 	},
-	"packageManager": "yarn@4.11.0",
+	"packageManager": "yarn@4.12.0",
 	"devDependencies": {
-		"@mantisvision/ryskplaycanvas": "^0.15.0",
-		"@mantisvision/ryskthreejs": "^0.17.0",
-		"@mantisvision/synchronizer": "^0.12.0",
-		"@mantisvision/utils": "^3.0.0",
-		"@types/three": "^0.181.0",
-		"playcanvas": "^2.13.0",
-		"three": "^0.181.1",
+		"@mantisvision/ryskplaycanvas": "^0.15.1",
+		"@mantisvision/ryskthreejs": "^1.0.6",
+		"@mantisvision/synchronizer": "^0.15.1",
+		"@mantisvision/utils": "^3.1.2",
+		"@types/three": "^0.182.0",
+		"playcanvas": "^2.15.1",
+		"three": "^0.182.0",
 		"ts-loader": "^9.5.4",
-		"webpack": "^5.102.1",
+		"webpack": "^5.104.1",
 		"webpack-cli": "^6.0.1"
 	},
 	"scripts": {
@@ -33,6 +33,7 @@
 		"build": "webpack"
 	},
 	"dependencies": {
+		"@mantisvision/rysksplat": "^0.2.11",
 		"typescript": "^5.9.3"
 	}
 }

@@ -1,7 +1,7 @@
-import * as three from "https://unpkg.com/three@0.160.0";
+import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.js";
 import { TimingObject } from "./timingsrc.js";
 import "./MantisSynchronizer.min.js";
-// Import of three.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
+// Import of THREE.js must take place prior to the MantisRYSK.min.js because RYSK library relies on the global
 // variable THREE to be already registered present
 
 const synchronizer = new window.RyskSynchronizer(TimingObject);
@@ -13,6 +13,7 @@ const rob_data = "./rob.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
+	window.THREE = THREE;
 	import("./MantisRYSK.min.js").then(() => 
 	{
 		Rysk.MantisLog.SetLogLevel(Rysk.MantisLog.WARNINGS | Rysk.MantisLog.ERRORS);
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded',function()
 		const scene = new THREE.Scene();
 		const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);
 
-		// three.js camera is created and inserted into the scene
+		// THREE.js camera is created and inserted into the scene
 		const cameraRigY = new THREE.Group();
 		const cameraRigX = new THREE.Group();
 		cameraRigY.add(cameraRigX);
@@ -63,10 +64,43 @@ function createRenderer(width,height)
  */
 function run(renderer,scene,camera)
 {
-	const chloeRYSK = new Rysk.RYSKUrl(chloe_video, chloe_data, 25, THREE.SRGBColorSpace);
-	const robRYSK = new Rysk.RYSKUrl(rob_video, rob_data, 25, THREE.SRGBColorSpace);
-	chloeRYSK.setPreviewMode(true);
-	robRYSK.setPreviewMode(true);
+	const chloeRYSK = new Rysk.RYSKUrl({
+		mediaurl: chloe_video, 
+		dataurl: chloe_data, 
+		frameBufferSize: 25, 
+		textureColorSpace: THREE.SRGBColorSpace,
+		autorun: {
+			onError: console.error,
+			onSuccess(mesh)
+			{
+				if (mesh)
+				{
+					mesh.position.set(-1,0,0);
+					mesh.visible = true;
+					scene.add(mesh);
+				}
+			}
+		}
+	});
+
+	const robRYSK = new Rysk.RYSKUrl({
+		mediaurl: rob_video, 
+		dataurl: rob_data, 
+		frameBufferSize: 25, 
+		textureColorSpace: THREE.SRGBColorSpace,
+		autorun: {
+			onError: console.error,
+			onSuccess(mesh)
+			{
+				if (mesh)
+				{
+					mesh.position.set(1, 0, 0);
+					mesh.visible = true;
+					scene.add(mesh);
+				}
+			}
+		}
+	});
 	synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
 	synchronizer.setVolume(1);
 
@@ -90,21 +124,7 @@ function run(renderer,scene,camera)
 		}
 	});
 	synchronizer.on("timeupdate",newtime => progress.value = newtime);
-	
-	chloeRYSK.run().then(mesh =>
-	{//add mesh to the scene
-		mesh.position.set(-1,0,0);
-		mesh.visible = true;
-		scene.add(mesh);
-	});
-
-	robRYSK.run().then(mesh =>
-	{//add mesh to the scene
-		mesh.position.set(1,0,0);
-		mesh.visible = true;
-		scene.add(mesh);
-	});
-	
+		
 	document.getElementById("play").addEventListener("click",event =>
 	{//event listener for the button which plays/pauses the animation
 		if (synchronizer.isPaused())

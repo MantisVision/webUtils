@@ -7,7 +7,8 @@ const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS | MantisLog.DEBUG);
+	console.log("TUUUUUU")
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS| MantisLog.DEBUG);
 	const viewport = document.getElementById("viewport");
 	const scene = new THREE.Scene();
 	const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);
@@ -51,11 +52,25 @@ function createRenderer(width,height)
  * @param {THREE.PerspectiveCamera} camera
  * @returns {undefined}
  */
-function run(renderer,scene,camera)
+function run(renderer, scene, camera)
 {
-	const ryskObj = new URLMesh(video_url, data_url, 12, THREE.SRGBColorSpace);
-	ryskObj.setPreviewMode(1);
-	ryskObj.loop = true;
+	const ryskObj = new URLMesh({
+		mediaurl: video_url,
+		dataurl: data_url,
+		frameBufferSize: 12,
+		textureColorSpace: THREE.SRGBColorSpace,
+		loop: true,
+		previewMode: 1,
+		autorun: {
+			onSuccess(mesh)
+			{
+				ryskObj.setVolume(1);
+				mesh.visible = true;
+				scene.add(mesh);
+			},
+			onError: console.error
+		}
+	});
 	
 	ryskObj.on("buffering",() => console.log("buffering"));
 	ryskObj.on("playing",() => console.log("playing"));
@@ -73,17 +88,10 @@ function run(renderer,scene,camera)
 		progress.setAttribute("max", duration);
 	});
 	
-	ryskObj.onVideoEvent("timeupdate",() => 
+	ryskObj.onMediaEvent("timeupdate",() => 
 	{
 		progress.value = ryskObj.getCurrentTime();
 	});
-	
-	ryskObj.run().then(mesh =>
-	{//add mesh to the scene
-		ryskObj.setVolume(1);
-		mesh.visible = true;
-		scene.add(mesh);
-	}); 
 	
 	document.getElementById("play").addEventListener("click",event =>
 	{//event listener for the button which plays/pauses the animation

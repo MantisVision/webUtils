@@ -58,8 +58,23 @@ function createRenderer(width,height)
  */
 function run(renderer,scene,camera)
 {
-	const ryskObj = new Rysk.RYSKUrl(video_url, data_url, 25, THREE.SRGBColorSpace);
-	ryskObj.setPreviewMode(true);
+	const ryskObj = new Rysk.RYSKUrl({
+		mediaurl: video_url,
+		dataurl: data_url,
+		frameBufferSize: 12,
+		textureColorSpace: THREE.SRGBColorSpace,
+		loop: true,
+		previewMode: 1,
+		autorun: {
+			onSuccess(mesh)
+			{
+				ryskObj.setVolume(1);
+				mesh.visible = true;
+				scene.add(mesh);
+			},
+			onError: console.error
+		}
+	});
 	
 	ryskObj.on("buffering",() => console.log("buffering"));
 	ryskObj.on("buffered",() => console.log("buffered"));
@@ -77,20 +92,13 @@ function run(renderer,scene,camera)
 		progress.setAttribute("max", duration);
 	});
 	
-	ryskObj.onVideoEvent("timeupdate",() => 
+	ryskObj.onMediaEvent("timeupdate",() => 
 	{
-		const videoElement = ryskObj.getVideoElement();
-		if (videoElement)
+		const mediaElement = ryskObj.getMediaElement();
+		if (mediaElement)
 		{
-			progress.value = videoElement.currentTime;
+			progress.value = mediaElement.currentTime;
 		}
-	});
-	
-	ryskObj.run().then(mesh => 
-	{//add mesh to the scene
-		ryskObj.setVolume(1);
-		mesh.visible = true;
-		scene.add(mesh);
 	});
 	
 	document.getElementById("play").addEventListener("click",event =>

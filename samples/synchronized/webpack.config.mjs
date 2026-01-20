@@ -12,6 +12,7 @@ export default
 
 	entry: {
 		three: './src/main-three.ts',
+		splat: './src/main-splat.ts',
 		playcanvas: './src/main-playcanvas.ts',
 	},
 	output: {
