@@ -111,7 +111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/ryskdownloader@npm:^0.11.4":
+"@mantisvision/ryskdownloader@npm:^0.11.4, @mantisvision/ryskdownloader@npm:^0.11.5":
   version: 0.11.5
   resolution: "@mantisvision/ryskdownloader@npm:0.11.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40MantisVision%2Fryskdownloader%2F0.11.5%2F92f19c0e57738f845982a277607fea3d4704ad51"
   dependencies:
@@ -136,19 +136,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantisvision/rysksplat@npm:^0.2.11":
-  version: 0.2.11
-  resolution: "@mantisvision/rysksplat@npm:0.2.11::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Frysksplat%2F0.2.11%2Ffce2d6a506f91226611489a17732209cec49e1fc"
+"@mantisvision/rysksplat@npm:^0.2.12":
+  version: 0.2.12
+  resolution: "@mantisvision/rysksplat@npm:0.2.12::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40mantisvision%2Frysksplat%2F0.2.12%2F3fc555fb10fe0134c925ef948b15e7cd8ea6835c"
   dependencies:
     "@mantisvision/ryskbuffer": "npm:^0.8.1"
-    "@mantisvision/ryskdownloader": "npm:^0.11.4"
+    "@mantisvision/ryskdownloader": "npm:^0.11.5"
     "@mantisvision/ryskstream": "npm:^5.0.0"
     "@mantisvision/ryskurl": "npm:^4.0.5"
     "@mantisvision/spackwasm": "npm:^0.3.1"
     "@mantisvision/utils": "npm:^3.1.2"
   peerDependencies:
     three: ^0.182.0
-  checksum: 10c0/91ab41bf3e8882dc2f59a21c0e115406658c251d5c77ee47d71513852c511ca07e53c99abb0b0f4f771e43afe62766d2d4d27f0d2d472fff7a7a461dd285f24f
+  checksum: 10c0/9633b688c361573657e3b94b02ed8e5e07bf225c1d987a3fe6c91ca035da5c1028916db12227ab1ac3d986de6cbed8daa82686cea30f0f4a46715b711d34e43e
   languageName: node
   linkType: hard
 
@@ -2184,7 +2184,7 @@ __metadata:
   dependencies:
     "@mantisvision/ryskaframe": "npm:^0.13.1"
     "@mantisvision/ryskplaycanvas": "npm:^0.15.1"
-    "@mantisvision/rysksplat": "npm:^0.2.11"
+    "@mantisvision/rysksplat": "npm:^0.2.12"
     "@mantisvision/ryskthreejs": "npm:^1.0.6"
     "@mantisvision/utils": "npm:^3.1.2"
     aframe: "npm:^1.7.1"

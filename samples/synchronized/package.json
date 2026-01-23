@@ -33,7 +33,7 @@
 		"build": "webpack"
 	},
 	"dependencies": {
-		"@mantisvision/rysksplat": "^0.2.11",
+		"@mantisvision/rysksplat": "^0.2.12",
 		"typescript": "^5.9.3"
 	}
 }
