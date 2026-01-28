@@ -1,6 +1,7 @@
-# RYSKUrl NPM sample project
+# NPM sample project
 This application presents a simple way to use URLMesh class from ``@mantisvision/ryskthreejs`` with Three.js library, 
-``@mantisvision/ryskplaycanvas`` with Playcanvas library or ``@mantisvision/ryskaframe``with A-Frame library.
+``@mantisvision/ryskplaycanvas`` with Playcanvas library, ``@mantisvision/ryskaframe``with A-Frame library.
+It also showcases splat ``@mantisvision/rysksplat`` library with SPLINTER/SPACK data compression combined with Three.js library.
 
 ## Build the project
 This application is using Yarn as its package manager and Webpack as package bundler. Since ``@mantisvision/rysk*`` libraries
@@ -8,11 +9,15 @@ are published in Github repository and Github doesn't allow unauthorized access 
 to add [.yarnrc.yml](.yarnrc.yml) file and set your authorization token (it can be generated through the user's profile on Github).
 
 If you don't have yarn installed yet, run:
-``npm install --global yarn``
-Then, inside this folder, run
+```shell
+corepack enable  
+corepack install
+```
+in the root directory of this sample sample.
+
+Then run  
 ``yarn install``
-This should install all the necessary dependencies.
-In order to build the project, run
+This should install all the necessary dependencies. In order to build the project, run  
 ``yarn build``
 
 ## Run the project
