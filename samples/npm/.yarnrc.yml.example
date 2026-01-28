@@ -11,5 +11,3 @@ npmScopes:
     npmAuthToken: "your_git_auth_token_here"
     npmPublishRegistry: "https://npm.pkg.github.com"
     npmRegistryServer: "https://npm.pkg.github.com"
-
-yarnPath: .yarn/releases/yarn-4.1.1.cjs

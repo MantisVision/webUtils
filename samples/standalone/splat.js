@@ -1,6 +1,4 @@
-import * as THREE from "three";
-import { SplatMesh, SpackLoader, OrbitControls } from "@mantisvision/rysksplat";
-import { MantisLog, RyskEvents } from "@mantisvision/utils";
+import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.js";
 
 const splinteraudio_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.m4a";
 const splinterdata_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.splinter";
@@ -12,34 +10,43 @@ let _controls;
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
-	const viewport = document.getElementById("viewport");
-	const scene = new THREE.Scene();
-	const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);
-	
-	// three.js camera is created and inserted into the scene
-	const cameraRigY = new THREE.Group();
-	const cameraRigX = new THREE.Group();
-	cameraRigY.add(cameraRigX);
-	scene.add(cameraRigY);
-	
-	const camera = new THREE.PerspectiveCamera(70, viewport.offsetWidth / viewport.offsetHeight, 0.01, 100);
-	camera.position.set(2, 1, 0);
-	camera.lookAt(0, 0.8, 0);
-	cameraRigY.add(camera);
+	window.THREE = THREE;
+	const urlParams = new URLSearchParams(window.location.search);
+	const type = urlParams.get('type');
 
-	let resizeObserver = new ResizeObserver(() => {
-		renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
-		// this.forceRenderNextFrame();
+	document.getElementById(type ?? "spack").style.display = "none";
+
+	import("./MantisSplat.min.js").then(() =>
+	{
+		Splat.MantisLog.SetLogLevel(Splat.MantisLog.ERRORS | Splat.MantisLog.WARNINGS | Splat.MantisLog.DEBUG);
+		const viewport = document.getElementById("viewport");
+		const scene = new THREE.Scene();
+		const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);
+		
+		// three.js camera is created and inserted into the scene
+		const cameraRigY = new THREE.Group();
+		const cameraRigX = new THREE.Group();
+		cameraRigY.add(cameraRigX);
+		scene.add(cameraRigY);
+		
+		const camera = new THREE.PerspectiveCamera(70, viewport.offsetWidth / viewport.offsetHeight, 0.01, 100);
+		camera.position.set(2, 1, 0);
+		camera.lookAt(0, 0.8, 0);
+		cameraRigY.add(camera);
+
+		let resizeObserver = new ResizeObserver(() => {
+			renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
+			// this.forceRenderNextFrame();
+		});
+		resizeObserver.observe(viewport);
+		
+		viewport.appendChild(renderer.domElement);
+
+		_renderer = renderer;
+		_controls = setupControls(camera, renderer, new THREE.Vector3(0, 0.8, 0));
+
+		run(renderer,scene,camera);
 	});
-	resizeObserver.observe(viewport);
-	
-	viewport.appendChild(renderer.domElement);
-
-	_renderer = renderer;
-	_controls = setupControls(camera, renderer, new THREE.Vector3(0, 0.8, 0));
-
-	run(renderer,scene,camera);
 });
 
 /**
@@ -70,7 +77,7 @@ function createRenderer(width,height)
  */
 function setupControls(camera, renderer, initialCameraLookAt)
 {
-	const controls = new OrbitControls(camera, renderer.domElement);
+	const controls = new Splat.OrbitControls(camera, renderer.domElement);
 	controls.listenToKeyEvents(window);
 	controls.rotateSpeed = 0.5;
 	controls.maxPolarAngle = Math.PI * .75;
@@ -125,9 +132,7 @@ async function run(renderer,scene,camera)
 	const media_url = type && type === "splinter" ? splinteraudio_url : spackvideo_url;
 	const data_url = type && type === "splinter" ? splinterdata_url : spackdata_url;
 
-	document.getElementById(type ?? "spack").style.display = "none";
-
-	const splatMesh = new SplatMesh({
+	const splatMesh = new Splat.SplatMesh({
 		mediaurl: media_url,
 		dataurl: data_url,
 		loop: true,
@@ -176,9 +181,9 @@ async function run(renderer,scene,camera)
 		}
 	});
 	
-	splatMesh.on(RyskEvents.buffering, () => console.log("buffering"));
-	splatMesh.on(RyskEvents.playing, () => console.log("playing"));
-	splatMesh.on(RyskEvents.videoEnded, () => console.log("vide ended"));
+	splatMesh.on(Splat.RyskEvents.buffering, () => console.log("buffering"));
+	splatMesh.on(Splat.RyskEvents.playing, () => console.log("playing"));
+	splatMesh.on(Splat.RyskEvents.videoEnded, () => console.log("vide ended"));
 
 	splatMesh.getDuration().then(duration =>
 	{
@@ -189,34 +194,13 @@ async function run(renderer,scene,camera)
 	{
 		progress.value = splatMesh.getCurrentTime();
 	});
-
-
-	// FPS logic
-/*	const fpsCounter = document.getElementById("fpsCounter");
-	let lastTime = performance.now();
-	let frameCount = 0;
-	let fps = 0;
-
-	function updateFPS() {
-		const now = performance.now();
-		frameCount++;
-
-		if (now - lastTime >= 1000) {
-			fps = frameCount;
-			frameCount = 0;
-			lastTime = now;
-			fpsCounter.innerHTML = `FPS: ${fps}<br/>Decode: ${splatMesh.fps}<br/>Sort: ${splatMesh.lastSortTime.toFixed(2)}ms`;
-		}
-	}
-*/
+	
 	renderer.setAnimationLoop((timestamp, frame) => 
 	{		
-		splatMesh.update(camera);
-		
-		if (splatMesh.canRender()) 
-		{	
+		splatMesh.update(camera);	
+		if (splatMesh.canRender()) 	
+		{
 			renderer.render(scene, camera);
-			//updateFPS();
 		}
 	});
 }
