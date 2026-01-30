@@ -6,3 +6,5 @@
 /samples/rspack/
 /samples/threejs-bug/
 /samples/npm/.vscode/
+/samples/**/*.m4a
+/samples/**/*.splinter

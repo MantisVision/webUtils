@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { SplatMesh, SpackLoader, OrbitControls } from "@mantisvision/rysksplat";
+import { SplatMesh, OrbitControls } from "@mantisvision/splatthreejs";
 import { MantisLog, RyskEvents } from "@mantisvision/utils";
 
 const splinteraudio_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.m4a";

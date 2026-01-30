@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { MantisLog } from "@mantisvision/utils";
-import { SplatMesh, SPACKUrl } from "@mantisvision/rysksplat";
+import { SplatMesh, SPACKUrl } from "@mantisvision/splatthreejs";
 
 import * as TIMINGSRC from "./timingsrc.js";
 import VideoSync, { TimingObject, VideoSyncEvents } from "@mantisvision/synchronizer";
