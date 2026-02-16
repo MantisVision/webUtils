@@ -1,10 +1,10 @@
 # ryskwasm
-This package contains wasm code of the decoder, together with the necessary javascript loader. 
+This package contains wasm code of the decoder of SYK and RYSK files, together with the necessary javascript loader. 
 It exports a single asynchronous function that returns Wasm module upon which a decoding methods can be called.
 
 ## Install
-You can install this package using either of the following commands for either yarn or npm
-```
+You can install this package using your favorite package manager; for example yarn or npm:
+```shell
 yarn add @mantisvision/ryskwasm
 npm install @mantisvision/ryskwasm
 ```
@@ -23,14 +23,14 @@ GetWasmModule().then(Module =>
 	wasmInstance.Decode();
 	
 	// these three are typed arrays of vertices, uvs and indices
-    // their ArrayBuffer belongs to WASM, so it is prudent to copy them first because their data might get overriden 
+    // their ArrayBuffer belongs to WASM, so it is prudent to copy them first because their data might get overwritten 
     // by the next decoding process
 	const vertices = wasmInstance.GetVertices();
 	const uvs = wasmInstance.GetUVs();
 	const indices = wasmInstance.GetIndices();
 
 	// ... do something with vertices, uvs and indices
-};						
+});						
 ```
 
 ## Release notes

@@ -70,16 +70,13 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		dataurl: chloe_data, 
 		frameBufferSize: 25, 
 		textureColorSpace: THREE.SRGBColorSpace,
-		autorun: {
+		autoinit: {
 			onError: console.error,
-			onSuccess(mesh)
+			onSuccess(result)
 			{
-				if (mesh)
-				{
-					mesh.position.set(-1,0,0);
-					mesh.visible = true;
-					scene.add(mesh);
-				}
+				result.mesh.position.set(-1,0,0);
+				result.mesh.visible = true;
+				scene.add(result.mesh);
 			}
 		}
 	});
@@ -89,16 +86,13 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		dataurl: rob_data, 
 		frameBufferSize: 25, 
 		textureColorSpace: THREE.SRGBColorSpace,
-		autorun: {
+		autoinit: {
 			onError: console.error,
-			onSuccess(mesh)
+			onSuccess(result)
 			{
-				if (mesh)
-				{
-					mesh.position.set(1, 0, 0);
-					mesh.visible = true;
-					scene.add(mesh);
-				}
+				result.mesh.position.set(1, 0, 0);
+				result.mesh.visible = true;
+				scene.add(result.mesh);
 			}
 		}
 	});
@@ -158,10 +152,7 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 	});
 	
 	renderer.setAnimationLoop((timestamp, frame) => 
-	{//animation loop to render each frame-
-		if (chloeRYSK !== null) chloeRYSK.update();
-		if (robRYSK !== null) robRYSK.update();
-		
+	{//animation loop to render each frame	
 		renderer.clear(true, true, true);
 		renderer.render(scene, camera);
 	});

@@ -62,10 +62,18 @@ function run(app: pc.Application)
 {
 	try
 	{
-		const chloeRYSK = new URLMesh(chloe_video, chloe_data, 25);
-		const robRYSK = new URLMesh(rob_video, rob_data, 25);
-		chloeRYSK.setPreviewMode(true);
-		robRYSK.setPreviewMode(true);
+		const chloeRYSK = new URLMesh({
+			mediaurl: chloe_video, 
+			dataurl: chloe_data, 
+			frameBufferSize: 25,
+			previewMode: true
+		});
+		const robRYSK = new URLMesh({
+			mediaurl: rob_video, 
+			dataurl: rob_data, 
+			frameBufferSize: 25,
+			previewMode: true
+		});
 		synchronizer.addMedia([chloeRYSK, robRYSK]).then(() => synchronizer.setLoop([chloeRYSK, robRYSK], true));
 
 		const progress = <HTMLProgressElement>document.getElementById("progress");
@@ -89,24 +97,18 @@ function run(app: pc.Application)
 			if (newtime) progress.value = newtime;
 		});
 
-		chloeRYSK.run().then(entity => 
+		chloeRYSK.init().then(result => 
 		{//add mesh to the scene
-			if (entity)
-			{
-				entity.enabled = true;
-				entity.setPosition(-1,0,0);
-				app.root.addChild(entity);
-			}
+			result.mesh.enabled = true;
+			result.mesh.setPosition(-1,0,0);
+			app.root.addChild(result.mesh);
 		}).catch(console.error); 
 
-		robRYSK.run().then(entity => 
+		robRYSK.init().then(result => 
 		{//add mesh to the scene
-			if (entity)
-			{
-				entity.enabled = true;
-				entity.setPosition(1,0,0);
-				app.root.addChild(entity);
-			}
+			result.mesh.enabled = true;
+			result.mesh.setPosition(1,0,0);
+			app.root.addChild(result.mesh);
 		}).catch(console.error); 
 
 		document.getElementById("play")?.addEventListener("click",event =>
@@ -137,11 +139,6 @@ function run(app: pc.Application)
 		});
 		
 		app.start();
-		app.on("frameupdate",() => 
-		{ 
-			chloeRYSK.update();
-			robRYSK.update();
-		});
 	}catch (err)
 	{
 		console.error(err);

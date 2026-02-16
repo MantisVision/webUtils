@@ -56,12 +56,12 @@ function run(app)
 			dataurl: data_url,
 			frameBufferSize: 12,
 			previewMode: 1,
-			autorun: {
-				onSuccess(entity)
+			autoinit: {
+				onSuccess(result)
 				{
 					ryskObj.setVolume(1);
-					entity.enabled = true;			
-					app.root.addChild(entity);
+					result.mesh.enabled = true;			
+					app.root.addChild(result.mesh);
 				},
 				onError: console.error
 			}
@@ -110,7 +110,6 @@ function run(app)
 		});
 		
 		app.start();
-		app.on("frameupdate",() => { if (ryskObj) ryskObj.update(); });
 	}catch (err)
 	{
 		console.error(err);

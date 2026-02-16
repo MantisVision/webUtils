@@ -447,7 +447,7 @@
         <rect class="BoundingBox" x="7847" y="11196" width="5107" height="2108" fill="none"/>
         <path d="m8486 11249h3828l586 586v828l-586 587h-3828l-586-587v-828l586-586z" fill="#fff"/>
         <path d="m8486 11249h3828l586 586v828l-586 587h-3828l-586-587v-828l586-586z" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="106"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph"><tspan class="TextPosition" x="9163" y="12443"><tspan fill="rgb(0,0,0)" font-family="Liberation Sans, sans-serif" font-size="564px" font-weight="700" style="white-space:pre">rysksplat</tspan></tspan></tspan></text>
+        <text class="SVGTextShape"><tspan class="TextParagraph"><tspan class="TextPosition" x="8850" y="12443"><tspan fill="rgb(0,0,0)" font-family="Liberation Sans, sans-serif" font-size="564px" font-weight="700" style="white-space:pre">splatthreejs</tspan></tspan></tspan></text>
        
       </g>
       <g class="com.sun.star.drawing.ConnectorShape">

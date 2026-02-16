@@ -1,7 +1,7 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.js";
 
-const splinteraudio_url = "./2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.m4a";
-const splinterdata_url = "./2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.splinter";
+const splinteraudio_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.m4a";
+const splinterdata_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.splinter";
 const spackvideo_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/ElfLabs/2025-10-09_david_phillips_pitch_09-dp_spack_50k_spack.mp4";
 const spackdata_url = "https://prg-syk-uploads.s3.us-east-1.amazonaws.com/ElfLabs/2025-10-09_david_phillips_pitch_09-dp_spack_50k_spack.spack";
 

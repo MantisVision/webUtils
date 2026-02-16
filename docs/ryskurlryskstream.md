@@ -4,8 +4,8 @@ uvs, vertices and indices synced with the frame on the internally created HTML c
 to achieve that).
 
 ## Install
-You can install this package using either of the following commands for either yarn or npm
-```
+You can install this package using your favorite package manager; for example yarn or npm:
+```shell
 yarn add @mantisvision/ryskurl
 npm install @mantisvision/ryskurl
 ```
@@ -13,9 +13,45 @@ npm install @mantisvision/ryskurl
 ## Usage:
 In order to obtain the canvas with the current frame and synced data, a new object of this imported class needs to be created:
 ```javascript
-const ryskObj = new RYSKUrl("video_url","data_url");
+import RYSKUrl from "@mantisvision/ryskurl";
+
+const ryskObj = new RYSKUrl({
+	mediaurl: "video_url",
+	dataurl: "data_url"
+});
 ```
-``data_url`` can point to data in one of these five formats:
+The configuration object in the constructor is of the following type:
+```typescript
+type RYSKUrlConfiguration = {
+	/** url of the media to be downloaded */
+	mediaurl: string;
+	/** dataurl url of the volumetric data (SYK/RYSK/SPLINTER/SPACK) */
+	dataurl: string; 
+	/** how many frames of SYK/RYSK data should be preloaded */
+	frameBufferSize?: number; 
+	/** how many bytes must be downloaded until playback is even started */
+	minimalRequiredDownloaded?: number;
+	/** whether the volumetric video should loop (true by default) */
+	loop?: boolean;
+	/** enable/disable the preview mode (default is false) */
+	previewMode?: boolean;
+	/** timestamp of the playback start in the media */
+	beginning?: number;
+	/** timestamp of the playback end in the media */
+	end?: number;
+	/** 
+	 * If the callback is provided to autoinit, the RYSKUrl object shall be initialized 
+	 * straight in the constructor and the media and canvas HTML elements will be passed to the callback
+	 * once they're ready (usually after calling play() or if the previewMode is set to true).
+	 */
+	autoinit?: {
+		onSuccess: (elements: { canvas: HTMLCanvasElement, media: HTMLMediaElement }) => void;
+		onError: (error: unknown) => void;
+	} 
+}
+```
+
+`data_url` can point to data in one of these five formats:
 * SYK1
 * SYK2
 * RYS0
@@ -26,12 +62,17 @@ They can be packed in a single .syk file or split into multiple .syk files. In t
 (having .json extension) must be provided. "video_url" can also point either to the video file or to HLS manifest 
 (having .m3u3 extension). For more details see the [HLS Support documentation](./hlssupport.md).
 
-The process of decoding the data and pairing it with the video frames can be started by invoking ``init`` method on the object.
-It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
-mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient).
-It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
-needs to be turned up through ``setVolume()`` method:
+The process of decoding the data and pairing it with the video frames can be started either by manually invoking ``init`` method on the object or setting `autoinit` property on the configuration object passed to the constructor.
 
+If the object is initialized through the `init()` method, it returns a promise which gets resolved with the object containing HTML canvas element and HTML video element (the latter
+mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient). Be aware that you might need to call `play()` method on your object first, or set the `previewMode` property of the configuration in the constructor to `true`, otherwise the promise never resolves, since without running the video playback there's no way for the library to draw a frame on the canvas and therefor pair it with the volumetric data.
+
+The same basically applies if you pass callbacks to `autoinit` in the constructor - the callbacks are executed only after you call `play()` or set the `previewMode` to `true`
+
+It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
+needs to be turned up through `setVolume()` method:
+
+Example of calling `init()` method:
 ```javascript
 ryskObj.init()
 	.then(elements => 
@@ -39,44 +80,55 @@ ryskObj.init()
 		const { canvas, video } = elements;
 		ryskObj.setVolume(1); // video is muted at the beginning to avoid autoplay issues on iOS Safari!
 		/* do something with the canvas */ 
-	}).catch(err => console.error(err));
+	}).catch(console.error);
 ```
-The same canvas can be later (after invoking ``init``) obtained also by calling
+Example with setting the callback in the constructor:
+```javascript
+const ryskObj = new RYSKUrl({
+	mediaurl: "video_url",
+	dataurl: "data_url",
+	autoinit: {
+		onSuccess(elements)
+		{
+			const { canvas, video } = elements;
+			ryskObj.setVolume(1);
+			/* do something with the canvas */ 
+		},
+		onError: console.error
+	}
+});
+```
+
+The same canvas can be later (after invoking `init`) obtained also by calling
 ```javascript
 const canvas = ryskObj.getCanvas();
 ```
-In order to ensure the canvas is updated according to the new frames in the video, ``update`` method has to be called
-periodically on the object. One option is to put it into the ``requestAnimationFrame`` callback like this:
-```javascript
-const animate = () => 
-{
-	requestAnimationFrame(animate);
-	ryskObj.update();
-};
-requestAnimationFrame(animate);
-```
 
-There is no need to call ``getCanvas`` after each update because it is the original HTML element which gets modified 
+There is no need to call `getCanvas` after each update because it is the original HTML element which gets modified 
 according to the new frames from the video and the current SYK/RYSK data.
 
-In order to obtain the decoded frames, an event callback needs to be registered using ``on()`` method. The name of the
-event is "dataDecoded" (it can also be found importing ``RyskEvents`` object from ``@mantisvision/utils`` package; namely
-it's ``RyskEvents.dataDecoded``).
+In order to obtain the decoded frames, an event callback needs to be registered using `on()` method. The name of the
+event is "dataDecoded" (it can also be found importing `eRyskEvents` object from `@mantisvision/utils` package; namely
+it's `eRyskEvents.dataDecoded`).
 
 ```javascript
-ryskObj.on(RyskEvents.dataDecoded,async function(data)
+import { eRyskEvents } from "@mantisvision/utils";
+
+ryskObj.on(eRyskEvents.dataDecoded, async function(data)
 {
 	const { uvs, indices, vertices, frameNo } = data;
 	await doSomething(uvs, indices, vertices, frameNo);
 });
 ```
-The passed callback should either be asynchronous or return a promise. Internally, RyskURL will wait till it resolves
+The passed callback should either be asynchronous or return a promise. Internally, RYSKUrl will wait till it resolves
 in order to continue with matching the current video frame with the data.
 
-The end of the video is marked by "video.ended" event (``RyskEvents`` object from ``@mantisvision/utils`` package has it
-as ``RyskEvents.videoEnded``).
+The end of the video is marked by "video.ended" event (``eRyskEvents`` object from ``@mantisvision/utils`` package has it
+as ``eRyskEvents.videoEnded``).
 ```javascript
-ryskObj.on(RyskEvents.videoEnded,function()
+import { eRyskEvents } from "@mantisvision/utils";
+
+ryskObj.on(eRyskEvents.videoEnded,function()
 { /* free the resources, clean up */ });
 ```
 
@@ -89,47 +141,45 @@ ryskObj = null;
 The usage may look like this:
 ```javascript
 import { RYSKUrl } from "@mantisvision/ryskurl";
-import { RyskEvents } from "@mantisvision/utils";
+import { eRyskEvents } from "@mantisvision/utils";
 
-const ryskObj = new RYSKUrl("video_url","data_url");
+
 var canvas = null;
-
-const animate = () => 
-{
-	if (ryskObj !== null)
-	{
-		requestAnimationFrame(animate);
-		ryskObj.update();
+const ryskObj = new RYSKUrl({
+	mediaurl: "video_url",
+	dataurl: "data_url",
+	autoinit: {
+		onSuccess(elements)
+		{
+			canvas = elements.canvas;
+			ryskObj.setVolume(1);
+			/* do something with the canvas */
+		},
+		onError: console.error
 	}
-};
+});
 
-ryskObj.on(RyskEvents.dataDecoded,async function(data)
+ryskObj.on(eRyskEvents.dataDecoded,async function(data)
 {
 	const { uvs, indices, vertices, frameNo } = data;
 	await doSomething(uvs, indices, vertices, frameNo);
 });
 
-ryskObj.on(RyskEvents.videoEnded,() => 
+ryskObj.on(eRyskEvents.videoEnded,() => 
 { 
 	ryskObj.dispose();
 	/* free the resources, clean up */ 
 });
-
-ryskObj.init().then(elements => 
-	{
-		requestAnimationFrame(animate);
-		canvas = elements.canvas;
-		/* do something with the canvas */
-	}).catch(err => console.error(err));
 ```
-## Issue of init(), play() and setPreviewMode()
-The pre-buffering (which includes the downloading and decoding of the RYSK data) starts when ``init()`` method is executed. However, the video with the texture normally starts to play only after the ``play()`` method is called. It is only after that the promise from the ``init()`` method gets resolved. This mechanism was chosen so that user is actually forced to call ``play()`` manually due to autoplay issue in modern browsers (and predominantly on mobile devices).
 
-However, you may wish to obtain some sort of "preview image" even before ``play()`` is executed. You can use method ``setPreviewMode(true)`` of the ``RYSKUrl`` object, ideally right after the object is constructed. When then the ``init()`` method is called, the library internally mutes the video (this is done to try to circumvent the autoplay ban), plays the video for one frame and then immediately pauses it and returns the volume to the previously set level.
+## The issue of init(), play() and setPreviewMode()
+The pre-buffering (which includes the downloading and decoding of the RYSK data) starts when ``init()`` method is executed. However, the video with the texture normally starts to play only after the ``play()`` method is called. It is only after that the promise from the ``init()`` method gets resolved. This mechanism was chosen so that the user is actually forced to call ``play()`` manually due to autoplay issue in modern browsers (and predominantly on mobile devices).
+
+However, you may wish to obtain some sort of "preview image" even before ``play()`` is executed. You can use method ``setPreviewMode(true)`` of the ``RYSKUrl`` object (ideally right after the object is constructed) or `previewMode` property in the configuration object passed into the constructor. If you then call the ``init()`` method, the library internally mutes the video (this is done to try to circumvent the autoplay ban), plays the video for one frame and then immediately pauses it and returns the volume to the previously set level.
 
 The same thing also happens if ``jumpAt()`` method is called in case the video was paused prior to the jump. After the jump, the video is played for a single frame and then paused again which should result in drawing the first frame after the jump onto the canvas (this is, of course, unnecessary if the video is playing when it jumps).
 
-There is no need to call ``setPreviewMode(true)`` each time you want to obtain the "preview image"; one call enables the behavior until it's turned off again by ``setPreviewMode(false)``.
+There is no need to call ``setPreviewMode(true)`` each time you want to obtain the "preview image"; one call (or setting it in the constructor) enables the behavior until it's turned off again by `setPreviewMode(false)`.
 
 # RYSKStream
 This class works with a realtime, continuous MediaStream and it needs to be periodically fed by encoded SYK/RYSK data frames.
@@ -147,63 +197,85 @@ npm install @mantisvision/ryskstream
 ## Usage:
 To create a new instance of the class, a MediaStream object needs to be provided for the constructor:
 ```javascript
-const ryskObj = new RYSKStream(MediaStream);
+import RYSKStream from "@mantisvision/ryskstream";
+
+const ryskObj = new RYSKStream({ mediastream: MediaStream });
 ```
-The process of decoding the data and pairing it with the video frames can be started by invoking ``init`` method on the object.
-It returns a promise which resolves with the object containing HTML canvas element and HTML video element (the latter
-mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient).
-It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume
-needs to be turned up through ``setVolume()`` method:
+The configuration object in the constructor is of the following type:
+```typescript
+type RYSKStreamConfiguration = {
+	/** mediastream object */
+	mediastream: MediaStream;
+	/** 
+	 * If the callback is provided to autoinit, the RYSKStream object shall be initialized 
+	 * straight in the constructor and and the media and canvas HTML elements will be passed to the callback
+	 * once they're ready (usually after calling play() or if the previewMode is set to true).
+	 */
+	autoinit?: {
+		videoWidth: number;
+		videoHeight: number;
+		onSuccess: (elements: RYSKRun) => void;
+		onError: (error: unknown) => void;
+	}
+}
+```
+
+The process of decoding the data and pairing it with the video frames can be started by invoking `init()` method on the object
+or setting the `autoinit` property in the configuration object in the constructor.
+If the object is initialized through the `init()` method, it returns a promise which gets resolved with the object containing HTML canvas element and HTML video element (the latter
+mainly for the reference purposes or to be used in the edge situations when canvas element alone is insufficient). It is very important to remember that the video is intentionally muted, so if it contains an audio track, the volume needs to be turned up through ``setVolume()`` method.
+
+Example using `init()` method call:
 ```javascript
-ryskObj.init()
+ryskObj.init(1920, 1080)
 	.then(elements => 
 	{ 
 		const { canvas, video } = elements;
 		/* do something with the canvas */ 
 	}).catch(err => console.error(err));
 ```
+Example with setting the callback in the constructor:
+```javascript
+const ryskObj = new RYSKStream({
+	mediastream: MediaStream,
+	autoinit: {
+		videoWidth: 1920,
+		videoHeight: 1080,
+		onSuccess(elements)
+		{
+			const { canvas, video } = elements;
+			ryskObj.setVolume(1);
+			/* do something with the canvas */ 
+		},
+		onError: console.error
+	}
+});
+```
+
 The same canvas can be later (after invoking ``init``) obtained also by calling
 ```javascript
 const canvas = ryskObj.getCanvas();
 ```
-In order to ensure the canvas is updated according to the new frames in the video, ``update`` method has to be called
-periodically on the object. One option is to put it into the ``requestAnimationFrame`` callback like this:
-```javascript
-const animate = () => 
-{
-	requestAnimationFrame(animate);
-	ryskObj.update();
-};
-requestAnimationFrame(animate);
-```
+
 Encoded SYK/RYSK data are passed using ``addRYSKData`` method. Only data describing a single frame might be used as an
-argument. The programmer must ensure the passed data is in sync with the MediaStream. If it arrives only after 
-the video frame it relates to, the canvas might not get redrawn with the proper frame since the RYSKStream tries to keep
+argument. For the truly live stream, the passed data must be in sync with the MediaStream. If it arrives after 
+the video frame it relates to, the canvas might not get redrawn with the proper frame since the `RYSKStream` tries to keep
 up with the realtime video. The data should not be provided too early as well, least they exceed buffer capacity which 
 is currently set to 100 frames.
 ```javascript
 ryskObj.addRYSKData("version_of_RYSK_SYK",Uint8ArrayData);
 ```
-In order to ensure the canvas is updated according to the new frames in the video, ``update`` method has to be called
-periodically on the object. One option is to put it into the ``requestAnimationFrame`` callback like this:
-```javascript
-const animate = () => 
-{
-	requestAnimationFrame(animate);
-	ryskObj.update();
-};
-requestAnimationFrame(animate);
-
-```
 There is no need to call ``getCanvas`` after each update because it is the original HTML element which gets modified 
 according to the new frames from the video and the current SYK/RYSK data.
 
 In order to obtain the decoded frames, an event callback needs to be registered using ``on()`` method. The name of the
-event is "dataDecoded" (it can also be found importing ``RyskEvents`` object from ``@mantisvision/utils`` package; namely
-it's ``RyskEvents.dataDecoded``).
+event is "dataDecoded" (it can also be found importing ``eRyskEvents`` object from ``@mantisvision/utils`` package; namely
+it's ``eRyskEvents.dataDecoded``).
 
 ```javascript
-ryskObj.on(RyskEvents.dataDecoded,async function(data)
+import { eRyskEvents } from "@mantisvision/utils";
+
+ryskObj.on(eRyskEvents.dataDecoded,async function(data)
 {
 	const { uvs, indices, vertices, frameNo } = data;
 	await doSomething(uvs, indices, vertices, frameNo);
@@ -221,22 +293,12 @@ ryskObj = null;
 The usage may look like this:
 ```javascript
 import { RYSKStream } from "@mantisvision/ryskstream";
-import { RyskEvents } from "@mantisvision/utils";
+import { eRyskEvents } from "@mantisvision/utils";
 
 const ryskObj = new RYSKStream(media_stream);
 var canvas = null;
 
-const animate = () => 
-{
-	if (ryskObj !== null)
-	{ // pass encoded data to RYSKStream
-		ryskObj.addRYSKData("RYS0",data);
-		requestAnimationFrame(animate);
-		ryskObj.update();
-	}
-};
-
-ryskObj.on(RyskEvents.dataDecoded,async function(data)
+ryskObj.on(eRyskEvents.dataDecoded,async function(data)
 {
 	const { uvs, indices, vertices, frameNo } = data;
 	await doSomething(uvs, indices, vertices, frameNo);
@@ -244,7 +306,6 @@ ryskObj.on(RyskEvents.dataDecoded,async function(data)
 
 ryskObj.init().then(elements => 
 	{
-		requestAnimationFrame(animate);
 		canvas = elements.canvas;
 		/* do something with the canvas */
 	}).catch(err => console.error(err));
@@ -269,16 +330,27 @@ It might become useful to listen also for native events of video element which c
 ``onVideoEvent(event,func)`` callback which is in fact a mere wrapper around the native ``addEventListener`` method.
 
 # Public API
+The default exported class is `RYSKUrl` which is useful for SYK/RYSK volumetric video. The library also exports `AbstractRYSKUrl` class which is useful for developers if they wish to implement their own variants of `RYSKUrl` as is the case with the `SPACKUrl` and `SPLINTERUrl` from the `@mantisvision/splatthreejs` library.
+
 ## RYSKUrl
 RYSKUrl provides the following methods:
-```javascript
+```typescript
 /**
- * Creates a new instance of the class, but doesn't start downloading the data yet.
- * @param {String} videourl url of the video to be downloaded
- * @param {String} dataurl url of the RYSK/SYK data
- * @param {Integer} frameBufferSize Size in frames of the buffer used to cached downloaded SYK/RYSK data
+ * Creates new instance of the class, but doesn't start downloading the data yet.
+ * @param configuration options for the RYSKUrl.
  */
-constructor(videourl,dataurl,frameBufferSize = 50)
+constructor(configuration: RYSKUrlConfiguration);
+/**
+ * @deprecated
+ * Creates new instance of the class, but doesn't start downloading the data yet.
+ * @param {String} mediaurl url of the media to be downloaded
+ * @param {String} dataurl url of the RYSK/SYK data
+ * @param {Integer} frameBufferSize how many frames of SYK/RYSK data should be preloaded
+ * @param {number} minimalRequiredDownloaded how many bytes must be downloaded until playback is even started
+ * @param {eRYSKUrlType} type type of the RYSKUrl
+ */
+constructor(mediaurl: string, dataurl: string, frameBufferSize?: number, minimalRequiredDownloaded?: number);
+constructor(configuration: RYSKUrlConfiguration|string, dataurl?: string, frameBufferSize: number = 50, minimalRequiredDownloaded:number = 16*1024*1024);
 ```
 ```javascript
 /**
@@ -294,6 +366,13 @@ get loop();
  */
 get buffered();
 get seekable();
+```
+```javascript
+/**
+ * Sets/gets the playback rate (=speed) of the video.
+ */
+set playbackRate(val);
+get playbackRate();
 ```
 ```javascript
 /**
@@ -359,12 +438,19 @@ getCurrentTime();
 ```
 ## RYSKStream
 RYSKStream provides the following methods:
-```javascript
+```typescript
 /**
- * Creates a new instance of the class, but doesn't start downloading the data yet.
- * @param {MediaStream} mediastream stream containing video (and maybe even audio)
+ * Creates a new instance of the class and optionally runs also init
+ * @param configuration 
  */
-constructor(mediastream);
+constructor(configuration: RYSKStreamConfiguration);
+/**
+ * @deprecated
+ * Creates a new instance of the class, but doesn't start downloading the data yet.
+ * @param {MediaStream} mediastream stream containing video (and maybe even audio) to create the mesh
+ */
+constructor(mediastream: MediaStream);
+constructor(configuration: RYSKStreamConfiguration|MediaStream)
 ```
 ```javascript
 /**
@@ -374,7 +460,7 @@ constructor(mediastream);
  * @param {Integer} videoHeight desired video height (if the real source given in the constructor is of different height, it will be resized)
  * @returns {Promise} promise which resolves after the video is ready to be played.
  */
-async init(videoWidth,videoHeight);
+async init(videoWidth, videoHeight);
 ```
 ```javascript
 /**
@@ -402,14 +488,6 @@ setVolume(volume);
  * @returns {HTML node|null} if the method is called before init() or after dispose(), it returns null.
  */
 getCanvas();
-```
-```javascript
-/**
- * To ensure the canvas is trully updated and a new frame from the video is processed, this method
- * must be called periodically (e.g. in requestAnimationFrame callback).
- * @returns {undefined}
- */
-update();
 ```
 ```javascript
 /**
@@ -601,6 +679,12 @@ When jumping to a different timestamp, do not pause and then play the video, bec
 ### 3.5.0
 Added caching of .syk files into IndexedDB where available (``@mantisvision/ryskdownloader`` version [0.8.0](./downloader.md#080)). The caching is made to persist only a single session in the browser.
 
+### 5.0.0
+Better code organization which relates to [@mantisvision/splatthreejs](./splatthreejs.md) package.
+
+#### 5.0.1
+Bumped version because [@mantisvision/utils](./utils.md) and [@mantisvision/ryskbuffer](./buffer.md) removed `update()` method.
+
 ## Release notes RYSKStream
 
 ### 4.0.0
@@ -613,3 +697,8 @@ Added caching of .syk files into IndexedDB where available (``@mantisvision/rysk
 #### 4.0.7
 Upgrade due to version [0.6.0](./buffer.md#060) of ``@mantisvision/ryskbuffer``
 
+### 6.0.0
+Better code organization which relates to [@mantisvision/splatthreejs](./splatthreejs.md) package.
+
+#### 6.0.1
+Bumped version because [@mantisvision/utils](./utils.md) and [@mantisvision/ryskbuffer](./buffer.md) removed `update()` method.

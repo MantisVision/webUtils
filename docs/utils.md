@@ -1,19 +1,20 @@
 # Utils
-This package is meant to export objects, functions and classes aimed at developers of other packages.
-SentryInternal object serves as an endpoint for SentryIntegration package and can be used as proxy to Sentry itself.
-MantisLog handles log display setting for other packages.
-AbstractRYSK is an abstract class foundation for RYSKUrl and RYSKStream.
-registerCallbacks and callCallbacks are just helper functions meant solely as a dependency for RYSKUrl and RYSKStream.
+This package is meant to export objects, functions and classes aimed at developers of other packages.  
+- `SentryInternal` object serves as an endpoint for the `@mantisvision/sentryintegration` package and can be used as proxy to Sentry itself.  
+- `MantisLog` handles log display setting for other packages.
+- `AbstractRYSK` is an abstract class foundation for `RYSKUrl`, `RYSKStream` and `SplatUrl`.
+- `registerCallbacks` and `callCallbacks` are just helper functions meant solely as a dependency for `RYSKUrl` and `RYSKStream`.
+- `MediaElement` and its descendants `VideoElement` and `AudioElement` are wrappers around `HTMLMediaElement`
 
 ## Install
-You can install this package using either of the following commands for either yarn or npm
-```
+You can install this package using your favorite package manager; for example yarn or npm:
+```shell
 yarn add @mantisvision/utils
 npm install @mantisvision/utils
 ```
 
 ## SentryInternal
-By using this object, a developer of ``@mantisvision`` library doesn't have to care whether Sentry packages are used
+By using this object, a developer of `@mantisvision` library doesn't have to care whether Sentry packages are used
 in the final project or not.
 Usage:
 ```javascript
@@ -23,16 +24,43 @@ Sentry.addBreadcrumb({ /* breadcrumb config */ });
 ```
 
 ## MantisLog
-Wraps logging to console and turns on/off diferent levels of logs. This object is used internally by some of @mantisvision packages.
+Wraps logging to the browser console and turns on/off different levels of logs. This object is used internally by some of `@mantisvision` libraries.  
+It is also possible to specify color of the text and background to visually distinguish logs.
 Usage:
 ```javascript
-import { MantisLog } from @mantisvision/utils
+import { MantisLog } from "@mantisvision/utils";
 
-MantisLog.SetLogLevel(MantisLog.WARNINGS | MantisLog.ERRORS); //enabling and disabling logs is done using bitmask
+MantisLog.SetLogLevel(MantisLog.WARNINGS | MantisLog.ERRORS | MantisLog.DEBUG); //enabling and disabling logs is done using bitmask
 MantisLog.warning("Some warning"); //internally uses console.warn()
+MantisLog.debug("A debug message", "red", "yellow"); //the log message in the console is going to have red text and a yellow background
 ```
 
-## VideoElement
+In order to avoid constantly setting colors in each debug log message, you can create a dedicated MantisLog object and use that one. With custom logger, you can also specify whether to prepend every message with some string and/or time in the format "Hours:Minutes:Seconds.Milliseconds".
+```javascript
+import { MantisLog } from "@mantisvision/utils";
+
+MantisLog.SetLogLevel(MantisLog.WARNINGS | MantisLog.ERRORS | MantisLog.DEBUG);
+const customLogger = new MantisLog("white", "black", "RENDERING: ", true);
+//the message in the console will begin with the datetime, followed by "RENDERING: " 
+customLogger.debug("Test message");
+```
+
+The static `MantisLog.SetLogLevel` method is applied globally to all logger instances, including the main one, unless the custom instance specifies its own log level:
+```javascript
+import { MantisLog } from "@mantisvision/utils";
+
+MantisLog.SetLogLevel(MantisLog.ERRORS);
+const customLogger = new MantisLog("darkgreen");
+customLogger.SetLogLevel(MantisLog.WARNINGS | MantisLog.ERRORS | MantisLog.DEBUG);
+
+MantisLog.debug("This message won't be printed");
+customLogger.debug("This message will be printed");
+```
+
+## MediaElement
+An abstract class which can be used to implement a media element part of the volumetric playback. Currently there are two classes which extend it:
+
+### VideoElement
 This is essentially a wrapper around a classical HTMLVideo element. Its main purpose is to avoid conflicts between ``play``
 and ``pause`` calls from user and a library. Since these calls are asynchronous, it might happen they get interrupted 
 by one another. VideoElement attempts to solve this by ordering the calls in a meaningful way and potentially delaying them
@@ -45,7 +73,7 @@ As the video source, one of the following three can be used:
 
 Usage:
 ```javascript
-import { VideoElement } from @mantisvision/utils
+import { VideoElement } from "@mantisvision/utils";
 
 const video = new VideoElement();
 video.setSource("video_url");
@@ -54,89 +82,31 @@ video.playUser(); //should be triggered by a user
 video.playLib();  //should be triggered by a library
 ```
 
+### AudioElement
+Similar to [VideoElement](#videoelement), this class wraps HTMLAudio element. Contrary to video element it doesn't support HLS.
+
 ## Public API
 
 ### SentryInternal
 This object is supposed to be a singleton and is used to proxy Sentry calls. Methods ``setMeasure`` and ``init`` are
-not to be called externally. They are meant as an injection point for Sentry through @mantisvision/sentryintegration
-```javascript
-/**
- * Proxy for Sentry.setTag
- */
-setTag(name,value);
-```
-```javascript
-/**
- * Proxy for Sentry.setUser
- */
-setUser(user);
-```
+not to be called externally. They are meant as an injection point for Sentry through `@mantisvision/sentryintegration`
 ```javascript
 /**
  * Proxy for Sentry.captureException
  */
 captureException(err);
 ```
-```javascript
-/**
- * Proxy for Sentry.addBreadcrumb
- */
-addBreadcrumb(breadCrumb);
-```
-```javascript
-/**
- * Creates a new transaction object which allows to start Sentry transactions and measure time of spans within them.
- * @param {String} name specifies, how the newly created transaction should be called.
- * @return {Transaction|null} a new Transaction object or null, if transactions are turned off.
- */
-createTransaction(name);
-```
-``createTransaction`` returns an object of an internal class ``Transaction`` which exposes these methods:
-```javascript
-/**
- * Constructor is called automatically by SentryInternal::createTransaction.
- */
-constructor(name,hub);
-```
-```javascript
-/**
- * Starts the transaction. If the transaction was already started, it finishes it and starts a new one. Internally, it
- * calls Sentry.startTransaction.
- */
-begin();
-```
-```javascript
-/**
- * Creates a new span within the transaction. Internally, it calls SentryTransaction.startChild and passes given 
- * parameters as its options object.
- */
-startNewClock(op,data = null,description = "");
-```
-```javascript
-/**
- * Finishes the last span within the transaction. Data about the duration of the span will be sent to Sentry only after
- * the entire transaction ends.
- */
-stopLastClock();
-```
-```javascript
-/**
- * Finishes the entire transaction. It first stops all spans which were not yet finished and then calls
- * SentryTransaction.finish() which causes the entire transaction to be sent to Sentry server.
- */
-finish();
-```
 
 ### MantisLog
-This class is used by @mantisvision libraries to log into console. The following methods can be called as static on the
-MantisLog itself, or the class can be instantiated to create a new, independent logger.
+This class is used by mantisvision libraries to log into console. The following methods can be called as static on the
+`MantisLog` itself, or the class can be instantiated to create a new, independent logger.
 ```typescript
 /**
  * Creates an independent instance of the Logger.
  * @param fgcolor HTML color code for the color of the text (applied only when using debug method!)
  * @param bgcolor HTML color code for the color of the background (applied only when using debug method!)
  * @param prefix optional string which will be prepended to every error, warning or debug log
- * @param prependTime if set to true, each log from this logger will be prepended by the time in format Hours:Minutes:Seconds.Miliseconds, default is false
+ * @param prependTime if set to true, each log from this logger will be prepended by the time in format Hours:Minutes:Seconds.Milliseconds, default is false
  */
 constructor(fgcolor?: string, bgcolor?: string, prefix?: string, prependTime?: boolean)
 ```
@@ -169,208 +139,247 @@ error(msg);
  * @param {string} bg color of the background (optional) - this could be also boolean and in that case it is treated as the trace param
  * @param {boolean} trace if set to true will output the stacktrace
  */
-static debug(msg: string, fg?: string|boolean, bg?: string|boolean, trace?: boolean)
+debug(msg: string, trace?: boolean): void;
+debug(msg: string, fg: string, trace?: boolean): void;
+debug(msg: string, fg: string|boolean|undefined, bg: string|boolean, trace?: boolean): void;
 ```
 
-### VideoElement
-This object is a wrapper around HTMLVideoElement and support video files, media streams and HLS.
+### MediaElement
+An abstract class which should serve as a wrapper around media part of the volumetric playback.
 ```javascript
 /**
- * Creates a new VideoElement object
+ * Creates a new MediaElement object
  */
 constructor();
 ```
-```javascript	
+```typescript
 /**
- * Returns the underlying HTMLVideoElement
- * @return {HTMLVideoElement}
+ * Returns the underlying HTMLMediaElement
+ * @return 
  */
-getElement();
+getElement(): MediaElementType|null
 ```
-```javascript	
+```typescript
 /**
- * Set the source of the VideoElement. It can be either URL of a video file, URL of m3u8 manifest for the HLS or
- * a MediaStream.
- * @param {MediaStream|String} source for the underlying HTMLVideoElement
- */
-async setSource(source);
-```
-```javascript	
-/**
- * Jump to a point in time in the video
- * @param {float} timestamp in seconds where the video should jump
- */
-jumpTo(timestamp);
-```
-```javascript	
-/**
- * Returns duration of the video once the metada are loaded
- * @returns {float} duration of the video in seconds
- */
-async getDuration();
-```
-```javascript	
-/**
- * Checks whether the hls.js library is used.
- * @return {boolean} true if it is, false otherwise
- */
-isHlsLibrary();
-```
-```javascript
-/**
- * Checks whether the HLS is used
- * @returns {Boolean} true if it is, false otherwise
- */
-isHls();
-```
-```javascript
-/**
- * Attach event listener to the underlying HTMLVideo element.
- * @param event a name of the event from the HTMLVideo element. 
- *              It is also possible to attach a listener to "durationchange" event which is emitted each time the duration of the video changes
+ * Attach event listener to the underlying HTMLMediaElement.
+ * @param event a name of the event from the HTMLMediaElement. 
+ *              It is also possible to attach a listener to "durationchange" event which is emitted each time the duration of the media changes
  * @param callback event listener to attach
  */
-addEventListener(event, callback);
+addEventListener(event: string, callback: (event: any) => void)	
 ```
-```javascript
+```typescript
 /**
- * Detach event listener from the underlying HTMLVideo element.
- * @param event a name of the event from the HTMLVideo element. 
+ * Detach event listener from the underlying HTMLMediaElement.
+ * @param event a name of the event from the HTMLMediaElement. 
  *              It is also possible to detach a listener from the "durationchange" event.
  * @param callback event listener to detach
  */
-removeEventListener(event, callback);
+removeEventListener(event: string, callback: (event: any) => void);
 ```
-```javascript
+```typescript
 /**
- * Sets the timestamp in which the video should begin its playback. 
- * @param timestamp the start of the video
- * @returns 
+ * Set the source of the HTMLMediaElement. It can be either URL of an media file or a MediaStream.
+ * @param {MediaStream|string} source for the underlying HTMLMediaElement
  */
-setBeginning(timestamp);
+async setSource(source: MediaStream|string);
 ```
-```javascript
+```typescript
 /**
- * Sets the timestamp in which the video should end its playback. 
- * @param timestamp the end of the video
- * @returns 
+ * Jump to a point in time in the media
+ * @param {number} timestamp in seconds where the media should jump
  */
-setEnd(timestamp);
+jumpTo(timestamp: number);
 ```
-```javascript
+```typescript
 /**
- * Getter and setter for the loop property of the video
+ * Returns duration of the media once the metadata are loaded
+ * @returns {Promise<number>} duration of the media in seconds
  */
-get loop();
-set loop(val);
+async getDuration(): Promise<number>;
 ```
-```javascript
+```typescript
 /**
- * Getter and setter for the playbackRate property of the video
- */
-get playbackRate();
-set playbackRate(value);
-```
-```javascript
-/**
- * Getter and setter for the muted property of the video
- */
-get muted();
-set muted(val);
-```
-```javascript
-/**
- * Getter and setter for the volume property of the video
- */ 
-get volume();
-set volume(val);
-```
-```javascript
-/**
- * Getter for ended property of the video
- */ 
-get ended();
-```
-```javascript	
-/**
- * Registers a listener for HLS events. It's basically a proxy for the same functionality from hls.js library. Be aware
- * that iOS Safari supports HLS natively and as such won't emit certain events specific for hls.js.
- * @param {String} event name of the event
- * @param {callable} func callback which gets triggered on the event
- */
-onHlsEvent(event,func);
-```
-```javascript	
-/**
- * Unregisters a callback from the HLS event.
- * @param {String} event name of the event
- * @param {callable} func callback which gets removed from the event
- */
-offHlsEvent(event,func);
-```
-```javascript
-/**
- * Similar to onHlsEvent, but the registered callback gets triggered only the first time the event occurs.
- * @param {String} event name of the event
- * @param {callable} func callback which gets triggered the first time the event occurs.
- */
-onceHlsEvent(event,func);
-```
-```javascript	
-/**
- * If a users wants to start playing the video, this method should be called. However, the video won't be
- * played if pauseLib() was called before. Only if both, libraries and the user, wish to play the video, the video
+ * If a users wants to start playing the media, this method should be called. However, the media won't be
+ * played if pauseLib() was called before. Only if both, libraries and the user, wish to play the media, the media
  * actually starts to play.
  */
 async playUser();
 ```
-```javascript	
+```typescript
 /**
- * User who requests to pause the video should call this method. Pause has a higher priority than any play, so the
- * video is paused even if no library has requested it.
+ * User who requests to pause the media should call this method. Pause has a higher priority than any play, so the
+ * media is paused even if no library has requested it.
  */
 async pauseUser();
 ```
-```javascript	
+```typescript
 /**
- * A library which uses VideoElement object and wants to play the video should call this method. However, the video won't be
- * played if pauseUser() was called before. Only if both, libraries and the user, wish to play the video, the video
+ * A library which uses MediaElement object and wants to play the media should call this method. However, the media won't be
+ * played if pauseUser() was called before. Only if both, libraries and the user, wish to play the media, the media
  * actually starts to play.
  */
 async playLib();
 ```
-```javascript	
+```typescript
 /**
- * Library which requests to pause the video should call this method. Pause has a higher priority than any play, so the
- * video is paused even if no user has requested it.
+ * Library which requests to pause the media should call this method. Pause has a higher priority than any play, so the
+ * media is paused even if no user has requested it.
  */
 async pauseLib();
 ```
-```javascript	
+```typescript
 /**
  * Alias for playLib method
  */
-play();
+async play();
 ```
-```javascript	
+```typescript
 /**
  * Alias for pauseLib method
  */
-pause();
+async pause();
 ```
-```javascript	
+```typescript
 /**
- * Dispose the VideoElement. It is highly advisable to call this method after you finish using the object of this
+ * Dispose the MediaElement. It is highly advisable to call this method after you finish using the object of this
  * class to help the garbage collector to efficiently free the memory.
  */
 async dispose();
 ```
-```javascript	
+```typescript
 /**
- * Getter for the current time of the video.
+ * Sets the timestamp in which the media should begin its playback. 
+ * @param timestamp the start of the media
+ * @returns 
+ */
+setBeginning(timestamp: number): this;
+```
+```typescript
+	/**
+	 * Sets the timestamp in which the media should end its playback. 
+	 * @param timestamp the end of the media
+	 * @returns 
+	 */
+	setEnd(timestamp: number): this;
+```
+```typescript
+/**
+ * Getter for the current time of the media.
  */
 get currentTime(): number;
 ```
+```typescript
+/**
+ * Getter for the real current timestamp of the underlying media element. It can be used for the real time synchronization
+ * without the beginning/end crop.
+ */
+get absoluteCurrentTime();
+```
+```typescript
+/**
+ * Get the current loop property of the media
+ */
+get loop(): boolean
+```
+```typescript
+/**
+ * Set the loop property of the media.
+ */
+set loop(val: boolean);
+```
+```typescript
+/**
+ * Set the playbackRate property of the media.
+ */
+set playbackRate(value: number);
+```
+```typescript
+/**
+ * Set the muted property of the media.
+ */
+set muted(val: boolean);
+```
+```typescript
+/**
+ * Get the muted property of the media.
+ */
+get muted(): boolean;
+```
+```typescript
+/**
+ * Set the volume property of the media.
+ */
+set volume(val: number);
+```
+```typescript
+/**
+ * Get the volume property of the media.
+ */
+get volume(): number;
+```
+```typescript
+/**
+ * Check whether the media has ended.
+ */	
+get ended(): boolean;
+```
+
+### VideoElement
+This is a wrapper around HTMLVideoElement and supports video files, media streams and HLS. The class inherits from the [MediaElement](#mediaelement) class and adds the following methods.
+```typescript
+/**
+ * Set the source of the VideoElement. It can be either URL of a video file, URL of m3u8 manifest for the HLS or
+ * a MediaStream.
+ * @param source for the underlying HTMLVideoElement
+ */
+async setSource(source: MediaStream|string);
+```
+```typescript	
+/**
+ * Checks whether the hls.js library is used.
+ * @return {boolean} true if it is, false otherwise
+ */
+isHlsLibrary(): boolean;
+```
+```typescript	
+/**
+ * Checks whether the HLS is used
+ * @returns {Boolean} true if it is, false otherwise
+ */
+isHls(): boolean;
+```
+```typescript	
+/**
+ * Registers a listener for HLS events. It's basically a proxy for the same functionality from hls.js library. Be aware
+ * that Safari supports HLS natively and as such won't emit events specific for hls.js.
+ * @param {string} event name of the event
+ * @param {callable} func callback which gets triggered on the event
+ */
+onHlsEvent(event: Parameters<Hls["on"]>[0],func: Parameters<Hls["on"]>[1]): this;
+```
+```typescript	
+/**
+ * Unregisters a callback from the HLS event.
+ * @param {keyof HlsListeners} event name of the event
+ * @param {Parameters<Hls["on"]>[1]} func callback which gets removed from the event
+ */
+offHlsEvent(event: Parameters<Hls["off"]>[0],func: Parameters<Hls["off"]>[1]): this;
+```
+```typescript	
+/**
+ * Similar to onHlsEvent, but the registered callback gets triggered only the first time the event occurs.
+ * @param {keyof HlsListeners} event name of the event
+ * @param {Parameters<Hls["once"]>[1]} func callback which gets triggered the first time the event occurs.
+ */
+onceHlsEvent(event: Parameters<Hls["once"]>[0],func: Parameters<Hls["once"]>[1]): this;
+```
+### AudioElement
+This class doesn't provide any public method atop of [MediaElement](#mediaelement-1).
+
+### AbstractRYSK
+This is a baseline the developers of mantisvision libraries, currently used in `RYSKUrl`, `RYSKStream` and `SplatUrl`.
+
 ## Release notes
 
 ### 2.0.0
@@ -408,3 +417,12 @@ Fixed video not resetting _ended attribute after the first loop.
 
 ### 2.4.0
 Added the fourth parameter to ``MantisLog.debug()`` -- the ``trace`` which makes the debug to output the trace log.
+
+### 3.0.0
+Added AudioElement for the SPLINTER volumetric playback.
+
+### 4.0.0
+Big code refactoring in `AbstractRYSK` class.
+
+### 5.0.0
+Removed `update()` method from the `AbstractRYSK` class. It is thus no longer necessary periodically call this method by the outside code.

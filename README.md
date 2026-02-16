@@ -1,10 +1,10 @@
 # webUtils
-This public repository hosts a package registry containing ``@mantisvision`` javascript libraries. Source codes of the hosted packages are located in a private MantisVision repositiry.
+This public repository hosts a package registry containing ``@mantisvision`` javascript libraries. Source codes of the hosted packages are located in a private MantisVision repository.
 NPM packages can be downloaded from the package registry https://npm.pkg.github.com using the scope ``@mantisvision``.
 
 # Breaking change in the visibility of mesh
-Meshes constructed by ``@mantisvision/ryskthreejs`` and ``@mantisvision/ryskplaycanvas`` have by default visibility set
-to false. This is because many users would prefer to show some sort of LOADING inscription or icon till the video/data
+Meshes constructed by `@mantisvision/ryskthreejs`, `@mantisvision/ryskplaycanvas` and `@mantisvision/splatthreejs` have by default visibility set
+to `false`. This is because many users would prefer to show some sort of LOADING inscription or icon till the media/data
 is sufficiently buffered. In order to see the meshes, set their visibility property to true after inserting into the scene.
 
 ## Table of contents
@@ -13,6 +13,7 @@ is sufficiently buffered. In order to see the meshes, set their visibility prope
     * [For Three.js](#for-threejs-implementation)
     * [For PlayCanvas](#for-playcanvas-implementation)
     * [For A-Frame](#for-a-frame-implementation)
+	* [Splinter and Spack Gaussian splats](#splinter-and-spack-gaussian-splats)
     * [For a custom integration](#for-a-custom-implementation)
     * [Synchronizing multiple RYSK videos](#synchronizing-multiple-rysk-videos)
   * [Inner architecture](#inner-architecture)
@@ -43,9 +44,10 @@ npmScopes:
 In order to install a specific package using NPM, run one of the following commands:
 ```
 npm i @mantisvision/rysk
+npm i @mantisvision/splat
 npm i @mantisvision/ryskaframe
 npm i @mantisvision/ryskthreejs
-npm i @mantisvision/ryskspack
+npm i @mantisvision/splatthreejs
 npm i @mantisvision/ryskplaycanvas
 npm i @mantisvision/ryskurl
 npm i @mantisvision/ryskstream
@@ -54,7 +56,6 @@ npm i @mantisvision/ryskdecoder
 npm i @mantisvision/ryskbuffer
 npm i @mantisvision/ryskwasm
 npm i @mantisvision/spackwasm
-npm i @mantisvision/rysksplat
 npm i @mantisvision/utils
 npm i @mantisvision/sentryintegration
 npm i @mantisvision/synchronizer
@@ -62,9 +63,10 @@ npm i @mantisvision/synchronizer
 If you prefer using Yarn, run one of the following:
 ```
 yarn add @mantisvision/rysk
+yarn add @mantisvision/splat
 yarn add @mantisvision/ryskaframe
 yarn add @mantisvision/ryskthreejs
-yarn add @mantisvision/ryskspack
+yarn add @mantisvision/splatthreejs
 yarn add @mantisvision/ryskplaycanvas
 yarn add @mantisvision/ryskurl
 yarn add @mantisvision/ryskstream
@@ -72,7 +74,6 @@ yarn add @mantisvision/ryskdownloader
 yarn add @mantisvision/ryskdecoder
 yarn add @mantisvision/ryskwasm
 yarn add @mantisvision/ryskbuffer
-yarn add @mantisvision/rysksplat
 yarn add @mantisvision/utils
 yarn add @mantisvision/sentryintegration
 yarn add @mantisvision/synchronizer
@@ -80,10 +81,10 @@ yarn add @mantisvision/synchronizer
 
 ## Which package to choose
 
-If you need to decode only SYK or RYSK datasets into volumetric video, you can follow the chapters concerning with [three.js](#for-threejs-implementation), [Playcanvas](#for-playcanvas-implementation), [A-Frame](#for-a-frame-implementation) or [custom](#for-a-custom-implementation) implementation. However, if you intend to use gaussian splats in the form of splinter or spack compressed datasets, currently you can only use specific three.js implementation from [ryskspack].
+If you need to decode only SYK or RYSK datasets into volumetric video, you can follow the chapters concerning with [three.js](#for-threejs-implementation), [Playcanvas](#for-playcanvas-implementation), [A-Frame](#for-a-frame-implementation) or [custom](#for-a-custom-implementation) implementation. However, if you intend to use gaussian splats in the form of splinter or spack compressed datasets, currently you can only use specific three.js implementation from [splatthreejs].
 
 ### For Three.js implementation
-The simplest option is to install just ``@mantisvision/rysk`` package. It bundles all other rysk-* packages (with expection of ``mantisvision/rysksplat``) and exports ``RYSKStream``/``StreamMesh`` and ``RYSKUrl``/``URLMesh`` classes (each couple in fact represents the same class, but named differently for backwards compatibility).
+The simplest option is to install just ``@mantisvision/rysk`` package. It bundles all other rysk-* packages (with expection of ``mantisvision/splatthreejs``) and exports ``RYSKStream``/``StreamMesh`` and ``RYSKUrl``/``URLMesh`` classes (each couple in fact represents the same class, but named differently for backwards compatibility).
 The source code is minified and packed in the single javascript file. Workers and webassembly files are inlined. This means you shouldn't need
 any special loader for webworkers or wasm in your own package bundler. ``@mantisvision/rysk`` was built using Webpack 5, but due to the inlining, it should
 be usable across common package builders. However, it must be used inside a browser which supports webassembly and webworkers (currently, all common modern
@@ -156,7 +157,7 @@ so you can accuratly decide which packages you can use and which you need to rei
 
 ### Splinter and Spack Gaussian splats
 
-Splinter and Spack volumetric video rests separately in ``@mantisvision/rysksplat``. This has a different architecture than the previous packages. The biggest difference is, that splinter and spack are currently tightly coupled with Three.js library and can't be used separately in its raw form as oppose to ``@mantisvision/ryskurl``. There is also no variant for network streaming such as ``@mantisvision/ryskstream``. The main export of the library isn't a stand-alone class, but a class derived from a Three.js object which can be upn the instantiation directly inserted into the Three.js scene.
+Splinter and Spack volumetric video rests separately in ``@mantisvision/splatthreejs``. This has a different architecture than the previous packages. The biggest difference is, that splinter and spack are currently tightly coupled with Three.js library and can't be used separately in its raw form as oppose to ``@mantisvision/ryskurl``. There is also no variant for network streaming such as ``@mantisvision/ryskstream``. The main export of the library isn't a stand-alone class, but a class derived from a Three.js object which can be upn the instantiation directly inserted into the Three.js scene.
 
 ### Synchronizing multiple RYSK videos
 In order to synchronize  multiple RYSK/SPLAT videos (as well as HTMLVideoElements), one can use a utility package
@@ -174,7 +175,7 @@ The following diagram shows dependencies between packages:
 
 The core of the library is in the packages ``@mantisvision/ryskwasm``, ``@mantisvision/spackwasm`` and ``@mantisvision/ryskbuffer``.
 The entry points are usually ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream`` or one of the integration
-packages (currently ``@mantisvision/ryskthreejs``, ``@mantisvision/ryskplaycanvas``, ``@mantisvision/ryskaframe`` and ``@mantisvision/ryskspack``).
+packages (currently ``@mantisvision/ryskthreejs``, ``@mantisvision/ryskplaycanvas``, ``@mantisvision/ryskaframe`` and ``@mantisvision/splatthreejs``).
 
 ### Data flow
 The following diagrams show a simplified data flow between the packages. "Application" represents a custom program which
@@ -198,9 +199,10 @@ the tearing due to the skipped frames will be visible.
 ## Description and API
 Detailed description of APIs of packages can be found here:
 * [@mantisvision/rysk](./docs/rysk.md)
+* [@mantisvision/splat](./docs/splat.md)
 * [@mantisvision/ryskthreejs](./docs/threejs.md)
 * [@mantisvision/ryskplaycanvas](./docs/playcanvas.md)
-* [@mantisvision/rysksplat](./docs/rysksplat.md)
+* [@mantisvision/splatthreejs](./docs/splatthreejs.md)
 * [@mantisvision/aframe](./docs/aframe.md)
 * [@mantisvision/ryskurl](./docs/ryskurlryskstream.md)
 * [@mantisvision/ryskstream](./docs/ryskurlryskstream.md)
@@ -208,7 +210,7 @@ Detailed description of APIs of packages can be found here:
 * [@mantisvision/ryskdownloader](./docs/downloader.md)
 * [@mantisvision/ryskdecoder](./docs/decoder.md)
 * [@mantisvision/ryskwasm](./docs/ryskwasm.md)
-* [@mantisvision/splatwasm](./docs/splatwasm.md)
+* [@mantisvision/spackwasm](./docs/spackwasm.md)
 * [@mantisvision/synchronizer](./docs/synchronizer.md)
 
 ## Samples

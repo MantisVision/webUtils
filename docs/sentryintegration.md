@@ -3,7 +3,7 @@ This package provides an integration of @mantisvision/rysk* packages with bugtra
 
 ## Install
 You can install this package using either of the following commands for either yarn or npm
-```
+```shell
 yarn add @mantisvision/sentryintegration
 npm install @mantisvision/sentryintegration
 ```

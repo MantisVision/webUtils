@@ -75,7 +75,8 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		mediaurl: splinteraudio_url,
 		dataurl: splinterdata_url,
 		loop: true,
-		renderer,
+		renderer: renderer,
+		previewMode: true,
 		autoinit: {
 			onError: console.error,
 			onSuccess(splatRYSK)
@@ -100,7 +101,8 @@ function run(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Pe
 		mediaurl: spackvideo_url,
 		dataurl: spackdata_url,
 		loop: true,
-		renderer,
+		previewMode: true,
+		renderer: renderer,
 		autoinit: {
 			onError: console.error,
 			onSuccess(splatRYSK)

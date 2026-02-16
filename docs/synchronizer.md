@@ -18,8 +18,8 @@ If the videos which should be synchronized are of different length, the longest 
 If any video pauses due to buffering, all the rest of the videos pause as well. Be mindful that if the synchronized videos are of high bitrate and the client is on a slow network, this may result in a stuttering of the whole playback.
 
 ## Install
-You can install this package using one of the following commands for either yarn or npm
-```
+You can install this package using your favorite package manager; for example yarn or npm:
+```shell
 yarn add @mantisvision/synchronizer
 npm install @mantisvision/synchronizer
 ```
@@ -48,22 +48,42 @@ const synchronizer = new window.RyskSynchronizer(TimingObject);
 ```
 You can pass videos to the ``VideoSync`` object using ``addMedia`` method and remove them using ``removeMedia`` method.
 ```javascript
-const ryskObj1 = new URLMesh(videourl1,dataurl1);
-const ryskObj2 = new URLMesh(videourl2,dataurl2);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+	
+renderer.setSize(width,height);
+renderer.setClearColor(0xFFFFFF, 1);
+renderer.autoClear = false;
 
-// run method must still be called manually outside of the synchronizer
-ryskObj1.run(mesh => {...});
-ryskObj2.run(mesh => {...});
+const ryskObj = new URLMesh({ 
+	mediaurl: videourl, 
+	dataurl: dataurl1
+});
 
-await synchronizer.addMedia([ryskObj1, ryskObj2]);
+await synchronizer.addMedia(ryskObj);
+
+const splatMesh = new SPLATMesh({ 
+	mediaurl: audiourl,  
+	dataurl: dataurl2,
+	renderer: renderer,
+	autoinit: {
+		onSuccess(splatURL)
+		{
+			synchronizer.addMedia(splatURL);
+		},
+		onError: console.error
+	}
+});
+
 ...
-synchronizer.removeMedia([ryskObj1, ryskObj2]);
+
+synchronizer.removeMedia([ryskObj, splatMesh.getSplatUrl()]);
 ```
-Both methods accept either ``HTMLMediaElement`` or objects derived from ``RYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas``). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements either ``SynchronizableRYSKObject`` or ``SynchronizableMediaObject`` interface (visible only if using TypeScript). You can also implement one of these interfaces yourself, wrap the ``HTMLMediaElement`` or ``RYSKUrl`` in them on your side and then pass this wrapper to the ``adMedia``. This is, however, meant only for experienced users since the inner implementation of the ``SynchronizableRYSKObject`` or ``SynchronizableMediaObject`` object interface may cause unforeseen complications with the synchronization of the videos.
+Both methods accept either ``HTMLMediaElement`` or objects derived from ``AbstractRYSKUrl`` from ``@mantisvision/ryskurl`` (so for instance even ``URLMesh`` from ``@mantisvision/ryskthreejs`` or ``@mantisvision/ryskplaycanvas`` or `SPACKUrl`/`SPLINTERUrl` from `@mantisvision/splatthreejs`). They can be passed individually or as an array. Internally, ``VideoSync`` wraps the objects into a class which implements either ``SynchronizableRYSKObject`` or ``SynchronizableMediaObject`` interface (visible only if using TypeScript). You can also implement one of these interfaces yourself, wrap the ``HTMLMediaElement`` or ``RYSKUrl`` (or any other object you wish to synchronize) in them on your side, and then pass this wrapper to the ``adMedia``. This is, however, meant only for experienced users since the incorrect implementation of the ``SynchronizableRYSKObject`` or ``SynchronizableMediaObject`` object interface may cause unforeseen complications with the synchronization of the videos.
 
 If a new video is passed to the synchronizer once it's playing videos, the synchronizer automatically sets the timestamp of this new video to the current internal timestamp of the synchronizer. Also, if it's the longest video, a "durationchange" event is emitted. The same event is emitted when the longest video is removed from the synchronizer.
 
-Please notice that if you pass ``RYSKUrl`` object, you still have to call ``init()`` / ``run()``  method manually outside of the synchronizer. This is because the they very often resolve with the data which may be of direct use to you (e.g. ``RYSKUrl.init()`` resolves with the canvas and video, ``URLMesh.run()`` with the mesh object etc.).
+Please notice that if you pass ``RYSKUrl`` or `SPACKUrl`/`SPLINTERUrl` object, you still have to call ``init()``  method manually outside of the synchronizer (or set a callback). This is because they very often resolve with the data which may be of direct use to you (e.g. ``RYSKUrl.init()`` resolves with the canvas and video, ``URLMesh.init()`` adds the mesh object etc.).
 
 ### Regime
 The synchronize currently supports two modes of operation which differs in what media is chosen as the main "pivot".
@@ -84,12 +104,32 @@ Alternatively, autoplay is turned on by calling ``autoplayAfter(count)`` where `
 //automatically play after two videos have been passed
 synchronizer.autoplayAfter(2);
 
-const ryskObj1 = new URLMesh(videourl1, dataurl1);
-ryskObj1.run(mesh => {...});
+const ryskObj1 = new URLMesh({ 
+	mediaurl: videourl1, 
+	dataurl: dataurl1,
+	autoinit: {
+		onSuccess({mesh})
+		{
+			...
+		},
+		onError: console.error
+	}
+});
 synchronizer.addMedia(ryskObj1);
 
-const ryskObj2 = new URLMesh(videourl2, dataurl2);
-ryskObj2.run(mesh => {...});
+//some time later...
+
+const ryskObj2 = new URLMesh({ 
+	mediaurl: videourl2, 
+	dataurl: dataurl2,
+	autoinit: {
+		onSuccess({mesh})
+		{
+			...
+		},
+		onError: console.error
+	}
+});
 synchronizer.addMedia(ryskObj2);
 // synchronizer now starts playing the videos
 ```
@@ -108,25 +148,16 @@ In order to change the volume of the underlying videos, you should call ``setVol
 By default, the volume of Synchronizer is set to 0, so you have to call ``setVolume`` manually at least once to set to to an appropriate value. This is by design because some browsers may want to autoplay videos only if they're mute.
 
 ```typescript
-const ryskObj1 = new URLMesh(videourl1,dataurl1);
 synchronizer.addMedia(ryskObj1);
 synchronizer.setVolume(1); //ryskObj1 now has volume 1
 
-const ryskObj2 = new URLMesh(videourl2,dataurl2);
 synchronizer.addMedia(ryskObj2); //ryskObj2 volume has also been set to 1 because of the previous setVolume call
-
 synchronizer.setVolume(0, ryskObj1); //sets only the ryskObj1 to mute; ryskObj2 sound continues to be 1
 ```
 
 ### Setting videos to loop
 There are two ways to set the videos to loop. You can set the loop parameter directly on the ``HTMLMediaElement`` or ``RYSKUrl`` object BEFORE you pass it to the ``VideoSync`` object through the ``addMedia()`` method. If you wish to (un)set the loop of the media after you've passed to ``VideoSync`` object, use the ``setLoop(media, loop)`` method of the ``VideoSync``. The first parameter is the media object (or array of media objects), the second parameter is true if they should loop or false if they shouldn't:
 ```javascript
-const ryskObj1 = new URLMesh(videourl1,dataurl1);
-const ryskObj2 = new URLMesh(videourl2,dataurl2);
-
-ryskObj1.run(mesh => {...});
-ryskObj2.run(mesh => {...});
-
 await synchronizer.addMedia([ryskObj1, ryskObj2]);
 synchronizer.setLoop([ryskObj1, ryskObj2]);
 ```
@@ -440,3 +471,9 @@ When ``video.ended`` event arrives from RYSK media, Synchronizer checks the curr
 ### 0.11.0
 - timeUpdate object is being periodically checked in ``requestAnimationFrame``, so the library doesn't rely on timeUpdate object's own event emitter.
 - on Safari, checks after correction are performed less frequently, since Safari has a tendency to jump a different timestamps when the library changes playback rate of the video.
+
+### 0.16.0
+Better code organization which relates to [@mantisvision/splatthreejs](./splatthreejs.md) package.
+
+#### 0.16.1
+Bumped version because [@mantisvision/utils](./utils.md) and [@mantisvision/ryskbuffer](./buffer.md) removed `update()` method.

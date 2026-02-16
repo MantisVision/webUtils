@@ -1,11 +1,11 @@
 # Integration guide
 
-The main goal of this library (and specifically ``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream`` packages) is
-to decode RYSK/SYK encoded data provided either in the form of URL (ryskurl) or passed through a method call (ryskstream),
-while ensuring the result data is delivered to the user of the library in sync with the provided pre-recorded video (ryskurl)
+The main goal of this library (and specifically `@mantisvision/ryskurl`, `@mantisvision/ryskstream` and `@mantisvision/splatthreejs` packages) is
+to decode RYSK/SYK/SPACK/SPLINTER encoded data provided either in the form of URL (ryskurl and splatthreejs) or passed through a method call (ryskstream),
+while ensuring the result data is delivered to the user of the library in sync with the provided pre-recorded video (ryskurl and splatthreejs)
 or the realtime mediastream (ryskstream).
 
-How the data (namely framenumber, uvs, vertices and indices) should be used further down the road is up to the developers
+How the decoded data (either vertices, uvs, indices or splats) should be used further down the road is up to the developers
 who integrate the library to their system. ``@mantisvision/ryskthreejs`` and ``@mantisvision/ryskplaycanvas`` are two
 such reference implementations which use the provided data (as well as HTML canvas element which is a byproduct of both
 ryskurl and ryskstream) to construct the final 3D animated and textured mesh.
@@ -65,10 +65,12 @@ MantisLog.SetLogLevel(MantisLog.DEBUG);
 
 // create ryskObj. videoUrl and dataUrl should contain url to videofile and SYK/RYSK datafile.
 // the third parameter - 50 - sets the size of the data framebuffer to approximately 50 frames
-const ryskObj = new RYSKUrl(videoUrl,dataUrl,50);
-
-// set the video to loop to see, if it correctly starts to play once it finishes
-ryskObj.loop = true;
+const ryskObj = new RYSKUrl({
+	mediaurl: "videoUrl",
+	dataurl: "dataUrl",
+	frameBufferSize: 50,
+	loop: true
+});
 
 ryskObj.on(RyskEvents.dataDecoded, data => 
 {// check if the data is being decoded and observe their structure -- 
@@ -79,14 +81,12 @@ ryskObj.on(RyskEvents.dataDecoded, data =>
 // listen for errors as well
 ryskObj.on(RyskEvents.error, err => console.error(err));
 
-ryskObj.init().then( htmlElements => 
+ryskObj.init().then(({ canvas, video }) => 
 {// Both these HTML elements are "in memory" only, so you might want to attach them let's say to the body of the webpage
  // in order to observe whether the video is indeed playing. Canvas element gets redrawn each time a new frame in video 
  // is shown AND the previous video frame was paired with the decoded data based on its number. If the data is late,
  // the video is automatically paused and continues only after the data for the frame is actually decoded. This ensures
  // the synchronization between the data and the video.
-	const { canvas, video } = elements;
-
 	document.body.appendChild(canvas);
 	document.body.appendChild(video);
 }).catch(err => console.error(err));
@@ -95,14 +95,6 @@ ryskObj.init().then( htmlElements =>
 // on cellphones -- the user usually needs to interact in some way with your website (e.g. click on a button) and 
 // play should run in the callback of said interaction, or the video should be muted (which is true in this case -- see bellow)
 ryskObj.play();
-
-// periodically call update() on the rysk object, so it reads the frames from the video and pairs them with the data
-const animate = () => 
-{
-	requestAnimationFrame(animate);
-	ryskObj.update();
-};
-requestAnimationFrame(animate);
 
 ```
 If everything goes well, you should now see various events in the console, as well as the decoded data being delivered. You
@@ -129,11 +121,19 @@ import { RyskEvents, MantisLog } from "@mantisvision/utils";
 
 MantisLog.SetLogLevel(MantisLog.DEBUG);
 
-const ryskObj1 = new RYSKUrl(videoUrl1,dataUrl1,50);
-const ryskObj2 = new RYSKUrl(videoUrl2,dataUrl2,50);
+const ryskObj1 = new RYSKUrl({
+	mediaurl: "videoUrl1",
+	dataurl: "dataUrl1",
+	frameBufferSize: 50,
+	loop: true
+});
+const ryskObj2 = new RYSKUrl({
+	mediaurl: "videoUrl2",
+	dataurl: "dataUrl2",
+	frameBufferSize: 50,
+	loop: true
+});
 
-ryskObj1.loop = true;
-ryskObj2.loop = true;
 
 ryskObj1.on(RyskEvents.dataDecoded, console.log);
 ryskObj2.on(RyskEvents.dataDecoded, console.log);
@@ -175,16 +175,16 @@ ryskObj2.on(RyskEvents.buffered, () =>
 	},400);
 });
 
-ryskObj1.init().then( htmlElements => 
+ryskObj1.init().then(({ canvas, video }) => 
 {
-	document.body.appendChild(htmlElements.canvas);
-	document.body.appendChild(htmlElements.video);
+	document.body.appendChild(canvas);
+	document.body.appendChild(video);
 }).catch(console.error);
 
-ryskObj2.init().then( htmlElements => 
+ryskObj2.init().then(({ canvas, video }) => 
 {
-	document.body.appendChild(htmlElements.canvas);
-	document.body.appendChild(htmlElements.video);
+	document.body.appendChild(canvas);
+	document.body.appendChild(video);
 }).catch(console.error);
 
 ryskObj1.play().then(() => 
@@ -203,15 +203,6 @@ ryskObj2.play().then(() =>
 	},400);
 },400);
 
-// periodically update rysk objects so they reads the frames from the video and pair it with the data
-const animate = () => 
-{
-	requestAnimationFrame(animate);
-	ryskObj1.update();
-	ryskObj2.update();
-};
-requestAnimationFrame(animate);
-
 ```
 At the time this guide is being written, only iOS Safari is plagued be these complications, so if your target is desktop
 or Android, you may not experience the described issue.
@@ -221,24 +212,23 @@ After you are satisfied with the results the library is giving you, you can foll
 ## Integration
 
 RYSKUrl object provides decoded data, but you most likely want a full mesh. One way to approach this is to create a new 
-class (let's say in ``MeshGenerator.js``) which would inherit from RYSKUrl:
+class (let's say in ``MeshGenerator.js``) which would inherit from the `RYSKUrl`:
 
 ```javascript
+import { RyskEvents } from "@mantisvision/utils";
 import RYSKUrl from "@mantisvision/ryskurl";
 import CustomMesh from "./CustomMesh.js";
-import { RyskEvents } from "@mantisvision/utils";
 
 export default class MeshGenerator extends RYSKUrl
 {
-	constructor(videourl,dataurl,framebuffer = 50)
+	constructor(configuration)
 	{
-		super(videourl,dataurl,framebuffer);
+		super(configuration);
 		this.mesh = new CustomMesh();
 
-		this.on(RyskEvents.dataDecoded,data => 
+		this.on(RyskEvents.dataDecoded, ({ uvs, indices, vertices }) => 
 		{// each time a new set of data is decoded, pass it to the mesh
-			const { uvs, indices, vertices } = data;
-			this.mesh.update(uvs,indices,vertices);
+			this.mesh.update(uvs, indices, vertices);
 		});
 	}
 }
@@ -261,7 +251,7 @@ export default class CustomMesh
 	/**
      * Update the mesh geometry with the data received from RYSKUrl
 	 */
-	update(uvs,indices,vertices)
+	update(uvs, indices, vertices)
 	{
 		this.geometry.setUV(uvs);
 		this.geometry.setIndices(indices);
@@ -346,9 +336,9 @@ import { RyskEvents } from "@mantisvision/utils";
 
 export default class MeshGenerator extends RYSKUrl
 {
-	constructor(videourl,dataurl,framebuffer = 50)
+	constructor(configuration)
 	{
-		super(videourl,dataurl,framebuffer);
+		super(configuration);
 		this.mesh = new CustomMesh();
 
 		this.on(RyskEvents.dataDecoded,data => 
@@ -360,7 +350,7 @@ export default class MeshGenerator extends RYSKUrl
 		this.running = false;
 	}
 
-	async run()
+	async init()
 	{
 		if (!this.running)
 		{
@@ -368,7 +358,7 @@ export default class MeshGenerator extends RYSKUrl
 			this.mesh.createTexture(htmlElements.canvas);
 			this.running = true;
 		}
-		return this.htmlElements;
+		return { ...this.htmlElements, mesh: this.mesh };
 	}
 }
 ```
@@ -381,9 +371,12 @@ import { RyskEvents, MantisLog } from "@mantisvision/utils";
 
 MantisLog.SetLogLevel(MantisLog.DEBUG);
 
-const ryskObj = new MeshGenerator(videoUrl,dataUrl,50);
-
-ryskObj.loop = true;
+const ryskObj = new MeshGenerator({
+	mediaurl: "videoUrl1",
+	dataurl: "dataUrl1",
+	frameBufferSize: 50,
+	loop: true
+});
 
 ryskObj.on(RyskEvents.error, console.error);
 
@@ -405,9 +398,8 @@ ryskObj.on(RyskEvents.buffered, () =>
 	},400);
 });
 
-ryskObj.run().then( htmlElements => 
+ryskObj.init().then(({ mesh }) => 
 {
-	const mesh = ryskObj.mesh;
 	// ... and now you can do something with the mesh, e.g. put it into the scene
 }).catch(console.error);
 
@@ -418,14 +410,6 @@ ryskObj.play().then(() =>
 		if (!buffering) ryskObj.setVolume(1.0);
 	},400);
 });
-
-// periodically update rysk object so it reads the frames from the video and pairs it with the data
-const animate = () => 
-{
-	requestAnimationFrame(animate);
-	ryskObj.update();
-};
-requestAnimationFrame(animate);
 ```
 
 ## Bundling
@@ -444,9 +428,9 @@ module: {
 	},
 ...
 ```
-As for the webworkers, Webpack 5 should by itself automatically emit separate files containing their code. This is because in both
-``@mantisvision/ryskurl`` and ``@mantisvision/ryskstream``, the workers are created similar to this:
+As for the webworkers, Webpack 5 should by itself automatically emit separate files containing their code. This is because
+`@mantisvision/ryskurl` and `@mantisvision/ryskstream` (and optionally even `@mantisvision/splatthreejs` if you use only `SPLINTERUrl` or `SPACKUrl` classes), the workers are created similar to this:
 ```javascript
-const worker = new Worker(new URL("./package.worker.js",import.meta.url));
+const worker = new Worker(new URL("./package.worker.js", import.meta.url));
 ```
 Webpack 5 will automatically recognize this code and does what is necessary.

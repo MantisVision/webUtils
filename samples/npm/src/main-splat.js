@@ -128,6 +128,7 @@ async function run(renderer,scene,camera)
 	document.getElementById(type ?? "spack").style.display = "none";
 
 	const splatMesh = new SplatMesh({
+		renderer: renderer,
 		mediaurl: media_url,
 		dataurl: data_url,
 		loop: true,
@@ -139,8 +140,7 @@ async function run(renderer,scene,camera)
 				scene.add(splatMesh);
 			}
 		}
-	});	
-	splatMesh.setRenderer(renderer);
+	});
 	
 	const progress = document.getElementById("progress");
 	

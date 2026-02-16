@@ -7,8 +7,7 @@ const data_url = "./chloe_battle.syk";
 
 document.addEventListener('DOMContentLoaded',function()
 {
-	console.log("TUUUUUU")
-	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS| MantisLog.DEBUG);
+	MantisLog.SetLogLevel(MantisLog.ERRORS | MantisLog.WARNINGS);
 	const viewport = document.getElementById("viewport");
 	const scene = new THREE.Scene();
 	const renderer = createRenderer(viewport.offsetWidth,viewport.offsetHeight);
@@ -61,12 +60,12 @@ function run(renderer, scene, camera)
 		textureColorSpace: THREE.SRGBColorSpace,
 		loop: true,
 		previewMode: 1,
-		autorun: {
-			onSuccess(mesh)
+		autoinit: {
+			onSuccess(result)
 			{
 				ryskObj.setVolume(1);
-				mesh.visible = true;
-				scene.add(mesh);
+				result.mesh.visible = true;
+				scene.add(result.mesh);
 			},
 			onError: console.error
 		}
@@ -120,12 +119,7 @@ function run(renderer, scene, camera)
 	});
 	
 	renderer.setAnimationLoop((timestamp, frame) => 
-	{//animation loop to render each frame-
-		if (ryskObj !== null)
-		{
-			ryskObj.update();
-		}
-		
+	{//animation loop to render each frame-		
 		renderer.clear(true, true, true);
 		renderer.render(scene, camera);
 	});

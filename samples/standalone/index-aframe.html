@@ -22,22 +22,23 @@
 			body { position: relative }
 			#progress { width: 100%; position: absolute; bottom: 5px }
 			#play { position: absolute; top: 15px; left: 15px; width: 70px; height: 35px; font-size: 17px; z-index: 2 }
-			#three { position: absolute; top: 15px; right: 475px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
-			#spack { position: absolute; top: 15px; right: 245px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
-			#splinter { position: absolute; top: 15px; right: 130px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
-			#playcanvas { position: absolute; top: 15px; right: 360px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
-			#playbackratediv { top: 55px; position: absolute; left:15px; color: white; font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif; }
-			#synchronized { position: absolute; top: 15px; right: 15px; width: 100px; height: 35px; font-size: 17px; z-index: 2 }
+			menu { position: absolute; top: 0px; right: 10px; display: flex; flex-direction: row; z-index: 2; gap: 15px }
+			menu button { width: 100px; height: 35px; font-size: 17px; }
+			@media screen and (max-width: 1024px) {
+				menu { flex-direction: column; }
+			}
 		</style>
 		<title>A-Frame Rysk</title>
 	</head>
 	<body>
 		<button id="play">PLAY</button>
-		<a href="./index-splat.html?type=splinter"><button id="splinter">Splinter</button></a>
-		<a href="./index-splat.html?type=spack"><button id="spack">Spack</button></a>
-		<a href="./index.html"><button id="three">Three.js</button></a>
-		<a href="./index-playcanvas.html"><button id="playcanvas">Playcanvas</button></a>
-		<a href="./index-synchronized.html"><button id="synchronized">Synced</button></a>
+		<menu>
+			<a href="./index-splat.html?type=splinter" id="splinter"><button>Splinter</button></a>
+			<a href="./index-splat.html?type=spack" id="spack"><button>Spack</button></a>
+			<a href="./index.html"><button id="three">Three.js</button></a>
+			<a href="./index-playcanvas.html"><button id="playcanvas">Playcanvas</button></a>
+			<a href="./index-synchronized.html"><button id="synchronized">Synced</button></a>
+		</menu>
 		<a-scene>
 		  <a-assets>
 			<img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" crossorigin="anonymous">
@@ -53,6 +54,17 @@
 			  videourl="./chloe_battle.mp4"
 			  preview="full">
 		  </mantis-ryskurl>
+
+		  <mantis-splaturl 
+			  id="phillips"
+			  position="1 0 -2" 
+			  rotation="0 180 0"
+			  volume="1" 
+			  loop="true" 
+			  dataurl="https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.splinter" 
+			  mediaurl="https://prg-syk-uploads.s3.us-east-1.amazonaws.com/robo/2025_10_09_david_phillips_pitch_09_phillips_pitch_09_50k_splinter.m4a"
+			  preview="full" >
+		  </mantis-splaturl>
 
 		  <!-- Background sky. -->
 		  <a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>

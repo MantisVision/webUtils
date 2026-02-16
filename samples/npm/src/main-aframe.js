@@ -1,13 +1,10 @@
-import 'aframe';
-
-import('@mantisvision/ryskaframe').then(() => 
-{
-	console.log("ryskaframe imported");
-}).catch(console.error);
+import "aframe";
+import "@mantisvision/ryskaframe";
 
 window.addEventListener('load',function()
 {
-	const aframeModel = document.querySelector("#chloe");
+	const chloeModel = document.querySelector("#chloe");
+	const phillipsModel = document.querySelector("#phillips");
 	var playing = false;
 	const playButton = document.getElementById("play");
 	var duration = 0;
@@ -19,17 +16,19 @@ window.addEventListener('load',function()
 		if (duration)
 		{
 			const pos = (event.pageX - progress.offsetLeft - progress.offsetParent.offsetLeft) / progress.offsetWidth;
-			aframeModel.setAttribute("time",pos * duration);
+			chloeModel.setAttribute("time",pos * duration);
+			phillipsModel.setAttribute("time",pos * duration);
 		}
 	});
 
 	const playbackRate = document.getElementById("playbackrate");
 	playbackRate.addEventListener("change", event => 
 	{
-		aframeModel.setAttribute("playbackrate", playbackRate.value);
+		chloeModel.setAttribute("playbackrate", playbackRate.value);
+		phillipsModel.setAttribute("playbackrate", playbackRate.value);
 	});
 	
-	aframeModel.addEventListener("timeupdate", event => 
+	chloeModel.addEventListener("timeupdate", event => 
 	{
 		if (!duration)
 		{
@@ -44,12 +43,14 @@ window.addEventListener('load',function()
 		if (playing)
 		{
 			playButton.innerHTML = "PLAY";
-			aframeModel.emit("ryskpause");
+			chloeModel.emit("ryskpause");
+			phillipsModel.emit("ryskpause");
 			playing = false;
 		}else
 		{
 			playButton.innerHTML = "PAUSE";
-			aframeModel.emit("ryskplay");
+			chloeModel.emit("ryskplay");
+			phillipsModel.emit("ryskplay");
 			playing = true;
 		}
 	});

@@ -65,12 +65,12 @@ function run(renderer,scene,camera)
 		textureColorSpace: THREE.SRGBColorSpace,
 		loop: true,
 		previewMode: 1,
-		autorun: {
-			onSuccess(mesh)
+		autoinit: {
+			onSuccess(result)
 			{
 				ryskObj.setVolume(1);
-				mesh.visible = true;
-				scene.add(mesh);
+				result.mesh.visible = true;
+				scene.add(result.mesh);
 			},
 			onError: console.error
 		}
@@ -127,10 +127,6 @@ function run(renderer,scene,camera)
 	
 	renderer.setAnimationLoop((timestamp, frame) => 
 	{//animation loop to render each frame-
-		if (ryskObj !== null)
-		{
-			ryskObj.update();
-		}
 		renderer.clear(true, true, true);
 		renderer.render(scene, camera);
 	});

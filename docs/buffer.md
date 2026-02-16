@@ -1,41 +1,45 @@
 # RYSKBuffer
-This package buffers encoded data and tries to match it with the current frame of the video.
-Data should be submitted ontinuously and preferably in sync (or ahead) of video frames, otherwise some parts of the video 
-are skipped (in case of the "live" video streaming) or the video is paused till the proper data isn't delivered (in case
-of the pre-recorded video).
+This package buffers encoded data and tries to match it with the current progress of the media (either a video frame or an audio timestamp).
+Data should be submitted continuously and preferably in sync (or ahead) of media progress, otherwise some parts of the media 
+are skipped (in case of the "live" streaming) or the media is paused till the proper data isn't delivered (in case of the pre-recorded playback).
 
-The other important function of buffer is to grab frames from the given video element, print them on the internally
+In case of the SYK, RYSK and SPACK data the buffer also handles grabbing frames from the given video element, print them on the internally
 created HTML canvas and pair them with the buffered data. Canvas with the current frame can be obtained through
-``getCanvas`` method. In fact, it is always the same HTML canvas object which gets redrawn with the current
+`getCanvas` method. In fact, it is always the same HTML canvas object which gets redrawn with the current
 frame, so there is no need to call this method more than once. The data that match the frame on the canvas is delivered
-through tha callback passed to the constructor. This callback can be asynchronous (or return a promise) and RYSKBuffer
+through the callback passed to the constructor. This callback can be asynchronous (or return a promise) and `RYSKBuffer`.
 will wait until it resolves before drawing another frame on the canvas.
 
-It is advisable to periodically call ```update``` method of RYSKBuffer object in window.requestAnimationFrame callback 
-or in a similar way so that the RYSKBuffer knows to check for a new video frame.
-
-Once the last SYK/RYSK frame has been decoded, the method ```allDataDecoded``` should be called. This is because RYSKBuffer
-by default pauses the video play if a sufficient amount of data isn't preloaded. The amount equals to one third of
+Once the last SYK/RYSK frame has been decoded, the method `allDataDecoded()` should be called. This is because `RYSKBuffer`
+by default pauses the playback if a sufficient amount of data isn't preloaded. The amount equals to one third of
 the size of the buffer. Especially if the video suddenly jumps to a timestamp near its very end, there might not be enough
 frames to sufficiently fill the buffer in order for it to resume playing the video. 
 
 Once the end of the video is reached and the total amount of the decoded frames is known, you might want to rescale the
-buffer size up or down by calling the ```modifyBuffer``` method.
+buffer size up or down by calling the `modifyBuffer` method. This is done by default in the class `AbstractRYSK` from `@mantisvion/utils`.
 
 If the video jumps to a different timestamp, you might want to see if the next frame number can be paired with an already
-decoded data. This can be done by registering a callback using the method ```reportIfMissingDataForNextFrame```. 
-It will be triggered if the very next frame number extracted from the frame by RYSKBuffer doesn't have a corresponding
+decoded data. This can be done by registering a callback using the method `reportIfMissingDataForNextFrame`. 
+It will be triggered only once if the very next frame number extracted by the `RYSKBuffer` doesn't have a corresponding
 volumetric data yet. The number of the frame is returned as the parameter of the callback.  However, the callback won't
-be triggered at all if there already is a data to pair to the next frame
+be triggered at all if there already is a data to pair with the next frame.
+
+Important callback to register is also `onceSmallerDiff` which gets called the next time the buffer doesn't contain a safe amount
+of pre-buffered data (1/3 of the buffer or even less). The registered callback is passed the number of data that should be read
+ahead as the first parameter and optionally also the frame the library is waiting for if the buffer is completely empty and there
+is a video frame/audio timestamp which needs to be paired with the data.
 
 ## Install
-You can install this package using one of the following commands for either yarn or npm
-```
+You can install this package using your favorite package manager; for example yarn or npm:
+```shell
 yarn add @mantisvision/ryskbuffer
 npm install @mantisvision/ryskbuffer
 ```
 
 ## Usage:
+Currently there are three different buffers exported from `@mantisvision/ryskbuffer`. The main `RYSKBuffer` serves to buffer RYSK/SYK
+data for both, the pre-recorded playback and also for the live real-time streaming. `SPACKBuffer` and `SPLINTERBuffer` can be right now used
+only for the pre-recoded playback.
 You can use RYSKBuffer for example like this:
 ```javascript
 import { RYSKBuffer } from "@mantisvision/ryskbuffer";
@@ -54,7 +58,7 @@ async function bufferEncodedData(ryskBuffer)
 		if (decodedData !== null)
 		{
 			counter++;
-			ryskBuffer.addData(frameNo,vertices,uvs,indices); //pass the data to RyskBuffer
+			ryskBuffer.addData(decodedData); //pass the data to RyskBuffer
 		}else break;
 	}
 	
@@ -79,16 +83,8 @@ async function receiveSyncedData(data)
 	}
 }
 
-const ryskBuffer = new RYSKBuffer(receiveSyncedData,videoElem);
+const ryskBuffer = new RYSKBuffer(receiveSyncedData, videoElem);
 canvas = ryskBuffer.getCanvas();
-
-const animate = () => 
-{
-	requestAnimationFrame(animate);
-	ryskBuffer.update();
-};
-requestAnimationFrame(animate);
-
 // buffer the data in the cycle till they come
 bufferEncodedData(ryskBuffer).then(() => ryskBuffer.dispose());
 ```
@@ -110,145 +106,180 @@ Helper.setGenerateCanvas(function()
 ```
 
 ## Public API
+All three classes - `RYSKBuffer`, `SPACKBuffer` and `SPLINTERBuffer` - implement the same generic interface `iDataBuffer<DataType>` from `@mantisvision/utils`. It defines the following API:
 
-### RYSKBuffer
-```javascript
+```typescript
+interface iDataBuffer<DataType extends { frameNo: number }> 
+{
+	/**
+	 * Gets the current max size of the buffer
+	 * @returns current max size of the buffer in the number of stored decoded data frames
+	 */
+	getFrameBufferSize(): number;
+
+	/**
+	 * Returns the number of the frame the buffer is currently waiting for or -1 if it doesn't wait for any.
+	 */
+	getWaitingFrameNumber(): number;
+
+	/**
+	 * Number of the current frame
+	 * @returns number of the current frame
+	 */
+	getCurrentFrameNo(): number;
+
+	/**
+	 * Get the current size of the frame buffer.
+	 * @returns {number} size of the buffer in videoframes (e.g. 30 means max 30 video frames will be buffered)
+	 */
+	getCurrentSize(): number;
+
+	/**
+	 * Reset the whole data buffer. It is used in the contstructor, and if the user changes current timestamp of the video
+	 * (e.g. using seek or hitting stop button and returning video to the beginning), this method shoud be called as well.
+	 */
+	resetBuffer(): void;
+	
+	/**
+	 * Registers a one-time callback which gets trigger the next time header from video gets decoded and isn't immediately
+	 * paired with a buffered frame.
+	 * @param {callable} callback to be called
+	 */
+	reportIfMissingDataForNextFrame(callback: (frameNo: number) => void): void;
+	
+	/**
+	 * Modify the size of the buffer (the real buffer might end up being bigger in order to avoid deleting already buffered data
+	 * This function should be used very carefully, since the buffer is actually cyclic and this can potentially destroy data.
+	 * @param {number} newSize new size of the buffer. If there is already more data buffered, the new buffer size might end up being bigger!
+	 * @returns {number} the actual new size of the buffer (might be bigger than the requested size!)
+	 */
+	modifyBuffer(newSize: number): number;
+
+	/**
+	 * Registers a callback which is called just once (!) when the data buffer is filled less than from one third.
+	 * This could be used to once again resume the download of the data if it was paused before (e.g. due to too many
+	 * data downloaded ahead).
+	 * @param {callable} callback function to call as a callback. Its only parameter is an Integer which equals to one third of data buffer length (e.g. length is 60, param will be 20).
+	 */
+	onceSmallerDiff(callback: (frameCount: number, frameToResume: number|null) => void): void;
+	
+	/**
+	 * Register callback on an event.
+	 * @param {keyof EventCallbacks} event either bufferingData (video gets paused due to lack of decoded data in the buffer) or dataBuffered (video can resume as there is enough data in the buffer)
+	 * @param {callable} callback
+	 * @returns {RYSKBuffer} reference to this object for chaning
+	 */
+	on<EventType extends string = string>(event: EventType, callback: EventType extends "initialBuffering" ? () => void : (frameNo: number) => void): void;
+	
+	/**
+	 * Unregister callback from an event
+	 * @param {keyof EventCallbacks} event either bufferingData or dataBuffered
+	 * @param {callable} callback unregistered callback
+	 * @returns {RYSKBuffer}
+	 */
+	off<EventType extends string = string>(event: EventType, callback: EventType extends "initialBuffering" ? () => void : (frameNo: number) => void): void;
+
+	/**
+	 * This method must be called once all the RYSK volumetric data was downloaded and decoded and no more is currently planned
+	 * to be (e.g. the video isn't "on loop"). The method automatically executes onceSmallerDiff callback and internal
+	 * waitingFrame callbacks. These would be normally triggered only after a sufficient number of data was downloaded
+	 * ahead, but this might actually never happen, since there might be no more SYK/RYSK data to decode
+	 */
+	allDataDecoded(): void;
+
+	/**
+	 * Save the number of the last frame currently in the buffer as the last ever decoded frame number.
+	 */
+	markLastFrame(): void;
+
+	/**
+	 * Add geometry data to the buffer
+	 * @param {data} data to buffer which contain also the frame number
+	 */
+	addData(data: DataType): void;
+
+	/**
+	 * Returns how many frames ahead should be pre-decoded (usually one third of the buffer size).
+	 */
+	getAheadReadCount(): number;
+
+	/**
+	 * Resets the current video frame to -1. This method should be called when a jump to a different timestamp
+	 * occurs in order to prevent check for frame number difference.
+	 */
+	resetCurrentFrameNo(): void;
+	
+	/**
+	 * Get data from buffer for specific frame number. If the frameNo is not in the buffer then undefined is returned;
+	 * @param frameNo
+	 * @returns located dataframe or undefined if no corresponding data frame could be found
+	 */
+	getDataFrame(frameNo: number): Promise<DataType | undefined>;
+
+	/**
+	 * Defacto a destructor. This method should be called after the object is no longer needed in order to clean after
+	 * itself.
+	 */
+	dispose(): void;
+}
+```
+
+### RYSKBuffer and SPACKBuffer
+Besides the methods from the implemented interface, both these classes add the following constructor and public methods:
+```typescript
 /**
  * Creates a new instance of RYSKBuffer which serves to canvas from the given video and buffers the data which
  * the object needs to be fed with periodically. It then sync the data with the current frame and provides the relevant
  * data through the callback which is passed as the first argument.
- * @param {callable} onDataCallback this function is called once the data for the current frame is available. Indices, vertices, uvs and frameNo are passed as an object in the parameter. The function should return a promise (or be asynchronous) which resolves once the next frame is supposed to be processed
+ * @param {callable} onDataCallback this function is called once the data for the current frame is availible. Indices, vertices, uvs and frameNo are passed as an object in the parameter. The function should return a promise (or be asynchroneous) which resolves once the next frame is supposed to be processed
  * @param {DOMElement} srcVideoElem source video element
- * @param {Boolean} realtime indicates whether video is considered realtime (i.e. a constant stream). RYSKBuffer then knows it shouldn't pause such a video while waiting for a proper RYSK data.
- * @param {Integer} videoWidth you can specify width of the video. If set to null (default), width will be read from the srcVideoElem. If you set this parameter, the srcVideoElem will be stretched (or shrunk) to accommodate the desired size.
+ * @param {Boolean} realtime indicates whether video is considered realtime (i.e. a constant stream). RYSKBuffer then knows it shouldn't pause such a video whilest waiting for a proper RYSK data.
+ * @param {Integer} videoWidth you can specify width of the video. If set to null (default), widh will be read from the srcVideoElem. If you set this parameter, the srcVideoElem will be stretched (or shrunk) to accomodate the desired size.
  * @param {Integer} videoHeight see the previous parameter
- * @param {Integer} frameBufferSize set the size of the framebuffer for the data describing the frames (i.e. uvs, indices, vertices). This parameter has but a limited usage if the "realtime" video is used, since the video can't be realistically paused to wait for the enough data
+ * @param {Integer} frameBufferSize set the size of the framebuffer for the data describing the frames (i.e. uvs, indices, vertices)
  */
-constructor(onDataCallback,srcVideoElem,realtime = false,videoWidth = null, videoHeight = null, frameBufferSize = 100);
+constructor(
+	onDataCallback: (data: DataType) => void, 
+	srcVideoElem: VideoElement,
+	realtime: boolean = false,
+	videoWidth: number|null = null, 
+	videoHeight: number|null = null, 
+	frameBufferSize: number = 50
+);	
 ```
-```javascript
+```typescript
 /**
- * Modify the size of the buffer (the real buffer might end up being bigger in order to avoid deleting already buffered data
- * This function should be used very carefully, since the buffer is actually cyclic and this can potentially destroy data.
- * @param {Integer} newSize new size of the buffer. If there is already more data buffered, the new buffer size might end up being bigger!
- * @returns {Integer} the actual new size of the buffer (might be bigger than the requested size!)
+ * Returns canvas from the header decoder. The canvas gets redrawn each frame with the new image.
  */
-modifyBuffer(newSize);
+async getCanvas(): Promise<HTMLCanvasElement | null>;
 ```
-```javascript
+
+### SPLINTERBuffer
+SPLINTER buffer uses an `AudioElement` from `@mantisvision/utils` for synchronization of the decoded frame data with the timestamp. Besides the methods from the implemented interface, it adds the following constructors and public methods:
+```typescript
 /**
- * Reset the whole data buffer. It is used in the constructor, and if the user changes current timestamp of the video
- * (e.g. using seek or hitting stop button and returning video to the beginning), this method should be called as well.
+ * Creates a new instance of SPLINTERBuffer which serves to canvas from the given video and buffers the data which
+ * the object needs to be fed with periodically. It then sync the data with the current frame and provides the relevant
+ * data through the callback which is passed as the first argument.
+ * @param {callable} onDataCallback this function is called once the data for the current frame is availible. Indices, vertices, uvs and frameNo are passed as an object in the parameter. The function should return a promise (or be asynchroneous) which resolves once the next frame is supposed to be processed
+ * @param {DOMElement} srcAudioElem source audio element
+ * @param {Boolean} realtime indicates whether the playback is considered realtime (i.e. a constant stream). Buffer then knows it shouldn't pause such a media whilest waiting for a proper data.
+ * @param {Integer} frameBufferSize set the size of the framebuffer for the data describing the frames (i.e. uvs, indices, vertices)
+ * @param {Integer} fps framerate of the playback. Default value is 30
  */
-resetBuffer();
+constructor(
+	onDataCallback: (data: DataType) => void, 
+	srcAudioElem: AudioElement, 
+	realtime: false = false, 
+	frameBufferSize: number = 50, 
+	fps: number = 30
+);
 ```
-```javascript
+```typescript
 /**
- * Registers a callback which is called just once (!) when the data buffer is filled less than from one third.
- * This could be used to once again resume the download of the data if it was paused before (e.g. due to too many
- * data downloaded ahead).
- * @param {callable} callback function to call as a callback. Two parameters will be passed: an Integer which equals 
- *                   to one third of data buffer length (e.g. length is 60, param will be 20) and an Integer indication 
- *                   number of the last frame in the buffer + 1 or the number of the frame the buffer is currently waiting for.
+ * Returns canvas from the header decoder. The canvas gets redrawn each frame with the new image.
  */
-onceSmallerDiff(callback);
-```
-```javascript
-/**
- * Returns canvas from the header decoder. The canvas gets automatically redrawn with the new image from videoElement.
- * @returns {HTMLNode} HTML canvas element
- */
-getCanvas();
-```
-```javascript
-/**
- * Returns the number of the frame the buffer is currently waiting for or -1 if it doesn't wait for any.
- */
-getWaitingFrameNumber();
-```
-```javascript
-/**
- * Returns how many frames ahead should be pre-decoded (usually one third of the buffer size).
- * @returns {number} number of frames
- */
-getAheadReadCount();
-```
-```javascript
-/**
- * Add geometry data to the buffer
- * @param {Integer} frameNo frame number for which the data should be delivered
- * @param {Float32Array} vertices 
- * @param {Float32Array} uvs
- * @param {Uint8Array | Uint16Array | Uint32Array} indices
- */
-addData(frameNo,vertices,uvs,indices);
-```
-```javascript
-/**
- * This method should be called for the buffer to check whether there is a new frame in the video.
- * Ordinary it might be called in "window.requestAnimationFrame" callback.
- */
-update();
-```
-```javascript
-/**
- * Resumes playing of the given video.
- * @returns {undefined}
- */
-videoPlaying();
-```
-```javascript
-/**
- * Pauses the current video
- * @returns {undefined}
- */
-videoPaused();
-```
-```javascript
-/**
- * Returns the current frame number which is being processed.
- * @returns {Number|integer}
- */
-getCurrentVideoFrame();
-```
-```javascript
-/**
-* Resets the current video frame to -1. This method should be called when a jump to a different timestamp
-* occurs in order to prevent check for frame number difference.
-*/
-resetCurrentVideoFrame();
-```
-```javascript
-/**
- * Get the current size of the frame buffer.
- * @returns {Integer} size of the buffer in videoframes (e.g. 30 means max 30 video frames will be buffered)
- */
-getCurrentSize();
-```
-```javascript
-/**
- * Registers a one-time callback which gets trigger the next time header from video gets decoded and isn't immediately
- * paired with a buffered frame. 
- * @param {callable} callback to be called
- */
-reportIfMissingDataForNextFrame(callback);
-```
-```javascript
-/**
- * This method must be called once all the RYSK volumetric data was downloaded and decoded and no more is currently planned
- * to be (e.g. the video isn't "on loop"). The method automatically executes onceSmallerDiff callback and internal
- * waitingFrame callbacks. These would be normally triggered only after a sufficient number of data was downloaded
- * ahead, but this might actually never happen, since there might be no more SYK/RYSK data to decode
- */
-allDataDecoded();
-```
-```javascript
-/**
- * Defacto a destructor. This method should be called after the object is no longer needed in order to clean after
- * itself.
- * @returns {undefined}
- */
-dispose();
+async getCanvas(): Promise<HTMLCanvasElement | null>;
 ```
 
 ### Helper
@@ -305,4 +336,13 @@ finished which might have resulted in a deadlock because the "first buffering fi
 Method ``resetCurrentVideoFrame`` now also resets ``waitingFrame`` structure if it is filled and if the header decoder is waiting for a frame, its resolve from the said structure is also called with -1 in order to prevent the decoder getting stuck with waiting for a data which won't come.
 
 #### 0.6.7
-When a new a frame is sent to buffer via ``addData`` method, it is first checked whether the buffer is not waiting for a different frame and if it is, the sent frame is considered no longer valid. This situation happened if the pause/reset/jumpTo was sent to ``@mantisvision/ryskdownloader``, but before receiving it, the downloader still managed to sent some decoded frames. 
+When a new a frame is sent to buffer via ``addData`` method, it is first checked whether the buffer is not waiting for a different frame and if it is, the sent frame is considered no longer valid. This situation happened if the pause/reset/jumpTo was sent to ``@mantisvision/ryskdownloader``, but before receiving it, the downloader still managed to sent some decoded frames.
+
+### 0.7.0
+Added ability to buffer SPACK/SPLINTER data.
+
+### 0.8.0
+Code reorganized, so the package exports three different buffers: `RYSKBuffer` for storing RYSK/SYK data, `SPACKBuffer` for SPACK data and `SPLINTERBuffer` for SPLINTER data.
+
+### 0.9.0
+Removed `update()` method from the buffers. It is thus no longer necessary to periodically call this method in order read a new frame or a timestamp from the media or check if the buffer is nearly empty. All of this is now done automatically by the buffers.

@@ -1,33 +1,110 @@
 # RYSKDecoder
-This package exports class which loads WASM from @mantisvision/ryskwasm and uses it to decode data of one frame into arrays of uvs, vertices and indices.
+This package exports various javascript decoders of compressed volumetric data; not only RYSK, but alos SPACK and SPLINTER. Based on the imported decoder, `@mantisvision/ryskwasm` or `@mantisvision/spackwasm` library is used to actually decode the data.
 
 ## Install
-You can install this package using one of the following commands for either yarn or npm
-```
+You can install this package using your favorite package manager; for example yarn or npm:
+```shell
 yarn add @mantisvision/ryskdecoder
 npm install @mantisvision/ryskdecoder
 ```
 
 ## Usage:
 ```javascript
-import RYSKDecoder from "@mantisvision/ryskdecoder";
+import { RYSKDecoder, SPACKDecoder, SPLINTERDecoder } from "@mantisvision/ryskdecoder";
 
-const decoder = new RYSKDecoder("RYS0");
-decoder.init().then(() => 
+const decoderRYSK = new RYSKDecoder("RYS0");
+decoderRYSK.init().then(() => 
 {
-	const decodedData = decoder.decode(encodedData);
+	const decodedData = decoderRYSK.decode(encodedRYSKData);
 	const { uvs, indices, vertices } = decodedData;
+});
+
+const decoderSPACK = new SPACKDecoder("SPK1");
+decoderSPACK.init().then(() => 
+{
+	const decodedData = decoderSPACK.decode(encodedSPACKData);
+});
+
+const decoderSPLINTER = new SPLINTERDecoder("SPL1", 25, 8);
+decoderSPLINTER.init().then(() => 
+{
+	const decodedData = decoderSPLINTER.decode(encodedSPLINTERData);
 });
 ```
 
-## Public API
-```javascript
-/**
- * Creates an instance of the SYK/RYSK decoder of the given type.
- * @param {String} type must be one of these: SYK0, SYK1, RYS0
- */
-constructor(type);
+While the RYSKDecoder simply produces three typed arrays representing vertices, indices and uvs, SPACK and SPLINTER volumetric data are gaussians in nature and the result of decode call is different. In case of the SPACK, the return type is the following:
+```typescript
+type SPACKDecodedData = 
+{	
+  isIFrame: boolean;
+  frameNo:number;
+  numberSplats:number;             
+  mmConvert:number;
+  patchBorder:number;
+  frameTexWidth:number;
+  frameTexHeight:number;
+  patchWidth:number;
+  patchHeight:number;
+  shOrder:number;
+
+  indexingTex?:Uint32Array;
+  globalPosTex?:Float32Array;
+  paletteTex?:Float32Array;
+  paletteIndexTex?:Uint8Array;
+  
+  indexingTexWidth:number;
+  indexingTexHeight:number;
+  paletteTexWidth:number;
+  paletteTexHeight:number;
+  gpTexWidth:number;
+  gpTexHeight:number;
+  
+  features:number;
+  lastKeyframeNo:number;
+  
+  GP_BBBR:number[];
+  GP_BBTL:number[];
+  
+  patchInfoTable:number[][];
+}
 ```
+In case of the SPLINTER, the return type is:
+```typescript
+type SplinterDecodedData =
+{
+  isIFrame:boolean;
+  reserved:number;
+  numberSplats:number;
+  shOrder:number;
+
+  textureWidth:number;
+  textureHeight:number;
+  
+  tanhTransferScale:number;
+
+  BBBR:number[];
+  BBTL:number[];
+  scaleMax:number[];
+
+  textureData?:Uint8Array;
+  globalPositions?:Float32Array;
+}
+```
+
+## Public API
+The easiest way to create a new decoder is to use the factory function `CreateDecoder`:
+
+```typescript
+/**
+ * Creates a suitable decoder based on the given parameters
+ * @param type type of the decoder. Currently supported are: SYK0, SYK1, RYS0, RYS1, RYS2, SPK1, SPL1
+ * @param arg[] other arguments useful for different decoders; currently fps and numSH are supported for splinter decoder
+ */
+function CreateDecoder(type: string, ...arg: unknown[]);
+```
+
+All three decoders implement the same interface `IDecoder<DecodedData>` where `DecodedType` is type of the data the decoder returns.
+
 ```javascript
 /**
  * Inits decoder. This method loads WASM a readies it for the decoding.
@@ -73,3 +150,9 @@ A slightly optimized inner loading of the WASM module.
 
 #### 0.3.6
 ``type`` field was set to ``module`` in ``package.json`` for greater inter-operability. For the same reason webpack configuration now emits dist files with ESM exports and imports.
+
+### 0.5.0
+Added SPACK and SPLINTER decoders.
+
+### 0.6.0
+Added a factory function for creating a decoder based on the passed "type" parameter

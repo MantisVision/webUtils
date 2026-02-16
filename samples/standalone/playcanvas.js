@@ -49,8 +49,22 @@ function run(app)
 {
 	try
 	{
-		const ryskObj = new window.Rysk.URLMesh(video_url,data_url,12,pc);
-		ryskObj.setPreviewMode(true);
+		const ryskObj = new window.Rysk.URLMesh({
+			playCanvas: pc,
+			mediaurl: video_url,
+			dataurl: data_url,
+			frameBufferSize: 12,
+			previewMode: true,
+			autoinit: {
+				onSuccess(result)
+				{
+					ryskObj.setVolume(1);
+					result.mesh.enabled = true;			
+					app.root.addChild(result.mesh);
+				},
+				onError: console.error
+			}
+		});
 		
 		const progress = document.getElementById("progress");
 
@@ -69,13 +83,6 @@ function run(app)
 		{
 			progress.value = ryskObj.getMediaElement().currentTime;
 		});
-		
-		ryskObj.run().then(ryskEntity => 
-		{//add mesh to the scene
-			ryskObj.setVolume(1);
-			ryskEntity.enabled = true;
-			app.root.addChild(ryskEntity);
-		}); 
 
 		document.getElementById("play").addEventListener("click",event =>
 		{//event listener for the button which plays/pauses the animation
@@ -102,7 +109,6 @@ function run(app)
 		});
 		
 		app.start();
-		app.on("frameupdate",() => ryskObj.update());
 	}catch (err)
 	{
 		console.error(err);

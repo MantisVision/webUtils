@@ -1,34 +1,27 @@
 # RYSKaframe
-This is an attempt to integrate RYSK libraries with a-frame. Since A-Frame doesn't use node.js package architecture
-in the usual way and relies on global variable ``AFRAME``, this package had to be composed in the similar manner.
+This is an attempt to integrate RYSK and SPLAT libraries with the A-Frame. If you intend to use the package together with other node.js packages and install it either through yarn or npm, the package depends on ``@mantisvision/ryskstream``, ``@mantisvision/ryskurl`` and ``aframe`` packages. Bear in mind that different versions of A-Frame library don't work very well together, so check if the peer-dependency required by ``@mantisvision/ryskaframe`` is the same as the one you are using. 
 
-If you intend to use the package together with other node.js packages and install it either through yarn or npm, the
-package depends on ``@mantisvision/ryskstream``, ``@mantisvision/ryskurl`` and ``aframe`` packages. Bear in mind that 
-different versions of A-Frame library don't work very well together, so check if the version required by ``@mantisvision/ryskaframe``
-is the same as the one you are using, otherwise you may end up with two different versions installed. Even if it comes
-to this, ``@mantisvision/ryskaframe`` doesn't actually import ``aframe`` library inside its source; instead it expects 
-that you'll be the one doing the import, so you can ensure you use the right (i.e. your own) version.
-
-Alternatively you can use the minified version of ``@mantisvision/ryskaframe`` which is bundled in the same package
-and contains all its ``@mantisvision/rysk*`` dependencies withing itself.
+Alternatively you can use the minified version of ``@mantisvision/ryskaframe`` which is bundled in the same npm package and contains all its ``@mantisvision`` dependencies within itself.
 
 ## Install
-You can install this package using one of the following commands for either yarn or npm
-```
-yarn add @mantisvision/ryskthreejs
+You can install this package using your favorite package manager; for example yarn or npm:
+```shell
+yarn add @mantisvision/ryskaframe
 npm install @mantisvision/ryskaframe
 ```
-You can also just download the package from its repository, decompress and use only minified version ``MantisRYSKaframe.min.js``.
+You can also just download the package from its repository, decompress it and use only minified version ``MantisRYSKaframe.min.js``.
 
 ## Usage
 You can import the library like this:
 ```javascript
 import "aframe";
+import "@mantisvision/ryskaframe";
 
-import("@mantisvision/ryskaframe").then(() => /* custom code */);;
+window.addEventListener('load',function()
+{
+	//do something with the elements
+});
 ```
-A-Frame doesn't need to be imported in the same file as ``@mantisvision/ryskaframe``, but it needs to be imported prior
-to ``@mantisvision/ryskaframe``, otherwise an exception shall be thrown.
 
 Minified version can be loaded via HTML ``<script>`` tag in the header:
 ```html
@@ -37,9 +30,8 @@ Minified version can be loaded via HTML ``<script>`` tag in the header:
 ```
 It has no dependencies (everything is bundled inside), but again, aframe must be loaded prior to it.
 
-``@mantisvision/ryskaframe`` registers two new components within A-Frame: ``ryskurl`` and ``ryskstream``.
-For convenience, it also registers two corresponding primitives: ``<mantis-ryskurl></mantis-ryskurl>`` 
-and ``<mantis-ryskstream></mantis-ryskstream>``.
+``@mantisvision/ryskaframe`` registers three new components within A-Frame: ``ryskurl``, ``ryskstream`` and `splaturl`.
+For convenience, it also registers two corresponding primitives: `<mantis-ryskurl></mantis-ryskurl>`, `<mantis-ryskstream></mantis-ryskstream>` and `<mantis-splaturl></mantis-splaturl>`.
 
 ### ryskurl
 This component is used to create a 3D animated mesh from pre-recorded video and SYK/RYSK volumetric data:
@@ -53,7 +45,7 @@ This component is used to create a 3D animated mesh from pre-recorded video and 
 ```
 
 #### Schema
-ryskurl component is based on the following schema:
+`ryskurl` component is based on the following schema:
 ```javascript
 {
 	video: { type: "string", default: '' },
@@ -109,7 +101,7 @@ of the events bubbles, so you have to attach your listeners directly to the elem
 - ended: video has finished playing
 
 #### mantis-ryskurl primitive
-For your convinience, there is mantis-ryskurl primitive:
+For your convenience, there is also mantis-ryskurl primitive:
 ```html
 <mantis-ryskurl 
 	position="0 0 -2" 
@@ -118,7 +110,7 @@ For your convinience, there is mantis-ryskurl primitive:
 	videourl="https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.mp4" >
 </mantis-ryskurl>
 ```
-Compenent properties are mapped to the HTML attributes in the following way:
+Component properties are mapped to the HTML attributes in the following way:
 - video: videourl
 - data: dataurl
 - buffer: buffer
@@ -127,6 +119,28 @@ Compenent properties are mapped to the HTML attributes in the following way:
 - volume: volume
 - time: time
 - playbackrate: playbackrate
+- beginning: beginning
+- end: end
+
+### splaturl
+The component is similar to [ryskurl](#ryskurl), but works with SPACK/SPLINTER volumetric video instead:
+```html
+<a-scene>
+	<a-entity 
+		position="0 0 -2" 
+		splaturl="loop:false; data: https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.splinter; media: https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.m4a " >
+	</a-entity>
+</a-scene>
+```
+Pretty much the only difference is that instead of `video` and `videourl` it asks for the `media` and `mediaurl` respectively; SPLINTER uses AAC audio files while SPACK MP4:
+```javascript
+<mantis-splaturl 
+	position="0 0 -2" 
+	loop="false" 
+	dataurl="https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.splinter" 
+	mediaurl="https://www.mvkb.cc/lib/exe/fetch.php/pub/genady5.m4a" >
+</mantis-splaturl>
+```
 
 ### ryskstream
 This component creates a 3D mesh from media stream and SYK/RYSK volumetric data which must be periodically delivered
@@ -218,3 +232,10 @@ Added the option to define the colorspace (defaults to "srgb")
 
 ### 0.11.0
 Added caching of .syk files into IndexedDB where available (``@mantisvision/ryskdownloader`` version [0.8.0](./downloader.md#080)). The caching is made to persist only a single session in the browser.
+
+### 0.14.0
+Better code organization which relates to [@mantisvision/splatthreejs](./splatthreejs.md) package.
+
+### 0.15.0
+- [@mantisvision/utils](./utils.md) and [@mantisvision/ryskbuffer](./buffer.md) removed `update()` method.
+- added `splaturl` component and `mantis-splaturl` primitive
