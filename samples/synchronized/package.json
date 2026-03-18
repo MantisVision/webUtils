@@ -15,19 +15,19 @@
 		"name": "Lubomir Daniel Fedor",
 		"email": "lubomir.fedor@supercomputers.sk"
 	},
-	"packageManager": "yarn@4.12.0",
+	"packageManager": "yarn@4.13.0",
 	"devDependencies": {
-		"@mantisvision/ryskplaycanvas": "^0.16.1",
-		"@mantisvision/ryskthreejs": "^1.1.1",
-		"@mantisvision/splatthreejs": "^0.3.0",
+		"@mantisvision/ryskplaycanvas": "^0.16.2",
+		"@mantisvision/ryskthreejs": "^1.2.3",
+		"@mantisvision/splatthreejs": "^0.3.2",
 		"@mantisvision/synchronizer": "^0.16.1",
-		"@mantisvision/utils": "^5.0.0",
-		"@types/three": "^0.182.0",
-		"playcanvas": "^2.16.1",
-		"three": "^0.182.0",
+		"@mantisvision/utils": "^5.1.0",
+		"@types/three": "^0.183.1",
+		"playcanvas": "^2.17.1",
+		"three": "^0.183.2",
 		"ts-loader": "^9.5.4",
-		"webpack": "^5.105.2",
-		"webpack-cli": "^6.0.1"
+		"webpack": "^5.105.4",
+		"webpack-cli": "^7.0.2"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
