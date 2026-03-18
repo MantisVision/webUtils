@@ -153,3 +153,6 @@ Better code organization which relates to [@mantisvision/splatthreejs](./splatth
 ### 1.2.0
 Bumped version because [@mantisvision/utils](./utils.md) and [@mantisvision/ryskbuffer](./buffer.md) removed `update()` method.  
 `run()` method is now deprecated and you should use `init()` method instead
+
+#### 1.2.1
+Three.js dependency updated to 0.183.

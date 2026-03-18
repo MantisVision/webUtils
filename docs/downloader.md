@@ -191,6 +191,13 @@ async reset(frameCount: number, frameToResume: number = 0, toEnd?: number);
  */
 async jumpAt(frameNo: number, forwardRead: number, toEnd?: number);
 ```
+```typescript
+/**
+ * Call downloader to buffer some data.
+ * @param toEnd how many seconds remain to the end of the media. This is used to count how much data needs to be prebuffered.
+ */
+bufferData(toEnd: number);
+```
 ```javascript
 /**
  * Checks if the downloader is still downloading
@@ -280,3 +287,8 @@ Removed unnecessary commit in a transaction.
 - Limit the size of in-memory queue in initial buffering to 16-times the max size of the queue when not in the buffering mode. This usually equals 16 * minimaldownloadeddata.
 - *BUGFIX* Attempt to fix a bug when with the ryskdownloader waiting for a chunk of the data file indefinitely because it hasn't noticed the download loop has already finished.
 
+### 0.12.0
+Added `bufferData()` method to the `RyskDownloader` which forces to run the intelligent buffering even after the first buffer has been finished.
+
+#### 0.12.1
+Fixes regarding the buffering. The downloader no longer halts after the buffering is finished. Fixed subsequent buffering guessing the time to buffer incorrectly.

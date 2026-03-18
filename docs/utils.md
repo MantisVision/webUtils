@@ -278,6 +278,14 @@ get absoluteCurrentTime();
 ```
 ```typescript
 /**
+ * Gets the remaining time of the playback in seconds (!); i.e. the time from current timestamp to the end (which may have been
+ * set artificially through setEnd method). This method will only work once the metadata is loaded and thus the 
+ * duration of the media is known.
+ */
+get remainingTime(): number;
+```
+```typescript
+/**
  * Get the current loop property of the media
  */
 get loop(): boolean
@@ -426,3 +434,6 @@ Big code refactoring in `AbstractRYSK` class.
 
 ### 5.0.0
 Removed `update()` method from the `AbstractRYSK` class. It is thus no longer necessary periodically call this method by the outside code.
+
+### 5.1.0
+Added ``get remainingTime()`` getter which returns the remaining time of the media. It's used for buffering which occurs during the playback.

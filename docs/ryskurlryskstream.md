@@ -685,6 +685,9 @@ Better code organization which relates to [@mantisvision/splatthreejs](./splatth
 #### 5.0.1
 Bumped version because [@mantisvision/utils](./utils.md) and [@mantisvision/ryskbuffer](./buffer.md) removed `update()` method.
 
+#### 5.0.2
+When the object is missing the matching dataframe to the media, it tells the ryskdownloader to run the same buffering as is done at the very beginning.
+
 ## Release notes RYSKStream
 
 ### 4.0.0

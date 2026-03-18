@@ -121,3 +121,5 @@ Better code organization which relates to [@mantisvision/splatthreejs](./splatth
 Bumped version because [@mantisvision/utils](./utils.md) and [@mantisvision/ryskbuffer](./buffer.md) removed `update()` method.
 ### 4.7.0
 Extended `init()` method in `URLMesh` and `StreamMesh` and added `autoinit` property to configuration object in the constructors. This is now preferred way to initialize objects.
+#### 4.7.1
+Three.js dependency increased to version 0.183
